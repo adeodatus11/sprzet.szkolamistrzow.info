@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f4f0e8" />
+    <meta
+      name="description"
+      content="Robocza lista sprzętu, wyposażenia i zadań kontrolnych dla sal ZSZ nr 5 we Wrocławiu."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="pl_PL" />
+    <meta property="og:title" content="Sprzęt i wyposażenie sal | ZSZ nr 5" />
+    <meta
+      property="og:description"
+      content="Lista sal, lokalizacji, wyposażenia, braków i zadań do sprawdzenia."
+    />
+    <meta property="og:url" content="https://sprzet.szkolamistrzow.info/" />
+    <meta property="og:image" content="https://sprzet.szkolamistrzow.info/assets/logo-zsz5.png" />
+    <title>Sprzęt i wyposażenie sal | ZSZ nr 5</title>
+    <link rel="canonical" href="https://sprzet.szkolamistrzow.info/" />
+    <link rel="icon" href="assets/logo-zsz5.png" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="/" aria-label="Sprzęt i wyposażenie sal">
+        <img src="assets/logo-zsz5.png" width="422" height="321" alt="" decoding="async" />
+        <span>
+          <strong>Zespół Szkół Zawodowych nr 5</strong>
+          <span>Sprzęt i wyposażenie sal</span>
+        </span>
+      </a>
+      <nav class="top-actions" aria-label="Linki pomocnicze">
+        <a href="https://nawigacja.szkolamistrzow.info/">Plan szkoły</a>
+        <button id="printRoomTop" type="button">Drukuj salę</button>
+      </nav>
+    </header>
+
+    <main class="shell">
+      <section class="intro" aria-labelledby="pageTitle">
+        <div>
+          <p class="eyebrow">Robocza kartoteka wyposażenia</p>
+          <h1 id="pageTitle">Sprzęt i wyposażenie sal</h1>
+          <p>
+            Lista do kontroli sal, przekazania zespołowi i drukowania pojedynczych kart. Dane są robocze
+            i bazują na ustaleniach z 29 lipca 2026 r.
+          </p>
+        </div>
+        <dl class="stats" id="stats"></dl>
+      </section>
+
+      <section class="filters" aria-label="Filtry listy sal">
+        <label>
+          <span>Szukaj</span>
+          <input id="search" type="search" placeholder="Sala, nauczyciel, sprzęt..." autocomplete="off" />
+        </label>
+        <label>
+          <span>Kondygnacja</span>
+          <select id="floorFilter">
+            <option value="all">Wszystkie</option>
+          </select>
+        </label>
+        <label>
+          <span>Status</span>
+          <select id="statusFilter">
+            <option value="all">Wszystkie</option>
+          </select>
+        </label>
+      </section>
+
+      <section class="workspace">
+        <aside class="room-list-panel" aria-labelledby="listTitle">
+          <div class="panel-heading">
+            <h2 id="listTitle">Sale</h2>
+            <span id="resultCount">0</span>
+          </div>
+          <div class="room-list" id="roomList"></div>
+        </aside>
+
+        <section class="detail-panel" id="roomDetail" aria-live="polite"></section>
+      </section>
+
+      <section class="open-items" aria-labelledby="openItemsTitle">
+        <div class="panel-heading">
+          <h2 id="openItemsTitle">Sprawy do potwierdzenia</h2>
+          <span id="openItemsCount">0</span>
+        </div>
+        <ul id="openItems"></ul>
+      </section>
+    </main>
+
+    <section class="print-sheet" id="printSheet" aria-hidden="true"></section>
+
+    <script type="module" src="app.js"></script>
+  </body>
+</html>

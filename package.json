@@ -1,0 +1,23 @@
+{
+  "name": "sprzet-szkolamistrzow-info",
+  "version": "1.0.0",
+  "description": "Lista sprzetu i wyposazenia sal ZSZ nr 5 we Wroclawiu.",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "python3 -m http.server 8788",
+    "test": "playwright test",
+    "check": "node --check equipment-data.js && node --check app.js"
+  },
+  "keywords": [
+    "zsz5",
+    "wyposazenie",
+    "sprzet",
+    "github-pages"
+  ],
+  "author": "Zespół Szkół Zawodowych nr 5 we Wrocławiu",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.61.1"
+  }
+}
