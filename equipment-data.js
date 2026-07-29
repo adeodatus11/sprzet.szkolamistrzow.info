@@ -405,6 +405,7 @@ export const rooms = [
     name: "Sala 40",
     floor: "III piętro",
     location: "Budynek główny / III piętro",
+    teachers: ["p. Socha", "p. Płatek", "p. Młynarczyk"],
     equipment: [
       group("Sprzęt komputerowy i multimedialny", ["Telewizor multimedialny", "Komputer"]),
     ],
@@ -416,6 +417,7 @@ export const rooms = [
     floor: "III piętro",
     location: "Budynek główny / III piętro",
     purpose: "Pracownia handlowa / przedmioty zawodowe",
+    teachers: ["p. Skarupa", "p. Czukiewska", "p. Kosiń", "p. Socha"],
     status: "missing",
     equipment: [
       group("Sprzęt komputerowy", ["26 laptopów", "Szafa na laptopy jest już w sali"]),
@@ -431,18 +433,20 @@ export const rooms = [
     floor: "III piętro",
     location: "Budynek główny / III piętro",
     purpose: "Pracownia handlowa / przedmioty zawodowe",
+    teachers: ["p. Skarupa", "p. Czukiewska", "p. Kosiń", "p. Socha"],
     status: "missing",
     equipment: [
       group("Sprzęt komputerowy", ["26 laptopów", "Szafa na laptopy"]),
       group("Sprzęt multimedialny", ["Nowy rzutnik", "Nowy monitor multimedialny powieszony na ścianie"]),
     ],
-    tasks: ["Zapewnić podłączenie monitora multimedialnego do komputera", "Wstawić 26 laptopów razem z szafą", "Laptopy mają być nowe i działające"],
+    tasks: ["Zabrać wyposażenie mechaniczno-samochodowe", "Zdjąć ze ścian tablice samochodowe", "Oddać tablice samochodowe do BS2 przy ul. Borowskiej, ewentualnie według dalszej decyzji", "Zapewnić podłączenie monitora multimedialnego do komputera", "Wstawić 26 laptopów razem z szafą", "Laptopy mają być nowe i działające"],
   }),
   room({
     id: "43",
     name: "Sala 43",
     floor: "III piętro",
     location: "Budynek główny / III piętro",
+    teachers: ["Mariola Granatowska", "Aleksandra Karczmarz", "Anna Galert"],
     equipment: [
       group("Sprzęt komputerowy i multimedialny", ["Telewizor multimedialny", "Komputer"]),
     ],
@@ -454,7 +458,7 @@ export const rooms = [
     floor: "III piętro",
     location: "Budynek główny / III piętro",
     status: "missing",
-    teachers: ["Anna Misiąg", "Małgorzata Fiodorow"],
+    teachers: ["Anna Misiąg", "Małgorzata Fiodorów"],
     equipment: [
       group("Sprzęt komputerowy i multimedialny", ["Monitor multimedialny / monitor", "Komputer"]),
       group("Tablety", ["20 tabletów, jeśli jeszcze się znajdą"]),
