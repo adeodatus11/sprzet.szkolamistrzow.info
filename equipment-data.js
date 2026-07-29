@@ -6,6 +6,13 @@ export const statusLabels = {
   ready: "Bez zmian",
 };
 
+export const standardControlTasks = [
+  "Sprawdzić stabilne podłączenie komputera do rzutnika, telewizora albo monitora multimedialnego.",
+  "Zweryfikować, czy przewody są zamocowane na stałe i nie wiszą luźno.",
+  "Sprawdzić, czy przewody nie są narażone na szarpanie, żeby nie wyłamywać złączy.",
+  "Uruchomić zestaw i potwierdzić, że obraz wyświetla się poprawnie.",
+];
+
 const room = ({
   id,
   name,
