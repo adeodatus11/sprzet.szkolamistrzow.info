@@ -12,6 +12,9 @@ const els = {
   openItemsCount: document.querySelector("#openItemsCount"),
   printSheet: document.querySelector("#printSheet"),
   printRoomTop: document.querySelector("#printRoomTop"),
+  catalogToggle: document.querySelector("#catalogToggle"),
+  catalogClose: document.querySelector("#catalogClose"),
+  drawerBackdrop: document.querySelector("#drawerBackdrop"),
 };
 
 const state = {
@@ -63,6 +66,16 @@ const listItems = (items) => {
 };
 
 const statusBadge = (status) => `<span class="badge ${status}">${statusLabels[status]}</span>`;
+
+const setCatalogOpen = (isOpen) => {
+  document.body.classList.toggle("catalog-open", isOpen);
+  els.catalogToggle.dataset.open = String(isOpen);
+  document.querySelector("#catalogDrawer").dataset.open = String(isOpen);
+  els.catalogToggle.setAttribute("aria-expanded", String(isOpen));
+  els.drawerBackdrop.hidden = !isOpen;
+  document.documentElement.scrollLeft = 0;
+  document.body.scrollLeft = 0;
+};
 
 const renderStats = () => {
   const counts = rooms.reduce((acc, room) => {
@@ -254,9 +267,17 @@ els.roomList.addEventListener("click", (event) => {
   if (!button) return;
   state.activeId = button.dataset.roomId;
   render();
+  setCatalogOpen(false);
 });
 
 els.printRoomTop.addEventListener("click", () => window.print());
+els.catalogToggle.addEventListener("click", () => setCatalogOpen(!document.body.classList.contains("catalog-open")));
+els.catalogClose.addEventListener("click", () => setCatalogOpen(false));
+els.drawerBackdrop.addEventListener("click", () => setCatalogOpen(false));
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") setCatalogOpen(false);
+});
 
 window.addEventListener("hashchange", () => {
   const nextId = location.hash.replace("#room-", "");

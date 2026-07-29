@@ -43,3 +43,14 @@ test("pokazuje pracownie zewnętrzne", async ({ page }) => {
   await expect(page.locator("#roomDetail")).toContainText("Renata Marzec");
   await expect(page.locator("#roomDetail")).toContainText("Komputer stacjonarny");
 });
+
+test("na telefonie lista sal jest w menu", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 820 });
+  await page.goto("/");
+  await expect(page.locator("#roomDetail").getByRole("heading", { name: "Sala 2" })).toBeVisible();
+  await page.getByRole("button", { name: "Sale" }).click();
+  await expect(page.locator("body")).toHaveClass(/catalog-open/);
+  await page.getByRole("button", { name: /Sala 44/ }).click();
+  await expect(page.locator("body")).not.toHaveClass(/catalog-open/);
+  await expect(page.locator("#roomDetail").getByRole("heading", { name: "Sala 44" })).toBeVisible();
+});

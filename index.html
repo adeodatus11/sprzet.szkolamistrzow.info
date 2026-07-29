@@ -32,6 +32,10 @@
         </span>
       </a>
       <nav class="top-actions" aria-label="Linki pomocnicze">
+        <button class="catalog-toggle" id="catalogToggle" type="button" aria-controls="catalogDrawer" aria-expanded="false">
+          <span class="hamburger-lines" aria-hidden="true"><span></span><span></span><span></span></span>
+          Sale
+        </button>
         <a href="https://nawigacja.szkolamistrzow.info/">Plan szkoły</a>
         <button id="printRoomTop" type="button">Drukuj salę</button>
       </nav>
@@ -50,32 +54,38 @@
         <dl class="stats" id="stats"></dl>
       </section>
 
-      <section class="filters" aria-label="Filtry listy sal">
-        <label>
-          <span>Szukaj</span>
-          <input id="search" type="search" placeholder="Sala, nauczyciel, sprzęt..." autocomplete="off" />
-        </label>
-        <label>
-          <span>Kondygnacja</span>
-          <select id="floorFilter">
-            <option value="all">Wszystkie</option>
-          </select>
-        </label>
-        <label>
-          <span>Status</span>
-          <select id="statusFilter">
-            <option value="all">Wszystkie</option>
-          </select>
-        </label>
-      </section>
-
       <section class="workspace">
-        <aside class="room-list-panel" aria-labelledby="listTitle">
-          <div class="panel-heading">
-            <h2 id="listTitle">Sale</h2>
-            <span id="resultCount">0</span>
+        <div class="drawer-backdrop" id="drawerBackdrop" hidden></div>
+        <aside class="catalog-drawer" id="catalogDrawer" aria-label="Katalog sal">
+          <div class="drawer-heading">
+            <h2>Katalog sal</h2>
+            <button id="catalogClose" type="button" aria-label="Zamknij katalog sal">Zamknij</button>
           </div>
-          <div class="room-list" id="roomList"></div>
+          <section class="filters" aria-label="Filtry listy sal">
+            <label>
+              <span>Szukaj</span>
+              <input id="search" type="search" placeholder="Sala, nauczyciel, sprzęt..." autocomplete="off" />
+            </label>
+            <label>
+              <span>Kondygnacja</span>
+              <select id="floorFilter">
+                <option value="all">Wszystkie</option>
+              </select>
+            </label>
+            <label>
+              <span>Status</span>
+              <select id="statusFilter">
+                <option value="all">Wszystkie</option>
+              </select>
+            </label>
+          </section>
+          <section class="room-list-panel" aria-labelledby="listTitle">
+            <div class="panel-heading">
+              <h2 id="listTitle">Sale</h2>
+              <span id="resultCount">0</span>
+            </div>
+            <div class="room-list" id="roomList"></div>
+          </section>
         </aside>
 
         <section class="detail-panel" id="roomDetail" aria-live="polite"></section>
