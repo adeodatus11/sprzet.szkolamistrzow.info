@@ -397,6 +397,16 @@ h4:first-child {
   padding: 16px;
 }
 
+.detail-section.is-urgent {
+  border-color: rgba(166, 66, 53, 0.35);
+  background: #fff5f3;
+}
+
+.detail-section.is-urgent h3,
+.print-urgent h2 {
+  color: var(--danger);
+}
+
 .detail-section.is-wide {
   grid-column: 1 / -1;
 }

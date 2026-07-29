@@ -42,6 +42,7 @@ const roomSearchText = (room) => normalize([
   room.teachers.join(" "),
   room.equipment.flatMap((item) => [item.name, ...item.items]).join(" "),
   standardControlTasks.join(" "),
+  room.urgentTasks.join(" "),
   room.tasks.join(" "),
   room.notes.join(" "),
   room.decisions.join(" "),
@@ -155,8 +156,9 @@ const renderDetail = () => {
         <h3>Zadania kontrolne</h3>
         <h4>Stała kontrola techniczna</h4>
         ${listItems(standardControlTasks)}
-        ${room.tasks.length ? `<h4>Zadania dodatkowe dla tej sali</h4>${listItems(room.tasks)}` : ""}
       </section>
+      ${room.urgentTasks.length ? `<section class="detail-section is-urgent"><h3>Pilne zakupy / do doniesienia</h3>${listItems(room.urgentTasks)}</section>` : ""}
+      ${room.tasks.length ? `<section class="detail-section"><h3>Rzeczy do zrobienia dla tej sali</h3>${listItems(room.tasks)}</section>` : ""}
       <section class="detail-section is-wide">
         <h3>Wyposażenie</h3>
         ${equipment}
@@ -194,8 +196,9 @@ const renderPrintSheet = (room) => {
       <h2>Zadania kontrolne</h2>
       <h3>Stała kontrola techniczna</h3>
       ${listItems(standardControlTasks)}
-      ${room.tasks.length ? `<h3>Zadania dodatkowe dla tej sali</h3>${listItems(room.tasks)}` : ""}
     </section>
+    ${room.urgentTasks.length ? `<section class="print-section print-urgent"><h2>Pilne zakupy / do doniesienia</h2>${listItems(room.urgentTasks)}</section>` : ""}
+    ${room.tasks.length ? `<section class="print-section"><h2>Rzeczy do zrobienia dla tej sali</h2>${listItems(room.tasks)}</section>` : ""}
     ${room.notes.length ? `<section class="print-section"><h2>Uwagi</h2>${listItems(room.notes)}</section>` : ""}
     <section class="print-section">
       <h2>Uwagi ręczne</h2>

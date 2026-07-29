@@ -23,6 +23,7 @@ const room = ({
   status = "check",
   equipment = [],
   tasks = [],
+  urgentTasks = [],
   notes = [],
   decisions = [],
 }) => ({
@@ -35,6 +36,7 @@ const room = ({
   status,
   equipment,
   tasks,
+  urgentTasks,
   notes,
   decisions,
 });
@@ -48,7 +50,7 @@ export const rooms = [
     floor: "Parter",
     location: "Budynek główny / parter",
     purpose: "Gabinet przedmiotów zawodowych fryzjerskich",
-    teachers: ["Sylwia Mikołajczyk", "Iwona Lińczowska", "Paweł Danielewski"],
+    teachers: ["Sylwia Mikołajczak", "Iwona Leniczowska", "Paweł Danielewski"],
     equipment: [
       group("Sprzęt komputerowy i multimedialny", ["Komputer stacjonarny", "Rzutnik"]),
     ],
@@ -61,7 +63,7 @@ export const rooms = [
     floor: "Parter",
     location: "Budynek główny / parter",
     purpose: "Przedmioty zawodowe fryzjerskie",
-    teachers: ["Agnieszka Jastrzębska", "Paweł Danielewski", "Iwona Lińczowska", "Edyta Jaworska"],
+    teachers: ["Agnieszka Jastrzębska", "Paweł Danielewski", "Iwona Leniczowska", "Edyta Jaworska"],
     equipment: [
       group("Sprzęt komputerowy i multimedialny", ["Komputer", "Telewizor multimedialny na kółkach, 75 cali"]),
     ],
@@ -73,7 +75,7 @@ export const rooms = [
     floor: "Parter",
     location: "Budynek główny / parter",
     purpose: "Fryzjerstwo oraz edukacja obywatelska",
-    teachers: ["Marcin Kruk", "Marcin Kopi"],
+    teachers: ["Marcin Kruk", "Marcin Kopij"],
     equipment: [
       group("Sprzęt komputerowy i multimedialny", ["Telewizor dotykowy na ścianie, 70 cali"]),
     ],
@@ -85,14 +87,14 @@ export const rooms = [
     floor: "Parter",
     location: "Budynek główny / parter",
     purpose: "Przedmioty zawodowe z zakresu fryzjerstwa i inne przedmioty",
-    teachers: ["Beata Krzymińska", "Wojciech Byczyzko", "Łukasz Wojciechowski", "Inni nauczyciele z pojedynczymi godzinami"],
+    teachers: ["Beata Krzymińska", "Wojciech Biczysko", "Łukasz Wojciechowski", "Inni nauczyciele z pojedynczymi godzinami"],
     status: "missing",
     equipment: [
       group("Meble i wyposażenie specjalistyczne", ["Fotel barberski"]),
-      group("Sprzęt komputerowy i multimedialny", ["Telewizor dotykowy Samsung, 75 cali", "Drukarka wielofunkcyjna A3", "Stare iPady do uruchomienia", "iPady Air: do potwierdzenia, prawdopodobnie 16 albo 20 sztuk"]),
-      group("Docelowo", ["25 iPadów", "26 rysików", "Szafa z zasilaniem do ładowania iPadów"]),
+      group("Sprzęt komputerowy i multimedialny", ["Telewizor dotykowy Samsung, 75 cali", "Drukarka wielofunkcyjna A3"]),
+      group("Docelowo", ["26 iPadów", "26 rysików", "Szafa zamykana na klucz z zasilaniem do ładowania iPadów"]),
     ],
-    tasks: ["Sprawdzić telewizor dotykowy Samsung 75 cali", "Sprawdzić drukarkę wielofunkcyjną A3", "Sprawdzić podłączenie pomiędzy telewizorem a komputerem / monitorem", "Uruchomić stare iPady", "Przygotować szafę do przechowywania i ładowania iPadów", "Uzupełnić liczbę iPadów do 25 sztuk", "Zapewnić 26 rysików", "Dokładnie sprawdzić Wi-Fi", "Jeśli Wi-Fi jest za słabe, dodać access point"],
+    tasks: ["Sprawdzić telewizor dotykowy Samsung 75 cali", "Sprawdzić drukarkę wielofunkcyjną A3", "Dostarczyć 26 iPadów i 26 rysików", "Wziąć wszystkie zgromadzone iPady Air od Iwony Ochnik razem ze wszystkimi rysikami", "Przygotować do pracy iPady Air oraz dostępne tańsze iPady", "Zalogować iPady oraz ustawić uniwersalny PIN", "Zostawić iPady do używania razem z rysikami", "Przygotować szafę zamykaną na klucz", "Zapewnić w szafie miejsce na listwy i podłączenie do prądu, żeby tablety mogły ładować się na co dzień", "Dokładnie sprawdzić Wi-Fi", "Jeśli Wi-Fi jest za słabe, dodać access point"],
   }),
   room({
     id: "6",
@@ -143,12 +145,12 @@ export const rooms = [
     floor: "Parter",
     location: "Budynek główny / parter / nowa sala wybudowana w szatni",
     purpose: "Sala językowa",
-    teachers: ["Aleksandra Kaczmarsz", "Anna Galert"],
-    status: "decision",
+    teachers: ["Aleksandra Karczmarz", "Anna Galort"],
+    status: "missing",
     equipment: [
-      group("Do wstawienia / zakupu", ["Komputer", "Telewizor", "Ławki"]),
+      group("Do wstawienia / zakupu", ["Telewizor multimedialny na ścianę", "Być może komputer all-in-one", "Ławki", "Pełne wyposażenie sali lekcyjnej", "Biała tablica"]),
     ],
-    tasks: ["Wstawić komputer", "Kupić telewizor", "Kupić ławki"],
+    urgentTasks: ["Kupić telewizor multimedialny na ścianę", "Kupić być może komputer all-in-one", "Kupić ławki", "Kupić / skompletować całe wyposażenie sali lekcyjnej", "Kupić / zamontować białą tablicę"],
     notes: ["Roboczo osobna nowa sala; trzeba później dopasować numerację do planu szkoły"],
   }),
   room({
@@ -160,7 +162,7 @@ export const rooms = [
     equipment: [
       group("Sprzęt komputerowy", ["3 sprawne stanowiska komputerowe"]),
     ],
-    tasks: ["Zapewnić 3 sprawne stanowiska komputerowe", "Każde stanowisko ma mieć internet", "Stanowiska mają mieć dostęp do drukarek"],
+    tasks: ["Zapewnić 3 sprawne stanowiska komputerowe", "Każde stanowisko ma mieć internet", "Sprawdzić, czy działają drukarki", "Jeżeli drukarki nie działają, zdiagnozować usterki", "Zapewnić przynajmniej jedną sprawną, działającą i szybką drukarkę", "Do decyzji: jeśli obecne drukarki nie wystarczą, kupić sprawny kombajn"],
   }),
   room({
     id: "17",
@@ -172,9 +174,9 @@ export const rooms = [
     status: "missing",
     equipment: [
       group("Sprzęt komputerowy i multimedialny", ["Komputer", "Monitor multimedialny na kółkach, 75 cali"]),
-      group("iPady", ["Szafka do wstawienia", "Docelowo 30 iPadów"]),
+      group("iPady", ["Docelowo 30 iPadów", "Szafka zamykana na klucz z zasilaniem do ładowania iPadów"]),
     ],
-    tasks: ["Sprawdzić, czy komputer działa", "Sprawdzić stabilne połączenie komputera z monitorem", "Zweryfikować monitor 75 cali", "Sprawdzić internet na iPadach", "Sprawdzić Wi-Fi"],
+    tasks: ["Dostarczyć 30 iPadów", "Wstawić szafkę zamykaną na klucz", "Zapewnić w szafce zasilanie, żeby iPady mogły się ładować", "Sprawdzić internet na iPadach", "Sprawdzić Wi-Fi"],
   }),
   room({
     id: "18",
@@ -182,7 +184,7 @@ export const rooms = [
     floor: "I piętro",
     location: "Budynek główny / I piętro",
     purpose: "Język polski i inne przedmioty według planu",
-    teachers: ["Bożena Piątek-Pawłowska", "Ewentualnie Magdalena Zalewska", "Ewentualnie Waldemar Kaczorowski", "Ewentualnie Marcin Kopi"],
+    teachers: ["Bożena Piątek-Pawłowska", "Ewentualnie Magdalena Zalewska", "Ewentualnie Waldemar Kaczorowski", "Ewentualnie Marcin Kopij"],
     equipment: [
       group("Sprzęt komputerowy i multimedialny", ["Rzutnik na ścianie"]),
     ],
@@ -194,12 +196,12 @@ export const rooms = [
     floor: "I piętro",
     location: "Budynek główny / I piętro",
     purpose: "Zajęcia Magdaleny Zalewskiej i Waldemara Kaczorowskiego",
-    teachers: ["Magdalena Zalewska", "Waldemar Kaczorowski"],
+    teachers: ["Magdalena Zalewska", "Waldemar Kaczorowski", "Marcin Kopij"],
     status: "todo",
     equipment: [
-      group("Sprzęt komputerowy i multimedialny", ["Telewizor / monitor multimedialny na kółkach do wstawienia"]),
+      group("Sprzęt komputerowy i multimedialny", ["Monitor multimedialny z pracowni AI, aktualnie pod salą 36"]),
     ],
-    tasks: ["Wstawić jeden z dwóch nowych telewizorów multimedialnych z pracowni AI z III piętra"],
+    tasks: ["Przynieść monitor multimedialny z pracowni AI, aktualnie spod sali 36", "Zamontować monitor", "Sprawdzić, czy monitor ma nóżki", "Podłączyć monitor do komputera"],
     notes: ["Sala 18 może być salą awaryjną dla tych zajęć"],
   }),
   room({
@@ -234,7 +236,7 @@ export const rooms = [
     floor: "I piętro",
     location: "Budynek główny / I piętro",
     purpose: "Przedmioty zawodowe",
-    teachers: ["Eleonora Zmiernow-Zema", "Inni nauczyciele przedmiotów zawodowych"],
+    teachers: ["Eleonora Zmiernow-Zema", "Inni nauczyciele"],
     status: "decision",
     equipment: [
       group("Obecne wyposażenie", ["Stary rzutnik", "Drugi rzutnik do demontażu / potwierdzenia"]),
@@ -304,12 +306,11 @@ export const rooms = [
     location: "Budynek główny / II piętro",
     purpose: "Język polski i inne przedmioty przechodnie",
     teachers: ["Anna Filipek", "Inni nauczyciele z przedmiotami przechodnimi"],
-    status: "decision",
+    status: "check",
     equipment: [
-      group("Sprzęt komputerowy i multimedialny", ["Komputer", "Rzutnik", "Telewizor / urządzenie wyświetlające do potwierdzenia"]),
+      group("Sprzęt komputerowy i multimedialny", ["Komputer", "Rzutnik"]),
     ],
-    tasks: ["Zadbać, żeby sprzęt był podłączony do rzutnika"],
-    notes: ["Doprecyzować, czy chodzi o komputer podłączony do rzutnika, czy inny układ z telewizorem"],
+    tasks: ["Zostawić rzutnik", "Sprawdzić, czy komputer jest podłączony do rzutnika"],
   }),
   room({
     id: "31",
@@ -329,7 +330,7 @@ export const rooms = [
     floor: "II piętro",
     location: "Budynek główny / II piętro",
     purpose: "Język angielski",
-    teachers: ["p. Biezmienow", "Ewentualnie p. Karczmarz", "Ewentualnie p. Galert"],
+    teachers: ["p. Biezmienow", "Ewentualnie p. Karczmarz", "Ewentualnie p. Galort"],
     equipment: [
       group("Sprzęt komputerowy i multimedialny", ["Komputer", "Rzutnik"]),
     ],
@@ -453,6 +454,7 @@ export const rooms = [
     floor: "III piętro",
     location: "Budynek główny / III piętro",
     status: "missing",
+    teachers: ["Anna Misiąg", "Małgorzata Fiodorow"],
     equipment: [
       group("Sprzęt komputerowy i multimedialny", ["Monitor multimedialny / monitor", "Komputer"]),
       group("Tablety", ["20 tabletów, jeśli jeszcze się znajdą"]),
@@ -466,10 +468,9 @@ export const rooms = [
 export const unresolvedItems = [
   "Rozróżnić salę 5 i nową roboczą salę 05 wybudowaną w szatni.",
   "Sala 23: potwierdzić finalny wariant po demontażu rzutników.",
-  "Sale z iPadami: potwierdzić faktyczną liczbę posiadanych iPadów Air i rysików.",
+  "Sale z iPadami: potwierdzić dostępność pełnych pul dla sali 5 i sali 17.",
   "Sale z Wi-Fi: po sprawdzeniu wskazać miejsca wymagające access pointów.",
   "Sala 28: potwierdzić, czy finalnie ma być telewizor multimedialny, rzutnik/rzutniki, czy oba typy sprzętu.",
-  "Sala 30: doprecyzować układ rzutnik / telewizor.",
   "Sala 34: potwierdzić, że komputer ma być podłączony do telewizora multimedialnego.",
   "Sala 37: dołączyć osobny szkic układu ławek.",
   "Sala 41: potwierdzić, czy oprócz nowego rzutnika ma być duży niedotykowy telewizor.",

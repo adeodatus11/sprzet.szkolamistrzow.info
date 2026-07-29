@@ -28,3 +28,9 @@ test("przygotowuje widok wydruku", async ({ page }) => {
   await expect(page.locator(".print-sheet")).toContainText("Stała kontrola techniczna");
   await expect(page.locator(".print-sheet")).toContainText("Sprawdził/a");
 });
+
+test("pokazuje pilne zakupy w nowej sali 05", async ({ page }) => {
+  await page.goto("/#room-05-new");
+  await expect(page.locator("#roomDetail")).toContainText("Pilne zakupy / do doniesienia");
+  await expect(page.locator("#roomDetail")).toContainText("Kupić telewizor multimedialny na ścianę");
+});
