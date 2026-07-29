@@ -34,3 +34,12 @@ test("pokazuje pilne zakupy w nowej sali 05", async ({ page }) => {
   await expect(page.locator("#roomDetail")).toContainText("Pilne zakupy / do doniesienia");
   await expect(page.locator("#roomDetail")).toContainText("Kupić telewizor multimedialny na ścianę");
 });
+
+test("pokazuje pracownie zewnętrzne", async ({ page }) => {
+  await page.goto("/");
+  await page.getByLabel("Szukaj").fill("gastronomiczna");
+  await expect(page.getByRole("button", { name: /Pracownia gastronomiczna/ })).toBeVisible();
+  await page.getByRole("button", { name: /Pracownia gastronomiczna/ }).click();
+  await expect(page.locator("#roomDetail")).toContainText("Renata Marzec");
+  await expect(page.locator("#roomDetail")).toContainText("Komputer stacjonarny");
+});

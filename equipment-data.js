@@ -50,7 +50,7 @@ export const rooms = [
     floor: "Parter",
     location: "Budynek główny / parter",
     purpose: "Gabinet przedmiotów zawodowych fryzjerskich",
-    teachers: ["Sylwia Mikołajczak", "Iwona Leniczowska", "Paweł Danielewski"],
+    teachers: ["Sylwia Mikołajczak", "Iwona Leńczowska", "Paweł Danielewski"],
     equipment: [
       group("Sprzęt komputerowy i multimedialny", ["Komputer stacjonarny", "Rzutnik"]),
     ],
@@ -63,7 +63,7 @@ export const rooms = [
     floor: "Parter",
     location: "Budynek główny / parter",
     purpose: "Przedmioty zawodowe fryzjerskie",
-    teachers: ["Agnieszka Jastrzębska", "Paweł Danielewski", "Iwona Leniczowska", "Edyta Jaworska"],
+    teachers: ["Agnieszka Jastrzębska", "Paweł Danielewski", "Iwona Leńczowska", "Edyta Jaworska"],
     equipment: [
       group("Sprzęt komputerowy i multimedialny", ["Komputer", "Telewizor multimedialny na kółkach, 75 cali"]),
     ],
@@ -145,7 +145,7 @@ export const rooms = [
     floor: "Parter",
     location: "Budynek główny / parter / nowa sala wybudowana w szatni",
     purpose: "Sala językowa",
-    teachers: ["Aleksandra Karczmarz", "Anna Galort"],
+    teachers: ["Aleksandra Karczmarz", "Anna Galert"],
     status: "missing",
     equipment: [
       group("Do wstawienia / zakupu", ["Telewizor multimedialny na ścianę", "Być może komputer all-in-one", "Ławki", "Pełne wyposażenie sali lekcyjnej", "Biała tablica"]),
@@ -184,7 +184,7 @@ export const rooms = [
     floor: "I piętro",
     location: "Budynek główny / I piętro",
     purpose: "Język polski i inne przedmioty według planu",
-    teachers: ["Bożena Piątek-Pawłowska", "Ewentualnie Magdalena Zalewska", "Ewentualnie Waldemar Kaczorowski", "Ewentualnie Marcin Kopij"],
+    teachers: ["Bożena Piątek-Pawłowska", "Ewentualnie Magdalena Zaleska", "Ewentualnie Waldemar Kaczorowski", "Ewentualnie Marcin Kopij"],
     equipment: [
       group("Sprzęt komputerowy i multimedialny", ["Rzutnik na ścianie"]),
     ],
@@ -195,8 +195,8 @@ export const rooms = [
     name: "Sala 19",
     floor: "I piętro",
     location: "Budynek główny / I piętro",
-    purpose: "Zajęcia Magdaleny Zalewskiej i Waldemara Kaczorowskiego",
-    teachers: ["Magdalena Zalewska", "Waldemar Kaczorowski", "Marcin Kopij"],
+    purpose: "Zajęcia Magdaleny Zaleskiej i Waldemara Kaczorowskiego",
+    teachers: ["Magdalena Zaleska", "Waldemar Kaczorowski", "Marcin Kopij"],
     status: "todo",
     equipment: [
       group("Sprzęt komputerowy i multimedialny", ["Monitor multimedialny z pracowni AI, aktualnie pod salą 36"]),
@@ -236,7 +236,7 @@ export const rooms = [
     floor: "I piętro",
     location: "Budynek główny / I piętro",
     purpose: "Przedmioty zawodowe",
-    teachers: ["Eleonora Zmiernow-Zema", "Inni nauczyciele"],
+    teachers: ["Eleonora Smirnow-Zechman", "Inni nauczyciele"],
     status: "decision",
     equipment: [
       group("Obecne wyposażenie", ["Stary rzutnik", "Drugi rzutnik do demontażu / potwierdzenia"]),
@@ -251,7 +251,7 @@ export const rooms = [
     floor: "II piętro",
     location: "Budynek główny / II piętro",
     purpose: "Gabinet przyrodniczy",
-    teachers: ["p. Małecka", "p. Sołdyka", "p. Mucha", "p. Chudziec"],
+    teachers: ["Barbara Małecka", "Karolina Sałdyka", "Anna Mucha", "Agnieszka Hudziec"],
     equipment: [
       group("Sprzęt komputerowy i multimedialny", ["Komputer stacjonarny", "Telewizor 75 cali na ścianie"]),
     ],
@@ -264,7 +264,7 @@ export const rooms = [
     floor: "II piętro",
     location: "Budynek główny / II piętro",
     purpose: "Drugi gabinet przyrodniczy",
-    teachers: ["p. Małecka", "p. Sołdyka", "p. Mucha", "p. Chudziec"],
+    teachers: ["Barbara Małecka", "Karolina Sałdyka", "Anna Mucha", "Agnieszka Hudziec"],
     status: "missing",
     equipment: [
       group("Sprzęt komputerowy i multimedialny", ["Komputer", "Rzutnik"]),
@@ -278,7 +278,7 @@ export const rooms = [
     floor: "II piętro",
     location: "Budynek główny / II piętro",
     purpose: "Gabinet przyrodniczy / przedmioty przyrodnicze",
-    teachers: ["p. Małecka", "p. Sołdyka", "p. Mucha", "p. Chudziec"],
+    teachers: ["Barbara Małecka", "Karolina Sałdyka", "Anna Mucha", "Agnieszka Hudziec"],
     status: "decision",
     equipment: [
       group("Sprzęt komputerowy i multimedialny", ["Komputer", "Telewizor multimedialny", "Rzutnik / rzutniki do potwierdzenia"]),
@@ -292,7 +292,7 @@ export const rooms = [
     floor: "II piętro",
     location: "Budynek główny / II piętro",
     purpose: "Gabinet matematyki",
-    teachers: ["p. Bujanowska", "p. Ostrowska"],
+    teachers: ["Iwona Bujanowska", "Ewa Ostrowska"],
     equipment: [
       group("Sprzęt komputerowy i multimedialny", ["Komputer stacjonarny", "Rzutnik"]),
     ],
@@ -318,7 +318,7 @@ export const rooms = [
     floor: "II piętro",
     location: "Budynek główny / II piętro",
     purpose: "Gabinet przyrodniczy, geografia i inne przedmioty przyrodnicze",
-    teachers: ["p. Smereka", "Inni nauczyciele z przedmiotami przechodnimi"],
+    teachers: ["Alicja Smereka", "Inni nauczyciele z przedmiotami przechodnimi"],
     equipment: [
       group("Sprzęt komputerowy i multimedialny", ["Komputer stacjonarny", "Rzutnik"]),
     ],
@@ -330,7 +330,7 @@ export const rooms = [
     floor: "II piętro",
     location: "Budynek główny / II piętro",
     purpose: "Język angielski",
-    teachers: ["p. Biezmienow", "Ewentualnie p. Karczmarz", "Ewentualnie p. Galort"],
+    teachers: ["Małgorzata Biezmienow", "Ewentualnie Aleksandra Karczmarz", "Ewentualnie Anna Galert"],
     equipment: [
       group("Sprzęt komputerowy i multimedialny", ["Komputer", "Rzutnik"]),
     ],
@@ -342,7 +342,7 @@ export const rooms = [
     floor: "II piętro",
     location: "Budynek główny / II piętro",
     purpose: "Język polski i inne przedmioty przechodnie",
-    teachers: ["Elina Krycia", "Inni nauczyciele z przedmiotami przechodnimi"],
+    teachers: ["Ewelina Krycia", "Inni nauczyciele z przedmiotami przechodnimi"],
     equipment: [
       group("Sprzęt komputerowy i multimedialny", ["Komputer", "Nowy telewizor"]),
     ],
@@ -368,7 +368,7 @@ export const rooms = [
     floor: "III piętro",
     location: "Budynek główny / III piętro",
     purpose: "Pracownia informatyczna / przedmioty zawodowe",
-    teachers: ["Maciej Najwer", "Bożena Czukiewska", "Agnieszka Skarupa", "Anna Kosiń"],
+    teachers: ["Maciej Najwer", "Bożena Czukiewska", "Agnieszka Skarupa", "Anna Kosin"],
     status: "missing",
     equipment: [
       group("Meble", ["24 ławki / stanowiska dla uczniów według osobnego szkicu"]),
@@ -383,7 +383,7 @@ export const rooms = [
     floor: "III piętro",
     location: "Budynek główny / III piętro",
     purpose: "Pracownia informatyczna / przedmioty zawodowe",
-    teachers: ["Paweł Młynarczyk", "Magdalena Laszczycka"],
+    teachers: ["Paweł Młynarczyk", "Magdalena Taszycka"],
     status: "missing",
     equipment: [
       group("Meble", ["Układ w literę U", "6 luźnych ławek na środku"]),
@@ -417,7 +417,7 @@ export const rooms = [
     floor: "III piętro",
     location: "Budynek główny / III piętro",
     purpose: "Pracownia handlowa / przedmioty zawodowe",
-    teachers: ["p. Skarupa", "p. Czukiewska", "p. Kosiń", "p. Socha"],
+    teachers: ["Agnieszka Skarupa", "Bożena Czukiewska", "Anna Kosin", "Dariusz Socha"],
     status: "missing",
     equipment: [
       group("Sprzęt komputerowy", ["26 laptopów", "Szafa na laptopy jest już w sali"]),
@@ -433,7 +433,7 @@ export const rooms = [
     floor: "III piętro",
     location: "Budynek główny / III piętro",
     purpose: "Pracownia handlowa / przedmioty zawodowe",
-    teachers: ["p. Skarupa", "p. Czukiewska", "p. Kosiń", "p. Socha"],
+    teachers: ["Agnieszka Skarupa", "Bożena Czukiewska", "Anna Kosin", "Dariusz Socha"],
     status: "missing",
     equipment: [
       group("Sprzęt komputerowy", ["26 laptopów", "Szafa na laptopy"]),
@@ -466,6 +466,42 @@ export const rooms = [
     ],
     tasks: ["Zapewnić, żeby monitor był w sali", "Podłączyć komputer do monitora", "Wstawić tablety", "Przygotować zasilanie dla tabletów"],
     notes: ["Do potwierdzenia, czy docelowa liczba tabletów to 20"],
+  }),
+  room({
+    id: "p2",
+    name: "Pracownia gastronomiczna",
+    floor: "Pracownie zewnętrzne",
+    location: "Pracownie zewnętrzne / część gastronomiczna",
+    purpose: "Pracownia gastronomiczna",
+    teachers: ["Renata Marzec", "Krystyna Stępień", "Katarzyna Świerzewicz"],
+    equipment: [
+      group("Sprzęt komputerowy i multimedialny", ["Komputer stacjonarny", "Rzutnik"]),
+    ],
+    tasks: ["Sprawdzić, czy komputer stacjonarny działa", "Sprawdzić, czy rzutnik działa"],
+  }),
+  room({
+    id: "prf3",
+    name: "Pracownia fryzjerska - teoria",
+    floor: "Pracownie zewnętrzne",
+    location: "Pracownie zewnętrzne / część fryzjerska",
+    purpose: "Teoria fryzjerstwa",
+    teachers: ["Anna Sobczak"],
+    equipment: [
+      group("Sprzęt komputerowy i multimedialny", ["Telewizor na ścianie", "Komputer"]),
+    ],
+    tasks: ["Sprawdzić połączenie komputera z telewizorem na ścianie"],
+  }),
+  room({
+    id: "prf2",
+    name: "Pracownia fryzjerska - praktyka",
+    floor: "Pracownie zewnętrzne",
+    location: "Pracownie zewnętrzne / część fryzjerska",
+    purpose: "Praktyka fryzjerstwa",
+    teachers: ["Edyta Jaworska", "Iwona Leńczowska", "Agnieszka Jastrzębska"],
+    equipment: [
+      group("Sprzęt komputerowy i multimedialny", ["Komputer", "Monitor na kółkach, 75 cali"]),
+    ],
+    tasks: ["Sprawdzić, czy komputer działa", "Sprawdzić, czy komputer jest poprawnie podłączony do monitora na kółkach 75 cali"],
   }),
 ];
 
