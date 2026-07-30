@@ -239,13 +239,13 @@ export const rooms = [
     location: "Budynek główny / I piętro",
     purpose: "Przedmioty zawodowe",
     teachers: ["Eleonora Smirnow-Zechman", "Inni nauczyciele"],
-    status: "decision",
+    status: "todo",
     equipment: [
-      group("Obecne wyposażenie", ["Stary rzutnik", "Drugi rzutnik do demontażu / potwierdzenia"]),
-      group("Docelowo", ["30 laptopów w szafie z III piętra"]),
+      group("Sprzęt multimedialny", ["Nowy rzutnik krótkoogniskowy, zostaje"]),
+      group("Sprzęt komputerowy", ["30 laptopów", "Szafa na laptopy z KPO z III piętra"]),
     ],
-    tasks: ["Zdemontować stare rzutniki", "Wstawić do szafy 30 laptopów razem z szafą z III piętra"],
-    notes: ["W rozmowie pojawiła się opcja monitora na kółkach, ale aktualny wariant to laptopy w szafie"],
+    tasks: ["Wstawić tylko 30 laptopów", "Wykorzystać szafę na laptopy z KPO z III piętra", "Sprawdzić, czy nowy rzutnik krótkoogniskowy działa prawidłowo"],
+    decisions: ["Nowy rzutnik krótkoogniskowy zostaje w sali"],
   }),
   room({
     id: "26",
@@ -511,7 +511,6 @@ export const rooms = [
 
 export const unresolvedItems = [
   "Rozróżnić salę 5 i nową roboczą salę 05 wybudowaną w szatni.",
-  "Sala 23: potwierdzić finalny wariant po demontażu rzutników.",
   "Sale z iPadami: potwierdzić dostępność pełnych pul dla sali 5 i sali 17.",
   "Sale z Wi-Fi: po sprawdzeniu wskazać miejsca wymagające access pointów.",
   "Sala 28: potwierdzić, czy finalnie ma być telewizor multimedialny, rzutnik/rzutniki, czy oba typy sprzętu.",

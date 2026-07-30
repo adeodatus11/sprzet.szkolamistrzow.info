@@ -19,7 +19,7 @@ test("filtruje po wyposażeniu i statusie", async ({ page }) => {
 
   await page.getByLabel("Szukaj").fill("");
   await page.getByLabel("Status").selectOption("decision");
-  await expect(page.getByRole("button", { name: /Sala 23/ })).toBeVisible();
+  await expect(page.getByRole("button", { name: /Sala 28/ })).toBeVisible();
 });
 
 test("przygotowuje widok wydruku", async ({ page }) => {
