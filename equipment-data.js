@@ -161,9 +161,9 @@ export const rooms = [
     location: "Budynek główny / I piętro",
     purpose: "Pokój nauczycielski",
     equipment: [
-      group("Sprzęt komputerowy", ["3 sprawne stanowiska komputerowe"]),
+      group("Sprzęt komputerowy", ["4 komputery UNICEF", "4 sprawne stanowiska komputerowe"]),
     ],
-    tasks: ["Zapewnić 3 sprawne stanowiska komputerowe", "Każde stanowisko ma mieć internet", "Sprawdzić, czy działają drukarki", "Jeżeli drukarki nie działają, zdiagnozować usterki", "Zapewnić przynajmniej jedną sprawną, działającą i szybką drukarkę", "Do decyzji: jeśli obecne drukarki nie wystarczą, kupić sprawny kombajn"],
+    tasks: ["Wstawić 4 komputery UNICEF", "Zapewnić 4 sprawne stanowiska komputerowe", "Każde stanowisko ma mieć internet", "Sprawdzić, czy działają drukarki", "Jeżeli drukarki nie działają, zdiagnozować usterki", "Zapewnić przynajmniej jedną sprawną, działającą i szybką drukarkę", "Do decyzji: jeśli obecne drukarki nie wystarczą, kupić sprawny kombajn"],
   }),
   room({
     id: "17",
@@ -214,10 +214,10 @@ export const rooms = [
     purpose: "Biblioteka i czytelnia ze stanowiskami komputerowymi dla uczniów",
     status: "todo",
     equipment: [
-      group("Sprzęt komputerowy", ["Laptopy dla uczniów zamiast komputerów stacjonarnych", "4-5 stanowisk komputerowych w czytelni"]),
-      group("Bezpieczeństwo", ["Linki zabezpieczające", "Stałe podpięcie / zabezpieczenie laptopów"]),
+      group("Sprzęt komputerowy", ["4 komputery UNICEF dla uczniów", "4 stanowiska komputerowe w czytelni"]),
+      group("Bezpieczeństwo i porządek", ["Stałe podpięcie / uporządkowanie stanowisk"]),
     ],
-    tasks: ["Wymienić komputery stacjonarne na laptopy dla uczniów", "Przygotować 4-5 stanowisk komputerowych", "Zadbać o linki zabezpieczające"],
+    tasks: ["Wstawić do biblioteki 4 komputery UNICEF dla uczniów", "Przygotować 4 stanowiska komputerowe w czytelni", "Podłączyć stanowiska do internetu", "Uporządkować i zabezpieczyć przewody przy stanowiskach"],
   }),
   room({
     id: "22",
@@ -375,10 +375,10 @@ export const rooms = [
     status: "missing",
     equipment: [
       group("Meble", ["24 ławki / stanowiska dla uczniów według osobnego szkicu"]),
-      group("Sprzęt komputerowy", ["24 stanowiska dla uczniów", "25. komputer / stanowisko nauczyciela", "Wymiana stanowisk na laptopy", "Internet kablowy dla laptopów"]),
+      group("Sprzęt komputerowy", ["24 komputery stacjonarne UNICEF z monitorami dla uczniów", "25. komputer stacjonarny UNICEF z monitorem dla nauczyciela", "Razem: 25 stanowisk komputerowych UNICEF", "Internet kablowy dla stanowisk"]),
       group("Sprzęt dodatkowy", ["Drukarka A4", "Preferowany duplex"]),
     ],
-    tasks: ["Przygotować 24 stanowiska uczniowskie według szkicu", "Przygotować stanowisko nauczyciela", "Zapewnić internet kablowy dla laptopów", "Dodać drukarkę A4, najlepiej z duplexem"],
+    tasks: ["Przenieść wszystkie nauczycielskie komputery stacjonarne UNICEF z monitorami do sali 37", "Przygotować 24 stanowiska uczniowskie według szkicu", "Przygotować stanowisko nauczyciela na komputerze stacjonarnym UNICEF z monitorem", "Zapewnić internet kablowy dla wszystkich stanowisk", "Dodać drukarkę A4, najlepiej z duplexem"],
   }),
   room({
     id: "38",
@@ -390,10 +390,10 @@ export const rooms = [
     status: "missing",
     equipment: [
       group("Meble", ["Układ w literę U", "6 luźnych ławek na środku"]),
-      group("Sprzęt komputerowy", ["24 stanowiska dla uczniów", "25. stanowisko nauczyciela", "Nowy komputer nauczyciela zostaje", "Wymiana stanowisk na laptopy", "Internet kablowy dla laptopów"]),
+      group("Sprzęt komputerowy", ["Laptopy z pracowni AI", "24 stanowiska dla uczniów", "25. stanowisko nauczyciela", "Nowy komputer nauczyciela zostaje", "Internet kablowy dla laptopów"]),
     ],
-    tasks: ["Zapewnić 24 stanowiska uczniowskie plus stanowisko nauczyciela", "Zapewnić internet kablowy dla laptopów"],
-    decisions: ["Komputer nauczyciela zostaje", "Poza wymianą stanowisk na laptopy nie zmieniać układu"],
+    tasks: ["Przenieść laptopy z pracowni AI do sali 38", "Zapewnić 24 stanowiska uczniowskie plus stanowisko nauczyciela", "Zapewnić internet kablowy dla laptopów"],
+    decisions: ["Komputer nauczyciela zostaje", "Laptopy do sali 38 mają pochodzić z pracowni AI", "Poza przeniesieniem laptopów nie zmieniać układu"],
   }),
   room({
     id: "39",
