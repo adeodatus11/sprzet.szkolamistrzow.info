@@ -177,7 +177,7 @@ export const rooms = [
       group("Sprzęt komputerowy i multimedialny", ["Komputer", "Monitor multimedialny na kółkach, 75 cali"]),
       group("iPady", ["Docelowo 30 iPadów", "Szafka zamykana na klucz z zasilaniem do ładowania iPadów"]),
     ],
-    tasks: ["Dostarczyć 30 iPadów", "Wstawić szafkę zamykaną na klucz", "Zapewnić w szafce zasilanie, żeby iPady mogły się ładować", "Sprawdzić internet na iPadach", "Sprawdzić Wi-Fi"],
+    tasks: ["Dostarczyć 30 iPadów", "Wstawić zamek do jednej ze starych szafek, żeby dało się zamknąć na klucz", "Zapewnić w szafce zasilanie, żeby iPady mogły się ładować", "Sprawdzić internet na iPadach", "Sprawdzić Wi-Fi"],
   }),
   room({
     id: "18",
