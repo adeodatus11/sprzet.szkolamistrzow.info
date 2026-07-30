@@ -51,11 +51,12 @@ export const rooms = [
     location: "Budynek główny / parter",
     purpose: "Gabinet przedmiotów zawodowych fryzjerskich",
     teachers: ["Sylwia Mikołajczak", "Iwona Leńczowska", "Paweł Danielewski"],
+    status: "todo",
     equipment: [
-      group("Sprzęt komputerowy i multimedialny", ["Komputer stacjonarny", "Rzutnik"]),
+      group("Sprzęt komputerowy i multimedialny", ["Komputer stacjonarny", "Nowy rzutnik"]),
     ],
-    tasks: ["Sprawdzić prawidłowe podłączenie komputera do rzutnika", "Sprawdzić, czy obraz wyświetla się poprawnie"],
-    decisions: ["Zostawić wyposażenie tak, jak jest"],
+    tasks: ["Zamontować nowy rzutnik", "Sprawdzić prawidłowe podłączenie komputera do rzutnika", "Sprawdzić, czy obraz wyświetla się poprawnie"],
+    decisions: ["Po wymianie rzutnika zostawić układ sali bez dalszych zmian"],
   }),
   room({
     id: "3",
@@ -185,10 +186,11 @@ export const rooms = [
     location: "Budynek główny / I piętro",
     purpose: "Język polski i inne przedmioty według planu",
     teachers: ["Bożena Piątek-Pawłowska", "Ewentualnie Magdalena Zaleska", "Ewentualnie Waldemar Kaczorowski", "Ewentualnie Marcin Kopij"],
+    status: "todo",
     equipment: [
-      group("Sprzęt komputerowy i multimedialny", ["Rzutnik na ścianie"]),
+      group("Sprzęt komputerowy i multimedialny", ["Nowy rzutnik"]),
     ],
-    tasks: ["Zostawić rzutnik", "Zadbać o stabilne połączenie rzutnika z komputerem", "Sprawdzić, czy zestaw działa"],
+    tasks: ["Zamontować nowy rzutnik", "Zadbać o stabilne połączenie rzutnika z komputerem", "Sprawdzić, czy zestaw działa"],
   }),
   room({
     id: "19",
@@ -306,11 +308,11 @@ export const rooms = [
     location: "Budynek główny / II piętro",
     purpose: "Język polski i inne przedmioty przechodnie",
     teachers: ["Anna Filipek", "Inni nauczyciele z przedmiotami przechodnimi"],
-    status: "check",
+    status: "todo",
     equipment: [
-      group("Sprzęt komputerowy i multimedialny", ["Komputer", "Rzutnik"]),
+      group("Sprzęt komputerowy i multimedialny", ["Komputer", "Rzutnik", "Telewizor 65 cali spod sali 36"]),
     ],
-    tasks: ["Zostawić rzutnik", "Sprawdzić, czy komputer jest podłączony do rzutnika"],
+    tasks: ["Przenieść telewizor 65 cali spod sali 36 do sali 30", "Zamontować telewizor wysoko nad tablicą", "Zostawić rzutnik", "Sprawdzić, czy komputer jest podłączony do rzutnika", "Sprawdzić podłączenie komputera do telewizora"],
   }),
   room({
     id: "31",
@@ -319,10 +321,11 @@ export const rooms = [
     location: "Budynek główny / II piętro",
     purpose: "Gabinet przyrodniczy, geografia i inne przedmioty przyrodnicze",
     teachers: ["Alicja Smereka", "Inni nauczyciele z przedmiotami przechodnimi"],
+    status: "todo",
     equipment: [
-      group("Sprzęt komputerowy i multimedialny", ["Komputer stacjonarny", "Rzutnik"]),
+      group("Sprzęt komputerowy i multimedialny", ["Komputer stacjonarny", "Rzutnik", "Nowy monitor z KPO na kółkach"]),
     ],
-    tasks: ["Podłączyć rzutnik do komputera stacjonarnego", "Sprawdzić, czy zestaw działa"],
+    tasks: ["Wstawić nowy monitor z KPO na kółkach", "Podłączyć rzutnik do komputera stacjonarnego", "Sprawdzić podłączenie komputera do monitora z KPO", "Sprawdzić, czy zestaw działa"],
   }),
   room({
     id: "32",
