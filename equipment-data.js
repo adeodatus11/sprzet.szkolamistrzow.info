@@ -93,9 +93,9 @@ export const rooms = [
     equipment: [
       group("Meble i wyposażenie specjalistyczne", ["Fotel barberski"]),
       group("Sprzęt komputerowy i multimedialny", ["Telewizor dotykowy Samsung, 75 cali", "Drukarka wielofunkcyjna A3"]),
-      group("Docelowo", ["26 iPadów", "26 rysików", "Szafa zamykana na klucz z zasilaniem do ładowania iPadów"]),
+      group("Docelowo", ["Wszystkie dostępne iPady Air", "Dostępne rysiki", "Szafa zamykana na klucz z zasilaniem do ładowania iPadów"]),
     ],
-    tasks: ["Sprawdzić telewizor dotykowy Samsung 75 cali", "Sprawdzić drukarkę wielofunkcyjną A3", "Dostarczyć 26 iPadów i 26 rysików", "Wziąć wszystkie zgromadzone iPady Air od Iwony Ochnik razem ze wszystkimi rysikami", "Przygotować do pracy iPady Air oraz dostępne tańsze iPady", "Zalogować iPady oraz ustawić uniwersalny PIN", "Zostawić iPady do używania razem z rysikami", "Przygotować szafę zamykaną na klucz", "Zapewnić w szafie miejsce na listwy i podłączenie do prądu, żeby tablety mogły ładować się na co dzień", "Dokładnie sprawdzić Wi-Fi", "Jeśli Wi-Fi jest za słabe, dodać access point"],
+    tasks: ["Sprawdzić telewizor dotykowy Samsung 75 cali", "Sprawdzić drukarkę wielofunkcyjną A3", "Dostarczyć wszystkie dostępne iPady Air", "Wziąć wszystkie zgromadzone iPady Air od Iwony Ochnik razem ze wszystkimi rysikami", "Przygotować do pracy iPady Air", "Zalogować iPady oraz ustawić uniwersalny PIN", "Zostawić iPady do używania razem z rysikami", "Przygotować szafę zamykaną na klucz", "Zapewnić w szafie miejsce na listwy i podłączenie do prądu, żeby tablety mogły ładować się na co dzień", "Dokładnie sprawdzić Wi-Fi", "Jeśli Wi-Fi jest za słabe, dodać access point"],
   }),
   room({
     id: "6",
