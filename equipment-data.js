@@ -422,10 +422,11 @@ export const rooms = [
     equipment: [
       group("Sprzęt komputerowy", ["26 laptopów", "Szafa na laptopy jest już w sali"]),
       group("Sprzęt multimedialny", ["Nowy rzutnik, zostaje"]),
+      group("Drukowanie", ["Drukarka Xerox 7100, duża, nowa ARAW"]),
       group("Sieć", ["Przeciągnięty kabel do podłączenia"]),
     ],
-    tasks: ["Wstawić 26 laptopów do istniejącej szafy", "Laptopy mają być wyczyszczone, nowe i działające", "Podłączyć laptopy do internetu", "Podłączyć przeciągnięty kabel sieciowy"],
-    notes: ["Do potwierdzenia, czy obok rzutnika ma wejść duży niedotykowy telewizor z wcześniejszej notatki"],
+    tasks: ["Wstawić 26 laptopów do istniejącej szafy", "Laptopy mają być wyczyszczone, nowe i działające", "Podłączyć laptopy do internetu", "Podłączyć przeciągnięty kabel sieciowy", "Wpiąć drukarkę Xerox 7100 do sieci, tak żeby można było drukować z komputerów w salach 41, 42 i 37, również z komputerów uczniowskich"],
+    notes: ["Do potwierdzenia, czy obok rzutnika ma wejść duży niedotykowy telewizor z wcześniejszej notatki", "Drukarka Xerox 7100 ma być dostępna sieciowo dla komputerów w salach 41, 42 i 37, także dla stanowisk uczniowskich"],
   }),
   room({
     id: "42",
