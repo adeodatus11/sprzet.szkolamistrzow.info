@@ -15,6 +15,8 @@ test("filtruje po wyposażeniu i statusie", async ({ page }) => {
   await page.goto("/");
   await page.getByLabel("Szukaj").fill("iPad");
   await expect(page.getByRole("button", { name: /Sala 5/ })).toBeVisible();
+
+  await page.getByLabel("Szukaj").fill("KPO");
   await expect(page.getByRole("button", { name: /Sala 17/ })).toBeVisible();
 
   await page.getByLabel("Szukaj").fill("");

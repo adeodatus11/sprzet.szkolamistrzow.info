@@ -93,9 +93,9 @@ export const rooms = [
     equipment: [
       group("Meble i wyposażenie specjalistyczne", ["Fotel barberski"]),
       group("Sprzęt komputerowy i multimedialny", ["Telewizor dotykowy Samsung, 75 cali", "Drukarka wielofunkcyjna A3"]),
-      group("Docelowo", ["Wszystkie dostępne iPady Air", "Dostępne rysiki", "Szafa zamykana na klucz z zasilaniem do ładowania iPadów"]),
+      group("Docelowo", ["Wszystkie starsze iPady Air kupione pod tę salę", "Dostępne rysiki", "Szafa zamykana na klucz z zasilaniem do ładowania iPadów"]),
     ],
-    tasks: ["Sprawdzić telewizor dotykowy Samsung 75 cali", "Sprawdzić drukarkę wielofunkcyjną A3", "Dostarczyć wszystkie dostępne iPady Air", "Wziąć wszystkie zgromadzone iPady Air od Iwony Ochnik razem ze wszystkimi rysikami", "Przygotować do pracy iPady Air", "Zalogować iPady oraz ustawić uniwersalny PIN", "Zostawić iPady do używania razem z rysikami", "Przygotować szafę zamykaną na klucz", "Zapewnić w szafie miejsce na listwy i podłączenie do prądu, żeby tablety mogły ładować się na co dzień", "Dokładnie sprawdzić Wi-Fi", "Jeśli Wi-Fi jest za słabe, dodać access point"],
+    tasks: ["Sprawdzić telewizor dotykowy Samsung 75 cali", "Sprawdzić drukarkę wielofunkcyjną A3", "Dostarczyć wszystkie starsze iPady Air kupione pod tę salę", "Zebrać iPady Air razem z dostępnymi rysikami", "Przygotować do pracy iPady Air", "Zalogować iPady oraz ustawić uniwersalny PIN", "Zostawić iPady do używania razem z rysikami", "Przygotować szafę zamykaną na klucz", "Zapewnić w szafie miejsce na listwy i podłączenie do prądu, żeby tablety mogły ładować się na co dzień", "Dokładnie sprawdzić Wi-Fi", "Jeśli Wi-Fi jest za słabe, dodać access point"],
   }),
   room({
     id: "6",
@@ -175,9 +175,9 @@ export const rooms = [
     status: "missing",
     equipment: [
       group("Sprzęt komputerowy i multimedialny", ["Komputer", "Monitor multimedialny na kółkach, 75 cali"]),
-      group("iPady", ["Docelowo 30 iPadów", "Szafka zamykana na klucz z zasilaniem do ładowania iPadów"]),
+      group("Tablety KPO", ["28 tabletów KPO", "Szafka z zasilaniem do ładowania tabletów"]),
     ],
-    tasks: ["Dostarczyć 30 iPadów", "Wstawić zamek do jednej ze starych szafek, żeby dało się zamknąć na klucz", "Zapewnić w szafce zasilanie, żeby iPady mogły się ładować", "Sprawdzić internet na iPadach", "Sprawdzić Wi-Fi"],
+    tasks: ["Dostarczyć 28 tabletów KPO", "Wstawić zamek do jednej ze starych szafek, żeby dało się zamknąć na klucz", "Zapewnić w szafce zasilanie, żeby tablety mogły się ładować", "Sprawdzić internet na tabletach", "Sprawdzić Wi-Fi"],
   }),
   room({
     id: "18",
@@ -267,12 +267,10 @@ export const rooms = [
     location: "Budynek główny / II piętro",
     purpose: "Drugi gabinet przyrodniczy",
     teachers: ["Barbara Małecka", "Karolina Sałdyka", "Anna Mucha", "Agnieszka Hudziec"],
-    status: "missing",
-    equipment: [
-      group("Sprzęt komputerowy i multimedialny", ["Komputer", "Rzutnik"]),
-      group("Tablety", ["30 tabletów, jeśli jest dostępna taka pula"]),
-    ],
-    tasks: ["Podłączyć rzutnik do komputera", "Sprawdzić, czy zestaw działa", "Potwierdzić dostępność 30 tabletów"],
+    status: "ready",
+    equipment: [],
+    tasks: ["Na razie nie wstawiać żadnego sprzętu"],
+    decisions: ["Sala 27 na razie bez sprzętu"],
   }),
   room({
     id: "28",
@@ -465,11 +463,10 @@ export const rooms = [
     teachers: ["Anna Misiąg", "Małgorzata Fiodorów"],
     equipment: [
       group("Sprzęt komputerowy i multimedialny", ["Monitor multimedialny / monitor", "Komputer"]),
-      group("Tablety", ["20 tabletów, jeśli jeszcze się znajdą"]),
+      group("Tablety KPO", ["20 tabletów KPO"]),
       group("Zasilanie", ["Zasilanie dla tabletów w sali"]),
     ],
-    tasks: ["Zapewnić, żeby monitor był w sali", "Podłączyć komputer do monitora", "Wstawić tablety", "Przygotować zasilanie dla tabletów"],
-    notes: ["Do potwierdzenia, czy docelowa liczba tabletów to 20"],
+    tasks: ["Zapewnić, żeby monitor był w sali", "Podłączyć komputer do monitora", "Wstawić 20 tabletów KPO", "Przygotować zasilanie dla tabletów"],
   }),
   room({
     id: "p2",
@@ -511,11 +508,9 @@ export const rooms = [
 
 export const unresolvedItems = [
   "Rozróżnić salę 5 i nową roboczą salę 05 wybudowaną w szatni.",
-  "Sale z iPadami: potwierdzić dostępność pełnych pul dla sali 5 i sali 17.",
   "Sale z Wi-Fi: po sprawdzeniu wskazać miejsca wymagające access pointów.",
   "Sala 28: potwierdzić, czy finalnie ma być telewizor multimedialny, rzutnik/rzutniki, czy oba typy sprzętu.",
   "Sala 34: potwierdzić, że komputer ma być podłączony do telewizora multimedialnego.",
   "Sala 37: dołączyć osobny szkic układu ławek.",
   "Sala 41: potwierdzić, czy oprócz nowego rzutnika ma być duży niedotykowy telewizor.",
-  "Sala 44: potwierdzić, czy docelowa liczba tabletów to 20.",
 ];
