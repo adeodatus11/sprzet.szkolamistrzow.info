@@ -13,9 +13,18 @@ const els = {
   printSheet: document.querySelector("#printSheet"),
   printRoomTop: document.querySelector("#printRoomTop"),
   catalogToggle: document.querySelector("#catalogToggle"),
+  mobileCatalogToggle: document.querySelector("#mobileCatalogToggle"),
   catalogClose: document.querySelector("#catalogClose"),
+  catalogDrawer: document.querySelector("#catalogDrawer"),
   drawerBackdrop: document.querySelector("#drawerBackdrop"),
+  previousRoom: document.querySelector("#previousRoom"),
+  nextRoom: document.querySelector("#nextRoom"),
+  mobileRoomPosition: document.querySelector("#mobileRoomPosition"),
 };
+
+const mobileCatalogQuery = window.matchMedia("(max-width: 980px)");
+const catalogToggles = [els.catalogToggle, els.mobileCatalogToggle];
+let lastCatalogTrigger = els.catalogToggle;
 
 const state = {
   query: "",
@@ -67,14 +76,26 @@ const listItems = (items) => {
 
 const statusBadge = (status) => `<span class="badge ${status}">${statusLabels[status]}</span>`;
 
-const setCatalogOpen = (isOpen) => {
+const setCatalogOpen = (isOpen, { restoreFocus = true } = {}) => {
+  if (!mobileCatalogQuery.matches) isOpen = false;
   document.body.classList.toggle("catalog-open", isOpen);
-  els.catalogToggle.dataset.open = String(isOpen);
-  document.querySelector("#catalogDrawer").dataset.open = String(isOpen);
-  els.catalogToggle.setAttribute("aria-expanded", String(isOpen));
+  document.documentElement.classList.toggle("catalog-open", isOpen);
+  els.catalogDrawer.dataset.open = String(isOpen);
+  els.catalogDrawer.toggleAttribute("inert", mobileCatalogQuery.matches && !isOpen);
+  els.catalogDrawer.setAttribute("aria-hidden", String(mobileCatalogQuery.matches && !isOpen));
+  catalogToggles.forEach((toggle) => toggle.setAttribute("aria-expanded", String(isOpen)));
   els.drawerBackdrop.hidden = !isOpen;
-  document.documentElement.scrollLeft = 0;
-  document.body.scrollLeft = 0;
+
+  if (isOpen) {
+    requestAnimationFrame(() => els.catalogClose.focus());
+  } else if (restoreFocus && mobileCatalogQuery.matches) {
+    lastCatalogTrigger?.focus();
+  }
+};
+
+const openCatalog = (trigger) => {
+  lastCatalogTrigger = trigger;
+  setCatalogOpen(true);
 };
 
 const renderStats = () => {
@@ -130,6 +151,16 @@ const renderList = () => {
   `).join("");
 };
 
+const renderMobileNavigation = () => {
+  const visibleRooms = filteredRooms();
+  const activeIndex = visibleRooms.findIndex((room) => room.id === state.activeId);
+  const hasActiveRoom = activeIndex >= 0;
+
+  els.previousRoom.disabled = !hasActiveRoom || activeIndex === 0;
+  els.nextRoom.disabled = !hasActiveRoom || activeIndex === visibleRooms.length - 1;
+  els.mobileRoomPosition.textContent = hasActiveRoom ? `${activeIndex + 1} z ${visibleRooms.length}` : `0 z ${visibleRooms.length}`;
+};
+
 const renderDetail = () => {
   const room = activeRoom();
   state.activeId = room.id;
@@ -151,7 +182,7 @@ const renderDetail = () => {
             ${statusBadge(room.status)}
             <span>${escapeHtml(room.location)}</span>
           </div>
-          <h2>${escapeHtml(room.name)}</h2>
+          <h2 tabindex="-1">${escapeHtml(room.name)}</h2>
         </div>
         <div class="detail-actions">
           <button class="primary" id="printRoom" type="button">Drukuj kartę</button>
@@ -231,12 +262,14 @@ const renderOpenItems = () => {
   els.openItems.innerHTML = unresolvedItems.map((item) => `<li>${escapeHtml(item)}</li>`).join("");
 };
 
-const syncHash = () => {
+const syncHash = (historyMode = "replace") => {
   const hash = `#room-${state.activeId}`;
-  if (location.hash !== hash) history.replaceState(null, "", hash);
+  if (location.hash === hash) return;
+  const method = historyMode === "push" ? "pushState" : "replaceState";
+  history[method](null, "", hash);
 };
 
-const render = () => {
+const render = ({ historyMode = "replace", moveFocus = false } = {}) => {
   const visibleRooms = filteredRooms();
   if (!visibleRooms.some((room) => room.id === state.activeId) && visibleRooms[0]) {
     state.activeId = visibleRooms[0].id;
@@ -244,7 +277,25 @@ const render = () => {
 
   renderList();
   renderDetail();
-  syncHash();
+  renderMobileNavigation();
+  syncHash(historyMode);
+
+  if (moveFocus) {
+    requestAnimationFrame(() => {
+      els.detail.scrollIntoView({ behavior: "smooth", block: "start" });
+      els.detail.querySelector("h2")?.focus({ preventScroll: true });
+    });
+  }
+};
+
+const moveToAdjacentRoom = (direction) => {
+  const visibleRooms = filteredRooms();
+  const activeIndex = visibleRooms.findIndex((room) => room.id === state.activeId);
+  const nextRoom = visibleRooms[activeIndex + direction];
+  if (!nextRoom) return;
+
+  state.activeId = nextRoom.id;
+  render({ historyMode: "push", moveFocus: true });
 };
 
 els.search.addEventListener("input", (event) => {
@@ -266,20 +317,23 @@ els.roomList.addEventListener("click", (event) => {
   const button = event.target.closest("[data-room-id]");
   if (!button) return;
   state.activeId = button.dataset.roomId;
-  render();
-  setCatalogOpen(false);
+  setCatalogOpen(false, { restoreFocus: false });
+  render({ historyMode: "push", moveFocus: true });
 });
 
 els.printRoomTop.addEventListener("click", () => window.print());
-els.catalogToggle.addEventListener("click", () => setCatalogOpen(!document.body.classList.contains("catalog-open")));
+els.catalogToggle.addEventListener("click", () => openCatalog(els.catalogToggle));
+els.mobileCatalogToggle.addEventListener("click", () => openCatalog(els.mobileCatalogToggle));
 els.catalogClose.addEventListener("click", () => setCatalogOpen(false));
 els.drawerBackdrop.addEventListener("click", () => setCatalogOpen(false));
+els.previousRoom.addEventListener("click", () => moveToAdjacentRoom(-1));
+els.nextRoom.addEventListener("click", () => moveToAdjacentRoom(1));
 
 document.addEventListener("keydown", (event) => {
   if (event.key === "Escape") setCatalogOpen(false);
 });
 
-window.addEventListener("hashchange", () => {
+window.addEventListener("popstate", () => {
   const nextId = location.hash.replace("#room-", "");
   if (rooms.some((room) => room.id === nextId)) {
     state.activeId = nextId;
@@ -287,7 +341,10 @@ window.addEventListener("hashchange", () => {
   }
 });
 
+mobileCatalogQuery.addEventListener("change", () => setCatalogOpen(false, { restoreFocus: false }));
+
 renderStats();
 renderFilters();
 renderOpenItems();
 render();
+setCatalogOpen(false, { restoreFocus: false });

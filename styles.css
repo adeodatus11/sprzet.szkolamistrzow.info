@@ -45,6 +45,14 @@ a {
   -webkit-tap-highlight-color: transparent;
 }
 
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 3px solid rgba(31, 122, 114, 0.3);
+  outline-offset: 2px;
+}
+
 .topbar {
   position: sticky;
   top: 0;
@@ -88,6 +96,10 @@ a {
   font-size: 0.78rem;
 }
 
+.brand .app-name-mobile {
+  display: none;
+}
+
 .top-actions {
   display: flex;
   align-items: center;
@@ -106,6 +118,7 @@ a {
   cursor: pointer;
   padding: 9px 13px;
   text-decoration: none;
+  white-space: nowrap;
 }
 
 .top-actions button,
@@ -116,6 +129,10 @@ a {
 }
 
 .catalog-toggle {
+  display: none;
+}
+
+.mobile-room-nav {
   display: none;
 }
 
@@ -388,6 +405,7 @@ h4:first-child {
 .detail-panel {
   min-height: 640px;
   padding: 20px;
+  scroll-margin-top: 86px;
 }
 
 .detail-header {
@@ -407,6 +425,10 @@ h4:first-child {
 .detail-title h2 {
   font-size: clamp(1.8rem, 3vw, 2.8rem);
   line-height: 1;
+}
+
+.detail-title h2:focus {
+  outline: none;
 }
 
 .detail-actions {
@@ -509,17 +531,20 @@ h4:first-child {
     position: fixed;
     inset: 0 auto 0 0;
     z-index: 40;
-    width: min(420px, 92vw);
-    max-height: none;
-    overflow: auto;
+    grid-template-rows: auto auto minmax(0, 1fr);
+    width: min(430px, 100vw);
+    height: 100dvh;
+    max-height: 100dvh;
+    overflow: hidden;
     border-right: 1px solid var(--line);
     background: var(--paper);
     box-shadow: 24px 0 60px rgba(31, 37, 35, 0.24);
-    padding: 12px;
+    padding: max(12px, env(safe-area-inset-top)) 12px max(12px, env(safe-area-inset-bottom));
     transform: translateX(-105%);
     transition: transform 180ms ease;
   }
 
+  html.catalog-open,
   body.catalog-open {
     overflow: hidden;
   }
@@ -553,7 +578,7 @@ h4:first-child {
   }
 
   .drawer-heading button {
-    min-height: 38px;
+    min-height: 44px;
     border: 1px solid var(--line);
     border-radius: var(--radius);
     background: var(--surface-strong);
@@ -563,6 +588,15 @@ h4:first-child {
 
   .room-list {
     max-height: none;
+  }
+
+  .room-list-panel {
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr);
+  }
+
+  .room-row {
+    min-height: 64px;
   }
 
   .detail-panel {
@@ -575,10 +609,15 @@ h4:first-child {
 }
 
 @media (max-width: 640px) {
+  body {
+    padding-bottom: calc(70px + env(safe-area-inset-bottom));
+  }
+
   .topbar {
     align-items: center;
-    gap: 10px;
-    padding: 10px 10px 11px;
+    min-height: 60px;
+    gap: 8px;
+    padding: max(8px, env(safe-area-inset-top)) 12px 8px;
   }
 
   .brand {
@@ -586,16 +625,30 @@ h4:first-child {
   }
 
   .brand img {
-    width: 34px;
-    height: 34px;
+    width: 36px;
+    height: 36px;
   }
 
-  .brand strong {
-    font-size: 0.74rem;
+  .brand-copy {
+    min-width: 0;
   }
 
-  .brand span span {
-    font-size: 0.72rem;
+  .school-name {
+    display: none;
+  }
+
+  .brand .app-name-full {
+    display: none;
+  }
+
+  .brand .app-name-mobile {
+    display: block;
+    overflow: hidden;
+    color: var(--ink);
+    font-size: 0.9rem;
+    font-weight: 800;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .top-actions {
@@ -603,7 +656,8 @@ h4:first-child {
     gap: 6px;
   }
 
-  .top-actions a {
+  .top-actions a,
+  #printRoomTop {
     display: none;
   }
 
@@ -614,7 +668,7 @@ h4:first-child {
   }
 
   .shell {
-    padding: 10px 8px 18px;
+    padding: 12px 12px 20px;
   }
 
   .intro {
@@ -626,8 +680,20 @@ h4:first-child {
   }
 
   .detail-panel {
+    min-width: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    padding: 0;
+    scroll-margin-top: 72px;
+  }
+
+  .detail-header {
+    border: 1px solid var(--line);
     border-radius: var(--radius);
-    padding: 12px;
+    background: var(--surface);
+    padding: 14px;
   }
 
   .detail-title {
@@ -635,7 +701,7 @@ h4:first-child {
   }
 
   .detail-title h2 {
-    font-size: 2rem;
+    font-size: 1.9rem;
   }
 
   .detail-actions {
@@ -645,8 +711,12 @@ h4:first-child {
 
   .detail-actions a,
   .detail-actions button {
+    min-width: 0;
     width: 100%;
+    padding-inline: 8px;
+    font-size: 0.86rem;
     text-align: center;
+    white-space: nowrap;
   }
 
   .detail-grid {
@@ -655,11 +725,78 @@ h4:first-child {
   }
 
   .detail-section {
-    padding: 12px;
+    padding: 14px;
   }
 
   .open-items {
     display: none;
+  }
+
+  .catalog-drawer {
+    width: 100vw;
+    border-right: 0;
+    box-shadow: none;
+    padding-inline: 14px;
+  }
+
+  .filters {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .filters label:first-child {
+    grid-column: 1 / -1;
+  }
+
+  .mobile-room-nav {
+    position: fixed;
+    inset: auto 0 0;
+    z-index: 25;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(92px, 1.1fr) minmax(0, 1fr);
+    min-height: 66px;
+    border-top: 1px solid var(--line);
+    background: rgba(255, 253, 248, 0.97);
+    box-shadow: 0 -8px 24px rgba(52, 44, 31, 0.1);
+    padding: 6px 8px max(6px, env(safe-area-inset-bottom));
+    backdrop-filter: blur(14px);
+  }
+
+  .mobile-room-nav button {
+    display: grid;
+    min-width: 0;
+    min-height: 50px;
+    place-content: center;
+    gap: 1px;
+    border: 0;
+    border-radius: var(--radius);
+    background: transparent;
+    color: var(--ink);
+    font-size: 0.74rem;
+    font-weight: 750;
+  }
+
+  .mobile-room-nav button:active:not(:disabled) {
+    background: #ebe4d8;
+    transform: scale(0.98);
+  }
+
+  .mobile-room-nav button:disabled {
+    color: #9aa19e;
+  }
+
+  .mobile-room-nav #mobileCatalogToggle {
+    background: var(--accent);
+    color: #ffffff;
+  }
+
+  .mobile-room-nav .hamburger-lines {
+    margin: 0 auto 2px;
+  }
+
+  .mobile-room-nav small {
+    font-size: 0.66rem;
+    font-weight: 600;
+    opacity: 0.8;
   }
 }
 

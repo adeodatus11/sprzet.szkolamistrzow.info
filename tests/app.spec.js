@@ -50,9 +50,30 @@ test("na telefonie lista sal jest w menu", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 820 });
   await page.goto("/");
   await expect(page.locator("#roomDetail").getByRole("heading", { name: "Sala 2" })).toBeVisible();
-  await page.getByRole("button", { name: "Sale" }).click();
+  await expect(page.locator(".mobile-room-nav")).toBeVisible();
+  await expect(page.locator("#catalogDrawer")).toHaveAttribute("inert", "");
+  await page.locator("#catalogToggle").click();
   await expect(page.locator("body")).toHaveClass(/catalog-open/);
+  await expect(page.locator("#catalogDrawer")).not.toHaveAttribute("inert", "");
   await page.getByRole("button", { name: /Sala 44/ }).click();
   await expect(page.locator("body")).not.toHaveClass(/catalog-open/);
   await expect(page.locator("#roomDetail").getByRole("heading", { name: "Sala 44" })).toBeVisible();
+});
+
+test("na telefonie przechodzi między salami bez otwierania katalogu", async ({ page }) => {
+  await page.setViewportSize({ width: 320, height: 700 });
+  await page.goto("/");
+
+  await page.getByRole("button", { name: "Następna sala" }).click();
+  await expect(page.locator("#roomDetail").getByRole("heading", { name: "Sala 3" })).toBeVisible();
+  await expect(page.locator("#mobileRoomPosition")).toContainText("2 z");
+
+  await page.goBack();
+  await expect(page.locator("#roomDetail").getByRole("heading", { name: "Sala 2" })).toBeVisible();
+
+  const widths = await page.evaluate(() => ({
+    viewport: document.documentElement.clientWidth,
+    document: document.documentElement.scrollWidth,
+  }));
+  expect(widths.document).toBe(widths.viewport);
 });

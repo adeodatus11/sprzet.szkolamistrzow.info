@@ -26,13 +26,14 @@
     <header class="topbar">
       <a class="brand" href="/" aria-label="Sprzęt i wyposażenie sal">
         <img src="assets/logo-zsz5.png" width="422" height="321" alt="" decoding="async" />
-        <span>
-          <strong>Zespół Szkół Zawodowych nr 5</strong>
-          <span>Sprzęt i wyposażenie sal</span>
+        <span class="brand-copy">
+          <strong class="school-name">Zespół Szkół Zawodowych nr 5</strong>
+          <span class="app-name app-name-full">Sprzęt i wyposażenie sal</span>
+          <span class="app-name app-name-mobile">Wyposażenie sal</span>
         </span>
       </a>
       <nav class="top-actions" aria-label="Linki pomocnicze">
-        <button class="catalog-toggle" id="catalogToggle" type="button" aria-controls="catalogDrawer" aria-expanded="false">
+        <button class="catalog-toggle" id="catalogToggle" type="button" aria-label="Otwórz listę sal" aria-controls="catalogDrawer" aria-expanded="false">
           <span class="hamburger-lines" aria-hidden="true"><span></span><span></span><span></span></span>
           Sale
         </button>
@@ -99,6 +100,22 @@
         <ul id="openItems"></ul>
       </section>
     </main>
+
+    <nav class="mobile-room-nav" aria-label="Nawigacja między salami">
+      <button id="previousRoom" type="button" aria-label="Poprzednia sala">
+        <span aria-hidden="true">&larr;</span>
+        <span>Poprzednia</span>
+      </button>
+      <button id="mobileCatalogToggle" type="button" aria-label="Otwórz listę sal" aria-controls="catalogDrawer" aria-expanded="false">
+        <span class="hamburger-lines" aria-hidden="true"><span></span><span></span><span></span></span>
+        <span>Sale</span>
+        <small id="mobileRoomPosition"></small>
+      </button>
+      <button id="nextRoom" type="button" aria-label="Następna sala">
+        <span aria-hidden="true">&rarr;</span>
+        <span>Następna</span>
+      </button>
+    </nav>
 
     <section class="print-sheet" id="printSheet" aria-hidden="true"></section>
 
