@@ -1,17 +1,24 @@
-import { rooms, standardControlTasks, statusLabels, unresolvedItems } from "./equipment-data.js";
+import {
+  dataUpdatedAt,
+  defaultRoomId,
+  floors,
+  rooms,
+  standardControlTasks,
+  statusLabels,
+  unresolvedItems,
+} from "./equipment-data.js";
 
 const els = {
   stats: document.querySelector("#stats"),
   search: document.querySelector("#search"),
-  floorFilter: document.querySelector("#floorFilter"),
   statusFilter: document.querySelector("#statusFilter"),
+  floorJump: document.querySelector("#floorJump"),
   roomList: document.querySelector("#roomList"),
   resultCount: document.querySelector("#resultCount"),
   detail: document.querySelector("#roomDetail"),
   openItems: document.querySelector("#openItems"),
   openItemsCount: document.querySelector("#openItemsCount"),
   printSheet: document.querySelector("#printSheet"),
-  printRoomTop: document.querySelector("#printRoomTop"),
   catalogToggle: document.querySelector("#catalogToggle"),
   mobileCatalogToggle: document.querySelector("#mobileCatalogToggle"),
   catalogClose: document.querySelector("#catalogClose"),
@@ -26,17 +33,20 @@ const mobileCatalogQuery = window.matchMedia("(max-width: 980px)");
 const catalogToggles = [els.catalogToggle, els.mobileCatalogToggle];
 let lastCatalogTrigger = els.catalogToggle;
 
+const roomIdFromHash = () => decodeURIComponent(location.hash.replace("#room-", ""));
+const roomExists = (id) => rooms.some((room) => room.id === id);
+
 const state = {
   query: "",
-  floor: "all",
   status: "all",
-  activeId: location.hash.replace("#room-", "") || rooms[0].id,
+  activeId: roomExists(roomIdFromHash()) ? roomIdFromHash() : defaultRoomId,
 };
 
 const normalize = (value) => String(value)
   .toLowerCase()
   .normalize("NFD")
-  .replace(/[\u0300-\u036f]/g, "");
+  .replace(/[̀-ͯ]/g, "")
+  .replace(/ł/g, "l");
 
 const escapeHtml = (value) => String(value).replace(/[&<>"']/g, (char) => ({
   "&": "&amp;",
@@ -46,35 +56,48 @@ const escapeHtml = (value) => String(value).replace(/[&<>"']/g, (char) => ({
   "'": "&#039;",
 }[char]));
 
+const floorById = (id) => floors.find((floor) => floor.id === id);
+const roomById = (id) => rooms.find((room) => room.id === id);
+const roomsOnFloor = (floorId) => rooms.filter((room) => room.floor === floorId);
+const chipLabel = (room) => room.short || room.name.replace(/^Sala\s+/, "");
+
+const roomPath = (room) => {
+  const floor = floorById(room.floor);
+  return [floor?.building, floor?.label, room.place].filter(Boolean);
+};
+
 const roomSearchText = (room) => normalize([
   room.name,
-  room.floor,
-  room.location,
+  roomPath(room).join(" "),
   room.purpose,
   room.teachers.join(" "),
   room.equipment.flatMap((item) => [item.name, ...item.items]).join(" "),
   standardControlTasks.join(" "),
   room.urgentTasks.join(" "),
   room.tasks.join(" "),
-  room.notes.join(" "),
   room.decisions.join(" "),
+  room.notes.join(" "),
 ].join(" "));
 
-const filteredRooms = () => rooms.filter((room) => {
-  const matchesQuery = !state.query || roomSearchText(room).includes(normalize(state.query));
-  const matchesFloor = state.floor === "all" || room.floor === state.floor;
-  const matchesStatus = state.status === "all" || room.status === state.status;
-  return matchesQuery && matchesFloor && matchesStatus;
-});
+const searchIndex = new Map(rooms.map((room) => [room.id, roomSearchText(room)]));
 
-const activeRoom = () => rooms.find((room) => room.id === state.activeId) || filteredRooms()[0] || rooms[0];
-
-const listItems = (items) => {
-  if (!items?.length) return "";
-  return `<ul>${items.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>`;
+const filteredRooms = () => {
+  const query = normalize(state.query.trim());
+  return rooms.filter((room) => {
+    const matchesQuery = !query || searchIndex.get(room.id).includes(query);
+    const matchesStatus = state.status === "all" || room.status === state.status;
+    return matchesQuery && matchesStatus;
+  });
 };
 
-const statusBadge = (status) => `<span class="badge ${status}">${statusLabels[status]}</span>`;
+const activeRoom = () => roomById(state.activeId) || filteredRooms()[0] || rooms[0];
+
+const listItems = (items, className = "") => {
+  if (!items?.length) return "";
+  return `<ul${className ? ` class="${className}"` : ""}>${items.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>`;
+};
+
+const statusBadge = (status) => `<span class="badge ${status}">${escapeHtml(statusLabels[status])}</span>`;
 
 const setCatalogOpen = (isOpen, { restoreFocus = true } = {}) => {
   if (!mobileCatalogQuery.matches) isOpen = false;
@@ -104,30 +127,38 @@ const renderStats = () => {
     return acc;
   }, {});
 
-  const missingAndTodo = (counts.missing || 0) + (counts.todo || 0) + (counts.decision || 0);
+  const tiles = [
+    ["all", "Wszystkie sale", rooms.length],
+    ...["missing", "todo", "decision", "check", "ready"].map((status) => [status, statusLabels[status], counts[status] || 0]),
+  ];
 
-  els.stats.innerHTML = [
-    ["Sale w kartotece", rooms.length],
-    ["Do działania", missingAndTodo],
-    ["Do sprawdzenia", counts.check || 0],
-    ["Do decyzji", counts.decision || 0],
-  ].map(([label, value]) => `
-    <div>
-      <dt>${label}</dt>
-      <dd>${value}</dd>
-    </div>
+  els.stats.innerHTML = tiles.map(([status, label, value]) => `
+    <button class="stat ${status}" type="button" data-status="${status}" aria-pressed="${state.status === status}">
+      <span class="stat-value">${value}</span>
+      <span class="stat-label">${escapeHtml(label)}</span>
+    </button>
   `).join("");
 };
 
 const renderFilters = () => {
-  const floors = [...new Set(rooms.map((room) => room.floor))];
-  els.floorFilter.innerHTML += floors
-    .map((floor) => `<option value="${escapeHtml(floor)}">${escapeHtml(floor)}</option>`)
-    .join("");
-
   els.statusFilter.innerHTML += Object.entries(statusLabels)
     .map(([value, label]) => `<option value="${value}">${escapeHtml(label)}</option>`)
     .join("");
+};
+
+const renderFloorJump = () => {
+  const visibleRooms = filteredRooms();
+  const activeFloor = activeRoom().floor;
+
+  els.floorJump.innerHTML = floors.map((floor) => {
+    const count = visibleRooms.filter((room) => room.floor === floor.id).length;
+    return `
+      <button class="floor-chip ${floor.id === activeFloor ? "is-current" : ""}" type="button" data-floor="${escapeHtml(floor.id)}" ${count ? "" : "disabled"}>
+        ${escapeHtml(floor.short)}
+        <span>${count}</span>
+      </button>
+    `;
+  }).join("");
 };
 
 const renderList = () => {
@@ -139,27 +170,99 @@ const renderList = () => {
     return;
   }
 
-  els.roomList.innerHTML = visibleRooms.map((room) => `
-    <button class="room-row ${room.id === state.activeId ? "is-active" : ""}" type="button" data-room-id="${escapeHtml(room.id)}">
-      <span class="row-top">
-        <span class="row-title">${escapeHtml(room.name)}</span>
-        ${statusBadge(room.status)}
-      </span>
-      <span class="row-location">${escapeHtml(room.location)}</span>
-      ${room.purpose ? `<span class="row-purpose">${escapeHtml(room.purpose)}</span>` : ""}
-    </button>
-  `).join("");
+  els.roomList.innerHTML = floors.map((floor) => {
+    const floorRooms = visibleRooms.filter((room) => room.floor === floor.id);
+    if (!floorRooms.length) return "";
+
+    return `
+      <section class="floor-group" data-floor="${escapeHtml(floor.id)}">
+        <h3 class="floor-heading">
+          <span>${escapeHtml(floor.label)}</span>
+          <span class="floor-count">${floorRooms.length}</span>
+        </h3>
+        ${floorRooms.map((room) => `
+          <button class="room-row ${room.id === state.activeId ? "is-active" : ""}" type="button" data-room-id="${escapeHtml(room.id)}" ${room.id === state.activeId ? 'aria-current="true"' : ""}>
+            <span class="row-top">
+              <span class="row-title">${escapeHtml(room.name)}</span>
+              ${statusBadge(room.status)}
+            </span>
+            ${room.purpose ? `<span class="row-purpose">${escapeHtml(room.purpose)}</span>` : ""}
+          </button>
+        `).join("")}
+      </section>
+    `;
+  }).join("");
+};
+
+const keepActiveRowVisible = () => {
+  const row = els.roomList.querySelector(".room-row.is-active");
+  if (!row) return;
+  const listRect = els.roomList.getBoundingClientRect();
+  const rowRect = row.getBoundingClientRect();
+  const headingOffset = 40;
+  if (rowRect.top < listRect.top + headingOffset || rowRect.bottom > listRect.bottom) {
+    const rowCenter = rowRect.top + rowRect.height / 2;
+    const listCenter = listRect.top + listRect.height / 2;
+    els.roomList.scrollTop += rowCenter - listCenter;
+  }
 };
 
 const renderMobileNavigation = () => {
   const visibleRooms = filteredRooms();
   const activeIndex = visibleRooms.findIndex((room) => room.id === state.activeId);
   const hasActiveRoom = activeIndex >= 0;
+  const floorLabel = floorById(activeRoom().floor)?.short;
 
   els.previousRoom.disabled = !hasActiveRoom || activeIndex === 0;
   els.nextRoom.disabled = !hasActiveRoom || activeIndex === visibleRooms.length - 1;
-  els.mobileRoomPosition.textContent = hasActiveRoom ? `${activeIndex + 1} z ${visibleRooms.length}` : `0 z ${visibleRooms.length}`;
+  els.mobileRoomPosition.textContent = `${floorLabel} · ${hasActiveRoom ? activeIndex + 1 : 0} z ${visibleRooms.length}`;
 };
+
+const roomLink = (room, { current = false, label = chipLabel(room) } = {}) => `
+  <a class="room-chip ${current ? "is-current" : ""}" href="#room-${encodeURIComponent(room.id)}" data-room-id="${escapeHtml(room.id)}" title="${escapeHtml(room.name)}" ${current ? 'aria-current="page"' : ""}>${escapeHtml(label)}</a>
+`;
+
+const renderSwitcher = (room) => `
+  <nav class="room-switcher" aria-label="Przełączanie sal">
+    <div class="switcher-row floor-tabs">
+      ${floors.map((floor) => {
+        const first = roomsOnFloor(floor.id)[0];
+        return `<a class="floor-tab ${floor.id === room.floor ? "is-current" : ""}" href="#room-${encodeURIComponent(first.id)}" data-room-id="${escapeHtml(first.id)}" ${floor.id === room.floor ? 'aria-current="true"' : ""}>${escapeHtml(floor.short)}</a>`;
+      }).join("")}
+    </div>
+    <div class="switcher-row room-chips">
+      ${roomsOnFloor(room.floor).map((item) => roomLink(item, { current: item.id === room.id })).join("")}
+    </div>
+  </nav>
+`;
+
+const renderPager = () => {
+  const visibleRooms = filteredRooms();
+  const index = visibleRooms.findIndex((room) => room.id === state.activeId);
+  const previous = index > 0 ? visibleRooms[index - 1] : null;
+  const next = index >= 0 ? visibleRooms[index + 1] : null;
+
+  const link = (target, direction) => {
+    if (!target) return `<span class="pager-link is-empty" aria-hidden="true"></span>`;
+    const floor = floorById(target.floor);
+    return `
+      <a class="pager-link ${direction}" href="#room-${encodeURIComponent(target.id)}" data-room-id="${escapeHtml(target.id)}">
+        <span class="pager-hint">${direction === "prev" ? "← Poprzednia" : "Następna →"}</span>
+        <strong>${escapeHtml(target.name)}</strong>
+        <span class="pager-floor">${escapeHtml(floor.label)}</span>
+      </a>
+    `;
+  };
+
+  return `<nav class="detail-pager" aria-label="Sąsiednie sale">${link(previous, "prev")}${link(next, "next")}</nav>`;
+};
+
+const section = (title, body, className = "") => `
+  <section class="detail-section ${className}">
+    <h3>${escapeHtml(title)}</h3>
+    ${body}
+  </section>
+`;
 
 const renderDetail = () => {
   const room = activeRoom();
@@ -167,49 +270,58 @@ const renderDetail = () => {
 
   const equipment = room.equipment.length
     ? `<div class="equipment-groups">${room.equipment.map((item) => `
-        <section class="equipment-group">
+        <div class="equipment-group">
           <h4>${escapeHtml(item.name)}</h4>
           ${listItems(item.items)}
-        </section>
+        </div>
       `).join("")}</div>`
-    : "<p>Brak wpisanego wyposażenia.</p>";
+    : `<p class="placeholder">Brak wpisanego wyposażenia.</p>`;
+
+  const teachers = room.teachers.length
+    ? listItems(room.teachers, "plain-list")
+    : `<p class="placeholder">Do uzupełnienia.</p>`;
+
+  const controls = `
+    <section class="detail-section control-section">
+      <details class="control-details" open>
+        <summary>Stała kontrola techniczna</summary>
+        ${listItems(standardControlTasks, "checklist")}
+      </details>
+    </section>
+  `;
 
   els.detail.innerHTML = `
     <header class="detail-header">
+      <nav class="breadcrumb" aria-label="Położenie sali">
+        ${roomPath(room).map((part) => `<span>${escapeHtml(part)}</span>`).join("")}
+      </nav>
       <div class="detail-title">
-        <div>
-          <div class="detail-meta">
-            ${statusBadge(room.status)}
-            <span>${escapeHtml(room.location)}</span>
-          </div>
-          <h2 tabindex="-1">${escapeHtml(room.name)}</h2>
-        </div>
-        <div class="detail-actions">
-          <button class="primary" id="printRoom" type="button">Drukuj kartę</button>
-          <a href="https://nawigacja.szkolamistrzow.info/?room=${encodeURIComponent(room.id)}">Pokaż na planie</a>
-        </div>
+        <h2 tabindex="-1">${escapeHtml(room.name)}</h2>
+        ${statusBadge(room.status)}
       </div>
-      ${room.purpose ? `<p>${escapeHtml(room.purpose)}</p>` : ""}
+      ${room.purpose ? `<p class="detail-purpose">${escapeHtml(room.purpose)}</p>` : ""}
+      <div class="detail-actions">
+        <button class="primary" id="printRoom" type="button">Drukuj kartę</button>
+        <a href="https://nawigacja.szkolamistrzow.info/?room=${encodeURIComponent(room.id)}">Pokaż na planie</a>
+      </div>
+      ${renderSwitcher(room)}
     </header>
-    <div class="detail-grid">
-      <section class="detail-section">
-        <h3>Nauczyciele / użytkownicy</h3>
-        ${room.teachers.length ? listItems(room.teachers) : "<p>Do uzupełnienia.</p>"}
-      </section>
-      <section class="detail-section">
-        <h3>Zadania kontrolne</h3>
-        <h4>Stała kontrola techniczna</h4>
-        ${listItems(standardControlTasks)}
-      </section>
-      ${room.urgentTasks.length ? `<section class="detail-section is-urgent"><h3>Pilne zakupy / do doniesienia</h3>${listItems(room.urgentTasks)}</section>` : ""}
-      ${room.tasks.length ? `<section class="detail-section"><h3>Rzeczy do zrobienia dla tej sali</h3>${listItems(room.tasks)}</section>` : ""}
-      <section class="detail-section is-wide">
-        <h3>Wyposażenie</h3>
-        ${equipment}
-      </section>
-      ${room.decisions.length ? `<section class="detail-section"><h3>Decyzje</h3>${listItems(room.decisions)}</section>` : ""}
-      ${room.notes.length ? `<section class="detail-section"><h3>Uwagi</h3>${listItems(room.notes)}</section>` : ""}
+
+    <div class="detail-layout">
+      <div class="detail-main">
+        ${room.urgentTasks.length ? section("Pilne zakupy i dostawy", listItems(room.urgentTasks, "checklist"), "is-urgent") : ""}
+        ${room.tasks.length ? section("Do zrobienia", listItems(room.tasks, "checklist")) : ""}
+        ${section("Wyposażenie", equipment)}
+        ${room.decisions.length ? section("Decyzje", listItems(room.decisions)) : ""}
+        ${room.notes.length ? section("Uwagi", listItems(room.notes)) : ""}
+      </div>
+      <div class="detail-side">
+        ${section("Użytkownicy sali", teachers)}
+        ${controls}
+      </div>
     </div>
+
+    ${renderPager()}
   `;
 
   document.querySelector("#printRoom")?.addEventListener("click", () => window.print());
@@ -217,37 +329,33 @@ const renderDetail = () => {
 };
 
 const renderPrintSheet = (room) => {
+  const printSection = (title, body, className = "") => `
+    <section class="print-section ${className}">
+      <h2>${escapeHtml(title)}</h2>
+      ${body}
+    </section>
+  `;
+
   const equipmentPrint = room.equipment.length
-    ? room.equipment.map((item) => `
-      <section class="print-section">
-        <h2>${escapeHtml(item.name)}</h2>
-        ${listItems(item.items)}
-      </section>
-    `).join("")
-    : `<section class="print-section"><h2>Wyposażenie</h2><p>Brak wpisanego wyposażenia.</p></section>`;
+    ? room.equipment.map((item) => printSection(item.name, listItems(item.items))).join("")
+    : printSection("Wyposażenie", "<p>Brak wpisanego wyposażenia.</p>");
 
   els.printSheet.innerHTML = `
     <h1>${escapeHtml(room.name)}</h1>
     <div class="print-meta">
-      <div><strong>Lokalizacja:</strong> ${escapeHtml(room.location)}</div>
+      <div><strong>Lokalizacja:</strong> ${escapeHtml(roomPath(room).join(", "))}</div>
       <div><strong>Status:</strong> ${escapeHtml(statusLabels[room.status])}</div>
       <div><strong>Przeznaczenie:</strong> ${escapeHtml(room.purpose || "Do uzupełnienia")}</div>
-      <div><strong>Aktualizacja:</strong> 29.07.2026</div>
+      <div><strong>Aktualizacja danych:</strong> ${escapeHtml(dataUpdatedAt)}</div>
     </div>
-    ${room.teachers.length ? `<section class="print-section"><h2>Nauczyciele / użytkownicy</h2>${listItems(room.teachers)}</section>` : ""}
+    ${room.teachers.length ? printSection("Użytkownicy sali", listItems(room.teachers)) : ""}
+    ${room.urgentTasks.length ? printSection("Pilne zakupy i dostawy", listItems(room.urgentTasks), "print-urgent") : ""}
+    ${room.tasks.length ? printSection("Do zrobienia", listItems(room.tasks)) : ""}
     ${equipmentPrint}
-    <section class="print-section">
-      <h2>Zadania kontrolne</h2>
-      <h3>Stała kontrola techniczna</h3>
-      ${listItems(standardControlTasks)}
-    </section>
-    ${room.urgentTasks.length ? `<section class="print-section print-urgent"><h2>Pilne zakupy / do doniesienia</h2>${listItems(room.urgentTasks)}</section>` : ""}
-    ${room.tasks.length ? `<section class="print-section"><h2>Rzeczy do zrobienia dla tej sali</h2>${listItems(room.tasks)}</section>` : ""}
-    ${room.notes.length ? `<section class="print-section"><h2>Uwagi</h2>${listItems(room.notes)}</section>` : ""}
-    <section class="print-section">
-      <h2>Uwagi ręczne</h2>
-      <p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
-    </section>
+    ${room.decisions.length ? printSection("Decyzje", listItems(room.decisions)) : ""}
+    ${room.notes.length ? printSection("Uwagi", listItems(room.notes)) : ""}
+    ${printSection("Stała kontrola techniczna", listItems(standardControlTasks))}
+    ${printSection("Uwagi ręczne", "<p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>")}
     <div class="signatures">
       <div class="signature-line">Sprawdził/a</div>
       <div class="signature-line">Data</div>
@@ -259,11 +367,17 @@ const renderPrintSheet = (room) => {
 
 const renderOpenItems = () => {
   els.openItemsCount.textContent = unresolvedItems.length;
-  els.openItems.innerHTML = unresolvedItems.map((item) => `<li>${escapeHtml(item)}</li>`).join("");
+  els.openItems.innerHTML = unresolvedItems.map((item) => {
+    const targets = item.roomIds.map(roomById).filter(Boolean);
+    const links = targets.length
+      ? targets.map((room) => `<a class="item-room" href="#room-${encodeURIComponent(room.id)}" data-room-id="${escapeHtml(room.id)}">${escapeHtml(room.name)}</a>`).join("")
+      : `<span class="item-room is-general">Wszystkie sale</span>`;
+    return `<li>${links}<span>${escapeHtml(item.text)}</span></li>`;
+  }).join("");
 };
 
 const syncHash = (historyMode = "replace") => {
-  const hash = `#room-${state.activeId}`;
+  const hash = `#room-${encodeURIComponent(state.activeId)}`;
   if (location.hash === hash) return;
   const method = historyMode === "push" ? "pushState" : "replaceState";
   history[method](null, "", hash);
@@ -275,10 +389,13 @@ const render = ({ historyMode = "replace", moveFocus = false } = {}) => {
     state.activeId = visibleRooms[0].id;
   }
 
+  renderStats();
+  renderFloorJump();
   renderList();
   renderDetail();
   renderMobileNavigation();
   syncHash(historyMode);
+  keepActiveRowVisible();
 
   if (moveFocus) {
     requestAnimationFrame(() => {
@@ -288,14 +405,33 @@ const render = ({ historyMode = "replace", moveFocus = false } = {}) => {
   }
 };
 
+const resetFilters = () => {
+  state.query = "";
+  state.status = "all";
+  els.search.value = "";
+  els.statusFilter.value = "all";
+};
+
+const showRoom = (id, { historyMode = "push", moveFocus = true } = {}) => {
+  if (!roomExists(id)) return;
+  state.activeId = id;
+  if (!filteredRooms().some((room) => room.id === id)) resetFilters();
+  setCatalogOpen(false, { restoreFocus: false });
+  render({ historyMode, moveFocus });
+};
+
 const moveToAdjacentRoom = (direction) => {
   const visibleRooms = filteredRooms();
   const activeIndex = visibleRooms.findIndex((room) => room.id === state.activeId);
   const nextRoom = visibleRooms[activeIndex + direction];
   if (!nextRoom) return;
+  showRoom(nextRoom.id);
+};
 
-  state.activeId = nextRoom.id;
-  render({ historyMode: "push", moveFocus: true });
+const setStatusFilter = (status) => {
+  state.status = status;
+  els.statusFilter.value = status;
+  render();
 };
 
 els.search.addEventListener("input", (event) => {
@@ -303,25 +439,37 @@ els.search.addEventListener("input", (event) => {
   render();
 });
 
-els.floorFilter.addEventListener("change", (event) => {
-  state.floor = event.target.value;
-  render();
-});
+els.statusFilter.addEventListener("change", (event) => setStatusFilter(event.target.value));
 
-els.statusFilter.addEventListener("change", (event) => {
-  state.status = event.target.value;
-  render();
+els.stats.addEventListener("click", (event) => {
+  const tile = event.target.closest("[data-status]");
+  if (!tile) return;
+  const status = tile.dataset.status;
+  setStatusFilter(state.status === status ? "all" : status);
 });
 
 els.roomList.addEventListener("click", (event) => {
   const button = event.target.closest("[data-room-id]");
-  if (!button) return;
-  state.activeId = button.dataset.roomId;
-  setCatalogOpen(false, { restoreFocus: false });
-  render({ historyMode: "push", moveFocus: true });
+  if (button) showRoom(button.dataset.roomId);
 });
 
-els.printRoomTop.addEventListener("click", () => window.print());
+els.floorJump.addEventListener("click", (event) => {
+  const chip = event.target.closest("[data-floor]");
+  if (!chip) return;
+  const group = [...els.roomList.querySelectorAll(".floor-group")].find((item) => item.dataset.floor === chip.dataset.floor);
+  if (!group) return;
+  els.roomList.scrollTo({ top: group.offsetTop - els.roomList.offsetTop, behavior: "smooth" });
+});
+
+// Linki do sal (przełącznik pięter i sal, pager, sprawy do potwierdzenia).
+document.addEventListener("click", (event) => {
+  if (event.defaultPrevented || event.metaKey || event.ctrlKey || event.shiftKey || event.button !== 0) return;
+  const link = event.target.closest("a[data-room-id]");
+  if (!link) return;
+  event.preventDefault();
+  showRoom(link.dataset.roomId);
+});
+
 els.catalogToggle.addEventListener("click", () => openCatalog(els.catalogToggle));
 els.mobileCatalogToggle.addEventListener("click", () => openCatalog(els.mobileCatalogToggle));
 els.catalogClose.addEventListener("click", () => setCatalogOpen(false));
@@ -330,20 +478,24 @@ els.previousRoom.addEventListener("click", () => moveToAdjacentRoom(-1));
 els.nextRoom.addEventListener("click", () => moveToAdjacentRoom(1));
 
 document.addEventListener("keydown", (event) => {
-  if (event.key === "Escape") setCatalogOpen(false);
+  if (event.key === "Escape") {
+    setCatalogOpen(false);
+    return;
+  }
+
+  const isTyping = event.target.closest("input, select, textarea, [contenteditable]");
+  if (isTyping || event.altKey || event.ctrlKey || event.metaKey) return;
+  if (event.key === "ArrowLeft") moveToAdjacentRoom(-1);
+  if (event.key === "ArrowRight") moveToAdjacentRoom(1);
 });
 
 window.addEventListener("popstate", () => {
-  const nextId = location.hash.replace("#room-", "");
-  if (rooms.some((room) => room.id === nextId)) {
-    state.activeId = nextId;
-    render();
-  }
+  const nextId = roomIdFromHash();
+  if (roomExists(nextId)) showRoom(nextId, { historyMode: "replace", moveFocus: false });
 });
 
 mobileCatalogQuery.addEventListener("change", () => setCatalogOpen(false, { restoreFocus: false }));
 
-renderStats();
 renderFilters();
 renderOpenItems();
 render();

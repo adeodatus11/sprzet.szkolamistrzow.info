@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
+    <a class="skip-link" href="#roomDetail">Przejdź do karty sali</a>
     <header class="topbar">
       <a class="brand" href="/" aria-label="Sprzęt i wyposażenie sal">
         <img src="assets/logo-zsz5.png" width="422" height="321" alt="" decoding="async" />
@@ -38,21 +39,17 @@
           Sale
         </button>
         <a href="https://nawigacja.szkolamistrzow.info/">Plan szkoły</a>
-        <button id="printRoomTop" type="button">Drukuj salę</button>
       </nav>
     </header>
 
     <main class="shell">
       <section class="intro" aria-labelledby="pageTitle">
-        <div>
+        <div class="intro-copy">
           <p class="eyebrow">Robocza kartoteka wyposażenia</p>
           <h1 id="pageTitle">Sprzęt i wyposażenie sal</h1>
-          <p>
-            Lista do kontroli sal, przekazania zespołowi i drukowania pojedynczych kart. Dane są robocze
-            i bazują na ustaleniach z 29 lipca 2026 r.
-          </p>
+          <p>Lista do kontroli sal i drukowania kart. Dane robocze, stan z 29 lipca 2026 r.</p>
         </div>
-        <dl class="stats" id="stats"></dl>
+        <div class="stats" id="stats" role="group" aria-label="Podsumowanie sal"></div>
       </section>
 
       <section class="workspace">
@@ -63,15 +60,9 @@
             <button id="catalogClose" type="button" aria-label="Zamknij katalog sal">Zamknij</button>
           </div>
           <section class="filters" aria-label="Filtry listy sal">
-            <label>
+            <label class="filter-search">
               <span>Szukaj</span>
-              <input id="search" type="search" placeholder="Sala, nauczyciel, sprzęt..." autocomplete="off" />
-            </label>
-            <label>
-              <span>Kondygnacja</span>
-              <select id="floorFilter">
-                <option value="all">Wszystkie</option>
-              </select>
+              <input id="search" type="search" placeholder="Sala, osoba, sprzęt…" autocomplete="off" />
             </label>
             <label>
               <span>Status</span>
@@ -80,6 +71,7 @@
               </select>
             </label>
           </section>
+          <nav class="floor-jump" id="floorJump" aria-label="Przejdź do piętra"></nav>
           <section class="room-list-panel" aria-labelledby="listTitle">
             <div class="panel-heading">
               <h2 id="listTitle">Sale</h2>

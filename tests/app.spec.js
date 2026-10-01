@@ -33,7 +33,7 @@ test("przygotowuje widok wydruku", async ({ page }) => {
 
 test("pokazuje pilne zakupy w nowej sali 05", async ({ page }) => {
   await page.goto("/#room-05-new");
-  await expect(page.locator("#roomDetail")).toContainText("Pilne zakupy / do doniesienia");
+  await expect(page.locator("#roomDetail")).toContainText("Pilne zakupy i dostawy");
   await expect(page.locator("#roomDetail")).toContainText("Kupić telewizor multimedialny na ścianę");
 });
 
@@ -66,7 +66,7 @@ test("na telefonie przechodzi między salami bez otwierania katalogu", async ({ 
 
   await page.getByRole("button", { name: "Następna sala" }).click();
   await expect(page.locator("#roomDetail").getByRole("heading", { name: "Sala 3" })).toBeVisible();
-  await expect(page.locator("#mobileRoomPosition")).toContainText("2 z");
+  await expect(page.locator("#mobileRoomPosition")).toContainText("Parter · 3 z");
 
   await page.goBack();
   await expect(page.locator("#roomDetail").getByRole("heading", { name: "Sala 2" })).toBeVisible();
@@ -76,4 +76,46 @@ test("na telefonie przechodzi między salami bez otwierania katalogu", async ({ 
     document: document.documentElement.scrollWidth,
   }));
   expect(widths.document).toBe(widths.viewport);
+});
+
+test("grupuje sale według pięter", async ({ page }) => {
+  await page.goto("/");
+  const headings = await page.locator(".floor-heading > span:first-child").allTextContents();
+  expect(headings).toEqual(["Piwnica", "Parter", "I piętro", "II piętro", "III piętro", "Pracownie zewnętrzne"]);
+});
+
+test("przełącznik pięter i sal w karcie sali", async ({ page }) => {
+  await page.goto("/#room-26");
+  const switcher = page.getByRole("navigation", { name: "Przełączanie sal" });
+  await expect(switcher.getByRole("link", { name: "26", exact: true })).toHaveAttribute("aria-current", "page");
+
+  await switcher.getByRole("link", { name: "III piętro" }).click();
+  await expect(page.locator("#roomDetail").getByRole("heading", { name: "Sala 37" })).toBeVisible();
+  await expect(page).toHaveURL(/#room-37$/);
+
+  await switcher.getByRole("link", { name: "41", exact: true }).click();
+  await expect(page.locator("#roomDetail").getByRole("heading", { name: "Sala 41" })).toBeVisible();
+});
+
+test("strzałki na klawiaturze przechodzą między salami", async ({ page }) => {
+  await page.goto("/#room-3");
+  await page.keyboard.press("ArrowRight");
+  await expect(page.locator("#roomDetail").getByRole("heading", { name: "Sala 4" })).toBeVisible();
+  await page.keyboard.press("ArrowLeft");
+  await expect(page.locator("#roomDetail").getByRole("heading", { name: "Sala 3" })).toBeVisible();
+});
+
+test("sprawa do potwierdzenia prowadzi do sali", async ({ page }) => {
+  await page.goto("/#room-2");
+  await page.locator("#openItems").getByRole("link", { name: "Sala 34" }).click();
+  await expect(page.locator("#roomDetail").getByRole("heading", { name: "Sala 34" })).toBeVisible();
+});
+
+test("kafelek statusu filtruje listę", async ({ page }) => {
+  await page.goto("/");
+  const total = await page.locator(".room-row").count();
+  await page.locator(".stat.decision").click();
+  await expect(page.locator(".room-row")).toHaveCount(2);
+  await page.locator(".stat.decision").click();
+  await expect(page.locator(".room-row")).toHaveCount(total);
 });
