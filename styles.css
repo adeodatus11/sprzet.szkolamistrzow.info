@@ -876,6 +876,213 @@ a.item-room:hover {
   color: var(--muted);
 }
 
+/* ---------- Przełącznik widoków ---------- */
+
+.view-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+
+.view-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--ink);
+  font-size: 0.92rem;
+  font-weight: 700;
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+}
+
+.view-tab:hover {
+  border-color: var(--accent);
+}
+
+.view-tab[aria-current="page"] {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: #fff;
+}
+
+.tab-count {
+  min-width: 26px;
+  border-radius: 999px;
+  background: var(--line-soft);
+  color: var(--muted);
+  font-size: 0.75rem;
+  font-weight: 800;
+  padding: 2px 8px;
+  text-align: center;
+}
+
+.view-tab[aria-current="page"] .tab-count {
+  background: rgba(255, 255, 255, 0.22);
+  color: #fff;
+}
+
+body[data-view="purchases"] .intro,
+body[data-view="purchases"] .workspace,
+body[data-view="purchases"] .open-items,
+body[data-view="purchases"] .mobile-room-nav,
+body[data-view="purchases"] .catalog-toggle {
+  display: none !important;
+}
+
+body:not([data-view="purchases"]) .purchase-view {
+  display: none;
+}
+
+/* ---------- Lista zakupów ---------- */
+
+.purchase-intro {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  justify-content: space-between;
+  gap: 12px 24px;
+  padding-bottom: 16px;
+}
+
+.purchase-intro h1:focus {
+  outline: none;
+}
+
+.purchase-lists {
+  display: grid;
+  gap: 20px;
+}
+
+.purchase-tier {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.purchase-tier .panel-heading p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.purchase-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
+  gap: 14px;
+  padding: 16px;
+}
+
+.purchase-card {
+  display: grid;
+  align-content: start;
+  gap: 10px;
+  min-width: 0;
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--radius);
+  background: var(--surface);
+  padding: 14px 16px;
+}
+
+.purchase-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.purchase-head h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  line-height: 1.25;
+}
+
+.qty-badge {
+  flex: 0 0 auto;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: var(--accent-strong);
+  font-size: 0.8rem;
+  font-weight: 800;
+  padding: 2px 10px;
+  white-space: nowrap;
+}
+
+.spec-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.spec-tags li {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--surface-soft);
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 2px 9px;
+}
+
+.purchase-note {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.purchase-note strong {
+  color: var(--ink);
+}
+
+.purchase-rooms {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+}
+
+.purchase-rooms dt {
+  margin-bottom: 4px;
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.purchase-rooms dd {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0;
+}
+
+.purchase-rooms .room-chip {
+  min-width: 0;
+  font-size: 0.85rem;
+}
+
+.purchase-rooms .room-chip.is-priority {
+  border-color: rgba(160, 58, 45, 0.45);
+  background: var(--danger-soft);
+  color: var(--danger);
+}
+
+.purchase-rooms .room-chip.is-priority:hover {
+  border-color: var(--danger);
+}
+
+.purchase-card .placeholder {
+  font-size: 0.9rem;
+}
+
 .print-sheet {
   display: none;
 }
@@ -979,6 +1186,10 @@ a.item-room:hover {
 
   :root {
     --topbar-height: 56px;
+  }
+
+  body[data-view="purchases"] {
+    padding-bottom: 0;
   }
 
   .topbar {

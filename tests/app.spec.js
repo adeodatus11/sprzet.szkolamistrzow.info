@@ -119,3 +119,91 @@ test("kafelek statusu filtruje listę", async ({ page }) => {
   await page.locator(".stat.decision").click();
   await expect(page.locator(".room-row")).toHaveCount(total);
 });
+
+test("zakładka Do zakupu pokazuje listy zakupów", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("link", { name: /^Do zakupu/ }).click();
+  await expect(page).toHaveURL(/#zakupy$/);
+  await expect(page.getByRole("heading", { name: "Sprzęt do zakupu" })).toBeVisible();
+  await expect(page.locator(".intro")).toBeHidden();
+  await expect(page.locator("#roomDetail")).toBeHidden();
+
+  const tiers = page.locator(".purchase-tier");
+  await expect(tiers.nth(0)).toContainText("Do kupienia");
+  await expect(tiers.nth(1)).toContainText("Lista życzeń");
+
+  const monitors = page.locator(".purchase-card", { hasText: "Monitor interaktywny" });
+  await expect(monitors).toContainText("8 szt.");
+  await expect(monitors).toContainText("75 cali");
+  const priority = monitors.locator(".purchase-rooms > div", { hasText: "Najpierw" });
+  await expect(priority.locator(".room-chip")).toHaveText(["Sala 2", "Sala 18", "Sala 41"]);
+  const rest = monitors.locator(".purchase-rooms > div", { hasText: "Potem" });
+  await expect(rest.locator(".room-chip")).toHaveText(["Sala 23", "Sala 29", "Sala 30", "Sala 32", "Sala 33"]);
+
+  await expect(page.locator(".purchase-card", { hasText: "bez ekranu dotykowego" })).toContainText("Sala 37");
+  await expect(page.locator(".purchase-card", { hasText: "z ekranem dotykowym" })).toContainText("monitor dotykowy (24 cale)");
+  await expect(page.locator(".purchase-card", { hasText: "Monitor biurowy" })).toContainText("2 szt.");
+  await expect(page.locator(".purchase-card", { hasText: "Do wyświetlania zastępstw" })).toContainText("Miejsce do ustalenia");
+});
+
+test("zakładka Do zakupu otwiera się z adresu i wraca do sal", async ({ page }) => {
+  await page.goto("/#zakupy");
+  await expect(page.getByRole("heading", { name: "Sprzęt do zakupu" })).toBeVisible();
+  await expect(page).toHaveURL(/#zakupy$/);
+  await expect(page.locator(".print-sheet")).toContainText("Lista zakupów");
+  await expect(page.locator(".print-sheet")).toContainText("Monitor interaktywny (75 cali), 8 szt.");
+
+  await page.locator(".purchase-card", { hasText: "Monitor interaktywny" }).getByRole("link", { name: "Sala 41" }).click();
+  await expect(page.locator("#roomDetail").getByRole("heading", { name: "Sala 41" })).toBeVisible();
+  await expect(page).toHaveURL(/#room-41$/);
+
+  await page.goBack();
+  await expect(page.getByRole("heading", { name: "Sprzęt do zakupu" })).toBeVisible();
+
+  await page.getByRole("link", { name: /^Sale/ }).first().click();
+  await expect(page.locator("#roomDetail")).toBeVisible();
+  await expect(page.locator(".print-sheet")).toContainText("Sala 41");
+});
+
+test("zakupy trafiają na karty wskazanych sal", async ({ page }) => {
+  await page.goto("/#room-2");
+  await expect(page.locator("#roomDetail .is-urgent")).toContainText("Kupić monitor interaktywny (75 cali)");
+  await expect(page.locator("#roomDetail")).toContainText("Do zakupu");
+
+  await page.goto("/#room-23");
+  await expect(page.locator("#roomDetail")).toContainText("Monitor interaktywny (75 cali)");
+  await expect(page.locator("#roomDetail .is-urgent")).toHaveCount(0);
+
+  await page.goto("/#room-37");
+  await expect(page.locator("#roomDetail")).toContainText("Telewizor (4K, 85–86 cali)");
+  await expect(page.locator("#roomDetail")).toContainText("Komputer all-in-one (bez ekranu dotykowego)");
+
+  await page.goto("/#room-16");
+  await expect(page.locator("#roomDetail")).toContainText("albo monitor dotykowy (24 cale)");
+
+  await page.goto("/#room-38");
+  await expect(page.locator("#roomDetail")).toContainText("Telewizor (4K, 86 cali, lista życzeń)");
+});
+
+test("lista zakupów odwołuje się tylko do istniejących sal", async ({ page }) => {
+  await page.goto("/");
+  const missing = await page.evaluate(async () => {
+    const { purchaseItems, rooms } = await import("/equipment-data.js");
+    const ids = new Set(rooms.map((room) => room.id));
+    return purchaseItems.flatMap((item) => [...item.roomIds, ...(item.priorityRoomIds ?? [])]).filter((id) => !ids.has(id));
+  });
+  expect(missing).toEqual([]);
+});
+
+test("na telefonie lista zakupów mieści się w ekranie", async ({ page }) => {
+  await page.setViewportSize({ width: 320, height: 700 });
+  await page.goto("/#zakupy");
+  await expect(page.getByRole("heading", { name: "Sprzęt do zakupu" })).toBeVisible();
+  await expect(page.locator(".mobile-room-nav")).toBeHidden();
+
+  const widths = await page.evaluate(() => ({
+    viewport: document.documentElement.clientWidth,
+    document: document.documentElement.scrollWidth,
+  }));
+  expect(widths.document).toBe(widths.viewport);
+});

@@ -4,7 +4,7 @@
 // - sprzęt zapisujemy jako "Nazwa (cecha, cecha)";
 // - przeznaczenie sali to krótki rzeczownik ("Gabinet matematyki"), bez ukośników.
 
-export const dataUpdatedAt = "29.07.2026";
+export const dataUpdatedAt = "02.10.2026";
 
 export const defaultRoomId = "2";
 
@@ -62,23 +62,129 @@ const room = ({
   tasks = [],
   decisions = [],
   notes = [],
-}) => ({
-  id,
-  name,
-  floor,
-  short,
-  place,
-  purpose,
-  teachers,
-  status,
-  equipment: [...equipment].sort((a, b) => groupOrder.indexOf(a.name) - groupOrder.indexOf(b.name)),
-  urgentTasks,
-  tasks,
-  decisions,
-  notes,
-});
+}) => {
+  const purchases = withPurchases(id, equipment, urgentTasks);
+  return {
+    id,
+    name,
+    floor,
+    short,
+    place,
+    purpose,
+    teachers,
+    status,
+    equipment: [...purchases.equipment].sort((a, b) => groupOrder.indexOf(a.name) - groupOrder.indexOf(b.name)),
+    urgentTasks: purchases.urgentTasks,
+    tasks,
+    decisions,
+    notes,
+  };
+};
 
 const group = (name, items) => ({ name, items });
+
+// Lista zakupów to jedno źródło dla zakładki "Do zakupu" i dla kart sal:
+// - tier: "buy" (do kupienia) albo "wish" (lista życzeń);
+// - roomIds: sale, do których trafi sprzęt (puste = miejsce do ustalenia);
+// - priorityRoomIds: sale kupowane najpierw (podzbiór roomIds);
+// - karta sali dostaje wpis w grupie "Do zakupu", a sala priorytetowa także pilny zakup.
+export const purchaseTiers = [
+  { id: "buy", label: "Do kupienia", hint: "Sprzęt, który dobrze byłoby kupić" },
+  { id: "wish", label: "Lista życzeń", hint: "Jeśli pozwolą na to środki" },
+];
+
+export const purchaseItems = [
+  {
+    id: "interactive-75",
+    tier: "buy",
+    name: "Monitor interaktywny",
+    specs: ["75 cali"],
+    qty: 8,
+    roomIds: ["2", "18", "23", "29", "30", "32", "33", "41"],
+    priorityRoomIds: ["2", "18", "41"],
+  },
+  {
+    id: "tv-85",
+    tier: "buy",
+    name: "Telewizor",
+    specs: ["4K", "85–86 cali"],
+    qty: 1,
+    roomIds: ["37"],
+  },
+  {
+    id: "aio-touch",
+    tier: "buy",
+    name: "Komputer all-in-one",
+    specs: ["z ekranem dotykowym"],
+    alternative: "monitor dotykowy (24 cale)",
+    qty: 1,
+    roomIds: ["16"],
+    note: "Do pokoju nauczycielskiego",
+  },
+  {
+    id: "aio-plain",
+    tier: "buy",
+    name: "Komputer all-in-one",
+    specs: ["bez ekranu dotykowego"],
+    qty: 1,
+    roomIds: ["37"],
+  },
+  {
+    id: "tv-86",
+    tier: "wish",
+    name: "Telewizor",
+    specs: ["4K", "86 cali"],
+    qty: 1,
+    roomIds: ["38"],
+    note: "Drugi taki sam jak w sali 37",
+  },
+  {
+    id: "tv-40",
+    tier: "wish",
+    name: "Telewizor",
+    specs: ["40 cali", "Full HD (4K mile widziane)"],
+    qty: 1,
+    roomIds: [],
+    note: "Do wyświetlania zastępstw",
+  },
+  {
+    id: "monitor-2k",
+    tier: "wish",
+    name: "Monitor biurowy",
+    specs: ["2K", "24 cale"],
+    qty: 2,
+    roomIds: [],
+  },
+];
+
+export const purchaseLabel = ({ name, specs = [] }) => (specs.length ? `${name} (${specs.join(", ")})` : name);
+
+// Opis pozycji na karcie sali: lista życzeń i alternatywa są dopisane wprost.
+const roomPurchaseLabel = (item) => {
+  const specs = item.tier === "wish" ? [...item.specs, "lista życzeń"] : item.specs;
+  const label = purchaseLabel({ name: item.name, specs });
+  return item.alternative ? `${label} albo ${item.alternative}` : label;
+};
+
+const lowerFirst = (text) => text.charAt(0).toLowerCase() + text.slice(1);
+
+// Dokleja zakupy sali do jej wyposażenia i pilnych zakupów.
+const withPurchases = (id, equipment, urgentTasks) => {
+  const items = purchaseItems.filter((item) => item.roomIds.includes(id));
+  if (!items.length) return { equipment, urgentTasks };
+
+  const labels = items.map(roomPurchaseLabel);
+  const existing = equipment.find((entry) => entry.name === G.purchase);
+  const merged = existing
+    ? equipment.map((entry) => (entry === existing ? group(G.purchase, [...entry.items, ...labels]) : entry))
+    : [...equipment, group(G.purchase, labels)];
+
+  const urgent = items
+    .filter((item) => item.priorityRoomIds?.includes(id))
+    .map((item) => `Kupić ${lowerFirst(roomPurchaseLabel(item))}`);
+
+  return { equipment: merged, urgentTasks: [...urgentTasks, ...urgent] };
+};
 
 export const rooms = [
   // Piwnica
@@ -746,5 +852,9 @@ export const unresolvedItems = [
   {
     roomIds: ["41"],
     text: "Potwierdzić, czy oprócz nowego rzutnika ma być duży telewizor niedotykowy",
+  },
+  {
+    roomIds: [],
+    text: "Wskazać miejsce dla telewizora 40 cali do wyświetlania zastępstw (lista zakupów)",
   },
 ];

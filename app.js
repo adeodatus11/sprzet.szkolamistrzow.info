@@ -2,6 +2,9 @@ import {
   dataUpdatedAt,
   defaultRoomId,
   floors,
+  purchaseItems,
+  purchaseLabel,
+  purchaseTiers,
   rooms,
   standardControlTasks,
   statusLabels,
@@ -27,7 +30,17 @@ const els = {
   previousRoom: document.querySelector("#previousRoom"),
   nextRoom: document.querySelector("#nextRoom"),
   mobileRoomPosition: document.querySelector("#mobileRoomPosition"),
+  viewTabs: document.querySelector("#viewTabs"),
+  roomsTab: document.querySelector("#roomsTab"),
+  roomsTabCount: document.querySelector("#roomsTabCount"),
+  purchasesTabCount: document.querySelector("#purchasesTabCount"),
+  purchaseSummary: document.querySelector("#purchaseSummary"),
+  purchaseLists: document.querySelector("#purchaseLists"),
+  printPurchases: document.querySelector("#printPurchases"),
 };
+
+const PURCHASES_HASH = "#zakupy";
+const baseTitle = document.title;
 
 const mobileCatalogQuery = window.matchMedia("(max-width: 980px)");
 const catalogToggles = [els.catalogToggle, els.mobileCatalogToggle];
@@ -35,8 +48,10 @@ let lastCatalogTrigger = els.catalogToggle;
 
 const roomIdFromHash = () => decodeURIComponent(location.hash.replace("#room-", ""));
 const roomExists = (id) => rooms.some((room) => room.id === id);
+const viewFromHash = () => (location.hash === PURCHASES_HASH ? "purchases" : "rooms");
 
 const state = {
+  view: viewFromHash(),
   query: "",
   status: "all",
   activeId: roomExists(roomIdFromHash()) ? roomIdFromHash() : defaultRoomId,
@@ -218,8 +233,8 @@ const renderMobileNavigation = () => {
   els.mobileRoomPosition.textContent = `${floorLabel} · ${hasActiveRoom ? activeIndex + 1 : 0} z ${visibleRooms.length}`;
 };
 
-const roomLink = (room, { current = false, label = chipLabel(room) } = {}) => `
-  <a class="room-chip ${current ? "is-current" : ""}" href="#room-${encodeURIComponent(room.id)}" data-room-id="${escapeHtml(room.id)}" title="${escapeHtml(room.name)}" ${current ? 'aria-current="page"' : ""}>${escapeHtml(label)}</a>
+const roomLink = (room, { current = false, label = chipLabel(room), extraClass = "" } = {}) => `
+  <a class="room-chip ${current ? "is-current" : ""} ${extraClass}" href="#room-${encodeURIComponent(room.id)}" data-room-id="${escapeHtml(room.id)}" title="${escapeHtml(room.name)}" ${current ? 'aria-current="page"' : ""}>${escapeHtml(label)}</a>
 `;
 
 const renderSwitcher = (room) => `
@@ -328,14 +343,14 @@ const renderDetail = () => {
   renderPrintSheet(room);
 };
 
-const renderPrintSheet = (room) => {
-  const printSection = (title, body, className = "") => `
-    <section class="print-section ${className}">
-      <h2>${escapeHtml(title)}</h2>
-      ${body}
-    </section>
-  `;
+const printSection = (title, body, className = "") => `
+  <section class="print-section ${className}">
+    <h2>${escapeHtml(title)}</h2>
+    ${body}
+  </section>
+`;
 
+const renderPrintSheet = (room) => {
   const equipmentPrint = room.equipment.length
     ? room.equipment.map((item) => printSection(item.name, listItems(item.items))).join("")
     : printSection("Wyposażenie", "<p>Brak wpisanego wyposażenia.</p>");
@@ -365,6 +380,102 @@ const renderPrintSheet = (room) => {
   `;
 };
 
+const purchaseRoomGroups = (item) => {
+  const priority = item.priorityRoomIds ?? [];
+  const rest = item.roomIds.filter((id) => !priority.includes(id));
+  return [
+    { label: "Najpierw", ids: priority, priority: true },
+    { label: priority.length ? "Potem" : "Sale", ids: rest, priority: false },
+  ].filter((group) => group.ids.length);
+};
+
+const purchaseItemsOf = (tier) => purchaseItems.filter((item) => item.tier === tier.id);
+const totalQty = (items) => items.reduce((sum, item) => sum + item.qty, 0);
+
+const purchaseCard = (item) => {
+  const groups = purchaseRoomGroups(item);
+  const roomsBlock = groups.length
+    ? `<dl class="purchase-rooms">${groups.map((group) => `
+        <div>
+          <dt>${group.label}</dt>
+          <dd>${group.ids.map(roomById).filter(Boolean).map((room) => roomLink(room, {
+            label: room.name,
+            extraClass: group.priority ? "is-priority" : "",
+          })).join("")}</dd>
+        </div>
+      `).join("")}</dl>`
+    : `<p class="placeholder">Miejsce do ustalenia</p>`;
+
+  return `
+    <article class="purchase-card">
+      <header class="purchase-head">
+        <h3>${escapeHtml(item.name)}</h3>
+        <span class="qty-badge">${item.qty} szt.</span>
+      </header>
+      <ul class="spec-tags">${item.specs.map((spec) => `<li>${escapeHtml(spec)}</li>`).join("")}</ul>
+      ${item.alternative ? `<p class="purchase-note"><strong>Albo:</strong> ${escapeHtml(item.alternative)}</p>` : ""}
+      ${item.note ? `<p class="purchase-note">${escapeHtml(item.note)}</p>` : ""}
+      ${roomsBlock}
+    </article>
+  `;
+};
+
+const renderPurchaseView = () => {
+  els.purchaseSummary.textContent = `Sprzęt, który dobrze byłoby kupić. Pozycje z przypisanymi salami są też na kartach tych sal. Stan z ${dataUpdatedAt}.`;
+  els.purchasesTabCount.textContent = purchaseItems.length;
+
+  els.purchaseLists.innerHTML = purchaseTiers.map((tier) => {
+    const items = purchaseItemsOf(tier);
+    if (!items.length) return "";
+    return `
+      <section class="purchase-tier" aria-labelledby="tier-${tier.id}">
+        <div class="panel-heading">
+          <div>
+            <h2 id="tier-${tier.id}">${escapeHtml(tier.label)}</h2>
+            <p>${escapeHtml(tier.hint)}</p>
+          </div>
+          <span>${items.length} poz. · ${totalQty(items)} szt.</span>
+        </div>
+        <div class="purchase-grid">${items.map(purchaseCard).join("")}</div>
+      </section>
+    `;
+  }).join("");
+};
+
+const purchasePrintLine = (item) => {
+  const roomText = purchaseRoomGroups(item).map((group) => {
+    const labels = group.ids.map(roomById).filter(Boolean).map((room) => (group.priority ? `${chipLabel(room)} (najpierw)` : chipLabel(room)));
+    return labels.join(", ");
+  }).join(", ");
+
+  return [
+    `${purchaseLabel(item)}, ${item.qty} szt.`,
+    item.alternative && `albo ${item.alternative}`,
+    item.note,
+    roomText ? `sale: ${roomText}` : "miejsce do ustalenia",
+  ].filter(Boolean).join("; ");
+};
+
+const renderPurchasePrint = () => {
+  els.printSheet.innerHTML = `
+    <h1>Lista zakupów</h1>
+    <div class="print-meta">
+      <div><strong>Aktualizacja danych:</strong> ${escapeHtml(dataUpdatedAt)}</div>
+    </div>
+    ${purchaseTiers.map((tier) => printSection(tier.label, listItems(purchaseItemsOf(tier).map(purchasePrintLine)))).join("")}
+  `;
+};
+
+const renderViewTabs = () => {
+  document.body.dataset.view = state.view;
+  document.title = state.view === "purchases" ? `Do zakupu | ${baseTitle}` : baseTitle;
+  els.roomsTab.href = `#room-${encodeURIComponent(state.activeId)}`;
+  els.viewTabs.querySelectorAll("[data-view]").forEach((tab) => {
+    if (tab.dataset.view === state.view) tab.setAttribute("aria-current", "page");
+    else tab.removeAttribute("aria-current");
+  });
+};
+
 const renderOpenItems = () => {
   els.openItemsCount.textContent = unresolvedItems.length;
   els.openItems.innerHTML = unresolvedItems.map((item) => {
@@ -377,7 +488,7 @@ const renderOpenItems = () => {
 };
 
 const syncHash = (historyMode = "replace") => {
-  const hash = `#room-${encodeURIComponent(state.activeId)}`;
+  const hash = state.view === "purchases" ? PURCHASES_HASH : `#room-${encodeURIComponent(state.activeId)}`;
   if (location.hash === hash) return;
   const method = historyMode === "push" ? "pushState" : "replaceState";
   history[method](null, "", hash);
@@ -389,13 +500,15 @@ const render = ({ historyMode = "replace", moveFocus = false } = {}) => {
     state.activeId = visibleRooms[0].id;
   }
 
+  renderViewTabs();
   renderStats();
   renderFloorJump();
   renderList();
   renderDetail();
   renderMobileNavigation();
+  if (state.view === "purchases") renderPurchasePrint();
   syncHash(historyMode);
-  keepActiveRowVisible();
+  if (state.view === "rooms") keepActiveRowVisible();
 
   if (moveFocus) {
     requestAnimationFrame(() => {
@@ -414,13 +527,21 @@ const resetFilters = () => {
 
 const showRoom = (id, { historyMode = "push", moveFocus = true } = {}) => {
   if (!roomExists(id)) return;
+  state.view = "rooms";
   state.activeId = id;
   if (!filteredRooms().some((room) => room.id === id)) resetFilters();
   setCatalogOpen(false, { restoreFocus: false });
   render({ historyMode, moveFocus });
 };
 
+const showView = (view, { historyMode = "push" } = {}) => {
+  state.view = view;
+  setCatalogOpen(false, { restoreFocus: false });
+  render({ historyMode });
+};
+
 const moveToAdjacentRoom = (direction) => {
+  if (state.view !== "rooms") return;
   const visibleRooms = filteredRooms();
   const activeIndex = visibleRooms.findIndex((room) => room.id === state.activeId);
   const nextRoom = visibleRooms[activeIndex + direction];
@@ -464,6 +585,12 @@ els.floorJump.addEventListener("click", (event) => {
 // Linki do sal (przełącznik pięter i sal, pager, sprawy do potwierdzenia).
 document.addEventListener("click", (event) => {
   if (event.defaultPrevented || event.metaKey || event.ctrlKey || event.shiftKey || event.button !== 0) return;
+  const viewLink = event.target.closest("a[data-view]");
+  if (viewLink) {
+    event.preventDefault();
+    showView(viewLink.dataset.view);
+    return;
+  }
   const link = event.target.closest("a[data-room-id]");
   if (!link) return;
   event.preventDefault();
@@ -476,6 +603,7 @@ els.catalogClose.addEventListener("click", () => setCatalogOpen(false));
 els.drawerBackdrop.addEventListener("click", () => setCatalogOpen(false));
 els.previousRoom.addEventListener("click", () => moveToAdjacentRoom(-1));
 els.nextRoom.addEventListener("click", () => moveToAdjacentRoom(1));
+els.printPurchases.addEventListener("click", () => window.print());
 
 document.addEventListener("keydown", (event) => {
   if (event.key === "Escape") {
@@ -490,13 +618,19 @@ document.addEventListener("keydown", (event) => {
 });
 
 window.addEventListener("popstate", () => {
+  if (viewFromHash() === "purchases") {
+    showView("purchases", { historyMode: "replace" });
+    return;
+  }
   const nextId = roomIdFromHash();
   if (roomExists(nextId)) showRoom(nextId, { historyMode: "replace", moveFocus: false });
 });
 
 mobileCatalogQuery.addEventListener("change", () => setCatalogOpen(false, { restoreFocus: false }));
 
+els.roomsTabCount.textContent = rooms.length;
 renderFilters();
 renderOpenItems();
+renderPurchaseView();
 render();
 setCatalogOpen(false, { restoreFocus: false });
