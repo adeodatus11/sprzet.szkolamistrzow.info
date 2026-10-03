@@ -91,7 +91,8 @@ const room = ({
 const group = (name, items) => ({ name, items });
 
 // Lista zakupów to jedno źródło dla zakładki "Do zakupu" i dla kart sal:
-// - tier: "buy" (do kupienia) albo "wish" (lista życzeń);
+// - tier: "main" (sprzęt) albo "accessories" (zakupy towarzyszące, czyli co ewentualnie trzeba dokupić);
+// - ten sam produkt w kilku salach to jedna pozycja z kilkoma salami w roomIds i łączną ilością qty;
 // - roomIds: sale, do których trafi sprzęt (puste = miejsce do ustalenia lub opis w place);
 // - place: opis miejsca poza salą ({ text, roomId } – sala odniesienia), bez dopisywania do karty sali;
 // - priorityRoomIds: sale kupowane najpierw (podzbiór roomIds);
@@ -101,14 +102,14 @@ const group = (name, items) => ({ name, items });
 //   w pozostałych przypadkach cenę brutto; pozycje bez oferty nie wchodzą do sumy;
 // - karta sali dostaje wpis w grupie "Do zakupu", a sala priorytetowa także pilny zakup.
 export const purchaseTiers = [
-  { id: "buy", label: "Do kupienia", hint: "Sprzęt, który dobrze byłoby kupić" },
-  { id: "wish", label: "Lista życzeń", hint: "Jeśli pozwolą na to środki" },
+  { id: "main", label: "Sprzęt", hint: "Sprzęt, który dobrze byłoby kupić" },
+  { id: "accessories", label: "Zakupy towarzyszące", hint: "Co ewentualnie trzeba dokupić do sprzętu" },
 ];
 
 export const purchaseItems = [
   {
     id: "interactive-75",
-    tier: "buy",
+    tier: "main",
     name: "Monitor interaktywny",
     specs: ["75 cali"],
     qty: 8,
@@ -127,11 +128,12 @@ export const purchaseItems = [
   },
   {
     id: "tv-85",
-    tier: "buy",
+    tier: "main",
     name: "Telewizor",
     specs: ["4K", "85–86 cali"],
-    qty: 1,
-    roomIds: ["37"],
+    qty: 2,
+    roomIds: ["37", "38"],
+    note: "Do sali 38 ma być wersja 86 cali; w kalkulatorze liczone po cenie modelu 85E7Q",
     offers: [
       {
         label: "Hisense 85E7Q",
@@ -145,7 +147,7 @@ export const purchaseItems = [
   },
   {
     id: "aio-touch",
-    tier: "buy",
+    tier: "main",
     name: "Monitor dotykowy",
     specs: ["27 cali", "IPS"],
     qty: 1,
@@ -167,7 +169,7 @@ export const purchaseItems = [
   },
   {
     id: "aio-plain",
-    tier: "buy",
+    tier: "main",
     name: "Komputer all-in-one",
     specs: ["bez ekranu dotykowego"],
     qty: 1,
@@ -183,17 +185,8 @@ export const purchaseItems = [
     ],
   },
   {
-    id: "tv-86",
-    tier: "wish",
-    name: "Telewizor",
-    specs: ["4K", "86 cali"],
-    qty: 1,
-    roomIds: ["38"],
-    note: "Drugi taki sam jak w sali 37",
-  },
-  {
     id: "tv-40",
-    tier: "wish",
+    tier: "main",
     name: "Monitor wielkoformatowy",
     specs: ["43 cale", "4K", "praca 24/7"],
     qty: 1,
@@ -216,7 +209,7 @@ export const purchaseItems = [
   },
   {
     id: "signage-55",
-    tier: "wish",
+    tier: "main",
     name: "Monitor prezentacyjny",
     specs: ["55 cali", "4K", "praca 24/7"],
     qty: 1,
@@ -239,7 +232,7 @@ export const purchaseItems = [
   },
   {
     id: "monitor-office-1",
-    tier: "wish",
+    tier: "main",
     name: "Monitor biurowy",
     specs: ["34 cale", "5120 × 2160 (WUHD)"],
     qty: 1,
@@ -258,15 +251,36 @@ export const purchaseItems = [
       },
     ],
   },
+  {
+    id: "hdmi-20m",
+    tier: "accessories",
+    name: "Kabel HDMI światłowodowy",
+    specs: ["20 m"],
+    qty: 10,
+    roomIds: ["2", "18", "23", "29", "30", "32", "33", "41", "37", "38"],
+    note: "Do każdego monitora interaktywnego i każdego telewizora",
+  },
+  {
+    id: "vesa-interactive",
+    tier: "accessories",
+    name: "Uchwyt VESA do monitora interaktywnego",
+    specs: ["VESA 800 × 400"],
+    qty: 8,
+    roomIds: ["2", "18", "23", "29", "30", "32", "33", "41"],
+    note: "Monitor iiyama TE7515A-B2AG: VESA 800 × 400, waga 54,6 kg. Uchwyt musi to udźwignąć; standard potwierdzić w instrukcji",
+  },
+  {
+    id: "vesa-tv",
+    tier: "accessories",
+    name: "Uchwyt VESA do telewizora",
+    specs: ["VESA 600 × 400"],
+    qty: 2,
+    roomIds: ["37", "38"],
+    note: "Telewizor Hisense 85E7Q: VESA 600 × 400, waga 36 kg z podstawą. Standard potwierdzić w instrukcji",
+  },
 ];
 
 export const purchaseLabel = ({ name, specs = [] }) => (specs.length ? `${name} (${specs.join(", ")})` : name);
-
-// Opis pozycji na karcie sali: lista życzeń jest dopisana wprost.
-const roomPurchaseLabel = (item) => {
-  const specs = item.tier === "wish" ? [...item.specs, "lista życzeń"] : item.specs;
-  return purchaseLabel({ name: item.name, specs });
-};
 
 const lowerFirst = (text) => text.charAt(0).toLowerCase() + text.slice(1);
 
@@ -275,7 +289,7 @@ const withPurchases = (id, equipment, urgentTasks) => {
   const items = purchaseItems.filter((item) => item.roomIds.includes(id));
   if (!items.length) return { equipment, urgentTasks };
 
-  const labels = items.map(roomPurchaseLabel);
+  const labels = items.map(purchaseLabel);
   const existing = equipment.find((entry) => entry.name === G.purchase);
   const merged = existing
     ? equipment.map((entry) => (entry === existing ? group(G.purchase, [...entry.items, ...labels]) : entry))
@@ -283,7 +297,7 @@ const withPurchases = (id, equipment, urgentTasks) => {
 
   const urgent = items
     .filter((item) => item.priorityRoomIds?.includes(id))
-    .map((item) => `Kupić ${lowerFirst(roomPurchaseLabel(item))}`);
+    .map((item) => `Kupić ${lowerFirst(purchaseLabel(item))}`);
 
   return { equipment: merged, urgentTasks: [...urgentTasks, ...urgent] };
 };

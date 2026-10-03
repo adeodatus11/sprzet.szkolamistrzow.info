@@ -400,15 +400,15 @@ const purchaseRoomGroups = (item) => {
 };
 
 const MAX_QTY = 99;
-const PURCHASE_STORAGE_KEY = "sprzet-zakupy-v1";
+const PURCHASE_STORAGE_KEY = "sprzet-zakupy-v2";
 
 const purchaseItemsOf = (tier) => purchaseItems.filter((item) => item.tier === tier.id);
 const purchaseItemById = (id) => purchaseItems.find((item) => item.id === id);
 const totalQty = (items) => items.reduce((sum, item) => sum + item.qty, 0);
 
-// Stan kalkulatora: domyślnie zaznaczone "Do kupienia", ilości z listy; zapamiętywany w przeglądarce.
+// Stan kalkulatora: domyślnie wszystko zaznaczone, ilości z listy; zapamiętywany w przeglądarce.
 const defaultPurchaseState = () => Object.fromEntries(
-  purchaseItems.map((item) => [item.id, { checked: item.tier === "buy", qty: item.qty }]),
+  purchaseItems.map((item) => [item.id, { checked: true, qty: item.qty }]),
 );
 
 const loadPurchaseState = () => {

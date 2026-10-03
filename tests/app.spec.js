@@ -143,8 +143,8 @@ test("zakładka Do zakupu pokazuje listy zakupów", async ({ page }) => {
   await expect(page.locator("#roomDetail")).toBeHidden();
 
   const tiers = page.locator(".purchase-tier");
-  await expect(tiers.nth(0)).toContainText("Do kupienia");
-  await expect(tiers.nth(1)).toContainText("Lista życzeń");
+  await expect(tiers.nth(0)).toContainText("Sprzęt");
+  await expect(tiers.nth(1)).toContainText("Zakupy towarzyszące");
 
   const monitors = page.locator(".purchase-card", { hasText: "Monitor interaktywny" });
   await expect(monitors.locator(".qty-value")).toHaveText("8");
@@ -205,7 +205,7 @@ test("zakupy trafiają na karty wskazanych sal", async ({ page }) => {
   await expect(page.locator("#roomDetail")).not.toContainText("all-in-one z ekranem");
 
   await page.goto("/#room-38");
-  await expect(page.locator("#roomDetail")).toContainText("Telewizor (4K, 86 cali, lista życzeń)");
+  await expect(page.locator("#roomDetail")).toContainText("Telewizor (4K, 85–86 cali)");
 });
 
 test("lista zakupów odwołuje się tylko do istniejących sal", async ({ page }) => {
@@ -296,52 +296,111 @@ test("monitor biurowy ma link i ceny brutto oraz netto", async ({ page }) => {
   await expect(card).toContainText("VAT 0%");
   await expect(card).not.toContainText("do potwierdzenia");
   await expect(page.locator(".print-sheet")).toContainText("np. Philips 5000 Series 34B2U5900C/00, 2 510,99 zł brutto / 2 041,46 zł netto, VAT 0% (supertech.pl)");
-  await expect(page.locator(".purchase-tier").nth(1)).toContainText("4 poz. · 4 szt.");
 });
 
 const card = (page, text) => page.locator(".purchase-card", { hasText: text });
 
-test("kalkulator: domyślnie liczy zaznaczone pozycje z listy Do kupienia", async ({ page }) => {
+test("jedna lista: dwie kategorie, powtarzający się produkt ma kilka miejsc", async ({ page }) => {
   await page.goto("/#zakupy");
-  // 8 × 7 245,53 (netto, VAT 0%) + 2 999 + 1 840 (brutto, VAT niepewny) + 4 049 (brutto)
-  await expect(page.locator("#calcTotal")).toHaveText("66 852,24 zł");
-  await expect(page.locator("#calcMeta")).toHaveText("Zaznaczone: 4 poz. · 11 szt.");
-  await expect(page.locator("#calcBreakdown")).toContainText("Do kupienia");
-  await expect(page.locator("#calcBreakdown")).toContainText("66 852,24 zł");
-  await expect(page.locator("#calcBreakdown")).toContainText("Lista życzeń");
+  const tiers = page.locator(".purchase-tier");
+  await expect(tiers).toHaveCount(2);
+  await expect(tiers.nth(0)).toContainText("Sprzęt");
+  await expect(tiers.nth(1)).toContainText("Zakupy towarzyszące");
+  await expect(page.locator("body")).not.toContainText("Lista życzeń");
+  await expect(page.locator("body")).not.toContainText("Do kupienia");
+
+  // ten sam telewizor w sali 37 i 38 to jedna karta z dwiema salami
+  const tv = card(page, "85–86 cali");
+  await expect(page.locator(".purchase-card", { hasText: "85–86 cali" })).toHaveCount(1);
+  await expect(tv.locator(".qty-value")).toHaveText("2");
+  await expect(tv.locator(".room-chip")).toHaveText(["Sala 37", "Sala 38"]);
+  await expect(tv).toContainText("Do sali 38 ma być wersja 86 cali");
+  await expect(page.locator(".purchase-card", { hasText: "86 cali" }).filter({ hasNotText: "85–86" })).toHaveCount(0);
+});
+
+test("zakupy towarzyszące: kabel HDMI i uchwyty VESA", async ({ page }) => {
+  await page.goto("/#zakupy");
+  const accessories = page.locator(".purchase-tier").nth(1);
+  await expect(accessories.locator(".purchase-card")).toHaveCount(3);
+
+  const hdmi = card(page, "Kabel HDMI światłowodowy");
+  await expect(hdmi).toContainText("20 m");
+  await expect(hdmi.locator(".qty-value")).toHaveText("10");
+  await expect(hdmi.locator(".room-chip")).toHaveText(["Sala 2", "Sala 18", "Sala 23", "Sala 29", "Sala 30", "Sala 32", "Sala 33", "Sala 41", "Sala 37", "Sala 38"]);
+
+  const vesaMonitors = card(page, "Uchwyt VESA do monitora interaktywnego");
+  await expect(vesaMonitors).toContainText("VESA 800 × 400");
+  await expect(vesaMonitors).toContainText("54,6 kg");
+  await expect(vesaMonitors.locator(".qty-value")).toHaveText("8");
+  await expect(vesaMonitors.locator(".room-chip")).toHaveCount(8);
+
+  const vesaTv = card(page, "Uchwyt VESA do telewizora");
+  await expect(vesaTv).toContainText("VESA 600 × 400");
+  await expect(vesaTv.locator(".qty-value")).toHaveText("2");
+  await expect(vesaTv.locator(".room-chip")).toHaveText(["Sala 37", "Sala 38"]);
+
+  // monitor dotykowy, all-in-one i pozostałe monitory nie mają akcesoriów
+  for (const room of ["16"]) {
+    await page.goto(`/#room-${room}`);
+    await expect(page.locator("#roomDetail")).not.toContainText("Kabel HDMI");
+    await expect(page.locator("#roomDetail")).not.toContainText("Uchwyt VESA");
+  }
+  await page.goto("/#room-2");
+  await expect(page.locator("#roomDetail")).toContainText("Kabel HDMI światłowodowy (20 m)");
+  await expect(page.locator("#roomDetail")).toContainText("Uchwyt VESA do monitora interaktywnego (VESA 800 × 400)");
+  await page.goto("/#room-38");
+  await expect(page.locator("#roomDetail")).toContainText("Telewizor (4K, 85–86 cali)");
+  await expect(page.locator("#roomDetail")).toContainText("Uchwyt VESA do telewizora (VESA 600 × 400)");
+  await expect(page.locator("#roomDetail")).toContainText("Kabel HDMI światłowodowy (20 m)");
+});
+
+test("kalkulator: domyślnie liczy wszystkie pozycje", async ({ page }) => {
+  await page.goto("/#zakupy");
+  // 8 × 7 245,53 (netto, VAT 0%) + 2 × 2 999 + 1 840 + 4 049 + 2 058 + 3 612 (brutto, VAT niepewny) + 2 041,46 (netto, VAT 0%)
+  await expect(page.locator("#calcTotal")).toHaveText("77 562,70 zł");
+  await expect(page.locator("#calcMeta")).toHaveText("Zaznaczone: 10 poz. · 35 szt.");
+  await expect(page.locator("#calcBreakdown")).toContainText("Sprzęt");
+  await expect(page.locator("#calcBreakdown")).toContainText("77 562,70 zł");
+  await expect(page.locator("#calcBreakdown")).toContainText("Zakupy towarzyszące");
   await expect(page.locator("#calcBreakdown")).toContainText("0,00 zł");
 
-  for (const name of [/^Monitor interaktywny/, /^Telewizor \(4K, 85–86 cali\)/, /^Monitor dotykowy/, /^Komputer all-in-one/]) {
-    await expect(page.getByRole("checkbox", { name: new RegExp(`Uwzględnij w kalkulacji: ${name.source.replace("^", "")}`) })).toBeChecked();
-  }
-  await expect(page.getByRole("checkbox", { name: /Uwzględnij w kalkulacji: Monitor biurowy/ })).not.toBeChecked();
+  const boxes = page.locator(".purchase-check");
+  await expect(boxes).toHaveCount(10);
+  for (const box of await boxes.all()) await expect(box).toBeChecked();
 
   await expect(card(page, "Monitor interaktywny").locator(".calc-line")).toHaveText("Do sumy: 7 245,53 zł netto × 8 = 57 964,24 zł");
-  await expect(card(page, "85–86 cali").locator(".calc-line")).toHaveText("Do sumy: 2 999,00 zł brutto × 1 = 2 999,00 zł");
+  await expect(card(page, "85–86 cali").locator(".calc-line")).toHaveText("Do sumy: 2 999,00 zł brutto × 2 = 5 998,00 zł");
   // VAT 0% do potwierdzenia: liczone brutto
   await expect(card(page, "Monitor dotykowy").locator(".calc-line")).toHaveText("Do sumy: 1 840,00 zł brutto × 1 = 1 840,00 zł");
   await expect(card(page, "Monitor wielkoformatowy").locator(".calc-line")).toHaveText("Do sumy: 2 058,00 zł brutto × 1 = 2 058,00 zł");
+  await expect(card(page, "Monitor prezentacyjny").locator(".calc-line")).toHaveText("Do sumy: 3 612,00 zł brutto × 1 = 3 612,00 zł");
   // VAT 0% pewny: liczone netto
   await expect(card(page, "Monitor biurowy").locator(".calc-line")).toHaveText("Do sumy: 2 041,46 zł netto × 1 = 2 041,46 zł");
+
+  // akcesoria nie mają jeszcze cen: nie wchodzą do sumy, a ostrzeżenie je wymienia
+  await expect(card(page, "Kabel HDMI światłowodowy").locator(".calc-line")).toHaveText("Brak ceny, pozycja nie wchodzi do sumy");
+  await expect(page.locator("#calcWarning")).toContainText("Kabel HDMI światłowodowy (20 m)");
+  await expect(page.locator("#calcWarning")).toContainText("Uchwyt VESA do monitora interaktywnego (VESA 800 × 400)");
+  await expect(page.locator("#calcWarning")).toContainText("Uchwyt VESA do telewizora (VESA 600 × 400)");
 });
 
-test("kalkulator: zaznaczanie pozycji z listy życzeń i pozycje bez ceny", async ({ page }) => {
+test("kalkulator: odznaczanie pozycji", async ({ page }) => {
   await page.goto("/#zakupy");
-  await card(page, "Monitor biurowy").getByRole("checkbox").check();
-  await expect(page.locator("#calcTotal")).toHaveText("68 893,70 zł");
-  await card(page, "Monitor wielkoformatowy").getByRole("checkbox").check();
-  await expect(page.locator("#calcTotal")).toHaveText("70 951,70 zł");
-  await expect(page.locator("#calcBreakdown")).toContainText("4 099,46 zł");
-  await expect(page.locator("#calcWarning")).toBeHidden();
-
-  await page.locator("#check-tv-86").check();
-  await expect(page.locator("#calcTotal")).toHaveText("70 951,70 zł");
-  await expect(page.locator("#calcWarning")).toContainText("Bez ceny");
-  await expect(page.locator("#calcWarning")).toContainText("Telewizor (4K, 86 cali)");
-
+  await card(page, "Monitor biurowy").getByRole("checkbox").uncheck();
+  await expect(page.locator("#calcTotal")).toHaveText("75 521,24 zł");
+  await card(page, "Monitor prezentacyjny").getByRole("checkbox").uncheck();
+  await expect(page.locator("#calcTotal")).toHaveText("71 909,24 zł");
   await card(page, "Monitor interaktywny").getByRole("checkbox").uncheck();
-  await expect(page.locator("#calcTotal")).toHaveText("12 987,46 zł");
+  await expect(page.locator("#calcTotal")).toHaveText("13 945,00 zł");
+  await expect(page.locator("#calcMeta")).toHaveText("Zaznaczone: 7 poz. · 25 szt.");
   await expect(card(page, "Monitor interaktywny")).toHaveClass(/is-excluded/);
+
+  await card(page, "Kabel HDMI światłowodowy").getByRole("checkbox").uncheck();
+  await expect(page.locator("#calcWarning")).not.toContainText("Kabel HDMI");
+  await expect(page.locator("#calcWarning")).toContainText("Uchwyt VESA");
+
+  await card(page, "Monitor interaktywny").getByRole("checkbox").check();
+  await expect(page.locator("#calcTotal")).toHaveText("71 909,24 zł");
 });
 
 test("kalkulator: zmiana ilości", async ({ page }) => {
@@ -350,9 +409,9 @@ test("kalkulator: zmiana ilości", async ({ page }) => {
   await monitors.getByRole("button", { name: "Zwiększ ilość" }).click();
   await expect(monitors.locator(".qty-value")).toHaveText("9");
   await expect(monitors.locator(".calc-line")).toHaveText("Do sumy: 7 245,53 zł netto × 9 = 65 209,77 zł");
-  await expect(page.locator("#calcTotal")).toHaveText("74 097,77 zł");
-  await expect(page.locator("#calcMeta")).toHaveText("Zaznaczone: 4 poz. · 12 szt.");
-  await expect(page.locator(".purchase-tier").nth(0)).toContainText("4 poz. · 12 szt.");
+  await expect(page.locator("#calcTotal")).toHaveText("84 808,23 zł");
+  await expect(page.locator("#calcMeta")).toHaveText("Zaznaczone: 10 poz. · 36 szt.");
+  await expect(page.locator(".purchase-tier").nth(0)).toContainText("7 poz. · 16 szt.");
   await expect(page.locator(".print-sheet")).toContainText("Monitor interaktywny (75 cali), 9 szt.");
 
   const minus = monitors.getByRole("button", { name: "Zmniejsz ilość" });
@@ -361,19 +420,19 @@ test("kalkulator: zmiana ilości", async ({ page }) => {
   await expect(minus).toHaveAttribute("aria-disabled", "true");
   await minus.click({ force: true });
   await expect(monitors.locator(".qty-value")).toHaveText("1");
-  await expect(page.locator("#calcTotal")).toHaveText("16 133,53 zł");
+  await expect(page.locator("#calcTotal")).toHaveText("26 843,99 zł");
 });
 
-test("kalkulator: zapamiętuje wybór, przycisk przywraca domyślne", async ({ page }) => {
+test("kalkulator: zapamiętuje wybór, przyciski zaznaczają, czyszczą i przywracają domyślne", async ({ page }) => {
   await page.goto("/#zakupy");
-  await card(page, "Monitor biurowy").getByRole("checkbox").check();
+  await card(page, "Monitor biurowy").getByRole("checkbox").uncheck();
   await card(page, "Komputer all-in-one").getByRole("button", { name: "Zwiększ ilość" }).click();
-  await expect(page.locator("#calcTotal")).toHaveText("72 942,70 zł");
+  await expect(page.locator("#calcTotal")).toHaveText("79 570,24 zł");
 
   await page.reload();
-  await expect(card(page, "Monitor biurowy").getByRole("checkbox")).toBeChecked();
+  await expect(card(page, "Monitor biurowy").getByRole("checkbox")).not.toBeChecked();
   await expect(card(page, "Komputer all-in-one").locator(".qty-value")).toHaveText("2");
-  await expect(page.locator("#calcTotal")).toHaveText("72 942,70 zł");
+  await expect(page.locator("#calcTotal")).toHaveText("79 570,24 zł");
 
   await page.locator(".calc-details summary").click();
   await page.locator("#calcClear").click();
@@ -382,9 +441,11 @@ test("kalkulator: zapamiętuje wybór, przycisk przywraca domyślne", async ({ p
   await page.locator("#calcSelectAll").click();
   await expect(page.getByRole("checkbox", { name: /Monitor biurowy/ })).toBeChecked();
 
+  await card(page, "Monitor biurowy").getByRole("checkbox").uncheck();
   await page.locator("#calcReset").click();
-  await expect(page.locator("#calcTotal")).toHaveText("66 852,24 zł");
+  await expect(page.locator("#calcTotal")).toHaveText("77 562,70 zł");
   await expect(card(page, "Komputer all-in-one").locator(".qty-value")).toHaveText("1");
+  await expect(card(page, "Monitor biurowy").getByRole("checkbox")).toBeChecked();
 });
 
 test("kalkulator trafia na wydruk listy zakupów", async ({ page }) => {
@@ -392,15 +453,17 @@ test("kalkulator trafia na wydruk listy zakupów", async ({ page }) => {
   const sheet = page.locator(".print-sheet");
   await expect(sheet).toContainText("Kalkulacja (zaznaczone pozycje)");
   await expect(sheet).toContainText("Monitor interaktywny (75 cali) × 8: 57 964,24 zł (netto)");
-  await expect(sheet).toContainText("Telewizor (4K, 85–86 cali) × 1: 2 999,00 zł (brutto)");
-  await expect(sheet).toContainText("Razem: 66 852,24 zł");
+  await expect(sheet).toContainText("Telewizor (4K, 85–86 cali) × 2: 5 998,00 zł (brutto)");
+  await expect(sheet).toContainText("Kabel HDMI światłowodowy (20 m) × 10: brak ceny");
+  await expect(sheet).toContainText("Razem: 77 562,70 zł");
+  await expect(sheet).toContainText("Nie wliczono pozycji bez ceny: Kabel HDMI światłowodowy (20 m)");
 
   await page.locator(".calc-details summary").click();
   await page.locator("#calcClear").click();
   await expect(sheet).toContainText("Nie zaznaczono żadnych pozycji.");
 });
 
-test("monitor prezentacyjny jako tablica ogłoszeń ma miejsce, link i cenę brutto w kalkulatorze", async ({ page }) => {
+test("monitor prezentacyjny jako tablica ogłoszeń ma miejsce, link i cenę brutto", async ({ page }) => {
   await page.goto("/#zakupy");
   const signage = card(page, "Monitor prezentacyjny");
   await expect(signage).toContainText("55 cali");
@@ -410,11 +473,4 @@ test("monitor prezentacyjny jako tablica ogłoszeń ma miejsce, link i cenę bru
   await expect(signage).toContainText("VAT 0% do potwierdzenia");
   await expect(signage.getByRole("link", { name: "iiyama LH5564UHS-B1AG" })).toHaveAttribute("href", /^https:\/\/iiyama-sklep\.pl\/1616-.*lh5564uhs-b1ag.*\.html$/);
   await expect(page.locator(".print-sheet")).toContainText("miejsce: naprzeciwko portierni");
-
-  // lista życzeń: domyślnie nie liczone; po zaznaczeniu brutto (VAT niepewny)
-  await expect(signage.getByRole("checkbox")).not.toBeChecked();
-  await expect(page.locator("#calcTotal")).toHaveText("66 852,24 zł");
-  await signage.getByRole("checkbox").check();
-  await expect(signage.locator(".calc-line")).toHaveText("Do sumy: 3 612,00 zł brutto × 1 = 3 612,00 zł");
-  await expect(page.locator("#calcTotal")).toHaveText("70 464,24 zł");
 });
