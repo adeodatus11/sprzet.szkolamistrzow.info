@@ -1,6 +1,7 @@
 // Konwencje opisu:
 // - zadania, decyzje i uwagi zaczynają się wielką literą i nie kończą kropką;
-// - zadania zapisujemy bezokolicznikiem ("Sprawdzić…", "Zamontować…");
+// - zadania zapisujemy bezokolicznikiem ("Sprawdzić…", "Zamontować…"); zadanie zrobione zapisujemy
+//   jako done("Sprawdzić…"), czyli odhaczone i przekreślone na karcie sali;
 // - sprzęt zapisujemy jako "Nazwa (cecha, cecha)";
 // - przeznaczenie sali to krótki rzeczownik ("Gabinet matematyki"), bez ukośników.
 
@@ -81,14 +82,18 @@ const room = ({
     teachers,
     status,
     equipment: [...purchases.equipment].sort((a, b) => groupOrder.indexOf(a.name) - groupOrder.indexOf(b.name)),
-    urgentTasks: purchases.urgentTasks,
-    tasks,
+    urgentTasks: purchases.urgentTasks.map(toTask),
+    tasks: tasks.map(toTask),
     decisions,
     notes,
   };
 };
 
 const group = (name, items) => ({ name, items });
+
+// Zadanie zrobione (odhaczone); zwykły napis to zadanie do zrobienia.
+const done = (text) => ({ text, done: true });
+const toTask = (task) => (typeof task === "string" ? { text: task, done: false } : task);
 
 // Lista zakupów to jedno źródło dla zakładki "Do zakupu" i dla kart sal:
 // - tier: "main" (sprzęt) albo "accessories" (zakupy towarzyszące, czyli co ewentualnie trzeba dokupić);
@@ -252,6 +257,15 @@ export const purchaseItems = [
     ],
   },
   {
+    id: "ipad-cabinet",
+    tier: "main",
+    name: "Szafa do ładowania iPadów",
+    specs: ["na 26–30 iPadów"],
+    qty: 1,
+    roomIds: ["5"],
+    note: "Do wstawienia w sali 5. Ewentualnie można przynieść szafę na laptopy z III piętra i trzymać w niej iPady",
+  },
+  {
     id: "hdmi-20m",
     tier: "accessories",
     name: "Kabel HDMI światłowodowy",
@@ -335,14 +349,15 @@ export const rooms = [
     id: "04",
     name: "Sala 04",
     floor: "Piwnica",
-    status: "todo",
-    equipment: [
-      group(G.media, ["Monitor (wiszący w sali)"]),
-    ],
+    purpose: "Pokój nauczycielski WF-istów",
+    status: "check",
     tasks: [
-      "Zabrać monitor z sali 04",
-      "Kupić nóżki do monitora (ewentualnie)",
-      "Przenieść monitor na wejście do szkoły jako monitor multimedialny dla uczniów",
+      done("Zabrać monitor z sali 04"),
+      done("Kupić nóżki do monitora (ewentualnie)"),
+      done("Przenieść monitor na wejście do szkoły jako monitor multimedialny dla uczniów"),
+      "Zweryfikować, czy działa drukarka",
+      "Sprawdzić, jakie są tam komputery",
+      "Sprawdzić, czy komputery działają dla WF-istów",
     ],
     notes: ["Monitor przy wejściu ma służyć m.in. do wyszukiwania planu lekcji"],
   }),
@@ -354,17 +369,16 @@ export const rooms = [
     floor: "Parter",
     purpose: "Gabinet przedmiotów zawodowych fryzjerskich",
     teachers: ["Sylwia Mikołajczak", "Iwona Leńczowska", "Paweł Danielewski"],
-    status: "todo",
+    status: "missing",
     equipment: [
-      group(G.computers, ["Komputer stacjonarny"]),
+      group(G.computers, ["Komputer nowy (laptop KPO)"]),
       group(G.media, ["Rzutnik (nowy)"]),
     ],
     tasks: [
-      "Zamontować nowy rzutnik",
-      "Sprawdzić podłączenie komputera do rzutnika",
-      "Sprawdzić, czy obraz wyświetla się poprawnie",
+      done("Zamontować nowy rzutnik"),
+      done("Sprawdzić podłączenie komputera do rzutnika"),
+      done("Sprawdzić, czy obraz wyświetla się poprawnie"),
     ],
-    decisions: ["Po wymianie rzutnika zostawić układ sali bez zmian"],
   }),
   room({
     id: "3",
@@ -372,13 +386,14 @@ export const rooms = [
     floor: "Parter",
     purpose: "Przedmioty zawodowe fryzjerskie",
     teachers: ["Agnieszka Jastrzębska", "Paweł Danielewski", "Iwona Leńczowska", "Edyta Jaworska"],
+    status: "ready",
     equipment: [
       group(G.computers, ["Komputer"]),
       group(G.media, ["Telewizor multimedialny (75 cali, na kółkach)"]),
     ],
     tasks: [
-      "Zapewnić stałe podłączenie komputera do telewizora",
-      "Zamocować kabel tak, żeby nie wisiał luźno",
+      done("Zapewnić stałe podłączenie komputera do telewizora"),
+      done("Zamocować kabel tak, żeby nie wisiał luźno"),
     ],
   }),
   room({
@@ -387,12 +402,13 @@ export const rooms = [
     floor: "Parter",
     purpose: "Fryzjerstwo i edukacja obywatelska",
     teachers: ["Marcin Kruk", "Marcin Kopij"],
+    status: "ready",
     equipment: [
-      group(G.media, ["Telewizor dotykowy (70 cali, na ścianie)"]),
+      group(G.media, ["Telewizor dotykowy (65 cali, na ścianie)"]),
     ],
     tasks: [
-      "Sprawdzić stałe podłączenie do telewizora dotykowego",
-      "Sprawdzić, czy telewizor dotykowy działa prawidłowo",
+      done("Sprawdzić stałe podłączenie do telewizora dotykowego"),
+      done("Sprawdzić, czy telewizor dotykowy działa prawidłowo"),
     ],
   }),
   room({
@@ -418,8 +434,8 @@ export const rooms = [
       ]),
     ],
     tasks: [
-      "Sprawdzić telewizor dotykowy Samsung 75 cali",
-      "Sprawdzić drukarkę wielofunkcyjną A3",
+      done("Sprawdzić telewizor dotykowy Samsung 75 cali"),
+      done("Sprawdzić drukarkę wielofunkcyjną A3 (sprawdzić, czy na pewno jest w sali, czy znajduje się aktualnie u Arka Mocarskiego)"),
       "Dostarczyć wszystkie starsze iPady Air kupione pod tę salę",
       "Zebrać iPady Air razem z dostępnymi rysikami",
       "Przygotować iPady Air do pracy",
@@ -427,9 +443,9 @@ export const rooms = [
       "Zostawić iPady w sali razem z rysikami",
       "Przygotować szafę zamykaną na klucz",
       "Zapewnić w szafie listwy zasilające, żeby tablety mogły się ładować na co dzień",
-      "Dokładnie sprawdzić Wi-Fi",
-      "Dodać access point, jeśli Wi-Fi jest za słabe",
+      "Wstawić do sali szafę na iPady",
     ],
+    notes: ["Ewentualnie można przynieść do sali szafę na laptopy z III piętra i trzymać w niej iPady"],
   }),
   room({
     id: "05-new",
@@ -438,43 +454,34 @@ export const rooms = [
     place: "Nowa sala wybudowana w szatni",
     purpose: "Sala językowa",
     teachers: ["Aleksandra Karczmarz", "Anna Galert"],
-    status: "missing",
+    status: "check",
     equipment: [
-      group(G.purchase, [
-        "Telewizor multimedialny na ścianę",
-        "Komputer all-in-one (ewentualnie)",
+      group(G.computers, ["Laptop KPO (1 szt.)"]),
+      group(G.media, ["Telewizor multimedialny (na kółkach)"]),
+      group(G.furniture, [
         "Ławki",
         "Pełne wyposażenie sali lekcyjnej",
-        "Biała tablica",
+        "Biała tablica (do potwierdzenia)",
       ]),
     ],
     urgentTasks: [
-      "Kupić telewizor multimedialny na ścianę",
-      "Kupić komputer all-in-one (ewentualnie)",
-      "Kupić ławki",
-      "Skompletować całe wyposażenie sali lekcyjnej",
-      "Kupić i zamontować białą tablicę",
+      done("Kupić telewizor multimedialny na ścianę"),
+      done("Kupić ławki"),
+      done("Skompletować całe wyposażenie sali lekcyjnej"),
     ],
-    notes: ["Roboczo osobna, nowa sala; numerację trzeba później dopasować do planu szkoły"],
   }),
   room({
     id: "6",
     name: "Sala 6",
     floor: "Parter",
-    purpose: "Praktyczna pracownia fryzjerska (połączona z salą 7)",
+    purpose: "Praktyczna pracownia fryzjerska (razem z salą 7)",
+    status: "ready",
     equipment: [
       group(G.computers, ["Komputer"]),
       group(G.media, ["Rzutnik (podwieszony pod sufitem)"]),
     ],
-    tasks: ["Sprawdzić podłączenie komputera do rzutnika"],
-    notes: ["Sala 6 funkcjonalnie łączy się z salą 7"],
-  }),
-  room({
-    id: "7",
-    name: "Sala 7",
-    floor: "Parter",
-    purpose: "Praktyczna pracownia fryzjerska (połączona z salą 6)",
-    notes: ["Opisywać razem z salą 6 jako jedną pracownię praktyczną"],
+    tasks: [done("Sprawdzić podłączenie komputera do rzutnika")],
+    notes: ["Sala 7 jest częścią tej pracowni i nie ma osobnego wpisu"],
   }),
   room({
     id: "8",

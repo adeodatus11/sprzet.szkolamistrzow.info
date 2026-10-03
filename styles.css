@@ -756,6 +756,30 @@ h1 {
   border-color: var(--danger);
 }
 
+.checklist li.is-done {
+  color: var(--muted);
+  text-decoration: line-through;
+}
+
+.checklist li.is-done::before {
+  border-color: var(--ready);
+  background: var(--ready) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3.5 8.5l3 3 6-6.5' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 11px no-repeat;
+}
+
+.print-sheet li.is-done {
+  text-decoration: line-through;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+
 .placeholder {
   margin: 0;
   color: var(--muted);

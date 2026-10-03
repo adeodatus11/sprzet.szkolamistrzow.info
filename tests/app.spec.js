@@ -359,14 +359,14 @@ test("kalkulator: domyślnie liczy wszystkie pozycje", async ({ page }) => {
   await page.goto("/#zakupy");
   // 8 × 7 245,53 (netto, VAT 0%) + 2 × 2 999 + 1 840 + 4 049 + 2 058 + 3 612 (brutto, VAT niepewny) + 2 041,46 (netto, VAT 0%)
   await expect(page.locator("#calcTotal")).toHaveText("83 007,74 zł");
-  await expect(page.locator("#calcMeta")).toHaveText("Zaznaczone: 10 poz. · 35 szt.");
+  await expect(page.locator("#calcMeta")).toHaveText("Zaznaczone: 11 poz. · 36 szt.");
   await expect(page.locator("#calcBreakdown")).toContainText("Sprzęt");
   await expect(page.locator("#calcBreakdown")).toContainText("77 562,70 zł");
   await expect(page.locator("#calcBreakdown")).toContainText("Zakupy towarzyszące");
   await expect(page.locator("#calcBreakdown")).toContainText("5 445,04 zł");
 
   const boxes = page.locator(".purchase-check");
-  await expect(boxes).toHaveCount(10);
+  await expect(boxes).toHaveCount(11);
   for (const box of await boxes.all()) await expect(box).toBeChecked();
 
   await expect(card(page, "Monitor interaktywny").locator(".calc-line")).toHaveText("Do sumy: 7 245,53 zł netto × 8 = 57 964,24 zł");
@@ -384,8 +384,9 @@ test("kalkulator: domyślnie liczy wszystkie pozycje", async ({ page }) => {
 
   await expect(card(page, "Stojak do monitora interaktywnego").locator(".calc-line")).toHaveText("Do sumy: 368,15 zł brutto × 8 = 2 945,20 zł");
 
-  // wszystkie pozycje mają ceny: brak ostrzeżenia o pominiętych
-  await expect(page.locator("#calcWarning")).toBeHidden();
+  // szafa na iPady nie ma jeszcze ceny: nie wchodzi do sumy, a ostrzeżenie ją wymienia
+  await expect(card(page, "Szafa do ładowania iPadów").locator(".calc-line")).toHaveText("Brak ceny, pozycja nie wchodzi do sumy");
+  await expect(page.locator("#calcWarning")).toContainText("Bez ceny, nie wliczono do sumy: Szafa do ładowania iPadów (na 26–30 iPadów)");
 });
 
 test("kalkulator: odznaczanie pozycji", async ({ page }) => {
@@ -396,7 +397,7 @@ test("kalkulator: odznaczanie pozycji", async ({ page }) => {
   await expect(page.locator("#calcTotal")).toHaveText("77 354,28 zł");
   await card(page, "Monitor interaktywny").getByRole("checkbox").uncheck();
   await expect(page.locator("#calcTotal")).toHaveText("19 390,04 zł");
-  await expect(page.locator("#calcMeta")).toHaveText("Zaznaczone: 7 poz. · 25 szt.");
+  await expect(page.locator("#calcMeta")).toHaveText("Zaznaczone: 8 poz. · 26 szt.");
   await expect(card(page, "Monitor interaktywny")).toHaveClass(/is-excluded/);
 
   await card(page, "Kabel HDMI światłowodowy").getByRole("checkbox").uncheck();
@@ -413,8 +414,8 @@ test("kalkulator: zmiana ilości", async ({ page }) => {
   await expect(monitors.locator(".qty-value")).toHaveText("9");
   await expect(monitors.locator(".calc-line")).toHaveText("Do sumy: 7 245,53 zł netto × 9 = 65 209,77 zł");
   await expect(page.locator("#calcTotal")).toHaveText("90 253,27 zł");
-  await expect(page.locator("#calcMeta")).toHaveText("Zaznaczone: 10 poz. · 36 szt.");
-  await expect(page.locator(".purchase-tier").nth(0)).toContainText("7 poz. · 16 szt.");
+  await expect(page.locator("#calcMeta")).toHaveText("Zaznaczone: 11 poz. · 37 szt.");
+  await expect(page.locator(".purchase-tier").nth(0)).toContainText("8 poz. · 17 szt.");
   await expect(page.locator(".print-sheet")).toContainText("Monitor interaktywny (75 cali), 9 szt.");
 
   const minus = monitors.getByRole("button", { name: "Zmniejsz ilość" });
@@ -461,7 +462,8 @@ test("kalkulator trafia na wydruk listy zakupów", async ({ page }) => {
   await expect(sheet).toContainText("Stojak do monitora interaktywnego (na kółkach, VESA 800 × 400) × 8: 2 945,20 zł (brutto)");
   await expect(sheet).toContainText("Uchwyt VESA do telewizora (VESA 600 × 400) × 2: 599,94 zł (brutto)");
   await expect(sheet).toContainText("Razem: 83 007,74 zł");
-  await expect(sheet).not.toContainText("Nie wliczono pozycji bez ceny");
+  await expect(sheet).toContainText("Szafa do ładowania iPadów (na 26–30 iPadów) × 1: brak ceny");
+  await expect(sheet).toContainText("Nie wliczono pozycji bez ceny: Szafa do ładowania iPadów (na 26–30 iPadów)");
 
   await page.locator(".calc-details summary").click();
   await page.locator("#calcClear").click();
@@ -542,5 +544,118 @@ test("kalkulator pomija pozycje bez ceny i ostrzega o nich", async ({ page }) =>
   await expect(page.locator(".print-sheet")).toContainText("Nie wliczono pozycji bez ceny: Testowy dodatek (bez ceny)");
 
   await extra.getByRole("checkbox").uncheck();
-  await expect(page.locator("#calcWarning")).toBeHidden();
+  await expect(page.locator("#calcWarning")).not.toContainText("Testowy dodatek");
+  await expect(page.locator("#calcWarning")).toContainText("Szafa do ładowania iPadów");
+});
+
+const doneTasks = (page) => page.locator("#roomDetail .checklist li.is-done");
+const todoSection = (page) => page.locator("#roomDetail .detail-section", { has: page.getByRole("heading", { name: /^Do zrobienia/ }) });
+
+test("sala 04 to pokój nauczycielski WF-istów z dokończonymi i otwartymi zadaniami", async ({ page }) => {
+  await page.goto("/#room-04");
+  const detail = page.locator("#roomDetail");
+  await expect(detail.locator(".detail-purpose")).toHaveText("Pokój nauczycielski WF-istów");
+  await expect(detail).toContainText("Do zrobienia · zrobione 3 z 6");
+  await expect(doneTasks(page)).toHaveText([
+    /Zabrać monitor z sali 04/,
+    /Kupić nóżki do monitora \(ewentualnie\)/,
+    /Przenieść monitor na wejście do szkoły/,
+  ]);
+  await expect(todoSection(page).locator("li:not(.is-done)")).toHaveText([
+    "Zweryfikować, czy działa drukarka",
+    "Sprawdzić, jakie są tam komputery",
+    "Sprawdzić, czy komputery działają dla WF-istów",
+  ]);
+  await expect(detail.getByRole("heading", { name: "Wyposażenie" })).toBeVisible();
+  await expect(detail).not.toContainText("Monitor (wiszący w sali)");
+  // przekreślenie widać na wydruku
+  await expect(page.locator(".print-sheet li.is-done")).toHaveCount(3);
+});
+
+test("sala 2: zadania odhaczone, nowy komputer i bez decyzji, monitor do kupienia", async ({ page }) => {
+  await page.goto("/#room-2");
+  const detail = page.locator("#roomDetail");
+  await expect(doneTasks(page)).toHaveCount(3);
+  await expect(detail).toContainText("Do zrobienia · zrobione 3 z 3");
+  await expect(detail).toContainText("Komputer nowy (laptop KPO)");
+  await expect(detail).toContainText("Rzutnik (nowy)");
+  await expect(detail.getByRole("heading", { name: "Decyzje" })).toHaveCount(0);
+  await expect(detail.locator(".is-urgent")).toContainText("Kupić monitor interaktywny (75 cali)");
+  await expect(detail.locator(".is-urgent li.is-done")).toHaveCount(0);
+  await expect(detail.locator(".badge")).toHaveText("Braki");
+  await expect(detail).toContainText("Stała kontrola techniczna");
+});
+
+test("sale 3, 4 i 6 są zrobione", async ({ page }) => {
+  for (const [id, count] of [["3", 2], ["4", 2], ["6", 1]]) {
+    await page.goto(`/#room-${id}`);
+    await expect(doneTasks(page)).toHaveCount(count);
+    await expect(todoSection(page).locator("li:not(.is-done)")).toHaveCount(0);
+    await expect(page.locator("#roomDetail .detail-title .badge")).toHaveText("Bez zmian");
+  }
+  await page.goto("/#room-4");
+  await expect(page.locator("#roomDetail")).toContainText("Telewizor dotykowy (65 cali, na ścianie)");
+  await expect(page.locator("#roomDetail")).not.toContainText("70 cali");
+});
+
+test("sala 7 nie ma osobnego wpisu, sala 6 o niej wspomina", async ({ page }) => {
+  await page.goto("/");
+  await expect(page.locator('[data-room-id="7"]')).toHaveCount(0);
+  await expect(page.getByRole("button", { name: /^Sala 7\b/ })).toHaveCount(0);
+  await page.goto("/#room-6");
+  await expect(page.locator("#roomDetail")).toContainText("razem z salą 7");
+  await expect(page.locator("#roomDetail")).toContainText("Sala 7 jest częścią tej pracowni");
+});
+
+test("sala 5: zrobione sprawdzenia, otwarte iPady, bez Wi-Fi, szafa do zakupu", async ({ page }) => {
+  await page.goto("/#room-5");
+  const detail = page.locator("#roomDetail");
+  await expect(doneTasks(page)).toHaveText([
+    /Sprawdzić telewizor dotykowy Samsung 75 cali/,
+    /Sprawdzić drukarkę wielofunkcyjną A3 \(sprawdzić, czy na pewno jest w sali, czy znajduje się aktualnie u Arka Mocarskiego\)/,
+  ]);
+  await expect(detail).toContainText("Do zrobienia · zrobione 2 z 10");
+  await expect(detail).not.toContainText("Wi-Fi");
+  await expect(detail).not.toContainText("access point");
+  for (const text of [
+    "Dostarczyć wszystkie starsze iPady Air kupione pod tę salę",
+    "Zebrać iPady Air razem z dostępnymi rysikami",
+    "Przygotować iPady Air do pracy",
+    "Zalogować iPady i ustawić uniwersalny PIN",
+    "Zostawić iPady w sali razem z rysikami",
+    "Przygotować szafę zamykaną na klucz",
+    "Zapewnić w szafie listwy zasilające",
+    "Wstawić do sali szafę na iPady",
+  ]) {
+    await expect(todoSection(page).locator("li:not(.is-done)", { hasText: text })).toHaveCount(1);
+  }
+  await expect(detail).toContainText("Szafa do ładowania iPadów (na 26–30 iPadów)");
+  await expect(detail.getByRole("heading", { name: "Do zakupu" })).toBeVisible();
+  await expect(detail).toContainText("przynieść do sali szafę na laptopy z III piętra i trzymać w niej iPady");
+});
+
+test("sala 05 (nowa): zrobione zakupy i wyposażenie bez uwag", async ({ page }) => {
+  await page.goto("/#room-05-new");
+  const detail = page.locator("#roomDetail");
+  await expect(detail.locator(".is-urgent")).toContainText("Pilne zakupy i dostawy · zrobione 3 z 3");
+  await expect(detail.locator(".is-urgent li.is-done")).toHaveText([
+    /Kupić telewizor multimedialny na ścianę/,
+    /Kupić ławki/,
+    /Skompletować całe wyposażenie sali lekcyjnej/,
+  ]);
+  await expect(detail).not.toContainText("all-in-one");
+  await expect(detail).not.toContainText("Kupić i zamontować białą tablicę");
+  await expect(detail).toContainText("Laptop KPO (1 szt.)");
+  await expect(detail).toContainText("Telewizor multimedialny (na kółkach)");
+  await expect(detail).toContainText("Ławki");
+  await expect(detail).toContainText("Biała tablica (do potwierdzenia)");
+  await expect(detail.getByRole("heading", { name: "Uwagi" })).toHaveCount(0);
+  await expect(detail.getByRole("heading", { name: "Do zakupu" })).toHaveCount(0);
+  await expect(detail.locator(".badge")).toHaveText("Do sprawdzenia");
+});
+
+test("sala 8 bez zmian: zestaw nadal do sprawdzenia", async ({ page }) => {
+  await page.goto("/#room-8");
+  await expect(doneTasks(page)).toHaveCount(0);
+  await expect(page.locator("#roomDetail")).toContainText("Sprawdzić, czy zestaw działa");
 });

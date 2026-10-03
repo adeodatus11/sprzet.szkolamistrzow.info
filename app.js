@@ -98,8 +98,8 @@ const roomSearchText = (room) => normalize([
   room.teachers.join(" "),
   room.equipment.flatMap((item) => [item.name, ...item.items]).join(" "),
   standardControlTasks.join(" "),
-  room.urgentTasks.join(" "),
-  room.tasks.join(" "),
+  room.urgentTasks.map((task) => task.text).join(" "),
+  room.tasks.map((task) => task.text).join(" "),
   room.decisions.join(" "),
   room.notes.join(" "),
 ].join(" "));
@@ -120,6 +120,17 @@ const activeRoom = () => roomById(state.activeId) || filteredRooms()[0] || rooms
 const listItems = (items, className = "") => {
   if (!items?.length) return "";
   return `<ul${className ? ` class="${className}"` : ""}>${items.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>`;
+};
+
+const taskItems = (tasks, className = "") => {
+  if (!tasks?.length) return "";
+  const items = tasks.map((task) => `<li${task.done ? ' class="is-done"' : ""}>${task.done ? '<span class="visually-hidden">Zrobione: </span>' : ""}${escapeHtml(task.text)}</li>`);
+  return `<ul${className ? ` class="${className}"` : ""}>${items.join("")}</ul>`;
+};
+
+const taskTitle = (title, tasks) => {
+  const doneCount = tasks.filter((task) => task.done).length;
+  return doneCount ? `${title} · zrobione ${doneCount} z ${tasks.length}` : title;
 };
 
 const statusBadge = (status) => `<span class="badge ${status}">${escapeHtml(statusLabels[status])}</span>`;
@@ -334,8 +345,8 @@ const renderDetail = () => {
 
     <div class="detail-layout">
       <div class="detail-main">
-        ${room.urgentTasks.length ? section("Pilne zakupy i dostawy", listItems(room.urgentTasks, "checklist"), "is-urgent") : ""}
-        ${room.tasks.length ? section("Do zrobienia", listItems(room.tasks, "checklist")) : ""}
+        ${room.urgentTasks.length ? section(taskTitle("Pilne zakupy i dostawy", room.urgentTasks), taskItems(room.urgentTasks, "checklist"), "is-urgent") : ""}
+        ${room.tasks.length ? section(taskTitle("Do zrobienia", room.tasks), taskItems(room.tasks, "checklist")) : ""}
         ${section("Wyposażenie", equipment)}
         ${room.decisions.length ? section("Decyzje", listItems(room.decisions)) : ""}
         ${room.notes.length ? section("Uwagi", listItems(room.notes)) : ""}
@@ -374,8 +385,8 @@ const renderPrintSheet = (room) => {
       <div><strong>Aktualizacja danych:</strong> ${escapeHtml(dataUpdatedAt)}</div>
     </div>
     ${room.teachers.length ? printSection("Użytkownicy sali", listItems(room.teachers)) : ""}
-    ${room.urgentTasks.length ? printSection("Pilne zakupy i dostawy", listItems(room.urgentTasks), "print-urgent") : ""}
-    ${room.tasks.length ? printSection("Do zrobienia", listItems(room.tasks)) : ""}
+    ${room.urgentTasks.length ? printSection(taskTitle("Pilne zakupy i dostawy", room.urgentTasks), taskItems(room.urgentTasks), "print-urgent") : ""}
+    ${room.tasks.length ? printSection(taskTitle("Do zrobienia", room.tasks), taskItems(room.tasks)) : ""}
     ${equipmentPrint}
     ${room.decisions.length ? printSection("Decyzje", listItems(room.decisions)) : ""}
     ${room.notes.length ? printSection("Uwagi", listItems(room.notes)) : ""}
