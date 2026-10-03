@@ -147,7 +147,7 @@ test("zakładka Do zakupu pokazuje listy zakupów", async ({ page }) => {
   await expect(tiers.nth(1)).toContainText("Lista życzeń");
 
   const monitors = page.locator(".purchase-card", { hasText: "Monitor interaktywny" });
-  await expect(monitors).toContainText("8 szt.");
+  await expect(monitors.locator(".qty-value")).toHaveText("8");
   await expect(monitors).toContainText("75 cali");
   const priority = monitors.locator(".purchase-rooms > div", { hasText: "Najpierw" });
   await expect(priority.locator(".room-chip")).toHaveText(["Sala 2", "Sala 18", "Sala 41"]);
@@ -293,4 +293,105 @@ test("monitor biurowy ma link i ceny brutto oraz netto", async ({ page }) => {
   await expect(card).not.toContainText("do potwierdzenia");
   await expect(page.locator(".print-sheet")).toContainText("np. Philips 5000 Series 34B2U5900C/00, 2 510,99 zł brutto / 2 041,46 zł netto, VAT 0% (supertech.pl)");
   await expect(page.locator(".purchase-tier").nth(1)).toContainText("3 poz. · 3 szt.");
+});
+
+const card = (page, text) => page.locator(".purchase-card", { hasText: text });
+
+test("kalkulator: domyślnie liczy zaznaczone pozycje z listy Do kupienia", async ({ page }) => {
+  await page.goto("/#zakupy");
+  // 8 × 7 245,53 (netto, VAT 0%) + 2 999 + 1 840 (brutto, VAT niepewny) + 4 049 (brutto)
+  await expect(page.locator("#calcTotal")).toHaveText("66 852,24 zł");
+  await expect(page.locator("#calcMeta")).toHaveText("Zaznaczone: 4 poz. · 11 szt.");
+  await expect(page.locator("#calcBreakdown")).toContainText("Do kupienia");
+  await expect(page.locator("#calcBreakdown")).toContainText("66 852,24 zł");
+  await expect(page.locator("#calcBreakdown")).toContainText("Lista życzeń");
+  await expect(page.locator("#calcBreakdown")).toContainText("0,00 zł");
+
+  for (const name of [/^Monitor interaktywny/, /^Telewizor \(4K, 85–86 cali\)/, /^Monitor dotykowy/, /^Komputer all-in-one/]) {
+    await expect(page.getByRole("checkbox", { name: new RegExp(`Uwzględnij w kalkulacji: ${name.source.replace("^", "")}`) })).toBeChecked();
+  }
+  await expect(page.getByRole("checkbox", { name: /Uwzględnij w kalkulacji: Monitor biurowy/ })).not.toBeChecked();
+
+  await expect(card(page, "Monitor interaktywny").locator(".calc-line")).toHaveText("Do sumy: 7 245,53 zł netto × 8 = 57 964,24 zł");
+  await expect(card(page, "85–86 cali").locator(".calc-line")).toHaveText("Do sumy: 2 999,00 zł brutto × 1 = 2 999,00 zł");
+  // VAT 0% do potwierdzenia: liczone brutto
+  await expect(card(page, "Monitor dotykowy").locator(".calc-line")).toHaveText("Do sumy: 1 840,00 zł brutto × 1 = 1 840,00 zł");
+  await expect(card(page, "Monitor wielkoformatowy").locator(".calc-line")).toHaveText("Do sumy: 2 058,00 zł brutto × 1 = 2 058,00 zł");
+  // VAT 0% pewny: liczone netto
+  await expect(card(page, "Monitor biurowy").locator(".calc-line")).toHaveText("Do sumy: 2 041,46 zł netto × 1 = 2 041,46 zł");
+});
+
+test("kalkulator: zaznaczanie pozycji z listy życzeń i pozycje bez ceny", async ({ page }) => {
+  await page.goto("/#zakupy");
+  await card(page, "Monitor biurowy").getByRole("checkbox").check();
+  await expect(page.locator("#calcTotal")).toHaveText("68 893,70 zł");
+  await card(page, "Monitor wielkoformatowy").getByRole("checkbox").check();
+  await expect(page.locator("#calcTotal")).toHaveText("70 951,70 zł");
+  await expect(page.locator("#calcBreakdown")).toContainText("4 099,46 zł");
+  await expect(page.locator("#calcWarning")).toBeHidden();
+
+  await page.locator("#check-tv-86").check();
+  await expect(page.locator("#calcTotal")).toHaveText("70 951,70 zł");
+  await expect(page.locator("#calcWarning")).toContainText("Bez ceny");
+  await expect(page.locator("#calcWarning")).toContainText("Telewizor (4K, 86 cali)");
+
+  await card(page, "Monitor interaktywny").getByRole("checkbox").uncheck();
+  await expect(page.locator("#calcTotal")).toHaveText("12 987,46 zł");
+  await expect(card(page, "Monitor interaktywny")).toHaveClass(/is-excluded/);
+});
+
+test("kalkulator: zmiana ilości", async ({ page }) => {
+  await page.goto("/#zakupy");
+  const monitors = card(page, "Monitor interaktywny");
+  await monitors.getByRole("button", { name: "Zwiększ ilość" }).click();
+  await expect(monitors.locator(".qty-value")).toHaveText("9");
+  await expect(monitors.locator(".calc-line")).toHaveText("Do sumy: 7 245,53 zł netto × 9 = 65 209,77 zł");
+  await expect(page.locator("#calcTotal")).toHaveText("74 097,77 zł");
+  await expect(page.locator("#calcMeta")).toHaveText("Zaznaczone: 4 poz. · 12 szt.");
+  await expect(page.locator(".purchase-tier").nth(0)).toContainText("4 poz. · 12 szt.");
+  await expect(page.locator(".print-sheet")).toContainText("Monitor interaktywny (75 cali), 9 szt.");
+
+  const minus = monitors.getByRole("button", { name: "Zmniejsz ilość" });
+  for (let i = 0; i < 8; i += 1) await minus.click();
+  await expect(monitors.locator(".qty-value")).toHaveText("1");
+  await expect(minus).toHaveAttribute("aria-disabled", "true");
+  await minus.click({ force: true });
+  await expect(monitors.locator(".qty-value")).toHaveText("1");
+  await expect(page.locator("#calcTotal")).toHaveText("16 133,53 zł");
+});
+
+test("kalkulator: zapamiętuje wybór, przycisk przywraca domyślne", async ({ page }) => {
+  await page.goto("/#zakupy");
+  await card(page, "Monitor biurowy").getByRole("checkbox").check();
+  await card(page, "Komputer all-in-one").getByRole("button", { name: "Zwiększ ilość" }).click();
+  await expect(page.locator("#calcTotal")).toHaveText("72 942,70 zł");
+
+  await page.reload();
+  await expect(card(page, "Monitor biurowy").getByRole("checkbox")).toBeChecked();
+  await expect(card(page, "Komputer all-in-one").locator(".qty-value")).toHaveText("2");
+  await expect(page.locator("#calcTotal")).toHaveText("72 942,70 zł");
+
+  await page.locator(".calc-details summary").click();
+  await page.locator("#calcClear").click();
+  await expect(page.locator("#calcTotal")).toHaveText("0,00 zł");
+  await expect(page.locator("#calcMeta")).toHaveText("Zaznaczone: 0 poz. · 0 szt.");
+  await page.locator("#calcSelectAll").click();
+  await expect(page.getByRole("checkbox", { name: /Monitor biurowy/ })).toBeChecked();
+
+  await page.locator("#calcReset").click();
+  await expect(page.locator("#calcTotal")).toHaveText("66 852,24 zł");
+  await expect(card(page, "Komputer all-in-one").locator(".qty-value")).toHaveText("1");
+});
+
+test("kalkulator trafia na wydruk listy zakupów", async ({ page }) => {
+  await page.goto("/#zakupy");
+  const sheet = page.locator(".print-sheet");
+  await expect(sheet).toContainText("Kalkulacja (zaznaczone pozycje)");
+  await expect(sheet).toContainText("Monitor interaktywny (75 cali) × 8: 57 964,24 zł (netto)");
+  await expect(sheet).toContainText("Telewizor (4K, 85–86 cali) × 1: 2 999,00 zł (brutto)");
+  await expect(sheet).toContainText("Razem: 66 852,24 zł");
+
+  await page.locator(".calc-details summary").click();
+  await page.locator("#calcClear").click();
+  await expect(sheet).toContainText("Nie zaznaczono żadnych pozycji.");
 });

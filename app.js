@@ -40,6 +40,13 @@ const els = {
   purchaseSummary: document.querySelector("#purchaseSummary"),
   purchaseLists: document.querySelector("#purchaseLists"),
   printPurchases: document.querySelector("#printPurchases"),
+  calcTotal: document.querySelector("#calcTotal"),
+  calcMeta: document.querySelector("#calcMeta"),
+  calcBreakdown: document.querySelector("#calcBreakdown"),
+  calcWarning: document.querySelector("#calcWarning"),
+  calcSelectAll: document.querySelector("#calcSelectAll"),
+  calcClear: document.querySelector("#calcClear"),
+  calcReset: document.querySelector("#calcReset"),
 };
 
 const PURCHASES_HASH = "#zakupy";
@@ -392,18 +399,93 @@ const purchaseRoomGroups = (item) => {
   ].filter((group) => group.ids.length);
 };
 
+const MAX_QTY = 99;
+const PURCHASE_STORAGE_KEY = "sprzet-zakupy-v1";
+
 const purchaseItemsOf = (tier) => purchaseItems.filter((item) => item.tier === tier.id);
+const purchaseItemById = (id) => purchaseItems.find((item) => item.id === id);
 const totalQty = (items) => items.reduce((sum, item) => sum + item.qty, 0);
 
+// Stan kalkulatora: domyślnie zaznaczone "Do kupienia", ilości z listy; zapamiętywany w przeglądarce.
+const defaultPurchaseState = () => Object.fromEntries(
+  purchaseItems.map((item) => [item.id, { checked: item.tier === "buy", qty: item.qty }]),
+);
+
+const loadPurchaseState = () => {
+  const saved = defaultPurchaseState();
+  try {
+    const stored = JSON.parse(localStorage.getItem(PURCHASE_STORAGE_KEY) ?? "{}");
+    Object.entries(stored).forEach(([id, entry]) => {
+      if (!saved[id] || !entry) return;
+      if (typeof entry.checked === "boolean") saved[id].checked = entry.checked;
+      if (Number.isInteger(entry.qty) && entry.qty >= 1 && entry.qty <= MAX_QTY) saved[id].qty = entry.qty;
+    });
+  } catch {
+    // Brak dostępu do pamięci przeglądarki: kalkulator działa na wartościach domyślnych.
+  }
+  return saved;
+};
+
+const purchaseState = loadPurchaseState();
+
+const savePurchaseState = () => {
+  try {
+    localStorage.setItem(PURCHASE_STORAGE_KEY, JSON.stringify(purchaseState));
+  } catch {
+    // Zapis jest tylko udogodnieniem.
+  }
+};
+
+const currentQty = (item) => purchaseState[item.id].qty;
+const sumQty = (items) => items.reduce((sum, item) => sum + currentQty(item), 0);
+
+const numberFormat = (options) => new Intl.NumberFormat("pl-PL", { useGrouping: "always", ...options });
+
 const formatPrice = ({ amount, vat }) => {
-  const number = new Intl.NumberFormat("pl-PL", {
-    useGrouping: "always",
-    minimumFractionDigits: Number.isInteger(amount) ? 0 : 2,
-  }).format(amount);
+  const number = numberFormat({ minimumFractionDigits: Number.isInteger(amount) ? 0 : 2 }).format(amount);
   return `${number} zł ${vat}`;
 };
 
 const formatPrices = (offer) => offer.prices.map(formatPrice).join(" / ");
+
+const formatMoney = (cents) => `${numberFormat({ minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(cents / 100)} zł`;
+
+const vatNote = (offer) => ({
+  true: "VAT 0%",
+  false: "brak możliwości VAT 0%",
+  unknown: "VAT 0% do potwierdzenia",
+}[offer.zeroVat] ?? "");
+
+// Cena jednostkowa do sumy: netto tylko przy pewnym VAT 0%, w pozostałych przypadkach brutto.
+const unitPrice = (item) => {
+  const offer = item.offers?.[0];
+  if (!offer) return null;
+  const wanted = offer.zeroVat === true ? "netto" : "brutto";
+  const price = offer.prices.find((entry) => entry.vat === wanted) ?? offer.prices[0];
+  return { cents: Math.round(price.amount * 100), vat: price.vat };
+};
+
+const calcSummary = () => {
+  const selected = purchaseItems.filter((item) => purchaseState[item.id].checked);
+  const lineCents = (item) => (unitPrice(item)?.cents ?? 0) * currentQty(item);
+  const sumCents = (items) => items.reduce((sum, item) => sum + lineCents(item), 0);
+  return {
+    selected,
+    unpriced: selected.filter((item) => !unitPrice(item)),
+    total: sumCents(selected),
+    tierTotals: purchaseTiers.map((tier) => ({
+      tier,
+      cents: sumCents(selected.filter((item) => item.tier === tier.id)),
+    })),
+  };
+};
+
+const calcLineText = (item) => {
+  const price = unitPrice(item);
+  if (!price) return "Brak ceny, pozycja nie wchodzi do sumy";
+  const qty = currentQty(item);
+  return `Do sumy: ${formatMoney(price.cents)} ${price.vat} × ${qty} = ${formatMoney(price.cents * qty)}`;
+};
 
 const offersBlock = (item) => {
   if (!item.offers?.length) return "";
@@ -414,7 +496,7 @@ const offersBlock = (item) => {
         <li>
           <a href="${escapeHtml(offer.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(offer.label)}</a>
           <span class="offer-price">${formatPrices(offer)}</span>
-          ${offer.vatNote ? `<span class="offer-vat">${escapeHtml(offer.vatNote)}</span>` : ""}
+          ${vatNote(offer) ? `<span class="offer-vat">${escapeHtml(vatNote(offer))}</span>` : ""}
           <span class="offer-shop">${escapeHtml(offer.shop)}</span>
         </li>
       `).join("")}</ul>
@@ -436,23 +518,68 @@ const purchaseCard = (item) => {
         </div>
       `).join("")}</dl>`
     : `<p class="placeholder">Miejsce do ustalenia</p>`;
+  const label = escapeHtml(purchaseLabel(item));
 
   return `
-    <article class="purchase-card">
+    <article class="purchase-card" data-item-id="${escapeHtml(item.id)}">
       <header class="purchase-head">
-        <h3>${escapeHtml(item.name)}</h3>
-        <span class="qty-badge">${item.qty} szt.</span>
+        <input class="purchase-check" id="check-${escapeHtml(item.id)}" type="checkbox" data-item-check aria-label="Uwzględnij w kalkulacji: ${label}" />
+        <h3><label for="check-${escapeHtml(item.id)}">${escapeHtml(item.name)}</label></h3>
+        <div class="qty-control" role="group" aria-label="Ilość: ${label}">
+          <button type="button" data-qty-step="-1" aria-label="Zmniejsz ilość">−</button>
+          <output class="qty-value" data-qty-value></output>
+          <span class="qty-unit">szt.</span>
+          <button type="button" data-qty-step="1" aria-label="Zwiększ ilość">+</button>
+        </div>
       </header>
       <ul class="spec-tags">${item.specs.map((spec) => `<li>${escapeHtml(spec)}</li>`).join("")}</ul>
       ${item.note ? `<p class="purchase-note">${escapeHtml(item.note)}</p>` : ""}
       ${offersBlock(item)}
+      <p class="calc-line" data-calc-line></p>
       ${roomsBlock}
     </article>
   `;
 };
 
+const renderCalcSummary = () => {
+  const { selected, unpriced, total, tierTotals } = calcSummary();
+  els.calcTotal.textContent = formatMoney(total);
+  els.calcMeta.textContent = `Zaznaczone: ${selected.length} poz. · ${sumQty(selected)} szt.`;
+  els.calcBreakdown.innerHTML = tierTotals.map(({ tier, cents }) => `
+    <div><dt>${escapeHtml(tier.label)}</dt><dd>${formatMoney(cents)}</dd></div>
+  `).join("");
+  els.calcWarning.hidden = !unpriced.length;
+  els.calcWarning.textContent = unpriced.length
+    ? `Bez ceny, nie wliczono do sumy: ${unpriced.map(purchaseLabel).join("; ")}`
+    : "";
+};
+
+const syncPurchaseView = () => {
+  els.purchaseLists.querySelectorAll(".purchase-card").forEach((card) => {
+    const item = purchaseItemById(card.dataset.itemId);
+    const entry = purchaseState[item.id];
+    card.classList.toggle("is-excluded", !entry.checked);
+    card.querySelector("[data-item-check]").checked = entry.checked;
+    card.querySelector("[data-qty-value]").textContent = entry.qty;
+    card.querySelector('[data-qty-step="-1"]').setAttribute("aria-disabled", String(entry.qty <= 1));
+    card.querySelector('[data-qty-step="1"]').setAttribute("aria-disabled", String(entry.qty >= MAX_QTY));
+    card.querySelector("[data-calc-line]").textContent = calcLineText(item);
+  });
+  els.purchaseLists.querySelectorAll("[data-tier-count]").forEach((counter) => {
+    const items = purchaseItemsOf({ id: counter.dataset.tierCount });
+    counter.textContent = `${items.length} poz. · ${sumQty(items)} szt.`;
+  });
+  renderCalcSummary();
+  if (state.view === "purchases") renderPurchasePrint();
+};
+
+const commitPurchaseState = () => {
+  savePurchaseState();
+  syncPurchaseView();
+};
+
 const renderPurchaseView = () => {
-  els.purchaseSummary.textContent = `Sprzęt, który dobrze byłoby kupić. Pozycje z przypisanymi salami są też na kartach tych sal. Stan z ${dataUpdatedAt}.`;
+  els.purchaseSummary.textContent = `Sprzęt, który dobrze byłoby kupić. Zaznacz pozycje i ustaw ilości, a kalkulator policzy koszt. Pozycje z przypisanymi salami są też na kartach tych sal. Stan z ${dataUpdatedAt}.`;
   els.purchasesTabCount.textContent = purchaseItems.length;
 
   els.purchaseLists.innerHTML = purchaseTiers.map((tier) => {
@@ -465,12 +592,14 @@ const renderPurchaseView = () => {
             <h2 id="tier-${tier.id}">${escapeHtml(tier.label)}</h2>
             <p>${escapeHtml(tier.hint)}</p>
           </div>
-          <span>${items.length} poz. · ${totalQty(items)} szt.</span>
+          <span data-tier-count="${tier.id}"></span>
         </div>
         <div class="purchase-grid">${items.map(purchaseCard).join("")}</div>
       </section>
     `;
   }).join("");
+
+  syncPurchaseView();
 };
 
 const purchasePrintLine = (item) => {
@@ -480,11 +609,28 @@ const purchasePrintLine = (item) => {
   }).join(", ");
 
   return [
-    `${purchaseLabel(item)}, ${item.qty} szt.`,
+    `${purchaseLabel(item)}, ${currentQty(item)} szt.`,
     item.note,
-    ...(item.offers ?? []).map((offer) => `np. ${offer.label}, ${[formatPrices(offer), offer.vatNote].filter(Boolean).join(", ")} (${offer.shop})`),
+    ...(item.offers ?? []).map((offer) => `np. ${offer.label}, ${[formatPrices(offer), vatNote(offer)].filter(Boolean).join(", ")} (${offer.shop})`),
     roomText ? `sale: ${roomText}` : "miejsce do ustalenia",
   ].filter(Boolean).join("; ");
+};
+
+const calcPrintSection = () => {
+  const { selected, unpriced, total } = calcSummary();
+  if (!selected.length) return printSection("Kalkulacja (zaznaczone pozycje)", "<p>Nie zaznaczono żadnych pozycji.</p>");
+
+  const lines = selected.map((item) => {
+    const price = unitPrice(item);
+    const amount = price ? `${formatMoney(price.cents * currentQty(item))} (${price.vat})` : "brak ceny";
+    return `${purchaseLabel(item)} × ${currentQty(item)}: ${amount}`;
+  });
+  return printSection("Kalkulacja (zaznaczone pozycje)", `
+    ${listItems(lines)}
+    <p><strong>Razem: ${formatMoney(total)}</strong></p>
+    ${unpriced.length ? `<p>Nie wliczono pozycji bez ceny: ${escapeHtml(unpriced.map(purchaseLabel).join("; "))}</p>` : ""}
+    <p>Ceny netto przy pewnym VAT 0%, w pozostałych przypadkach brutto.</p>
+  `);
 };
 
 const renderPurchasePrint = () => {
@@ -494,6 +640,7 @@ const renderPurchasePrint = () => {
       <div><strong>Aktualizacja danych:</strong> ${escapeHtml(dataUpdatedAt)}</div>
     </div>
     ${purchaseTiers.map((tier) => printSection(tier.label, listItems(purchaseItemsOf(tier).map(purchasePrintLine)))).join("")}
+    ${calcPrintSection()}
   `;
 };
 
@@ -645,6 +792,33 @@ els.drawerBackdrop.addEventListener("click", () => setCatalogOpen(false));
 els.previousRoom.addEventListener("click", () => moveToAdjacentRoom(-1));
 els.nextRoom.addEventListener("click", () => moveToAdjacentRoom(1));
 els.printPurchases.addEventListener("click", () => window.print());
+
+els.purchaseLists.addEventListener("change", (event) => {
+  const box = event.target.closest("[data-item-check]");
+  if (!box) return;
+  purchaseState[box.closest(".purchase-card").dataset.itemId].checked = box.checked;
+  commitPurchaseState();
+});
+
+els.purchaseLists.addEventListener("click", (event) => {
+  const button = event.target.closest("[data-qty-step]");
+  if (!button) return;
+  const entry = purchaseState[button.closest(".purchase-card").dataset.itemId];
+  entry.qty = Math.min(MAX_QTY, Math.max(1, entry.qty + Number(button.dataset.qtyStep)));
+  commitPurchaseState();
+});
+
+const setAllChecked = (checked) => {
+  purchaseItems.forEach((item) => { purchaseState[item.id].checked = checked; });
+  commitPurchaseState();
+};
+
+els.calcSelectAll.addEventListener("click", () => setAllChecked(true));
+els.calcClear.addEventListener("click", () => setAllChecked(false));
+els.calcReset.addEventListener("click", () => {
+  Object.assign(purchaseState, defaultPurchaseState());
+  commitPurchaseState();
+});
 
 document.addEventListener("keydown", (event) => {
   if (event.key === "Escape") {

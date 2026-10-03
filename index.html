@@ -116,6 +116,26 @@
             <button class="primary" id="printPurchases" type="button">Drukuj listę</button>
           </div>
         </div>
+        <section class="purchase-summary" aria-labelledby="calcTitle">
+          <div class="calc-row">
+            <div>
+              <h2 class="calc-title" id="calcTitle">Kalkulator, razem</h2>
+              <p class="calc-total" id="calcTotal" aria-live="polite">0,00 zł</p>
+            </div>
+            <dl class="calc-breakdown" id="calcBreakdown"></dl>
+          </div>
+          <p class="calc-meta" id="calcMeta"></p>
+          <p class="calc-warning" id="calcWarning" hidden></p>
+          <details class="calc-details">
+            <summary>Zasady liczenia i przyciski</summary>
+            <p>Cena netto jest liczona tylko tam, gdzie VAT 0% jest pewny. Przy wątpliwościach lub braku możliwości VAT 0% liczymy cenę brutto. Pozycje bez ceny nie wchodzą do sumy. Zaznaczenia i ilości zapamiętuje ta przeglądarka.</p>
+            <div class="detail-actions calc-actions">
+              <button type="button" id="calcSelectAll">Zaznacz wszystko</button>
+              <button type="button" id="calcClear">Odznacz wszystko</button>
+              <button type="button" id="calcReset">Przywróć domyślne</button>
+            </div>
+          </details>
+        </section>
         <div class="purchase-lists" id="purchaseLists"></div>
       </section>
     </main>

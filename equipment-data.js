@@ -94,7 +94,10 @@ const group = (name, items) => ({ name, items });
 // - tier: "buy" (do kupienia) albo "wish" (lista życzeń);
 // - roomIds: sale, do których trafi sprzęt (puste = miejsce do ustalenia);
 // - priorityRoomIds: sale kupowane najpierw (podzbiór roomIds);
-// - offers: przykładowe oferty ze sklepów (label, shop, url, prices: lista { amount w zł, vat: "netto" lub "brutto" }, vatNote, checkedAt);
+// - offers: przykładowe oferty ze sklepów (label, shop, url, checkedAt) z listą prices ({ amount w zł,
+//   vat: "netto" lub "brutto" }) i polem zeroVat: true (VAT 0% pewny), false (niemożliwy), "unknown" (do
+//   potwierdzenia) lub brak pola (nie wiadomo). Kalkulator liczy cenę netto tylko przy zeroVat: true,
+//   w pozostałych przypadkach cenę brutto; pozycje bez oferty nie wchodzą do sumy;
 // - karta sali dostaje wpis w grupie "Do zakupu", a sala priorytetowa także pilny zakup.
 export const purchaseTiers = [
   { id: "buy", label: "Do kupienia", hint: "Sprzęt, który dobrze byłoby kupić" },
@@ -116,7 +119,7 @@ export const purchaseItems = [
         shop: "iiyama-sklep.pl",
         url: "https://iiyama-sklep.pl/1866-tablice-interaktywne-monitor-interaktywny-iiyama-75-te7515a-b2ag-4k-uhd-google-edla-iishare-dms-wifi-6e-usb-c-hdmi-dp-nfc-4948570127498.html",
         prices: [{ amount: 7245.53, vat: "netto" }],
-        vatNote: "VAT 0%",
+        zeroVat: true,
         checkedAt: "03.10.2026",
       },
     ],
@@ -134,7 +137,7 @@ export const purchaseItems = [
         shop: "euro.com.pl",
         url: "https://www.euro.com.pl/telewizory-led-lcd-plazmowe/hisense-telewizor-85e7q.bhtml",
         prices: [{ amount: 2999, vat: "brutto" }],
-        vatNote: "brak możliwości VAT 0%",
+        zeroVat: false,
         checkedAt: "03.10.2026",
       },
     ],
@@ -156,7 +159,7 @@ export const purchaseItems = [
           { amount: 1840, vat: "brutto" },
           { amount: 1495.93, vat: "netto" },
         ],
-        vatNote: "VAT 0% do potwierdzenia",
+        zeroVat: "unknown",
         checkedAt: "03.10.2026",
       },
     ],
@@ -204,7 +207,7 @@ export const purchaseItems = [
           { amount: 2058, vat: "brutto" },
           { amount: 1673.17, vat: "netto" },
         ],
-        vatNote: "VAT 0% do potwierdzenia",
+        zeroVat: "unknown",
         checkedAt: "03.10.2026",
       },
     ],
@@ -225,7 +228,7 @@ export const purchaseItems = [
           { amount: 2510.99, vat: "brutto" },
           { amount: 2041.46, vat: "netto" },
         ],
-        vatNote: "VAT 0%",
+        zeroVat: true,
         checkedAt: "03.10.2026",
       },
     ],
