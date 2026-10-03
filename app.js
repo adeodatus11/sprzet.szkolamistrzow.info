@@ -2,7 +2,9 @@ import {
   dataUpdatedAt,
   defaultRoomId,
   floors,
+  kpoAllocations,
   kpoDelivery,
+  kpoNotes,
   purchaseItems,
   purchaseLabel,
   purchaseTiers,
@@ -22,8 +24,12 @@ const els = {
   detail: document.querySelector("#roomDetail"),
   openItems: document.querySelector("#openItems"),
   openItemsCount: document.querySelector("#openItemsCount"),
-  kpoTiles: document.querySelector("#kpoTiles"),
-  kpoTotal: document.querySelector("#kpoTotal"),
+  resourcesTabCount: document.querySelector("#resourcesTabCount"),
+  resourcesSummary: document.querySelector("#resourcesSummary"),
+  resourceTotal: document.querySelector("#resourceTotal"),
+  resourceCards: document.querySelector("#resourceCards"),
+  resourceNotes: document.querySelector("#resourceNotes"),
+  printResources: document.querySelector("#printResources"),
   printSheet: document.querySelector("#printSheet"),
   catalogToggle: document.querySelector("#catalogToggle"),
   mobileCatalogToggle: document.querySelector("#mobileCatalogToggle"),
@@ -49,7 +55,8 @@ const els = {
   calcReset: document.querySelector("#calcReset"),
 };
 
-const PURCHASES_HASH = "#zakupy";
+const VIEW_HASHES = { purchases: "#zakupy", resources: "#zasoby" };
+const VIEW_TITLES = { purchases: "Do zakupu", resources: "Zasoby" };
 const baseTitle = document.title;
 
 const mobileCatalogQuery = window.matchMedia("(max-width: 980px)");
@@ -58,7 +65,7 @@ let lastCatalogTrigger = els.catalogToggle;
 
 const roomIdFromHash = () => decodeURIComponent(location.hash.replace("#room-", ""));
 const roomExists = (id) => rooms.some((room) => room.id === id);
-const viewFromHash = () => (location.hash === PURCHASES_HASH ? "purchases" : "rooms");
+const viewFromHash = () => Object.keys(VIEW_HASHES).find((view) => VIEW_HASHES[view] === location.hash) ?? "rooms";
 
 const state = {
   view: viewFromHash(),
@@ -674,7 +681,7 @@ const renderPurchasePrint = () => {
 
 const renderViewTabs = () => {
   document.body.dataset.view = state.view;
-  document.title = state.view === "purchases" ? `Do zakupu | ${baseTitle}` : baseTitle;
+  document.title = VIEW_TITLES[state.view] ? `${VIEW_TITLES[state.view]} | ${baseTitle}` : baseTitle;
   els.roomsTab.href = `#room-${encodeURIComponent(state.activeId)}`;
   els.viewTabs.querySelectorAll("[data-view]").forEach((tab) => {
     if (tab.dataset.view === state.view) tab.setAttribute("aria-current", "page");
@@ -693,18 +700,142 @@ const renderOpenItems = () => {
   }).join("");
 };
 
-const renderKpoDelivery = () => {
-  els.kpoTotal.textContent = `${totalQty(kpoDelivery)} szt.`;
-  els.kpoTiles.innerHTML = kpoDelivery.map((item) => `
-    <li>
-      <span class="kpo-qty">${item.qty}</span>
-      <span class="kpo-name">${escapeHtml(item.name)}</span>
-    </li>
+// Zasoby: sprzęt z KPO, ile jest w salach, ile ma tam trafić, ile leży jeszcze w pudełkach.
+const kpoStats = (device) => {
+  const entries = kpoAllocations.filter((entry) => entry.deviceId === device.id);
+  const byRoom = (state) => {
+    const totals = new Map();
+    entries.filter((entry) => entry.state === state).forEach((entry) => {
+      totals.set(entry.roomId, (totals.get(entry.roomId) ?? 0) + entry.qty);
+    });
+    return [...totals].map(([roomId, qty]) => ({ roomId, qty }));
+  };
+  const sum = (rows) => rows.reduce((total, row) => total + row.qty, 0);
+  const placedRooms = byRoom("placed");
+  const plannedRooms = byRoom("planned");
+  const placed = sum(placedRooms);
+  const planned = sum(plannedRooms);
+  return {
+    placedRooms,
+    plannedRooms,
+    placed,
+    planned,
+    inBoxes: device.qty - placed,
+    free: Math.max(0, device.qty - placed - planned),
+  };
+};
+
+const kpoTotals = () => {
+  const stats = kpoDelivery.map(kpoStats);
+  const sum = (key) => stats.reduce((total, item) => total + item[key], 0);
+  return {
+    delivered: totalQty(kpoDelivery),
+    placed: sum("placed"),
+    planned: sum("planned"),
+    inBoxes: sum("inBoxes"),
+  };
+};
+
+const percentOf = (part, whole) => (whole ? Math.round((part / whole) * 1000) / 10 : 0);
+
+const roomQtyChips = (rows) => {
+  if (!rows.length) return `<p class="placeholder">Brak</p>`;
+  return `<div class="allocation-chips">${rows.map(({ roomId, qty }) => {
+    const room = roomById(roomId);
+    const label = `${room ? room.name : roomId} × ${qty}`;
+    return room ? roomLink(room, { label }) : `<span class="room-chip">${escapeHtml(label)}</span>`;
+  }).join("")}</div>`;
+};
+
+const resourceCard = (device) => {
+  const stats = kpoStats(device);
+  const segments = [
+    ["placed", "W salach", stats.placed],
+    ["planned", "Do wstawienia", stats.planned],
+    ["free", "Wolne", stats.free],
+  ];
+  const summary = segments.map(([, label, qty]) => `${label.toLowerCase()} ${qty}`).join(", ");
+
+  return `
+    <article class="resource-card" data-device-id="${escapeHtml(device.id)}">
+      <header class="resource-head">
+        <h2>${escapeHtml(device.name)}</h2>
+        <span class="resource-qty">${device.qty} szt.</span>
+      </header>
+      <div class="resource-bar" role="img" aria-label="${escapeHtml(`Z ${device.qty} szt.: ${summary}`)}">
+        ${segments.map(([key, , qty]) => `<span class="bar-${key}" style="width: ${percentOf(qty, device.qty)}%"></span>`).join("")}
+      </div>
+      <dl class="resource-numbers">
+        <div class="is-placed"><dt>W salach</dt><dd data-stat="placed">${stats.placed}</dd></div>
+        <div><dt>W pudełkach</dt><dd data-stat="inBoxes">${stats.inBoxes}</dd></div>
+        <div class="is-sub is-planned"><dt>z tego przydzielone do sal (do wstawienia)</dt><dd data-stat="planned">${stats.planned}</dd></div>
+        <div class="is-sub is-free"><dt>z tego wolne, bez przydziału</dt><dd data-stat="free">${stats.free}</dd></div>
+        <div class="is-total"><dt>Rozdysponowane łącznie (w salach i do wstawienia)</dt><dd data-stat="allocated">${stats.placed + stats.planned}</dd></div>
+      </dl>
+      <details class="resource-details">
+        <summary>Podział na sale</summary>
+        <h3>W salach</h3>
+        ${roomQtyChips(stats.placedRooms)}
+        <h3>Do wstawienia</h3>
+        ${roomQtyChips(stats.plannedRooms)}
+      </details>
+    </article>
+  `;
+};
+
+const renderResources = () => {
+  const totals = kpoTotals();
+  els.resourcesTabCount.textContent = totals.delivered;
+  els.resourcesSummary.textContent = `Podliczenie sprzętu otrzymanego w ramach KPO: ile jest już w salach, ile ma tam trafić i ile leży jeszcze w pudełkach. Stan z ${dataUpdatedAt}.`;
+
+  const tiles = [
+    ["delivered", "Dostarczono z KPO", totals.delivered],
+    ["placed", "W salach", totals.placed],
+    ["inBoxes", "W pudełkach", totals.inBoxes],
+    ["planned", "Z tego przydzielone do sal", totals.planned],
+  ];
+  els.resourceTotal.innerHTML = tiles.map(([key, label, value]) => `
+    <div class="total-tile" data-total="${key}">
+      <span class="total-value">${value}</span>
+      <span class="total-label">${escapeHtml(label)}</span>
+    </div>
   `).join("");
+
+  els.resourceCards.innerHTML = kpoDelivery.map(resourceCard).join("");
+  els.resourceNotes.innerHTML = kpoNotes.map((note) => `<li>${escapeHtml(note)}</li>`).join("");
+};
+
+const roomQtyText = (rows) => (rows.length
+  ? rows.map(({ roomId, qty }) => `${roomById(roomId) ? chipLabel(roomById(roomId)) : roomId} × ${qty}`).join(", ")
+  : "brak");
+
+const renderResourcesPrint = () => {
+  const totals = kpoTotals();
+  els.printSheet.innerHTML = `
+    <h1>Sprzęt z KPO</h1>
+    <div class="print-meta">
+      <div><strong>Dostarczono:</strong> ${totals.delivered} szt.</div>
+      <div><strong>W salach:</strong> ${totals.placed} szt.</div>
+      <div><strong>W pudełkach:</strong> ${totals.inBoxes} szt.</div>
+      <div><strong>Aktualizacja danych:</strong> ${escapeHtml(dataUpdatedAt)}</div>
+    </div>
+    ${kpoDelivery.map((device) => {
+      const stats = kpoStats(device);
+      return printSection(device.name, listItems([
+        `Dostarczono: ${device.qty} szt.`,
+        `W salach: ${stats.placed} szt.`,
+        `W pudełkach: ${stats.inBoxes} szt. (przydzielone do sal: ${stats.planned}, wolne: ${stats.free})`,
+        `Rozdysponowane łącznie (w salach i do wstawienia): ${stats.placed + stats.planned} szt.`,
+        `Sale, w których już jest: ${roomQtyText(stats.placedRooms)}`,
+        `Sale, do których ma trafić: ${roomQtyText(stats.plannedRooms)}`,
+      ]));
+    }).join("")}
+    ${printSection("Założenia zestawienia", listItems(kpoNotes))}
+  `;
 };
 
 const syncHash = (historyMode = "replace") => {
-  const hash = state.view === "purchases" ? PURCHASES_HASH : `#room-${encodeURIComponent(state.activeId)}`;
+  const hash = VIEW_HASHES[state.view] ?? `#room-${encodeURIComponent(state.activeId)}`;
   if (location.hash === hash) return;
   const method = historyMode === "push" ? "pushState" : "replaceState";
   history[method](null, "", hash);
@@ -723,6 +854,7 @@ const render = ({ historyMode = "replace", moveFocus = false } = {}) => {
   renderDetail();
   renderMobileNavigation();
   if (state.view === "purchases") renderPurchasePrint();
+  if (state.view === "resources") renderResourcesPrint();
   syncHash(historyMode);
   if (state.view === "rooms") keepActiveRowVisible();
 
@@ -820,6 +952,7 @@ els.drawerBackdrop.addEventListener("click", () => setCatalogOpen(false));
 els.previousRoom.addEventListener("click", () => moveToAdjacentRoom(-1));
 els.nextRoom.addEventListener("click", () => moveToAdjacentRoom(1));
 els.printPurchases.addEventListener("click", () => window.print());
+els.printResources.addEventListener("click", () => window.print());
 
 els.purchaseLists.addEventListener("change", (event) => {
   const box = event.target.closest("[data-item-check]");
@@ -861,8 +994,9 @@ document.addEventListener("keydown", (event) => {
 });
 
 window.addEventListener("popstate", () => {
-  if (viewFromHash() === "purchases") {
-    showView("purchases", { historyMode: "replace" });
+  const hashView = viewFromHash();
+  if (hashView !== "rooms") {
+    showView(hashView, { historyMode: "replace" });
     return;
   }
   const nextId = roomIdFromHash();
@@ -874,7 +1008,7 @@ mobileCatalogQuery.addEventListener("change", () => setCatalogOpen(false, { rest
 els.roomsTabCount.textContent = rooms.length;
 renderFilters();
 renderOpenItems();
-renderKpoDelivery();
+renderResources();
 renderPurchaseView();
 render();
 setCatalogOpen(false, { restoreFocus: false });

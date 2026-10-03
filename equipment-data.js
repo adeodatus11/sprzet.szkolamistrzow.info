@@ -9,11 +9,38 @@ export const dataUpdatedAt = "03.10.2026";
 
 export const defaultRoomId = "2";
 
-// Sprzęt otrzymany w ramach KPO (stan ogólny, bez podziału na sale).
+// Sprzęt otrzymany w ramach KPO (zakładka "Zasoby"): dostarczone ilości.
 export const kpoDelivery = [
-  { name: "Laptopy", qty: 160 },
-  { name: "Laptopy przeglądarkowe (Chromebooki)", qty: 46 },
-  { name: "Tablety (iPad)", qty: 96 },
+  { id: "laptop", name: "Laptopy", qty: 160 },
+  { id: "chromebook", name: "Laptopy przeglądarkowe (Chromebooki)", qty: 46 },
+  { id: "ipad", name: "Tablety (iPad)", qty: 96 },
+];
+
+// Rozdysponowanie sprzętu z KPO po salach: state "placed" = już w sali, "planned" = ma trafić do sali.
+// Reszta (dostarczone minus w salach) jest jeszcze w pudełkach. Liczymy tylko sprzęt z KPO, więc
+// np. starsze iPady Air z sali 5 nie wchodzą do zestawienia.
+const kpoLaptop = (roomIds, qty, state, note = "") => roomIds.map((roomId) => ({ deviceId: "laptop", roomId, qty, state, note }));
+
+export const kpoAllocations = [
+  // laptop KPO na stanowisku (nauczyciela), już w sali
+  ...kpoLaptop(["2", "3", "4", "5", "05-new", "6", "17", "18", "19", "22", "23", "26", "27", "28", "29", "30", "31", "32", "33", "34", "40", "41", "42", "44"], 1, "placed"),
+  // pracownie z laptopami uczniów
+  ...kpoLaptop(["42"], 30, "placed", "komplet dla uczniów, nowa szafa do wstawienia"),
+  ...kpoLaptop(["41"], 30, "planned", "nowe laptopy z InsERT"),
+  ...kpoLaptop(["23"], 30, "planned", "przyjęto, że to laptopy z KPO"),
+  ...kpoLaptop(["16"], 4, "planned", "pokój nauczycielski, tryb incognito"),
+  // iPady z KPO (iPady Air z sali 5 nie są z KPO)
+  { deviceId: "ipad", roomId: "17", qty: 28, state: "planned", note: "28 tabletów KPO do dostarczenia" },
+  { deviceId: "ipad", roomId: "44", qty: 20, state: "planned", note: "20 iPadów z KPO do wstawienia" },
+];
+
+// Założenia zestawienia, pokazywane pod nim w zakładce "Zasoby".
+export const kpoNotes = [
+  "Liczymy tylko sprzęt z KPO: starsze iPady Air z sali 5 nie są z KPO i nie wchodzą do zestawienia.",
+  "W salach 8 i 38 nie wiadomo, czy komputery pochodzą z KPO, więc ich nie liczymy.",
+  "Przyjęto, że 30 laptopów w sali 23 pochodzi z KPO.",
+  "Dla Chromebooków nie ma jeszcze przydziału do sal, więc wszystkie są w pudełkach.",
+  "Przyjęto, że 26 laptopów z sali 41, które przechodzą do sali 40, jest starszych i nie pochodzi z KPO.",
 ];
 
 export const statusLabels = {

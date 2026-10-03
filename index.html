@@ -46,6 +46,7 @@
       <nav class="view-tabs" id="viewTabs" aria-label="Widok strony">
         <a class="view-tab" id="roomsTab" href="#room-2" data-view="rooms">Sale <span class="tab-count" id="roomsTabCount">0</span></a>
         <a class="view-tab" id="purchasesTab" href="#zakupy" data-view="purchases">Do zakupu <span class="tab-count" id="purchasesTabCount">0</span></a>
+        <a class="view-tab" id="resourcesTab" href="#zasoby" data-view="resources">Zasoby <span class="tab-count" id="resourcesTabCount">0</span></a>
       </nav>
 
       <section class="intro" aria-labelledby="pageTitle">
@@ -89,14 +90,6 @@
         <section class="detail-panel" id="roomDetail" aria-live="polite"></section>
       </section>
 
-      <section class="kpo-delivery" aria-labelledby="kpoTitle">
-        <div class="panel-heading">
-          <h2 id="kpoTitle">Sprzęt otrzymany z KPO</h2>
-          <span id="kpoTotal">0</span>
-        </div>
-        <ul class="kpo-tiles" id="kpoTiles"></ul>
-      </section>
-
       <section class="open-items" aria-labelledby="openItemsTitle">
         <div class="panel-heading">
           <h2 id="openItemsTitle">Sprawy do potwierdzenia</h2>
@@ -137,6 +130,25 @@
           </details>
         </section>
         <div class="purchase-lists" id="purchaseLists"></div>
+      </section>
+
+      <section class="resources-view" id="resourcesView" aria-labelledby="resourcesTitle">
+        <div class="purchase-intro">
+          <div class="intro-copy">
+            <p class="eyebrow">Zasoby</p>
+            <h1 id="resourcesTitle" tabindex="-1">Sprzęt z KPO</h1>
+            <p id="resourcesSummary"></p>
+          </div>
+          <div class="detail-actions">
+            <button class="primary" id="printResources" type="button">Drukuj zestawienie</button>
+          </div>
+        </div>
+        <div class="resource-total" id="resourceTotal" role="group" aria-label="Podsumowanie sprzętu z KPO"></div>
+        <div class="resource-cards" id="resourceCards"></div>
+        <section class="resource-notes" aria-labelledby="resourceNotesTitle">
+          <h2 id="resourceNotesTitle">Założenia zestawienia</h2>
+          <ul id="resourceNotes"></ul>
+        </section>
       </section>
     </main>
 
