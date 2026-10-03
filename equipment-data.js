@@ -255,10 +255,19 @@ export const purchaseItems = [
     id: "hdmi-20m",
     tier: "accessories",
     name: "Kabel HDMI światłowodowy",
-    specs: ["20 m"],
+    specs: ["25 m"],
     qty: 10,
     roomIds: ["2", "18", "23", "29", "30", "32", "33", "41", "37", "38"],
-    note: "Do każdego monitora interaktywnego i każdego telewizora",
+    note: "Do każdego monitora interaktywnego i każdego telewizora. Standard: Unitek 25 m, optyczny (AOC), HDMI 2.0, 4K 60 Hz (wg opisów w sklepach)",
+    offers: [
+      {
+        label: "Unitek kabel HDMI 25 m",
+        shop: "mediaexpert.pl",
+        url: "https://www.mediaexpert.pl/telewizory-i-rtv/kable-telewizyjne-i-audio/przewody-audio-video/kabel-hdmi-hdmi-unitek-25-m",
+        prices: [{ amount: 189.99, vat: "brutto" }],
+        checkedAt: "03.10.2026",
+      },
+    ],
   },
   {
     id: "vesa-interactive",
@@ -267,7 +276,16 @@ export const purchaseItems = [
     specs: ["na kółkach", "VESA 800 × 400"],
     qty: 8,
     roomIds: ["2", "18", "23", "29", "30", "32", "33", "41"],
-    note: "Mobilny stojak na kółkach, nie uchwyt ścienny. Monitor iiyama TE7515A-B2AG: VESA 800 × 400, waga 54,6 kg, 75 cali. Stojak musi to obsłużyć i udźwignąć; standard potwierdzić w instrukcji",
+    note: "Mobilny stojak na kółkach, nie uchwyt ścienny. Monitor iiyama TE7515A-B2AG: VESA 800 × 400, waga 54,6 kg, 75 cali. Stojak ART SD-22: do VESA 800 × 400, 45–90 cali i 60 kg, więc pasuje (zapas ok. 5 kg). Standard potwierdzić w instrukcji",
+    offers: [
+      {
+        label: "ART SD-22",
+        shop: "mediaexpert.pl",
+        url: "https://www.mediaexpert.pl/telewizory-i-rtv/uchwyty-do-tv/uchwyty/stojak-podlogowy-art-do-tv-45-90-cali-sd-22",
+        prices: [{ amount: 368.15, vat: "brutto" }],
+        checkedAt: "03.10.2026",
+      },
+    ],
   },
   {
     id: "vesa-tv",
