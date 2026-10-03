@@ -94,7 +94,7 @@ const group = (name, items) => ({ name, items });
 // - tier: "buy" (do kupienia) albo "wish" (lista życzeń);
 // - roomIds: sale, do których trafi sprzęt (puste = miejsce do ustalenia);
 // - priorityRoomIds: sale kupowane najpierw (podzbiór roomIds);
-// - offers: przykładowe oferty ze sklepów (label, shop, url, price w zł, net: true gdy cena netto, checkedAt); ceny są orientacyjne;
+// - offers: przykładowe oferty ze sklepów (label, shop, url, price w zł, vat: "netto" lub "brutto", vatNote, checkedAt);
 // - karta sali dostaje wpis w grupie "Do zakupu", a sala priorytetowa także pilny zakup.
 export const purchaseTiers = [
   { id: "buy", label: "Do kupienia", hint: "Sprzęt, który dobrze byłoby kupić" },
@@ -116,7 +116,8 @@ export const purchaseItems = [
         shop: "iiyama-sklep.pl",
         url: "https://iiyama-sklep.pl/1866-tablice-interaktywne-monitor-interaktywny-iiyama-75-te7515a-b2ag-4k-uhd-google-edla-iishare-dms-wifi-6e-usb-c-hdmi-dp-nfc-4948570127498.html",
         price: 7245.53,
-        net: true,
+        vat: "netto",
+        vatNote: "VAT 0%",
         checkedAt: "03.10.2026",
       },
     ],
@@ -133,7 +134,9 @@ export const purchaseItems = [
         label: "Hisense 85E7Q",
         shop: "euro.com.pl",
         url: "https://www.euro.com.pl/telewizory-led-lcd-plazmowe/hisense-telewizor-85e7q.bhtml",
-        price: 3799,
+        price: 2999,
+        vat: "brutto",
+        vatNote: "brak możliwości VAT 0%",
         checkedAt: "03.10.2026",
       },
     ],

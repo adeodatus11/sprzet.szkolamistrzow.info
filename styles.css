@@ -1100,6 +1100,12 @@ body:not([data-view="purchases"]) .purchase-view {
   font-weight: 800;
 }
 
+.offer-vat {
+  color: var(--ink);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
 .offer-shop {
   color: var(--muted);
   font-size: 0.82rem;

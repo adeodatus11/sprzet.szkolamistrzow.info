@@ -395,7 +395,7 @@ const purchaseRoomGroups = (item) => {
 const purchaseItemsOf = (tier) => purchaseItems.filter((item) => item.tier === tier.id);
 const totalQty = (items) => items.reduce((sum, item) => sum + item.qty, 0);
 
-const formatPrice = ({ price, net = false }) => `${new Intl.NumberFormat("pl-PL").format(price)} zł${net ? " netto" : ""}`;
+const formatPrice = ({ price, vat }) => `${new Intl.NumberFormat("pl-PL", { useGrouping: "always" }).format(price)} zł ${vat}`;
 
 const offersBlock = (item) => {
   if (!item.offers?.length) return "";
@@ -405,11 +405,12 @@ const offersBlock = (item) => {
       <ul>${item.offers.map((offer) => `
         <li>
           <a href="${escapeHtml(offer.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(offer.label)}</a>
-          <span class="offer-price">ok. ${formatPrice(offer)}</span>
+          <span class="offer-price">${formatPrice(offer)}</span>
+          ${offer.vatNote ? `<span class="offer-vat">${escapeHtml(offer.vatNote)}</span>` : ""}
           <span class="offer-shop">${escapeHtml(offer.shop)}</span>
         </li>
       `).join("")}</ul>
-      <p>Ceny orientacyjne, stan z ${escapeHtml(checked)}. Przed zakupem sprawdzić w sklepie.</p>
+      <p>Stan cen z ${escapeHtml(checked)}.</p>
     </div>
   `;
 };
@@ -475,7 +476,7 @@ const purchasePrintLine = (item) => {
     `${purchaseLabel(item)}, ${item.qty} szt.`,
     item.alternative && `albo ${item.alternative}`,
     item.note,
-    ...(item.offers ?? []).map((offer) => `np. ${offer.label}, ok. ${formatPrice(offer)} (${offer.shop})`),
+    ...(item.offers ?? []).map((offer) => `np. ${offer.label}, ${[formatPrice(offer), offer.vatNote].filter(Boolean).join(", ")} (${offer.shop})`),
     roomText ? `sale: ${roomText}` : "miejsce do ustalenia",
   ].filter(Boolean).join("; ");
 };
