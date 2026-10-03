@@ -793,23 +793,27 @@ const resourceCard = (device) => {
 
 const otherAssetCard = (asset) => {
   const stats = kpoStats(asset);
+  const sumRows = (rows) => rows.reduce((total, row) => total + row.qty, 0);
+  const lines = [
+    ["is-placed", "Teraz w salach i u osób", "placed", stats.placed, stats.placedRooms, "Teraz"],
+    ["is-planned", "Do dostarczenia", "planned", stats.planned, stats.plannedRooms, "Do dostarczenia do"],
+    ["is-planned", "Do przeniesienia", "moving", sumRows(stats.movingRooms), stats.movingRooms, "Do przeniesienia do"],
+  ].filter(([, , key, value]) => key === "placed" || value > 0);
+
   return `
     <article class="resource-card" data-device-id="${escapeHtml(asset.id)}">
       <header class="resource-head">
         <h3>${escapeHtml(asset.name)}</h3>
         <span class="resource-qty">${asset.qty} szt.</span>
       </header>
-      <p class="resource-note"><strong>Plan:</strong> ${escapeHtml(asset.plan)}</p>
+      ${asset.note ? `<p class="resource-note">${escapeHtml(asset.note)}</p>` : ""}
+      ${asset.plan ? `<p class="resource-note"><strong>Plan:</strong> ${escapeHtml(asset.plan)}</p>` : ""}
       <dl class="resource-numbers">
-        <div class="is-placed"><dt>Teraz w salach</dt><dd data-stat="placed">${stats.placed}</dd></div>
-        <div class="is-planned"><dt>Do przeniesienia</dt><dd data-stat="moving">${stats.movingRooms.reduce((total, row) => total + row.qty, 0)}</dd></div>
+        ${lines.map(([cls, label, key, value]) => `<div class="${cls}"><dt>${label}</dt><dd data-stat="${key}">${value}</dd></div>`).join("")}
       </dl>
       <details class="resource-details" open>
-        <summary>Podział na sale</summary>
-        <h4>Teraz</h4>
-        ${roomQtyChips(stats.placedRooms)}
-        <h4>Do przeniesienia do</h4>
-        ${roomQtyChips(stats.movingRooms)}
+        <summary>Podział na sale i osoby</summary>
+        ${lines.map(([, , , , rows, heading]) => `<h4>${heading}</h4>${roomQtyChips(rows)}`).join("")}
       </details>
     </article>
   `;
@@ -868,10 +872,12 @@ const renderResourcesPrint = () => {
       const stats = kpoStats(asset);
       return printSection(`${asset.name}: inny sprzęt`, listItems([
         `${asset.qty} szt.`,
-        `Plan: ${asset.plan}`,
+        asset.note,
+        asset.plan && `Plan: ${asset.plan}`,
         `Teraz: ${roomQtyText(stats.placedRooms)}`,
-        `Do przeniesienia do: ${roomQtyText(stats.movingRooms)}`,
-      ]));
+        stats.plannedRooms.length ? `Do dostarczenia do: ${roomQtyText(stats.plannedRooms)}` : "",
+        stats.movingRooms.length ? `Do przeniesienia do: ${roomQtyText(stats.movingRooms)}` : "",
+      ].filter(Boolean)));
     }).join("")}
     ${printSection("Założenia zestawienia", listItems(kpoNotes))}
   `;

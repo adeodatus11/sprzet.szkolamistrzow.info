@@ -45,6 +45,14 @@ export const kpoAllocations = [
   // Chromebooki z KPO
   { deviceId: "chromebook", assignee: "Maria Kaszak", qty: 1, state: "placed", note: "używany przez osobę" },
 
+  // komputery Dell UNICEF (2022): 18 w sali 37, 7 do znalezienia i dostarczenia, wadliwy ze stanowiska 15 do Macieja Najwera
+  { deviceId: "dell-unicef", roomId: "37", qty: 18, state: "placed", note: "w tym wadliwy ze stanowiska 15" },
+  { deviceId: "dell-unicef", roomId: "37", qty: 7, state: "planned", note: "do znalezienia i dostarczenia" },
+  { deviceId: "dell-unicef", assignee: "Maciej Najwer", qty: 1, state: "moving", note: "wadliwy komputer (stanowisko 15)" },
+
+  // laptopy Dell Pro z pracowni AI, w sali 38
+  { deviceId: "dell-pro", roomId: "38", qty: 24, state: "placed", note: "z pracowni AI" },
+
   // laptopy Asus z pracowni handlowej (nie z KPO, patrz otherAssets): teraz w sali 41, mają trafić do sali 40
   { deviceId: "asus", roomId: "41", qty: 26, state: "placed", note: "teraz w pracowni handlowej" },
   { deviceId: "asus", roomId: "40", qty: 26, state: "moving", note: "po wyczyszczeniu i przygotowaniu" },
@@ -53,6 +61,19 @@ export const kpoAllocations = [
 // Inny sprzęt, który nie pochodzi z KPO, ale też jest podliczany w zakładce "Zasoby".
 // state "moving" w kpoAllocations = ma zostać przeniesiony do tej sali (nie liczy się do rozdysponowania).
 export const otherAssets = [
+  {
+    id: "dell-unicef",
+    name: "Komputery stacjonarne Dell UNICEF (2022)",
+    qty: 25,
+    note: "W 2022 roku kupiono 25 komputerów Dell UNICEF i 25 monitorów AOC.",
+    plan: "Znaleźć pozostałe 7 sztuk i dostarczyć do sali 37; wadliwy komputer (stanowisko 15) przekazać Maciejowi Najwerowi",
+  },
+  {
+    id: "dell-pro",
+    name: "Laptopy Dell Pro (pracownia AI)",
+    qty: 24,
+    note: "Z pracowni AI, w sali 38. Nie wiadomo, czy pochodzą z KPO.",
+  },
   {
     id: "asus",
     name: "Laptopy Asus (pracownia handlowa)",
@@ -65,7 +86,7 @@ export const otherAssets = [
 export const kpoNotes = [
   "Liczymy tylko sprzęt z KPO: starsze iPady Air z sali 5 nie są z KPO i nie wchodzą do zestawienia.",
   "Laptop KPO jako komputer nauczyciela jest (albo ma być) w każdej sali lekcyjnej. Wyjątki: sale 37 i 38 (mają własne ustalenia o komputerze nauczyciela), pokoje nauczycielskie 04 i 16, biblioteka 21 i sala gimnastyczna 39.",
-  "W sali 38 nie wiadomo, czy laptopy z pracowni AI pochodzą z KPO, więc ich nie liczymy.",
+  "24 laptopy Dell Pro z pracowni AI w sali 38 nie są liczone do KPO, bo nie wiadomo, czy z niego pochodzą.",
   "Przyjęto, że 30 laptopów w sali 23 pochodzi z KPO.",
   "Chromebooki nie mają jeszcze przydziału do sal (poza jednym używanym przez Marię Kaszak), więc reszta jest w pudełkach.",
   "26 laptopów Asus z pracowni handlowej (sala 41) nie pochodzi z KPO, więc są pokazane osobno, jako inny sprzęt.",
@@ -867,17 +888,20 @@ export const rooms = [
     status: "missing",
     equipment: [
       group(G.furniture, ["24 ławki / stanowiska dla uczniów (według osobnego szkicu)"]),
-      group(G.computers, ["18 stanowisk komputerów UNICEF Dell (stanowisko 15 do wymiany)"]),
+      group(G.computers, ["18 komputerów stacjonarnych Dell UNICEF (2022), stanowisko 15 wadliwe"]),
       group(G.network, ["Internet kablowy na wszystkich stanowiskach"]),
       group(G.printers, ["Drukarka A4 (najlepiej z duplexem)"]),
     ],
     tasks: [
       "Dokupić biurka i dostawić 6 kolejnych stanowisk z komputerami UNICEF Dell",
+      "Znaleźć pozostałe 7 komputerów Dell UNICEF (z 25 kupionych w 2022) i dostarczyć je do sali 37",
       "Wymienić komputer na stanowisku 15",
+      "Przekazać wadliwy komputer ze stanowiska 15 Maciejowi Najwerowi",
       "Przygotować stanowisko nauczyciela (komputer all-in-one)",
       "Zapewnić internet kablowy na wszystkich stanowiskach",
       "Dodać drukarkę A4, najlepiej z duplexem",
     ],
+    notes: ["W 2022 roku kupiono 25 komputerów Dell UNICEF i 25 monitorów AOC"],
   }),
   room({
     id: "38",
@@ -889,9 +913,8 @@ export const rooms = [
     equipment: [
       group(G.furniture, ["Układ w kształcie litery U", "6 luźnych ławek na środku"]),
       group(G.computers, [
-        "Laptopy z pracowni AI",
-        "24 stanowiska dla uczniów",
-        "Stanowisko nauczyciela (nowy komputer, zostaje)",
+        "24 laptopy Dell Pro (z pracowni AI)",
+        "Komputer all-in-one dla nauczyciela (2026)",
       ]),
       group(G.network, ["Internet kablowy dla laptopów"]),
     ],

@@ -6,7 +6,7 @@ test("pokazuje listę sal i szczegóły", async ({ page }) => {
   await expect(page.getByRole("button", { name: /Sala 37/ })).toBeVisible();
   await page.getByRole("button", { name: /Sala 37/ }).click();
   await expect(page.getByRole("heading", { name: "Sala 37" })).toBeVisible();
-  await expect(page.locator("#roomDetail").getByText("18 stanowisk komputerów UNICEF Dell (stanowisko 15 do wymiany)")).toBeVisible();
+  await expect(page.locator("#roomDetail").getByText("18 komputerów stacjonarnych Dell UNICEF (2022), stanowisko 15 wadliwe")).toBeVisible();
   await expect(page.locator("#roomDetail").getByText("Stała kontrola techniczna")).toBeVisible();
   await expect(page.locator("#roomDetail").getByText("przewody są zamocowane na stałe")).toBeVisible();
 });
@@ -881,11 +881,13 @@ test("sala 34: laptop KPO podłączony do monitora interaktywnego", async ({ pag
 test("sala 37: 18 stanowisk Dell, 6 biurek do dokupienia, telewizor, uchwyt i kabel", async ({ page }) => {
   await page.goto("/#room-37");
   const detail = page.locator("#roomDetail");
-  await expect(detail.locator(".equipment-group", { hasText: "Komputery" })).toContainText("18 stanowisk komputerów UNICEF Dell (stanowisko 15 do wymiany)");
+  await expect(detail.locator(".equipment-group", { hasText: "Komputery" })).toContainText("18 komputerów stacjonarnych Dell UNICEF (2022), stanowisko 15 wadliwe");
   await expect(detail).not.toContainText("25 stanowisk");
   await expect(todoSection(page).locator("li:not(.is-done)")).toHaveText([
     "Dokupić biurka i dostawić 6 kolejnych stanowisk z komputerami UNICEF Dell",
+    "Znaleźć pozostałe 7 komputerów Dell UNICEF (z 25 kupionych w 2022) i dostarczyć je do sali 37",
     "Wymienić komputer na stanowisku 15",
+    "Przekazać wadliwy komputer ze stanowiska 15 Maciejowi Najwerowi",
     "Przygotować stanowisko nauczyciela (komputer all-in-one)",
     "Zapewnić internet kablowy na wszystkich stanowiskach",
     "Dodać drukarkę A4, najlepiej z duplexem",
@@ -1011,7 +1013,7 @@ test("zakładka Zasoby podlicza sprzęt z KPO: w salach, do wstawienia, w pudeł
   await expect(page.locator('[data-total="planned"] .total-value')).toHaveText("128");
 
   // laptopy: 160 = 56 na miejscu + 69 przydzielone + 35 wolne
-  await expect(page.locator(".resource-card")).toHaveCount(4);
+  await expect(page.locator(".resource-card")).toHaveCount(6);
   const laptops = resource(page, "laptop");
   await expect(laptops.locator(".resource-qty")).toHaveText("160 szt.");
   await expect(laptops.locator('[data-stat="placed"]')).toHaveText("56");
@@ -1162,4 +1164,72 @@ test("sala 42: szafa na 30 laptopów a 32 laptopy KPO jest sprawą do potwierdze
   await page.goto("/#room-42");
   await expect(page.locator("#openItems")).toContainText("szafa na 30, laptopów KPO jest 32");
   await expect(page.locator("#openItems").getByRole("link", { name: "Sala 42" })).toBeVisible();
+});
+
+test("sala 37: adnotacja o 25 komputerach Dell UNICEF i 25 monitorach AOC z 2022", async ({ page }) => {
+  await page.goto("/#room-37");
+  const detail = page.locator("#roomDetail");
+  await expect(detail.getByRole("heading", { name: "Uwagi" })).toBeVisible();
+  await expect(detail).toContainText("W 2022 roku kupiono 25 komputerów Dell UNICEF i 25 monitorów AOC");
+  await expect(detail).toContainText("Znaleźć pozostałe 7 komputerów Dell UNICEF (z 25 kupionych w 2022) i dostarczyć je do sali 37");
+  await expect(detail).toContainText("Przekazać wadliwy komputer ze stanowiska 15 Maciejowi Najwerowi");
+  await expect(detail).not.toContainText("Dell UNICEF z monitorami dla nauczyciela");
+});
+
+test("sala 38: 24 laptopy Dell Pro z pracowni AI i komputer all-in-one nauczyciela (2026)", async ({ page }) => {
+  await page.goto("/#room-38");
+  const computers = page.locator("#roomDetail .equipment-group", { hasText: "Komputery" });
+  await expect(computers).toContainText("24 laptopy Dell Pro (z pracowni AI)");
+  await expect(computers).toContainText("Komputer all-in-one dla nauczyciela (2026)");
+  await expect(computers).not.toContainText("Laptopy z pracowni AI");
+  await expect(computers).not.toContainText("Stanowisko nauczyciela (nowy komputer, zostaje)");
+  await expect(page.locator("#roomDetail")).toContainText("Komputer nauczyciela zostaje");
+});
+
+test("zasoby: komputery Dell UNICEF (2022) i laptopy Dell Pro jako inny sprzęt", async ({ page }) => {
+  await page.goto("/#zasoby");
+  const unicef = resource(page, "dell-unicef");
+  await expect(unicef.locator("h3")).toHaveText("Komputery stacjonarne Dell UNICEF (2022)");
+  await expect(unicef.locator(".resource-qty")).toHaveText("25 szt.");
+  await expect(unicef).toContainText("W 2022 roku kupiono 25 komputerów Dell UNICEF i 25 monitorów AOC");
+  await expect(unicef).toContainText("Znaleźć pozostałe 7 sztuk i dostarczyć do sali 37");
+  await expect(unicef.locator('[data-stat="placed"]')).toHaveText("18");
+  await expect(unicef.locator('[data-stat="planned"]')).toHaveText("7");
+  await expect(unicef.locator('[data-stat="moving"]')).toHaveText("1");
+  const chips = unicef.locator(".allocation-chips");
+  await expect(chips.nth(0).locator(".room-chip")).toHaveText(["Sala 37 × 18"]);
+  await expect(chips.nth(1).locator(".room-chip")).toHaveText(["Sala 37 × 7"]);
+  await expect(chips.nth(2).locator(".room-chip")).toHaveText(["Maciej Najwer × 1"]);
+
+  const pro = resource(page, "dell-pro");
+  await expect(pro.locator("h3")).toHaveText("Laptopy Dell Pro (pracownia AI)");
+  await expect(pro.locator(".resource-qty")).toHaveText("24 szt.");
+  await expect(pro.locator('[data-stat="placed"]')).toHaveText("24");
+  await expect(pro.locator('[data-stat="planned"]')).toHaveCount(0);
+  await expect(pro.locator(".allocation-chips .room-chip")).toHaveText(["Sala 38 × 24"]);
+  await expect(page.locator("#resourceNotes")).toContainText("24 laptopy Dell Pro z pracowni AI w sali 38 nie są liczone do KPO");
+
+  // nie wchodzą do sum z KPO
+  await expect(page.locator('[data-total="delivered"] .total-value')).toHaveText("302");
+  await expect(page.locator('[data-total="placed"] .total-value')).toHaveText("57");
+
+  // wydruk
+  const sheet = page.locator(".print-sheet");
+  await expect(sheet).toContainText("Komputery stacjonarne Dell UNICEF (2022): inny sprzęt");
+  await expect(sheet).toContainText("Do dostarczenia do: 37 × 7");
+  await expect(sheet).toContainText("Do przeniesienia do: Maciej Najwer × 1");
+});
+
+test("zasoby: inny sprzęt nie przekracza ilości kupionej", async ({ page }) => {
+  await page.goto("/");
+  const over = await page.evaluate(async () => {
+    const { kpoAllocations, otherAssets } = await import("/equipment-data.js");
+    return otherAssets.filter((asset) => {
+      const used = kpoAllocations
+        .filter((entry) => entry.deviceId === asset.id && entry.state !== "moving")
+        .reduce((sum, entry) => sum + entry.qty, 0);
+      return used > asset.qty;
+    }).map((asset) => asset.id);
+  });
+  expect(over).toEqual([]);
 });
