@@ -94,7 +94,7 @@ const group = (name, items) => ({ name, items });
 // - tier: "buy" (do kupienia) albo "wish" (lista życzeń);
 // - roomIds: sale, do których trafi sprzęt (puste = miejsce do ustalenia);
 // - priorityRoomIds: sale kupowane najpierw (podzbiór roomIds);
-// - offers: przykładowe oferty ze sklepów (label, shop, url, price w zł, vat: "netto" lub "brutto", vatNote, checkedAt);
+// - offers: przykładowe oferty ze sklepów (label, shop, url, prices: lista { amount w zł, vat: "netto" lub "brutto" }, vatNote, checkedAt);
 // - karta sali dostaje wpis w grupie "Do zakupu", a sala priorytetowa także pilny zakup.
 export const purchaseTiers = [
   { id: "buy", label: "Do kupienia", hint: "Sprzęt, który dobrze byłoby kupić" },
@@ -115,8 +115,7 @@ export const purchaseItems = [
         label: "iiyama ProLite TE7515A-B2AG",
         shop: "iiyama-sklep.pl",
         url: "https://iiyama-sklep.pl/1866-tablice-interaktywne-monitor-interaktywny-iiyama-75-te7515a-b2ag-4k-uhd-google-edla-iishare-dms-wifi-6e-usb-c-hdmi-dp-nfc-4948570127498.html",
-        price: 7245.53,
-        vat: "netto",
+        prices: [{ amount: 7245.53, vat: "netto" }],
         vatNote: "VAT 0%",
         checkedAt: "03.10.2026",
       },
@@ -134,8 +133,7 @@ export const purchaseItems = [
         label: "Hisense 85E7Q",
         shop: "euro.com.pl",
         url: "https://www.euro.com.pl/telewizory-led-lcd-plazmowe/hisense-telewizor-85e7q.bhtml",
-        price: 2999,
-        vat: "brutto",
+        prices: [{ amount: 2999, vat: "brutto" }],
         vatNote: "brak możliwości VAT 0%",
         checkedAt: "03.10.2026",
       },
@@ -171,11 +169,24 @@ export const purchaseItems = [
   {
     id: "tv-40",
     tier: "wish",
-    name: "Telewizor",
-    specs: ["40 cali", "Full HD (4K mile widziane)"],
+    name: "Monitor wielkoformatowy",
+    specs: ["43 cale", "4K", "praca 24/7"],
     qty: 1,
     roomIds: [],
     note: "Do wyświetlania zastępstw",
+    offers: [
+      {
+        label: "iiyama ProLite LH4341UHS-B2",
+        shop: "iiyama-sklep.pl",
+        url: "https://iiyama-sklep.pl/1208-monitory-wielkoformatowe-monitor-iiyama-prolite-lh4341uhs-b2-43-ips-led-4k-247-digital-signage-1xvga-3xhdmi-glosniki-4948570123520.html",
+        prices: [
+          { amount: 2058, vat: "brutto" },
+          { amount: 1673.17, vat: "netto" },
+        ],
+        vatNote: "VAT 0% do potwierdzenia",
+        checkedAt: "03.10.2026",
+      },
+    ],
   },
   {
     id: "monitor-2k",
@@ -885,6 +896,6 @@ export const unresolvedItems = [
   },
   {
     roomIds: [],
-    text: "Wskazać miejsce dla telewizora 40 cali do wyświetlania zastępstw (lista zakupów)",
+    text: "Wskazać miejsce dla monitora do wyświetlania zastępstw (lista zakupów)",
   },
 ];

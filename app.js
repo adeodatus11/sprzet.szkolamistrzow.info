@@ -395,7 +395,15 @@ const purchaseRoomGroups = (item) => {
 const purchaseItemsOf = (tier) => purchaseItems.filter((item) => item.tier === tier.id);
 const totalQty = (items) => items.reduce((sum, item) => sum + item.qty, 0);
 
-const formatPrice = ({ price, vat }) => `${new Intl.NumberFormat("pl-PL", { useGrouping: "always" }).format(price)} zł ${vat}`;
+const formatPrice = ({ amount, vat }) => {
+  const number = new Intl.NumberFormat("pl-PL", {
+    useGrouping: "always",
+    minimumFractionDigits: Number.isInteger(amount) ? 0 : 2,
+  }).format(amount);
+  return `${number} zł ${vat}`;
+};
+
+const formatPrices = (offer) => offer.prices.map(formatPrice).join(" / ");
 
 const offersBlock = (item) => {
   if (!item.offers?.length) return "";
@@ -405,7 +413,7 @@ const offersBlock = (item) => {
       <ul>${item.offers.map((offer) => `
         <li>
           <a href="${escapeHtml(offer.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(offer.label)}</a>
-          <span class="offer-price">${formatPrice(offer)}</span>
+          <span class="offer-price">${formatPrices(offer)}</span>
           ${offer.vatNote ? `<span class="offer-vat">${escapeHtml(offer.vatNote)}</span>` : ""}
           <span class="offer-shop">${escapeHtml(offer.shop)}</span>
         </li>
@@ -476,7 +484,7 @@ const purchasePrintLine = (item) => {
     `${purchaseLabel(item)}, ${item.qty} szt.`,
     item.alternative && `albo ${item.alternative}`,
     item.note,
-    ...(item.offers ?? []).map((offer) => `np. ${offer.label}, ${[formatPrice(offer), offer.vatNote].filter(Boolean).join(", ")} (${offer.shop})`),
+    ...(item.offers ?? []).map((offer) => `np. ${offer.label}, ${[formatPrices(offer), offer.vatNote].filter(Boolean).join(", ")} (${offer.shop})`),
     roomText ? `sale: ${roomText}` : "miejsce do ustalenia",
   ].filter(Boolean).join("; ");
 };

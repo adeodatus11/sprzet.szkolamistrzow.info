@@ -244,3 +244,17 @@ test("monitor interaktywny ma link do sklepu i cenę netto", async ({ page }) =>
   await expect(page.locator(".purchase-card", { hasText: "85–86 cali" })).not.toContainText("netto");
   await expect(page.locator(".print-sheet")).toContainText("np. iiyama ProLite TE7515A-B2AG, 7 245,53 zł netto, VAT 0% (iiyama-sklep.pl)");
 });
+
+test("monitor do zastępstw ma link bez śladów reklamowych i obie ceny", async ({ page }) => {
+  await page.goto("/#zakupy");
+  const card = page.locator(".purchase-card", { hasText: "Do wyświetlania zastępstw" });
+  await expect(card).toContainText("Monitor wielkoformatowy");
+  await expect(card).toContainText("43 cale");
+  await expect(card).toContainText("2 058 zł brutto");
+  await expect(card).toContainText("1 673,17 zł netto");
+  await expect(card).toContainText("VAT 0% do potwierdzenia");
+  const href = await card.getByRole("link", { name: "iiyama ProLite LH4341UHS-B2" }).getAttribute("href");
+  expect(href).toMatch(/^https:\/\/iiyama-sklep\.pl\/1208-.*lh4341uhs-b2.*\.html$/);
+  expect(href).not.toMatch(/gclid|utm_/);
+  await expect(page.locator(".print-sheet")).toContainText("np. iiyama ProLite LH4341UHS-B2, 2 058 zł brutto / 1 673,17 zł netto, VAT 0% do potwierdzenia (iiyama-sklep.pl)");
+});
