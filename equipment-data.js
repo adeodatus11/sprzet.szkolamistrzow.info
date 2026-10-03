@@ -210,11 +210,32 @@ export const purchaseItems = [
     ],
   },
   {
-    id: "monitor-2k",
+    id: "monitor-office-1",
     tier: "wish",
-    name: "Monitor biurowy",
+    name: "Monitor biurowy 1",
+    specs: ["34 cale", "5120 × 2160 (WUHD)"],
+    qty: 1,
+    roomIds: [],
+    offers: [
+      {
+        label: "Philips 5000 Series 34B2U5900C/00",
+        shop: "supertech.pl",
+        url: "https://supertech.pl/produkt/philips_5000_series_34b2u5900c_00_monitor_komputerowy_864_cm_34_5120_x_2160_px_wuhd_lcd_szary_139614289.html",
+        prices: [
+          { amount: 2510.99, vat: "brutto" },
+          { amount: 2041.46, vat: "netto" },
+        ],
+        vatNote: "VAT 0%",
+        checkedAt: "03.10.2026",
+      },
+    ],
+  },
+  {
+    id: "monitor-office-2",
+    tier: "wish",
+    name: "Monitor biurowy 2",
     specs: ["2K", "24 cale"],
-    qty: 2,
+    qty: 1,
     roomIds: [],
   },
 ];
