@@ -1321,6 +1321,21 @@ body:not([data-view="purchases"]) .purchase-view {
   border-color: var(--danger);
 }
 
+.purchase-place {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 8px;
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.purchase-place .room-chip {
+  min-width: 0;
+  min-height: 32px;
+  font-size: 0.85rem;
+}
+
 .purchase-card .placeholder {
   font-size: 0.9rem;
 }

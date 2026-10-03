@@ -92,7 +92,8 @@ const group = (name, items) => ({ name, items });
 
 // Lista zakupów to jedno źródło dla zakładki "Do zakupu" i dla kart sal:
 // - tier: "buy" (do kupienia) albo "wish" (lista życzeń);
-// - roomIds: sale, do których trafi sprzęt (puste = miejsce do ustalenia);
+// - roomIds: sale, do których trafi sprzęt (puste = miejsce do ustalenia lub opis w place);
+// - place: opis miejsca poza salą ({ text, roomId } – sala odniesienia), bez dopisywania do karty sali;
 // - priorityRoomIds: sale kupowane najpierw (podzbiór roomIds);
 // - offers: przykładowe oferty ze sklepów (label, shop, url, checkedAt) z listą prices ({ amount w zł,
 //   vat: "netto" lub "brutto" }) i polem zeroVat: true (VAT 0% pewny), false (niemożliwy), "unknown" (do
@@ -197,6 +198,7 @@ export const purchaseItems = [
     specs: ["43 cale", "4K", "praca 24/7"],
     qty: 1,
     roomIds: [],
+    place: { text: "Obok pokoju nauczycielskiego", roomId: "16" },
     note: "Do wyświetlania zastępstw",
     offers: [
       {
@@ -929,9 +931,5 @@ export const unresolvedItems = [
   {
     roomIds: ["41"],
     text: "Potwierdzić, czy oprócz nowego rzutnika ma być duży telewizor niedotykowy",
-  },
-  {
-    roomIds: [],
-    text: "Wskazać miejsce dla monitora do wyświetlania zastępstw (lista zakupów)",
   },
 ];

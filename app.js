@@ -505,6 +505,17 @@ const offersBlock = (item) => {
   `;
 };
 
+const placeBlock = (item) => {
+  if (!item.place) return `<p class="placeholder">Miejsce do ustalenia</p>`;
+  const reference = roomById(item.place.roomId);
+  return `
+    <p class="purchase-place">
+      <strong>Miejsce:</strong> ${escapeHtml(item.place.text)}
+      ${reference ? roomLink(reference, { label: reference.name }) : ""}
+    </p>
+  `;
+};
+
 const purchaseCard = (item) => {
   const groups = purchaseRoomGroups(item);
   const roomsBlock = groups.length
@@ -517,7 +528,7 @@ const purchaseCard = (item) => {
           })).join("")}</dd>
         </div>
       `).join("")}</dl>`
-    : `<p class="placeholder">Miejsce do ustalenia</p>`;
+    : placeBlock(item);
   const label = escapeHtml(purchaseLabel(item));
 
   return `
@@ -602,6 +613,12 @@ const renderPurchaseView = () => {
   syncPurchaseView();
 };
 
+const placePrintText = (item) => {
+  if (!item.place) return "miejsce do ustalenia";
+  const reference = roomById(item.place.roomId);
+  return `miejsce: ${item.place.text.toLowerCase()}${reference ? ` (${reference.name.toLowerCase()})` : ""}`;
+};
+
 const purchasePrintLine = (item) => {
   const roomText = purchaseRoomGroups(item).map((group) => {
     const labels = group.ids.map(roomById).filter(Boolean).map((room) => (group.priority ? `${chipLabel(room)} (najpierw)` : chipLabel(room)));
@@ -612,7 +629,7 @@ const purchasePrintLine = (item) => {
     `${purchaseLabel(item)}, ${currentQty(item)} szt.`,
     item.note,
     ...(item.offers ?? []).map((offer) => `np. ${offer.label}, ${[formatPrices(offer), vatNote(offer)].filter(Boolean).join(", ")} (${offer.shop})`),
-    roomText ? `sale: ${roomText}` : "miejsce do ustalenia",
+    roomText ? `sale: ${roomText}` : placePrintText(item),
   ].filter(Boolean).join("; ");
 };
 

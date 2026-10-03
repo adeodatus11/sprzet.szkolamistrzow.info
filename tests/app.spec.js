@@ -161,7 +161,11 @@ test("zakładka Do zakupu pokazuje listy zakupów", async ({ page }) => {
   await expect(touch).toContainText("Do komputera do zastępstw w pokoju nauczycielskim");
   await expect(page.locator(".purchase-card", { hasText: "Monitor biurowy" })).toHaveCount(1);
   await expect(page.locator(".purchase-card", { hasText: "24 cale" })).toHaveCount(0);
-  await expect(page.locator(".purchase-card", { hasText: "Do wyświetlania zastępstw" })).toContainText("Miejsce do ustalenia");
+  const substitutions = page.locator(".purchase-card", { hasText: "Do wyświetlania zastępstw" });
+  await expect(substitutions).toContainText("Miejsce: Obok pokoju nauczycielskiego");
+  await expect(substitutions).not.toContainText("Miejsce do ustalenia");
+  await expect(substitutions.getByRole("link", { name: "Sala 16" })).toHaveAttribute("href", "#room-16");
+  await expect(page.locator(".print-sheet")).toContainText("miejsce: obok pokoju nauczycielskiego (sala 16)");
 });
 
 test("zakładka Do zakupu otwiera się z adresu i wraca do sal", async ({ page }) => {
