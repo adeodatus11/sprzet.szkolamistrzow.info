@@ -168,6 +168,15 @@ export const purchaseItems = [
     specs: ["bez ekranu dotykowego"],
     qty: 1,
     roomIds: ["37"],
+    offers: [
+      {
+        label: "Lenovo IdeaCentre AIO 27 (Ultra 5 226V, 16 GB, 512 GB)",
+        shop: "x-kom.pl",
+        url: "https://www.x-kom.pl/p/1521521-all-in-one-lenovo-ideacentre-aio-27-ultra-5-226v-16gb-512-win11px-czarny.html",
+        prices: [{ amount: 4049, vat: "brutto" }],
+        checkedAt: "03.10.2026",
+      },
+    ],
   },
   {
     id: "tv-86",

@@ -271,3 +271,13 @@ test("monitor dotykowy do pokoju nauczycielskiego ma link i obie ceny", async ({
   await expect(card).toContainText("VAT 0% do potwierdzenia");
   await expect(page.locator(".print-sheet")).toContainText("np. iiyama ProLite T2755MSC-B1, 1 840 zł brutto / 1 495,93 zł netto, VAT 0% do potwierdzenia (iiyama-sklep.pl)");
 });
+
+test("komputer all-in-one ma link do sklepu i cenę", async ({ page }) => {
+  await page.goto("/#zakupy");
+  const card = page.locator(".purchase-card", { hasText: "bez ekranu dotykowego" });
+  const link = card.getByRole("link", { name: /Lenovo IdeaCentre AIO 27/ });
+  await expect(link).toHaveAttribute("href", /^https:\/\/www\.x-kom\.pl\/p\/1521521-.*\.html$/);
+  await expect(card).toContainText("4 049 zł brutto");
+  await expect(card).not.toContainText("VAT 0%");
+  await expect(page.locator(".print-sheet")).toContainText("np. Lenovo IdeaCentre AIO 27 (Ultra 5 226V, 16 GB, 512 GB), 4 049 zł brutto (x-kom.pl)");
+});
