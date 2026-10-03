@@ -140,12 +140,12 @@ test("zakładka Do zakupu pokazuje listy zakupów", async ({ page }) => {
   await expect(tiers.nth(1)).toContainText("Zakupy towarzyszące");
 
   const monitors = page.locator(".purchase-card", { hasText: "Monitor interaktywny" });
-  await expect(monitors.locator(".qty-value")).toHaveText("8");
+  await expect(monitors.locator(".qty-value")).toHaveText("7");
   await expect(monitors).toContainText("75 cali");
   const priority = monitors.locator(".purchase-rooms > div", { hasText: "Najpierw" });
   await expect(priority.locator(".room-chip")).toHaveText(["Sala 2", "Sala 18", "Sala 41"]);
   const rest = monitors.locator(".purchase-rooms > div", { hasText: "Potem" });
-  await expect(rest.locator(".room-chip")).toHaveText(["Sala 23", "Sala 29", "Sala 30", "Sala 32", "Sala 33"]);
+  await expect(rest.locator(".room-chip")).toHaveText(["Sala 23", "Sala 30", "Sala 32", "Sala 33"]);
 
   await expect(page.locator(".purchase-card", { hasText: "bez ekranu dotykowego" })).toContainText("Sala 37");
   const touch = page.locator(".purchase-card", { hasText: "Monitor dotykowy" });
@@ -166,7 +166,7 @@ test("zakładka Do zakupu otwiera się z adresu i wraca do sal", async ({ page }
   await expect(page.getByRole("heading", { name: "Sprzęt do zakupu" })).toBeVisible();
   await expect(page).toHaveURL(/#zakupy$/);
   await expect(page.locator(".print-sheet")).toContainText("Lista zakupów");
-  await expect(page.locator(".print-sheet")).toContainText("Monitor interaktywny (75 cali), 8 szt.");
+  await expect(page.locator(".print-sheet")).toContainText("Monitor interaktywny (75 cali), 7 szt.");
 
   await page.locator(".purchase-card", { hasText: "Monitor interaktywny" }).getByRole("link", { name: "Sala 41" }).click();
   await expect(page.locator("#roomDetail").getByRole("heading", { name: "Sala 41" })).toBeVisible();
@@ -318,14 +318,14 @@ test("zakupy towarzyszące: kabel HDMI i uchwyty VESA", async ({ page }) => {
 
   const hdmi = card(page, "Kabel HDMI światłowodowy");
   await expect(hdmi).toContainText("25 m");
-  await expect(hdmi.locator(".qty-value")).toHaveText("10");
-  await expect(hdmi.locator(".room-chip")).toHaveText(["Sala 2", "Sala 18", "Sala 23", "Sala 29", "Sala 30", "Sala 32", "Sala 33", "Sala 41", "Sala 37", "Sala 38"]);
+  await expect(hdmi.locator(".qty-value")).toHaveText("9");
+  await expect(hdmi.locator(".room-chip")).toHaveText(["Sala 2", "Sala 18", "Sala 23", "Sala 30", "Sala 32", "Sala 33", "Sala 41", "Sala 37", "Sala 38"]);
 
   const vesaMonitors = card(page, "Stojak do monitora interaktywnego");
   await expect(vesaMonitors).toContainText("VESA 800 × 400");
   await expect(vesaMonitors).toContainText("54,6 kg");
-  await expect(vesaMonitors.locator(".qty-value")).toHaveText("8");
-  await expect(vesaMonitors.locator(".room-chip")).toHaveCount(8);
+  await expect(vesaMonitors.locator(".qty-value")).toHaveText("7");
+  await expect(vesaMonitors.locator(".room-chip")).toHaveCount(7);
 
   const vesaTv = card(page, "Uchwyt VESA do telewizora");
   await expect(vesaTv).toContainText("VESA 600 × 400");
@@ -351,18 +351,18 @@ test("zakupy towarzyszące: kabel HDMI i uchwyty VESA", async ({ page }) => {
 test("kalkulator: domyślnie liczy wszystkie pozycje", async ({ page }) => {
   await page.goto("/#zakupy");
   // 8 × 7 245,53 (netto, VAT 0%) + 2 × 2 999 + 1 840 + 4 049 + 2 058 + 3 612 (brutto, VAT niepewny) + 2 041,46 (netto, VAT 0%)
-  await expect(page.locator("#calcTotal")).toHaveText("83 007,74 zł");
-  await expect(page.locator("#calcMeta")).toHaveText("Zaznaczone: 12 poz. · 42 szt.");
+  await expect(page.locator("#calcTotal")).toHaveText("75 204,07 zł");
+  await expect(page.locator("#calcMeta")).toHaveText("Zaznaczone: 12 poz. · 39 szt.");
   await expect(page.locator("#calcBreakdown")).toContainText("Sprzęt");
-  await expect(page.locator("#calcBreakdown")).toContainText("77 562,70 zł");
+  await expect(page.locator("#calcBreakdown")).toContainText("70 317,17 zł");
   await expect(page.locator("#calcBreakdown")).toContainText("Zakupy towarzyszące");
-  await expect(page.locator("#calcBreakdown")).toContainText("5 445,04 zł");
+  await expect(page.locator("#calcBreakdown")).toContainText("4 886,90 zł");
 
   const boxes = page.locator(".purchase-check");
   await expect(boxes).toHaveCount(12);
   for (const box of await boxes.all()) await expect(box).toBeChecked();
 
-  await expect(card(page, "Monitor interaktywny").locator(".calc-line")).toHaveText("Do sumy: 7 245,53 zł netto × 8 = 57 964,24 zł");
+  await expect(card(page, "Monitor interaktywny").locator(".calc-line")).toHaveText("Do sumy: 7 245,53 zł netto × 7 = 50 718,71 zł");
   await expect(card(page, "85–86 cali").locator(".calc-line")).toHaveText("Do sumy: 2 999,00 zł brutto × 2 = 5 998,00 zł");
   // VAT 0% do potwierdzenia: liczone brutto
   await expect(card(page, "Monitor dotykowy").locator(".calc-line")).toHaveText("Do sumy: 1 840,00 zł brutto × 1 = 1 840,00 zł");
@@ -373,9 +373,9 @@ test("kalkulator: domyślnie liczy wszystkie pozycje", async ({ page }) => {
 
   await expect(card(page, "Uchwyt VESA do telewizora").locator(".calc-line")).toHaveText("Do sumy: 299,97 zł brutto × 2 = 599,94 zł");
 
-  await expect(card(page, "Kabel HDMI światłowodowy").locator(".calc-line")).toHaveText("Do sumy: 189,99 zł brutto × 10 = 1 899,90 zł");
+  await expect(card(page, "Kabel HDMI światłowodowy").locator(".calc-line")).toHaveText("Do sumy: 189,99 zł brutto × 9 = 1 709,91 zł");
 
-  await expect(card(page, "Stojak do monitora interaktywnego").locator(".calc-line")).toHaveText("Do sumy: 368,15 zł brutto × 8 = 2 945,20 zł");
+  await expect(card(page, "Stojak do monitora interaktywnego").locator(".calc-line")).toHaveText("Do sumy: 368,15 zł brutto × 7 = 2 577,05 zł");
 
   // szafa na iPady nie ma jeszcze ceny: nie wchodzi do sumy, a ostrzeżenie ją wymienia
   await expect(card(page, "Szafa do ładowania iPadów").locator(".calc-line")).toHaveText("Brak ceny, pozycja nie wchodzi do sumy");
@@ -385,51 +385,51 @@ test("kalkulator: domyślnie liczy wszystkie pozycje", async ({ page }) => {
 test("kalkulator: odznaczanie pozycji", async ({ page }) => {
   await page.goto("/#zakupy");
   await card(page, "Monitor biurowy").getByRole("checkbox").uncheck();
-  await expect(page.locator("#calcTotal")).toHaveText("80 966,28 zł");
+  await expect(page.locator("#calcTotal")).toHaveText("73 162,61 zł");
   await card(page, "Monitor prezentacyjny").getByRole("checkbox").uncheck();
-  await expect(page.locator("#calcTotal")).toHaveText("77 354,28 zł");
+  await expect(page.locator("#calcTotal")).toHaveText("69 550,61 zł");
   await card(page, "Monitor interaktywny").getByRole("checkbox").uncheck();
-  await expect(page.locator("#calcTotal")).toHaveText("19 390,04 zł");
-  await expect(page.locator("#calcMeta")).toHaveText("Zaznaczone: 9 poz. · 32 szt.");
+  await expect(page.locator("#calcTotal")).toHaveText("18 831,90 zł");
+  await expect(page.locator("#calcMeta")).toHaveText("Zaznaczone: 9 poz. · 30 szt.");
   await expect(card(page, "Monitor interaktywny")).toHaveClass(/is-excluded/);
 
   await card(page, "Kabel HDMI światłowodowy").getByRole("checkbox").uncheck();
-  await expect(page.locator("#calcTotal")).toHaveText("17 490,14 zł");
+  await expect(page.locator("#calcTotal")).toHaveText("17 121,99 zł");
 
   await card(page, "Monitor interaktywny").getByRole("checkbox").check();
-  await expect(page.locator("#calcTotal")).toHaveText("75 454,38 zł");
+  await expect(page.locator("#calcTotal")).toHaveText("67 840,70 zł");
 });
 
 test("kalkulator: zmiana ilości", async ({ page }) => {
   await page.goto("/#zakupy");
   const monitors = card(page, "Monitor interaktywny");
   await monitors.getByRole("button", { name: "Zwiększ ilość" }).click();
-  await expect(monitors.locator(".qty-value")).toHaveText("9");
-  await expect(monitors.locator(".calc-line")).toHaveText("Do sumy: 7 245,53 zł netto × 9 = 65 209,77 zł");
-  await expect(page.locator("#calcTotal")).toHaveText("90 253,27 zł");
-  await expect(page.locator("#calcMeta")).toHaveText("Zaznaczone: 12 poz. · 43 szt.");
-  await expect(page.locator(".purchase-tier").nth(0)).toContainText("9 poz. · 23 szt.");
-  await expect(page.locator(".print-sheet")).toContainText("Monitor interaktywny (75 cali), 9 szt.");
+  await expect(monitors.locator(".qty-value")).toHaveText("8");
+  await expect(monitors.locator(".calc-line")).toHaveText("Do sumy: 7 245,53 zł netto × 8 = 57 964,24 zł");
+  await expect(page.locator("#calcTotal")).toHaveText("82 449,60 zł");
+  await expect(page.locator("#calcMeta")).toHaveText("Zaznaczone: 12 poz. · 40 szt.");
+  await expect(page.locator(".purchase-tier").nth(0)).toContainText("9 poz. · 22 szt.");
+  await expect(page.locator(".print-sheet")).toContainText("Monitor interaktywny (75 cali), 8 szt.");
 
   const minus = monitors.getByRole("button", { name: "Zmniejsz ilość" });
-  for (let i = 0; i < 8; i += 1) await minus.click();
+  for (let i = 0; i < 7; i += 1) await minus.click();
   await expect(monitors.locator(".qty-value")).toHaveText("1");
   await expect(minus).toHaveAttribute("aria-disabled", "true");
   await minus.click({ force: true });
   await expect(monitors.locator(".qty-value")).toHaveText("1");
-  await expect(page.locator("#calcTotal")).toHaveText("32 289,03 zł");
+  await expect(page.locator("#calcTotal")).toHaveText("31 730,89 zł");
 });
 
 test("kalkulator: zapamiętuje wybór, przyciski zaznaczają, czyszczą i przywracają domyślne", async ({ page }) => {
   await page.goto("/#zakupy");
   await card(page, "Monitor biurowy").getByRole("checkbox").uncheck();
   await card(page, "Komputer all-in-one").getByRole("button", { name: "Zwiększ ilość" }).click();
-  await expect(page.locator("#calcTotal")).toHaveText("85 015,28 zł");
+  await expect(page.locator("#calcTotal")).toHaveText("77 211,61 zł");
 
   await page.reload();
   await expect(card(page, "Monitor biurowy").getByRole("checkbox")).not.toBeChecked();
   await expect(card(page, "Komputer all-in-one").locator(".qty-value")).toHaveText("2");
-  await expect(page.locator("#calcTotal")).toHaveText("85 015,28 zł");
+  await expect(page.locator("#calcTotal")).toHaveText("77 211,61 zł");
 
   await page.locator(".calc-details summary").click();
   await page.locator("#calcClear").click();
@@ -440,7 +440,7 @@ test("kalkulator: zapamiętuje wybór, przyciski zaznaczają, czyszczą i przywr
 
   await card(page, "Monitor biurowy").getByRole("checkbox").uncheck();
   await page.locator("#calcReset").click();
-  await expect(page.locator("#calcTotal")).toHaveText("83 007,74 zł");
+  await expect(page.locator("#calcTotal")).toHaveText("75 204,07 zł");
   await expect(card(page, "Komputer all-in-one").locator(".qty-value")).toHaveText("1");
   await expect(card(page, "Monitor biurowy").getByRole("checkbox")).toBeChecked();
 });
@@ -449,12 +449,12 @@ test("kalkulator trafia na wydruk listy zakupów", async ({ page }) => {
   await page.goto("/#zakupy");
   const sheet = page.locator(".print-sheet");
   await expect(sheet).toContainText("Kalkulacja (zaznaczone pozycje)");
-  await expect(sheet).toContainText("Monitor interaktywny (75 cali) × 8: 57 964,24 zł (netto)");
+  await expect(sheet).toContainText("Monitor interaktywny (75 cali) × 7: 50 718,71 zł (netto)");
   await expect(sheet).toContainText("Telewizor (4K, 85–86 cali) × 2: 5 998,00 zł (brutto)");
-  await expect(sheet).toContainText("Kabel HDMI światłowodowy (25 m) × 10: 1 899,90 zł (brutto)");
-  await expect(sheet).toContainText("Stojak do monitora interaktywnego (na kółkach, VESA 800 × 400) × 8: 2 945,20 zł (brutto)");
+  await expect(sheet).toContainText("Kabel HDMI światłowodowy (25 m) × 9: 1 709,91 zł (brutto)");
+  await expect(sheet).toContainText("Stojak do monitora interaktywnego (na kółkach, VESA 800 × 400) × 7: 2 577,05 zł (brutto)");
   await expect(sheet).toContainText("Uchwyt VESA do telewizora (VESA 600 × 400) × 2: 599,94 zł (brutto)");
-  await expect(sheet).toContainText("Razem: 83 007,74 zł");
+  await expect(sheet).toContainText("Razem: 75 204,07 zł");
   await expect(sheet).toContainText("Szafa do ładowania iPadów (na 26–30 iPadów) × 1: brak ceny");
   await expect(sheet).toContainText("Nie wliczono pozycji bez ceny: Szafa do ładowania iPadów (na 26–30 iPadów)");
 
@@ -489,7 +489,7 @@ test("uchwyt VESA do telewizora ma link i cenę, a monitory interaktywne mają s
   await expect(monitorMount).toContainText("Mobilny stojak na kółkach, nie uchwyt ścienny");
   await expect(monitorMount).toContainText("na kółkach");
   await expect(monitorMount).not.toContainText("Goldenline");
-  await expect(monitorMount.locator(".room-chip")).toHaveCount(8);
+  await expect(monitorMount.locator(".room-chip")).toHaveCount(7);
 });
 
 test("kabel HDMI 25 m ma link bez śladów reklamowych i cenę brutto", async ({ page }) => {
@@ -530,7 +530,7 @@ test("kalkulator pomija pozycje bez ceny i ostrzega o nich", async ({ page }) =>
 
   const extra = card(page, "Testowy dodatek");
   await expect(extra.locator(".calc-line")).toHaveText("Brak ceny, pozycja nie wchodzi do sumy");
-  await expect(page.locator("#calcTotal")).toHaveText("83 007,74 zł");
+  await expect(page.locator("#calcTotal")).toHaveText("75 204,07 zł");
   await expect(page.locator("#calcWarning")).toBeVisible();
   await expect(page.locator("#calcWarning")).toContainText("Bez ceny, nie wliczono do sumy: Testowy dodatek (bez ceny)");
   await expect(page.locator(".print-sheet")).toContainText("Testowy dodatek (bez ceny) × 3: brak ceny");
@@ -828,12 +828,16 @@ test("sale 29, 30, 32, 33: laptop KPO i zakupy monitora, stojaka (i kabla)", asy
   await expect(detail.locator(".equipment-group", { hasText: "Komputery" })).not.toContainText("do wstawienia");
   await expect(detail.locator(".equipment-group", { hasText: "Sprzęt multimedialny" })).toContainText("Rzutnik (działa)");
   await expect(doneTasks(page)).toHaveText([/Wstawić laptop KPO/]);
+  // monitor interaktywny i stojak są już kupione: tylko montaż, sala poza zapotrzebowaniem
   await expect(todoSection(page).locator("li:not(.is-done)")).toHaveText([
+    "Zamontować kupiony monitor interaktywny 75 cali na kupionym stojaku",
     "Sprawdzić stabilne połączenie rzutnika z komputerem",
     "Sprawdzić, czy zestaw działa",
   ]);
-  await expect(detail.locator(".equipment-group", { hasText: "Do zakupu" })).toContainText("Monitor interaktywny (75 cali)");
-  await expect(detail.locator(".equipment-group", { hasText: "Do zakupu" })).toContainText("Stojak do monitora interaktywnego");
+  await expect(detail.locator(".equipment-group", { hasText: "Docelowo" })).toContainText("Monitor interaktywny (75 cali, kupiony)");
+  await expect(detail.locator(".equipment-group", { hasText: "Docelowo" })).toContainText("Stojak do monitora (kupiony)");
+  await expect(detail.locator(".equipment-group", { hasText: "Do zakupu" })).toHaveCount(0);
+  await expect(detail.locator(".detail-title .badge")).toHaveText("Do zrobienia");
 
   await page.goto("/#room-30");
   detail = page.locator("#roomDetail");
@@ -1324,4 +1328,18 @@ test("uwaga o 30 laptopach w sali 23 i o szafie dla iPadów w sali 44 jest w spr
   await expect(items).toContainText("Szafa na 16 laptopów/iPadów, a do sali 44 ma trafić 26 iPadów");
   await expect(items.getByRole("link", { name: "Sala 23" })).toBeVisible();
   await expect(items.getByRole("link", { name: "Sala 44" })).toBeVisible();
+});
+
+test("sala 29 nie ma już zapotrzebowania na liście zakupów", async ({ page }) => {
+  await page.goto("/#zakupy");
+  await expect(page.locator(".purchase-card .room-chip", { hasText: /^Sala 29$/ })).toHaveCount(0);
+  await expect(card(page, "Monitor interaktywny").locator(".qty-value")).toHaveText("7");
+  await expect(card(page, "Stojak do monitora interaktywnego").locator(".qty-value")).toHaveText("7");
+  await expect(card(page, "Kabel HDMI światłowodowy").locator(".qty-value")).toHaveText("9");
+  await expect(card(page, "Monitor interaktywny").locator(".room-chip")).toHaveText(["Sala 2", "Sala 18", "Sala 41", "Sala 23", "Sala 30", "Sala 32", "Sala 33"]);
+  const result = await page.evaluate(async () => {
+    const { purchaseItems } = await import("/equipment-data.js");
+    return purchaseItems.filter((item) => item.roomIds.includes("29") || item.priorityRoomIds?.includes("29")).map((item) => item.id);
+  });
+  expect(result).toEqual([]);
 });

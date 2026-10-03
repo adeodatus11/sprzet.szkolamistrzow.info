@@ -251,8 +251,8 @@ export const purchaseItems = [
     tier: "main",
     name: "Monitor interaktywny",
     specs: ["75 cali"],
-    qty: 8,
-    roomIds: ["2", "18", "23", "29", "30", "32", "33", "41"],
+    qty: 7,
+    roomIds: ["2", "18", "23", "30", "32", "33", "41"],
     priorityRoomIds: ["2", "18", "41"],
     offers: [
       {
@@ -414,8 +414,8 @@ export const purchaseItems = [
     tier: "accessories",
     name: "Kabel HDMI światłowodowy",
     specs: ["25 m"],
-    qty: 10,
-    roomIds: ["2", "18", "23", "29", "30", "32", "33", "41", "37", "38"],
+    qty: 9,
+    roomIds: ["2", "18", "23", "30", "32", "33", "41", "37", "38"],
     note: "Do każdego monitora interaktywnego i każdego telewizora. Standard: Unitek 25 m, optyczny (AOC), HDMI 2.0, 4K 60 Hz (wg opisów w sklepach)",
     offers: [
       {
@@ -432,8 +432,8 @@ export const purchaseItems = [
     tier: "accessories",
     name: "Stojak do monitora interaktywnego",
     specs: ["na kółkach", "VESA 800 × 400"],
-    qty: 8,
-    roomIds: ["2", "18", "23", "29", "30", "32", "33", "41"],
+    qty: 7,
+    roomIds: ["2", "18", "23", "30", "32", "33", "41"],
     priorityRoomIds: ["2", "18", "41"],
     note: "Mobilny stojak na kółkach, nie uchwyt ścienny. Monitor iiyama TE7515A-B2AG: VESA 800 × 400, waga 54,6 kg, 75 cali. Stojak ART SD-22: do VESA 800 × 400, 45–90 cali i 60 kg, więc pasuje (zapas ok. 5 kg). Standard potwierdzić w instrukcji",
     offers: [
@@ -845,13 +845,18 @@ export const rooms = [
     floor: "II piętro",
     purpose: "Gabinet matematyki",
     teachers: ["Iwona Bujanowska", "Ewa Ostrowska"],
-    status: "missing",
+    status: "todo",
     equipment: [
       group(G.computers, [KPO_TEACHER]),
       group(G.media, ["Rzutnik (działa)"]),
+      group(G.planned, [
+        "Monitor interaktywny (75 cali, kupiony)",
+        "Stojak do monitora (kupiony)",
+      ]),
     ],
     tasks: [
       done("Wstawić laptop KPO"),
+      "Zamontować kupiony monitor interaktywny 75 cali na kupionym stojaku",
       "Sprawdzić stabilne połączenie rzutnika z komputerem",
       "Sprawdzić, czy zestaw działa",
     ],
