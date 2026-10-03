@@ -2,6 +2,7 @@ import {
   dataUpdatedAt,
   defaultRoomId,
   floors,
+  kpoDelivery,
   purchaseItems,
   purchaseLabel,
   purchaseTiers,
@@ -21,6 +22,8 @@ const els = {
   detail: document.querySelector("#roomDetail"),
   openItems: document.querySelector("#openItems"),
   openItemsCount: document.querySelector("#openItemsCount"),
+  kpoTiles: document.querySelector("#kpoTiles"),
+  kpoTotal: document.querySelector("#kpoTotal"),
   printSheet: document.querySelector("#printSheet"),
   catalogToggle: document.querySelector("#catalogToggle"),
   mobileCatalogToggle: document.querySelector("#mobileCatalogToggle"),
@@ -487,6 +490,16 @@ const renderOpenItems = () => {
   }).join("");
 };
 
+const renderKpoDelivery = () => {
+  els.kpoTotal.textContent = `${totalQty(kpoDelivery)} szt.`;
+  els.kpoTiles.innerHTML = kpoDelivery.map((item) => `
+    <li>
+      <span class="kpo-qty">${item.qty}</span>
+      <span class="kpo-name">${escapeHtml(item.name)}</span>
+    </li>
+  `).join("");
+};
+
 const syncHash = (historyMode = "replace") => {
   const hash = state.view === "purchases" ? PURCHASES_HASH : `#room-${encodeURIComponent(state.activeId)}`;
   if (location.hash === hash) return;
@@ -631,6 +644,7 @@ mobileCatalogQuery.addEventListener("change", () => setCatalogOpen(false, { rest
 els.roomsTabCount.textContent = rooms.length;
 renderFilters();
 renderOpenItems();
+renderKpoDelivery();
 renderPurchaseView();
 render();
 setCatalogOpen(false, { restoreFocus: false });

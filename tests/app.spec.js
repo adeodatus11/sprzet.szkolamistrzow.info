@@ -120,6 +120,20 @@ test("kafelek statusu filtruje listę", async ({ page }) => {
   await expect(page.locator(".room-row")).toHaveCount(total);
 });
 
+test("pokazuje sprzęt otrzymany z KPO", async ({ page }) => {
+  await page.goto("/");
+  const panel = page.locator(".kpo-delivery");
+  await expect(panel).toContainText("Sprzęt otrzymany z KPO");
+  await expect(panel.locator("li").filter({ hasText: "Chromebooki" })).toContainText("46");
+  await expect(panel.locator("li").filter({ hasText: "iPad" })).toContainText("96");
+  await expect(panel.locator("li").first()).toContainText("160");
+  await expect(panel.locator("li").first()).toContainText("Laptopy");
+  await expect(page.locator("#kpoTotal")).toHaveText("302 szt.");
+
+  await page.getByRole("link", { name: /^Do zakupu/ }).click();
+  await expect(panel).toBeHidden();
+});
+
 test("zakładka Do zakupu pokazuje listy zakupów", async ({ page }) => {
   await page.goto("/");
   await page.getByRole("link", { name: /^Do zakupu/ }).click();

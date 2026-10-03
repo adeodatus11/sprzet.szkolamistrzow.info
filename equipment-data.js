@@ -4,9 +4,16 @@
 // - sprzęt zapisujemy jako "Nazwa (cecha, cecha)";
 // - przeznaczenie sali to krótki rzeczownik ("Gabinet matematyki"), bez ukośników.
 
-export const dataUpdatedAt = "02.10.2026";
+export const dataUpdatedAt = "03.10.2026";
 
 export const defaultRoomId = "2";
+
+// Sprzęt otrzymany w ramach KPO (stan ogólny, bez podziału na sale).
+export const kpoDelivery = [
+  { name: "Laptopy", qty: 160 },
+  { name: "Laptopy przeglądarkowe (Chromebooki)", qty: 46 },
+  { name: "Tablety (iPad)", qty: 96 },
+];
 
 export const statusLabels = {
   check: "Do sprawdzenia",

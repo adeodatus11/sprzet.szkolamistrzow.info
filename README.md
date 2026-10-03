@@ -18,6 +18,7 @@ Dane są w pliku `equipment-data.js`:
 - `floors` – kolejność i nazwy pięter (Piwnica, Parter, I–III piętro, pracownie zewnętrzne); sale na liście są grupowane według tej kolejności,
 - `rooms` – sale: identyfikator, piętro, przeznaczenie, użytkownicy, status, wyposażenie (grupy), pilne zakupy, zadania, decyzje i uwagi,
 - `unresolvedItems` – sprawy do potwierdzenia, każda z odnośnikiem do sali,
+- `kpoDelivery` – sprzęt otrzymany w ramach KPO (nazwa i liczba sztuk), pokazany w panelu pod listą sal,
 - `purchaseItems` i `purchaseTiers` – lista zakupów (zakładka „Do zakupu”): pozycje, ilości, sale (`roomIds`), sale priorytetowe (`priorityRoomIds`) i podział na „Do kupienia” oraz „Lista życzeń”. Pozycje z przypisanymi salami trafiają automatycznie na karty tych sal, do grupy „Do zakupu”, a w salach priorytetowych także do „Pilnych zakupów i dostaw”.
 
 Zasady opisu (też w komentarzu na początku pliku): zadania i decyzje zaczynają się wielką literą, nie kończą kropką i są zapisane bezokolicznikiem; sprzęt zapisujemy jako „Nazwa (cecha, cecha)”; grupy wyposażenia pochodzą ze stałej listy `G`, więc w każdej sali występują w tej samej kolejności.
