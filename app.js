@@ -5,6 +5,7 @@ import {
   kpoAllocations,
   kpoDelivery,
   kpoNotes,
+  otherAssets,
   purchaseItems,
   purchaseLabel,
   purchaseTiers,
@@ -28,6 +29,7 @@ const els = {
   resourcesSummary: document.querySelector("#resourcesSummary"),
   resourceTotal: document.querySelector("#resourceTotal"),
   resourceCards: document.querySelector("#resourceCards"),
+  otherAssets: document.querySelector("#otherAssets"),
   resourceNotes: document.querySelector("#resourceNotes"),
   printResources: document.querySelector("#printResources"),
   printSheet: document.querySelector("#printSheet"),
@@ -706,18 +708,23 @@ const kpoStats = (device) => {
   const byRoom = (state) => {
     const totals = new Map();
     entries.filter((entry) => entry.state === state).forEach((entry) => {
-      totals.set(entry.roomId, (totals.get(entry.roomId) ?? 0) + entry.qty);
+      const key = entry.roomId ?? `@${entry.assignee}`;
+      const row = totals.get(key) ?? { roomId: entry.roomId, assignee: entry.assignee, qty: 0 };
+      row.qty += entry.qty;
+      totals.set(key, row);
     });
-    return [...totals].map(([roomId, qty]) => ({ roomId, qty }));
+    return [...totals.values()];
   };
   const sum = (rows) => rows.reduce((total, row) => total + row.qty, 0);
   const placedRooms = byRoom("placed");
   const plannedRooms = byRoom("planned");
+  const movingRooms = byRoom("moving");
   const placed = sum(placedRooms);
   const planned = sum(plannedRooms);
   return {
     placedRooms,
     plannedRooms,
+    movingRooms,
     placed,
     planned,
     inBoxes: device.qty - placed,
@@ -740,9 +747,9 @@ const percentOf = (part, whole) => (whole ? Math.round((part / whole) * 1000) / 
 
 const roomQtyChips = (rows) => {
   if (!rows.length) return `<p class="placeholder">Brak</p>`;
-  return `<div class="allocation-chips">${rows.map(({ roomId, qty }) => {
-    const room = roomById(roomId);
-    const label = `${room ? room.name : roomId} × ${qty}`;
+  return `<div class="allocation-chips">${rows.map(({ roomId, assignee, qty }) => {
+    const room = roomId ? roomById(roomId) : null;
+    const label = `${room ? room.name : roomId ?? assignee} × ${qty}`;
     return room ? roomLink(room, { label }) : `<span class="room-chip">${escapeHtml(label)}</span>`;
   }).join("")}</div>`;
 };
@@ -750,7 +757,7 @@ const roomQtyChips = (rows) => {
 const resourceCard = (device) => {
   const stats = kpoStats(device);
   const segments = [
-    ["placed", "W salach", stats.placed],
+    ["placed", "W salach i u osób", stats.placed],
     ["planned", "Do wstawienia", stats.planned],
     ["free", "Wolne", stats.free],
   ];
@@ -759,25 +766,50 @@ const resourceCard = (device) => {
   return `
     <article class="resource-card" data-device-id="${escapeHtml(device.id)}">
       <header class="resource-head">
-        <h2>${escapeHtml(device.name)}</h2>
+        <h3>${escapeHtml(device.name)}</h3>
         <span class="resource-qty">${device.qty} szt.</span>
       </header>
+      ${device.note ? `<p class="resource-note">${escapeHtml(device.note)}</p>` : ""}
       <div class="resource-bar" role="img" aria-label="${escapeHtml(`Z ${device.qty} szt.: ${summary}`)}">
         ${segments.map(([key, , qty]) => `<span class="bar-${key}" style="width: ${percentOf(qty, device.qty)}%"></span>`).join("")}
       </div>
       <dl class="resource-numbers">
-        <div class="is-placed"><dt>W salach</dt><dd data-stat="placed">${stats.placed}</dd></div>
+        <div class="is-placed"><dt>W salach i u osób</dt><dd data-stat="placed">${stats.placed}</dd></div>
         <div><dt>W pudełkach</dt><dd data-stat="inBoxes">${stats.inBoxes}</dd></div>
-        <div class="is-sub is-planned"><dt>z tego przydzielone do sal (do wstawienia)</dt><dd data-stat="planned">${stats.planned}</dd></div>
+        <div class="is-sub is-planned"><dt>z tego przydzielone (do wstawienia lub wydania)</dt><dd data-stat="planned">${stats.planned}</dd></div>
         <div class="is-sub is-free"><dt>z tego wolne, bez przydziału</dt><dd data-stat="free">${stats.free}</dd></div>
         <div class="is-total"><dt>Rozdysponowane łącznie (w salach i do wstawienia)</dt><dd data-stat="allocated">${stats.placed + stats.planned}</dd></div>
       </dl>
       <details class="resource-details">
-        <summary>Podział na sale</summary>
-        <h3>W salach</h3>
+        <summary>Podział na sale i osoby</summary>
+        <h4>Już na miejscu</h4>
         ${roomQtyChips(stats.placedRooms)}
-        <h3>Do wstawienia</h3>
+        <h4>Do wstawienia lub wydania</h4>
         ${roomQtyChips(stats.plannedRooms)}
+      </details>
+    </article>
+  `;
+};
+
+const otherAssetCard = (asset) => {
+  const stats = kpoStats(asset);
+  return `
+    <article class="resource-card" data-device-id="${escapeHtml(asset.id)}">
+      <header class="resource-head">
+        <h3>${escapeHtml(asset.name)}</h3>
+        <span class="resource-qty">${asset.qty} szt.</span>
+      </header>
+      <p class="resource-note"><strong>Plan:</strong> ${escapeHtml(asset.plan)}</p>
+      <dl class="resource-numbers">
+        <div class="is-placed"><dt>Teraz w salach</dt><dd data-stat="placed">${stats.placed}</dd></div>
+        <div class="is-planned"><dt>Do przeniesienia</dt><dd data-stat="moving">${stats.movingRooms.reduce((total, row) => total + row.qty, 0)}</dd></div>
+      </dl>
+      <details class="resource-details" open>
+        <summary>Podział na sale</summary>
+        <h4>Teraz</h4>
+        ${roomQtyChips(stats.placedRooms)}
+        <h4>Do przeniesienia do</h4>
+        ${roomQtyChips(stats.movingRooms)}
       </details>
     </article>
   `;
@@ -790,9 +822,9 @@ const renderResources = () => {
 
   const tiles = [
     ["delivered", "Dostarczono z KPO", totals.delivered],
-    ["placed", "W salach", totals.placed],
+    ["placed", "W salach i u osób", totals.placed],
     ["inBoxes", "W pudełkach", totals.inBoxes],
-    ["planned", "Z tego przydzielone do sal", totals.planned],
+    ["planned", "Z tego przydzielone", totals.planned],
   ];
   els.resourceTotal.innerHTML = tiles.map(([key, label, value]) => `
     <div class="total-tile" data-total="${key}">
@@ -802,20 +834,21 @@ const renderResources = () => {
   `).join("");
 
   els.resourceCards.innerHTML = kpoDelivery.map(resourceCard).join("");
+  els.otherAssets.innerHTML = otherAssets.map(otherAssetCard).join("");
   els.resourceNotes.innerHTML = kpoNotes.map((note) => `<li>${escapeHtml(note)}</li>`).join("");
 };
 
 const roomQtyText = (rows) => (rows.length
-  ? rows.map(({ roomId, qty }) => `${roomById(roomId) ? chipLabel(roomById(roomId)) : roomId} × ${qty}`).join(", ")
+  ? rows.map(({ roomId, assignee, qty }) => `${roomById(roomId) ? chipLabel(roomById(roomId)) : roomId ?? assignee} × ${qty}`).join(", ")
   : "brak");
 
 const renderResourcesPrint = () => {
   const totals = kpoTotals();
   els.printSheet.innerHTML = `
-    <h1>Sprzęt z KPO</h1>
+    <h1>Zasoby sprzętu</h1>
     <div class="print-meta">
-      <div><strong>Dostarczono:</strong> ${totals.delivered} szt.</div>
-      <div><strong>W salach:</strong> ${totals.placed} szt.</div>
+      <div><strong>Dostarczono z KPO:</strong> ${totals.delivered} szt.</div>
+      <div><strong>W salach i u osób:</strong> ${totals.placed} szt.</div>
       <div><strong>W pudełkach:</strong> ${totals.inBoxes} szt.</div>
       <div><strong>Aktualizacja danych:</strong> ${escapeHtml(dataUpdatedAt)}</div>
     </div>
@@ -823,11 +856,21 @@ const renderResourcesPrint = () => {
       const stats = kpoStats(device);
       return printSection(device.name, listItems([
         `Dostarczono: ${device.qty} szt.`,
-        `W salach: ${stats.placed} szt.`,
-        `W pudełkach: ${stats.inBoxes} szt. (przydzielone do sal: ${stats.planned}, wolne: ${stats.free})`,
-        `Rozdysponowane łącznie (w salach i do wstawienia): ${stats.placed + stats.planned} szt.`,
-        `Sale, w których już jest: ${roomQtyText(stats.placedRooms)}`,
-        `Sale, do których ma trafić: ${roomQtyText(stats.plannedRooms)}`,
+        `W salach i u osób: ${stats.placed} szt.`,
+        `W pudełkach: ${stats.inBoxes} szt. (przydzielone: ${stats.planned}, wolne: ${stats.free})`,
+        `Rozdysponowane łącznie (na miejscu i do wstawienia): ${stats.placed + stats.planned} szt.`,
+        `Miejsca, w których już jest: ${roomQtyText(stats.placedRooms)}`,
+        `Miejsca, do których ma trafić: ${roomQtyText(stats.plannedRooms)}`,
+        device.note,
+      ].filter(Boolean)));
+    }).join("")}
+    ${otherAssets.map((asset) => {
+      const stats = kpoStats(asset);
+      return printSection(`${asset.name}: inny sprzęt`, listItems([
+        `${asset.qty} szt.`,
+        `Plan: ${asset.plan}`,
+        `Teraz: ${roomQtyText(stats.placedRooms)}`,
+        `Do przeniesienia do: ${roomQtyText(stats.movingRooms)}`,
       ]));
     }).join("")}
     ${printSection("Założenia zestawienia", listItems(kpoNotes))}

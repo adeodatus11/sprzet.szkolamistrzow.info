@@ -12,11 +12,17 @@ export const defaultRoomId = "2";
 // Sprzęt otrzymany w ramach KPO (zakładka "Zasoby"): dostarczone ilości.
 export const kpoDelivery = [
   { id: "laptop", name: "Laptopy", qty: 160 },
-  { id: "chromebook", name: "Laptopy przeglądarkowe (Chromebooki)", qty: 46 },
+  {
+    id: "chromebook",
+    name: "Laptopy przeglądarkowe (Chromebooki)",
+    qty: 46,
+    note: "1 używany przez Marię Kaszak. Czy inne osoby z pomocy PP też nie mają jeszcze Chromebooków KPO?",
+  },
   { id: "ipad", name: "Tablety (iPad)", qty: 96 },
 ];
 
-// Rozdysponowanie sprzętu z KPO po salach: state "placed" = już w sali, "planned" = ma trafić do sali.
+// Rozdysponowanie sprzętu z KPO po salach (roomId) lub osobach (assignee): state "placed" = już na miejscu,
+// "planned" = ma tam trafić.
 // Reszta (dostarczone minus w salach) jest jeszcze w pudełkach. Liczymy tylko sprzęt z KPO, więc
 // np. starsze iPady Air z sali 5 nie wchodzą do zestawienia.
 const kpoLaptop = (roomIds, qty, state, note = "") => roomIds.map((roomId) => ({ deviceId: "laptop", roomId, qty, state, note }));
@@ -25,22 +31,44 @@ export const kpoAllocations = [
   // laptop KPO na stanowisku (nauczyciela), już w sali
   ...kpoLaptop(["2", "3", "4", "5", "05-new", "6", "17", "18", "19", "22", "23", "26", "27", "28", "29", "30", "31", "32", "33", "34", "40", "41", "42", "44"], 1, "placed"),
   // pracownie z laptopami uczniów
-  ...kpoLaptop(["42"], 30, "placed", "komplet dla uczniów, nowa szafa do wstawienia"),
+  ...kpoLaptop(["42"], 32, "placed", "komplet dla uczniów, nowa szafa do wstawienia"),
   ...kpoLaptop(["41"], 30, "planned", "nowe laptopy z InsERT"),
   ...kpoLaptop(["23"], 30, "planned", "przyjęto, że to laptopy z KPO"),
   ...kpoLaptop(["16"], 4, "planned", "pokój nauczycielski, tryb incognito"),
+  // laptop KPO jako komputer nauczyciela w pozostałych salach lekcyjnych
+  ...kpoLaptop(["8", "43", "p2", "prf3", "prf2"], 1, "planned", "komputer nauczyciela"),
   // iPady z KPO (iPady Air z sali 5 nie są z KPO)
-  { deviceId: "ipad", roomId: "17", qty: 28, state: "planned", note: "28 tabletów KPO do dostarczenia" },
-  { deviceId: "ipad", roomId: "44", qty: 20, state: "planned", note: "20 iPadów z KPO do wstawienia" },
+  { deviceId: "ipad", roomId: "17", qty: 32, state: "planned", note: "32 iPady KPO do dostarczenia" },
+  { deviceId: "ipad", roomId: "44", qty: 26, state: "planned", note: "26 iPadów z KPO do wstawienia" },
+  // przydział do osoby, nie do sali
+  { deviceId: "ipad", assignee: "Maria Kaszak", qty: 1, state: "planned", note: "przypisany do osoby" },
+  // Chromebooki z KPO
+  { deviceId: "chromebook", assignee: "Maria Kaszak", qty: 1, state: "placed", note: "używany przez osobę" },
+
+  // laptopy Asus z pracowni handlowej (nie z KPO, patrz otherAssets): teraz w sali 41, mają trafić do sali 40
+  { deviceId: "asus", roomId: "41", qty: 26, state: "placed", note: "teraz w pracowni handlowej" },
+  { deviceId: "asus", roomId: "40", qty: 26, state: "moving", note: "po wyczyszczeniu i przygotowaniu" },
+];
+
+// Inny sprzęt, który nie pochodzi z KPO, ale też jest podliczany w zakładce "Zasoby".
+// state "moving" w kpoAllocations = ma zostać przeniesiony do tej sali (nie liczy się do rozdysponowania).
+export const otherAssets = [
+  {
+    id: "asus",
+    name: "Laptopy Asus (pracownia handlowa)",
+    qty: 26,
+    plan: "Wyczyścić, przygotować i przenieść do sali 40 razem z szafą",
+  },
 ];
 
 // Założenia zestawienia, pokazywane pod nim w zakładce "Zasoby".
 export const kpoNotes = [
   "Liczymy tylko sprzęt z KPO: starsze iPady Air z sali 5 nie są z KPO i nie wchodzą do zestawienia.",
-  "W salach 8 i 38 nie wiadomo, czy komputery pochodzą z KPO, więc ich nie liczymy.",
+  "Laptop KPO jako komputer nauczyciela jest (albo ma być) w każdej sali lekcyjnej. Wyjątki: sale 37 i 38 (mają własne ustalenia o komputerze nauczyciela), pokoje nauczycielskie 04 i 16, biblioteka 21 i sala gimnastyczna 39.",
+  "W sali 38 nie wiadomo, czy laptopy z pracowni AI pochodzą z KPO, więc ich nie liczymy.",
   "Przyjęto, że 30 laptopów w sali 23 pochodzi z KPO.",
-  "Dla Chromebooków nie ma jeszcze przydziału do sal, więc wszystkie są w pudełkach.",
-  "Przyjęto, że 26 laptopów z sali 41, które przechodzą do sali 40, jest starszych i nie pochodzi z KPO.",
+  "Chromebooki nie mają jeszcze przydziału do sal (poza jednym używanym przez Marię Kaszak), więc reszta jest w pudełkach.",
+  "26 laptopów Asus z pracowni handlowej (sala 41) nie pochodzi z KPO, więc są pokazane osobno, jako inny sprzęt.",
 ];
 
 export const statusLabels = {
@@ -80,6 +108,10 @@ const G = {
 };
 
 const OTHERS = "Inni nauczyciele (zajęcia przechodnie)";
+
+// Laptop KPO jako komputer nauczyciela: jedna etykieta w każdej sali lekcyjnej.
+const KPO_TEACHER = "Laptop KPO (komputer nauczyciela)";
+const KPO_TEACHER_PLANNED = "Laptop KPO (komputer nauczyciela, do wstawienia)";
 
 const groupOrder = Object.values(G);
 
@@ -409,7 +441,7 @@ export const rooms = [
     teachers: ["Sylwia Mikołajczak", "Iwona Leńczowska", "Paweł Danielewski"],
     status: "missing",
     equipment: [
-      group(G.computers, ["Komputer nowy (laptop KPO)"]),
+      group(G.computers, [KPO_TEACHER]),
       group(G.media, ["Rzutnik (nowy)"]),
     ],
     tasks: [
@@ -426,7 +458,7 @@ export const rooms = [
     teachers: ["Agnieszka Jastrzębska", "Paweł Danielewski", "Iwona Leńczowska", "Edyta Jaworska"],
     status: "ready",
     equipment: [
-      group(G.computers, ["Laptop KPO"]),
+      group(G.computers, [KPO_TEACHER]),
       group(G.media, ["Telewizor multimedialny (75 cali, na kółkach)"]),
     ],
     tasks: [
@@ -442,7 +474,7 @@ export const rooms = [
     teachers: ["Marcin Kruk", "Marcin Kopij"],
     status: "ready",
     equipment: [
-      group(G.computers, ["Laptop KPO"]),
+      group(G.computers, [KPO_TEACHER]),
       group(G.media, ["Telewizor dotykowy (65 cali, na ścianie)"]),
     ],
     tasks: [
@@ -463,7 +495,7 @@ export const rooms = [
     ],
     status: "missing",
     equipment: [
-      group(G.computers, ["Laptop KPO"]),
+      group(G.computers, [KPO_TEACHER]),
       group(G.furniture, ["Fotel barberski"]),
       group(G.media, ["Telewizor dotykowy Samsung (75 cali)"]),
       group(G.printers, ["Drukarka wielofunkcyjna A3"]),
@@ -496,7 +528,7 @@ export const rooms = [
     teachers: ["Aleksandra Karczmarz", "Anna Galert"],
     status: "check",
     equipment: [
-      group(G.computers, ["Laptop KPO (1 szt.)"]),
+      group(G.computers, [KPO_TEACHER]),
       group(G.media, ["Telewizor multimedialny (na kółkach)"]),
       group(G.furniture, [
         "Ławki",
@@ -517,7 +549,7 @@ export const rooms = [
     purpose: "Praktyczna pracownia fryzjerska (razem z salą 7)",
     status: "ready",
     equipment: [
-      group(G.computers, ["Laptop KPO"]),
+      group(G.computers, [KPO_TEACHER]),
       group(G.media, ["Rzutnik (podwieszony pod sufitem)"]),
     ],
     tasks: [done("Sprawdzić podłączenie komputera do rzutnika")],
@@ -529,10 +561,11 @@ export const rooms = [
     floor: "Parter",
     purpose: "Gabinet",
     equipment: [
-      group(G.computers, ["Komputer (do potwierdzenia, czy laptop KPO)"]),
+      group(G.computers, [KPO_TEACHER_PLANNED]),
       group(G.media, ["Rzutnik (zamontowany)"]),
     ],
     tasks: [
+      "Wstawić laptop KPO jako komputer nauczyciela",
       "Sprawdzić podłączenie komputera do rzutnika",
       "Sprawdzić, czy zestaw działa",
     ],
@@ -567,12 +600,12 @@ export const rooms = [
     teachers: ["Marzena Filusz", "Małgorzata Fiodorow", OTHERS],
     status: "missing",
     equipment: [
-      group(G.computers, ["Laptop KPO"]),
+      group(G.computers, [KPO_TEACHER]),
       group(G.media, ["Monitor multimedialny (75 cali, na kółkach)"]),
-      group(G.tablets, ["28 tabletów KPO", "Szafka z zasilaniem do ładowania tabletów"]),
+      group(G.tablets, ["32 iPady KPO", "Szafka z zasilaniem do ładowania tabletów"]),
     ],
     tasks: [
-      "Dostarczyć 28 tabletów KPO",
+      "Dostarczyć 32 iPady KPO",
       done("Wstawić zamek do jednej ze starych szafek, żeby można ją było zamknąć na klucz"),
       done("Zapewnić w szafce zasilanie do ładowania tabletów – kupiony zasilacz"),
       "Sprawdzić Wi-Fi i internet na tabletach",
@@ -591,7 +624,7 @@ export const rooms = [
     ],
     status: "missing",
     equipment: [
-      group(G.computers, ["Laptop KPO"]),
+      group(G.computers, [KPO_TEACHER]),
       group(G.media, ["Rzutnik (nowy)"]),
     ],
     tasks: [
@@ -608,7 +641,7 @@ export const rooms = [
     teachers: ["Magdalena Zaleska", "Waldemar Kaczorowski", "Marcin Kopij"],
     status: "ready",
     equipment: [
-      group(G.computers, ["Laptop KPO"]),
+      group(G.computers, [KPO_TEACHER]),
       group(G.media, ["Monitor interaktywny (75 cali, z pracowni AI)"]),
     ],
     tasks: [
@@ -642,7 +675,7 @@ export const rooms = [
     teachers: ["Magdalena Ulanowska", OTHERS],
     status: "ready",
     equipment: [
-      group(G.computers, ["Laptop KPO"]),
+      group(G.computers, [KPO_TEACHER]),
       group(G.media, ["Monitor multimedialny BenQ (75 cali)"]),
     ],
     tasks: [
@@ -659,7 +692,7 @@ export const rooms = [
     teachers: ["Eleonora Smirnow-Zechman", "Inni nauczyciele (według planu)"],
     status: "todo",
     equipment: [
-      group(G.computers, ["30 laptopów (do przygotowania)", "Laptop KPO dla nauczyciela"]),
+      group(G.computers, ["30 laptopów (do przygotowania)", KPO_TEACHER]),
       group(G.furniture, ["Szafa na laptopy (kupiona we wrześniu 2026, jedna z trzech kupionych szaf na 30 laptopów)"]),
       group(G.media, ["Rzutnik krótkoogniskowy (nowy, zostaje)"]),
     ],
@@ -680,7 +713,7 @@ export const rooms = [
     teachers: ["Barbara Małecka", "Karolina Sałdyka", "Anna Mucha", "Agnieszka Hudziec"],
     status: "ready",
     equipment: [
-      group(G.computers, ["Laptop KPO (jeżeli działa)"]),
+      group(G.computers, ["Laptop KPO (komputer nauczyciela, jeżeli działa)"]),
       group(G.media, ["Telewizor (75 cali, na ścianie)"]),
     ],
     tasks: [
@@ -697,7 +730,7 @@ export const rooms = [
     teachers: ["Barbara Małecka", "Karolina Sałdyka", "Anna Mucha", "Agnieszka Hudziec"],
     status: "todo",
     equipment: [
-      group(G.computers, ["Laptop KPO (działa)"]),
+      group(G.computers, ["Laptop KPO (komputer nauczyciela, działa)"]),
       group(G.planned, [
         "Monitor interaktywny (75 cali, kupiony we wrześniu 2026)",
         "Stojak do monitora (kupiony)",
@@ -716,7 +749,7 @@ export const rooms = [
     teachers: ["Barbara Małecka", "Karolina Sałdyka", "Anna Mucha", "Agnieszka Hudziec"],
     status: "ready",
     equipment: [
-      group(G.computers, ["Laptop KPO"]),
+      group(G.computers, [KPO_TEACHER]),
       group(G.media, ["Tablica interaktywna (75 cali)"]),
     ],
     tasks: [done("Sprawdzić podłączenie komputera do tablicy interaktywnej")],
@@ -729,7 +762,7 @@ export const rooms = [
     teachers: ["Iwona Bujanowska", "Ewa Ostrowska"],
     status: "missing",
     equipment: [
-      group(G.computers, ["Laptop KPO"]),
+      group(G.computers, [KPO_TEACHER]),
       group(G.media, ["Rzutnik (działa)"]),
     ],
     tasks: [
@@ -746,7 +779,7 @@ export const rooms = [
     teachers: ["Anna Filipek", OTHERS],
     status: "todo",
     equipment: [
-      group(G.computers, ["Laptop KPO"]),
+      group(G.computers, [KPO_TEACHER]),
       group(G.media, ["Rzutnik"]),
     ],
     tasks: [
@@ -764,7 +797,7 @@ export const rooms = [
     teachers: ["Alicja Smereka", OTHERS],
     status: "ready",
     equipment: [
-      group(G.computers, ["Laptop KPO"]),
+      group(G.computers, [KPO_TEACHER]),
       group(G.media, ["Rzutnik", "Monitor z KPO (nowy, na kółkach)"]),
     ],
     tasks: [
@@ -786,7 +819,7 @@ export const rooms = [
     ],
     status: "missing",
     equipment: [
-      group(G.computers, ["Laptop KPO"]),
+      group(G.computers, [KPO_TEACHER]),
       group(G.media, ["Rzutnik (działa)"]),
     ],
     tasks: [
@@ -802,7 +835,7 @@ export const rooms = [
     teachers: ["Ewelina Krycia", OTHERS],
     status: "missing",
     equipment: [
-      group(G.computers, ["Laptop KPO"]),
+      group(G.computers, [KPO_TEACHER]),
       group(G.media, ["Telewizor (nowy)"]),
     ],
     tasks: [
@@ -818,7 +851,7 @@ export const rooms = [
     teachers: ["Magdalena Nowak", "Arkadiusz Mocarski", "Małgorzata Kończyńska"],
     status: "ready",
     equipment: [
-      group(G.computers, ["Laptop KPO"]),
+      group(G.computers, [KPO_TEACHER]),
       group(G.media, ["Monitor interaktywny (75 cali)"]),
     ],
     tasks: [done("Podłączyć laptop KPO do monitora interaktywnego")],
@@ -887,14 +920,14 @@ export const rooms = [
     teachers: ["p. Socha", "p. Płatek", "p. Młynarczyk"],
     status: "todo",
     equipment: [
-      group(G.computers, ["Laptop KPO dla nauczyciela"]),
+      group(G.computers, [KPO_TEACHER]),
       group(G.media, ["Telewizor multimedialny"]),
-      group(G.planned, ["26 wyczyszczonych laptopów z sali 41, razem z szafą"]),
+      group(G.planned, ["26 laptopów Asus z pracowni handlowej (sala 41), wyczyszczonych i przygotowanych, razem z szafą"]),
     ],
     tasks: [
       "Zapewnić stabilne podłączenie telewizora multimedialnego do komputera",
       "Sprawdzić, czy zestaw działa",
-      "Wstawić do sali 40 wyczyszczone 26 laptopów z sali 41 razem z szafą",
+      "Wstawić do sali 40 wyczyszczone i przygotowane 26 laptopów Asus z sali 41 razem z szafą",
       "Postawić na laptopach konfigurację zmazywalną: uczeń zawsze w trybie incognito (przygotowanie: Maciej Najwer)",
     ],
   }),
@@ -908,14 +941,14 @@ export const rooms = [
     equipment: [
       group(G.computers, [
         "30 nowych laptopów KPO (do wstawienia, z zainstalowanym InsERT)",
-        "Laptop KPO (stanowisko nauczyciela)",
+        KPO_TEACHER,
       ]),
       group(G.media, ["Rzutnik (nowy, zostaje)"]),
       group(G.printers, ["Drukarka Xerox 7100 (duża, nowa, ARAW)"]),
       group(G.network, ["Przeciągnięty kabel sieciowy do podłączenia"]),
     ],
     tasks: [
-      "Przenieść 26 wyczyszczonych laptopów z sali 41 do sali 40 razem z szafą",
+      "Wyczyścić, przygotować i przenieść 26 laptopów Asus z sali 41 do sali 40 razem z szafą",
       "Wstawić 30 nowych laptopów KPO z zainstalowanym InsERT",
       "Podłączyć laptopy do internetu",
       "Podłączyć przeciągnięty kabel sieciowy",
@@ -930,7 +963,7 @@ export const rooms = [
     teachers: ["Agnieszka Skarupa", "Bożena Czukiewska", "Anna Kosin", "Dariusz Socha"],
     status: "missing",
     equipment: [
-      group(G.computers, ["30 laptopów KPO", "Laptop KPO dla nauczyciela"]),
+      group(G.computers, ["32 laptopy KPO", KPO_TEACHER]),
       group(G.furniture, ["Szafa na laptopy (nowa, na 30 laptopów, do wstawienia)"]),
       group(G.media, ["Rzutnik (nowy)", "Monitor multimedialny (nowy, wiszący na ścianie)"]),
     ],
@@ -948,12 +981,13 @@ export const rooms = [
     name: "Sala 43",
     floor: "III piętro",
     teachers: ["Mariola Granatowska", "Aleksandra Karczmarz", "Anna Galert"],
-    status: "ready",
+    status: "todo",
     equipment: [
-      group(G.computers, ["Komputer"]),
+      group(G.computers, [KPO_TEACHER_PLANNED]),
       group(G.media, ["Telewizor multimedialny"]),
     ],
     tasks: [
+      "Wstawić laptop KPO jako komputer nauczyciela",
       done("Zapewnić podłączenie telewizora do komputera"),
       done("Sprawdzić, czy wszystko działa"),
     ],
@@ -966,15 +1000,15 @@ export const rooms = [
     teachers: ["Anna Misiąg", "Małgorzata Fiodorów"],
     status: "missing",
     equipment: [
-      group(G.computers, ["Laptop KPO"]),
+      group(G.computers, [KPO_TEACHER]),
       group(G.media, ["Monitor interaktywny"]),
-      group(G.tablets, ["20 iPadów z KPO (do wstawienia)"]),
+      group(G.tablets, ["26 iPadów z KPO (do wstawienia)"]),
       group(G.network, ["Zasilanie dla tabletów"]),
     ],
     tasks: [
       done("Zapewnić monitor w sali"),
       done("Podłączyć komputer do monitora"),
-      "Wstawić 20 iPadów z KPO",
+      "Wstawić 26 iPadów z KPO",
       "Przygotować zasilanie dla tabletów",
     ],
   }),
@@ -989,11 +1023,12 @@ export const rooms = [
     purpose: "Pracownia gastronomiczna",
     teachers: ["Renata Marzec", "Krystyna Stępień", "Katarzyna Świerzewicz"],
     equipment: [
-      group(G.computers, ["Komputer stacjonarny"]),
+      group(G.computers, [KPO_TEACHER_PLANNED]),
       group(G.media, ["Rzutnik"]),
     ],
     tasks: [
-      "Sprawdzić, czy komputer stacjonarny działa",
+      "Wstawić laptop KPO jako komputer nauczyciela",
+      "Sprawdzić, czy laptop KPO działa",
       "Sprawdzić, czy rzutnik działa",
     ],
   }),
@@ -1006,10 +1041,13 @@ export const rooms = [
     purpose: "Teoria fryzjerstwa",
     teachers: ["Anna Sobczak"],
     equipment: [
-      group(G.computers, ["Komputer"]),
+      group(G.computers, [KPO_TEACHER_PLANNED]),
       group(G.media, ["Telewizor (na ścianie)"]),
     ],
-    tasks: ["Sprawdzić połączenie komputera z telewizorem"],
+    tasks: [
+      "Wstawić laptop KPO jako komputer nauczyciela",
+      "Sprawdzić połączenie komputera z telewizorem",
+    ],
   }),
   room({
     id: "prf2",
@@ -1020,10 +1058,11 @@ export const rooms = [
     purpose: "Praktyka fryzjerstwa",
     teachers: ["Edyta Jaworska", "Iwona Leńczowska", "Agnieszka Jastrzębska"],
     equipment: [
-      group(G.computers, ["Komputer"]),
+      group(G.computers, [KPO_TEACHER_PLANNED]),
       group(G.media, ["Monitor multimedialny (75 cali, na kółkach)"]),
     ],
     tasks: [
+      "Wstawić laptop KPO jako komputer nauczyciela",
       "Sprawdzić, czy komputer działa",
       "Sprawdzić, czy komputer jest poprawnie podłączony do monitora",
     ],
@@ -1039,6 +1078,10 @@ export const unresolvedItems = [
   {
     roomIds: [],
     text: "Po sprawdzeniu Wi-Fi wskazać sale, które wymagają access pointów",
+  },
+  {
+    roomIds: ["42"],
+    text: "Ustalić, gdzie trzymać 2 laptopy ponad pojemność nowej szafy (szafa na 30, laptopów KPO jest 32)",
   },
   {
     roomIds: ["37"],

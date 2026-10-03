@@ -1397,9 +1397,24 @@ body:not([data-view="resources"]) .resources-view {
   gap: 4px 12px;
 }
 
-.resource-head h2 {
+.resource-section-title {
+  margin: 20px 0 10px;
+  font-size: 1rem;
+}
+
+.resource-head h3 {
   margin: 0;
   font-size: 1.1rem;
+}
+
+.resource-note {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.resource-note strong {
+  color: var(--ink);
 }
 
 .resource-qty {
@@ -1481,7 +1496,7 @@ body:not([data-view="resources"]) .resources-view {
   font-weight: 700;
 }
 
-.resource-details h3 {
+.resource-details h4 {
   margin: 12px 0 6px;
   color: var(--muted);
   font-size: 0.72rem;
