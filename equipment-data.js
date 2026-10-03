@@ -267,6 +267,15 @@ export const purchaseItems = [
     note: "Do wstawienia w sali 5. Ewentualnie można przynieść szafę na laptopy z III piętra i trzymać w niej iPady",
   },
   {
+    id: "desks-37",
+    tier: "main",
+    name: "Biurko",
+    specs: ["pod stanowiska komputerowe"],
+    qty: 6,
+    roomIds: ["37"],
+    note: "Do dostawienia 6 kolejnych stanowisk z komputerów UNICEF Dell",
+  },
+  {
     id: "hdmi-20m",
     tier: "accessories",
     name: "Kabel HDMI światłowodowy",
@@ -798,18 +807,14 @@ export const rooms = [
     status: "missing",
     equipment: [
       group(G.furniture, ["24 ławki / stanowiska dla uczniów (według osobnego szkicu)"]),
-      group(G.computers, [
-        "24 komputery stacjonarne UNICEF z monitorami dla uczniów",
-        "Komputer stacjonarny UNICEF z monitorem dla nauczyciela",
-        "Razem: 25 stanowisk komputerowych UNICEF",
-      ]),
+      group(G.computers, ["18 stanowisk komputerów UNICEF Dell (stanowisko 15 do wymiany)"]),
       group(G.network, ["Internet kablowy na wszystkich stanowiskach"]),
       group(G.printers, ["Drukarka A4 (najlepiej z duplexem)"]),
     ],
     tasks: [
-      "Przenieść do sali 37 wszystkie nauczycielskie komputery stacjonarne UNICEF z monitorami",
-      "Przygotować 24 stanowiska uczniowskie według szkicu",
-      "Przygotować stanowisko nauczyciela (komputer stacjonarny UNICEF z monitorem)",
+      "Dokupić biurka i dostawić 6 kolejnych stanowisk z komputerami UNICEF Dell",
+      "Wymienić komputer na stanowisku 15",
+      "Przygotować stanowisko nauczyciela (komputer all-in-one)",
       "Zapewnić internet kablowy na wszystkich stanowiskach",
       "Dodać drukarkę A4, najlepiej z duplexem",
     ],
@@ -831,9 +836,9 @@ export const rooms = [
       group(G.network, ["Internet kablowy dla laptopów"]),
     ],
     tasks: [
-      "Przenieść laptopy z pracowni AI do sali 38",
-      "Zapewnić 24 stanowiska uczniowskie i stanowisko nauczyciela",
-      "Zapewnić internet kablowy dla laptopów",
+      done("Przenieść laptopy z pracowni AI do sali 38"),
+      done("Zapewnić 24 stanowiska uczniowskie i stanowisko nauczyciela"),
+      done("Zapewnić internet kablowy dla laptopów"),
     ],
     decisions: [
       "Komputer nauczyciela zostaje",
@@ -853,13 +858,17 @@ export const rooms = [
     name: "Sala 40",
     floor: "III piętro",
     teachers: ["p. Socha", "p. Płatek", "p. Młynarczyk"],
+    status: "todo",
     equipment: [
-      group(G.computers, ["Komputer"]),
+      group(G.computers, ["Laptop KPO dla nauczyciela"]),
       group(G.media, ["Telewizor multimedialny"]),
+      group(G.planned, ["26 wyczyszczonych laptopów z sali 41, razem z szafą"]),
     ],
     tasks: [
       "Zapewnić stabilne podłączenie telewizora multimedialnego do komputera",
       "Sprawdzić, czy zestaw działa",
+      "Wstawić do sali 40 wyczyszczone 26 laptopów z sali 41 razem z szafą",
+      "Postawić na laptopach konfigurację zmazywalną: uczeń zawsze w trybie incognito (przygotowanie: Maciej Najwer)",
     ],
   }),
   room({
@@ -870,20 +879,21 @@ export const rooms = [
     teachers: ["Agnieszka Skarupa", "Bożena Czukiewska", "Anna Kosin", "Dariusz Socha"],
     status: "missing",
     equipment: [
-      group(G.computers, ["26 laptopów"]),
-      group(G.furniture, ["Szafa na laptopy (jest już w sali)"]),
+      group(G.computers, [
+        "30 nowych laptopów KPO (do wstawienia, z zainstalowanym InsERT)",
+        "Laptop KPO (stanowisko nauczyciela)",
+      ]),
       group(G.media, ["Rzutnik (nowy, zostaje)"]),
       group(G.printers, ["Drukarka Xerox 7100 (duża, nowa, ARAW)"]),
       group(G.network, ["Przeciągnięty kabel sieciowy do podłączenia"]),
     ],
     tasks: [
-      "Wstawić 26 laptopów do istniejącej szafy",
-      "Zapewnić nowe, wyczyszczone i sprawne laptopy",
+      "Przenieść 26 wyczyszczonych laptopów z sali 41 do sali 40 razem z szafą",
+      "Wstawić 30 nowych laptopów KPO z zainstalowanym InsERT",
       "Podłączyć laptopy do internetu",
       "Podłączyć przeciągnięty kabel sieciowy",
       "Wpiąć drukarkę Xerox 7100 do sieci, żeby można było drukować z komputerów w salach 41, 42 i 37, także uczniowskich",
     ],
-    notes: ["Do potwierdzenia, czy obok rzutnika ma być duży telewizor niedotykowy z wcześniejszej notatki"],
   }),
   room({
     id: "42",
@@ -893,8 +903,8 @@ export const rooms = [
     teachers: ["Agnieszka Skarupa", "Bożena Czukiewska", "Anna Kosin", "Dariusz Socha"],
     status: "missing",
     equipment: [
-      group(G.computers, ["26 laptopów"]),
-      group(G.furniture, ["Szafa na laptopy"]),
+      group(G.computers, ["30 laptopów KPO", "Laptop KPO dla nauczyciela"]),
+      group(G.furniture, ["Szafa na laptopy (nowa, na 30 laptopów, do wstawienia)"]),
       group(G.media, ["Rzutnik (nowy)", "Monitor multimedialny (nowy, wiszący na ścianie)"]),
     ],
     tasks: [
@@ -902,8 +912,8 @@ export const rooms = [
       "Zdjąć ze ścian tablice samochodowe",
       "Oddać tablice samochodowe do BS2 przy ul. Borowskiej (ewentualnie według dalszej decyzji)",
       "Podłączyć monitor multimedialny do komputera",
-      "Wstawić 26 laptopów razem z szafą",
-      "Zapewnić nowe i sprawne laptopy",
+      "Wstawić nową szafę na 30 laptopów",
+      "Postawić na laptopach konfigurację zmazywalną: uczeń zawsze w trybie incognito (przygotowanie: Maciej Najwer)",
     ],
   }),
   room({
@@ -911,13 +921,14 @@ export const rooms = [
     name: "Sala 43",
     floor: "III piętro",
     teachers: ["Mariola Granatowska", "Aleksandra Karczmarz", "Anna Galert"],
+    status: "ready",
     equipment: [
       group(G.computers, ["Komputer"]),
       group(G.media, ["Telewizor multimedialny"]),
     ],
     tasks: [
-      "Zapewnić podłączenie telewizora do komputera",
-      "Sprawdzić, czy wszystko działa",
+      done("Zapewnić podłączenie telewizora do komputera"),
+      done("Sprawdzić, czy wszystko działa"),
     ],
     decisions: ["Telewizor multimedialny zostaje w sali"],
   }),
@@ -928,15 +939,15 @@ export const rooms = [
     teachers: ["Anna Misiąg", "Małgorzata Fiodorów"],
     status: "missing",
     equipment: [
-      group(G.computers, ["Komputer"]),
-      group(G.media, ["Monitor multimedialny"]),
-      group(G.tablets, ["20 tabletów KPO"]),
+      group(G.computers, ["Laptop KPO"]),
+      group(G.media, ["Monitor interaktywny"]),
+      group(G.tablets, ["20 iPadów z KPO (do wstawienia)"]),
       group(G.network, ["Zasilanie dla tabletów"]),
     ],
     tasks: [
-      "Zapewnić monitor w sali",
-      "Podłączyć komputer do monitora",
-      "Wstawić 20 tabletów KPO",
+      done("Zapewnić monitor w sali"),
+      done("Podłączyć komputer do monitora"),
+      "Wstawić 20 iPadów z KPO",
       "Przygotować zasilanie dla tabletów",
     ],
   }),
@@ -1008,6 +1019,6 @@ export const unresolvedItems = [
   },
   {
     roomIds: ["41"],
-    text: "Potwierdzić, czy oprócz nowego rzutnika ma być duży telewizor niedotykowy",
+    text: "Ustalić, w jakiej szafie będzie 30 nowych laptopów (dotychczasowa szafa z sali 41 przechodzi do sali 40)",
   },
 ];

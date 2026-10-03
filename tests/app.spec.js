@@ -6,7 +6,7 @@ test("pokazuje listę sal i szczegóły", async ({ page }) => {
   await expect(page.getByRole("button", { name: /Sala 37/ })).toBeVisible();
   await page.getByRole("button", { name: /Sala 37/ }).click();
   await expect(page.getByRole("heading", { name: "Sala 37" })).toBeVisible();
-  await expect(page.locator("#roomDetail").getByText("24 komputery stacjonarne UNICEF z monitorami dla uczniów")).toBeVisible();
+  await expect(page.locator("#roomDetail").getByText("18 stanowisk komputerów UNICEF Dell (stanowisko 15 do wymiany)")).toBeVisible();
   await expect(page.locator("#roomDetail").getByText("Stała kontrola techniczna")).toBeVisible();
   await expect(page.locator("#roomDetail").getByText("przewody są zamocowane na stałe")).toBeVisible();
 });
@@ -365,14 +365,14 @@ test("kalkulator: domyślnie liczy wszystkie pozycje", async ({ page }) => {
   await page.goto("/#zakupy");
   // 8 × 7 245,53 (netto, VAT 0%) + 2 × 2 999 + 1 840 + 4 049 + 2 058 + 3 612 (brutto, VAT niepewny) + 2 041,46 (netto, VAT 0%)
   await expect(page.locator("#calcTotal")).toHaveText("83 007,74 zł");
-  await expect(page.locator("#calcMeta")).toHaveText("Zaznaczone: 11 poz. · 36 szt.");
+  await expect(page.locator("#calcMeta")).toHaveText("Zaznaczone: 12 poz. · 42 szt.");
   await expect(page.locator("#calcBreakdown")).toContainText("Sprzęt");
   await expect(page.locator("#calcBreakdown")).toContainText("77 562,70 zł");
   await expect(page.locator("#calcBreakdown")).toContainText("Zakupy towarzyszące");
   await expect(page.locator("#calcBreakdown")).toContainText("5 445,04 zł");
 
   const boxes = page.locator(".purchase-check");
-  await expect(boxes).toHaveCount(11);
+  await expect(boxes).toHaveCount(12);
   for (const box of await boxes.all()) await expect(box).toBeChecked();
 
   await expect(card(page, "Monitor interaktywny").locator(".calc-line")).toHaveText("Do sumy: 7 245,53 zł netto × 8 = 57 964,24 zł");
@@ -403,7 +403,7 @@ test("kalkulator: odznaczanie pozycji", async ({ page }) => {
   await expect(page.locator("#calcTotal")).toHaveText("77 354,28 zł");
   await card(page, "Monitor interaktywny").getByRole("checkbox").uncheck();
   await expect(page.locator("#calcTotal")).toHaveText("19 390,04 zł");
-  await expect(page.locator("#calcMeta")).toHaveText("Zaznaczone: 8 poz. · 26 szt.");
+  await expect(page.locator("#calcMeta")).toHaveText("Zaznaczone: 9 poz. · 32 szt.");
   await expect(card(page, "Monitor interaktywny")).toHaveClass(/is-excluded/);
 
   await card(page, "Kabel HDMI światłowodowy").getByRole("checkbox").uncheck();
@@ -420,8 +420,8 @@ test("kalkulator: zmiana ilości", async ({ page }) => {
   await expect(monitors.locator(".qty-value")).toHaveText("9");
   await expect(monitors.locator(".calc-line")).toHaveText("Do sumy: 7 245,53 zł netto × 9 = 65 209,77 zł");
   await expect(page.locator("#calcTotal")).toHaveText("90 253,27 zł");
-  await expect(page.locator("#calcMeta")).toHaveText("Zaznaczone: 11 poz. · 37 szt.");
-  await expect(page.locator(".purchase-tier").nth(0)).toContainText("8 poz. · 17 szt.");
+  await expect(page.locator("#calcMeta")).toHaveText("Zaznaczone: 12 poz. · 43 szt.");
+  await expect(page.locator(".purchase-tier").nth(0)).toContainText("9 poz. · 23 szt.");
   await expect(page.locator(".print-sheet")).toContainText("Monitor interaktywny (75 cali), 9 szt.");
 
   const minus = monitors.getByRole("button", { name: "Zmniejsz ilość" });
@@ -888,4 +888,115 @@ test("sala 34: laptop KPO podłączony do monitora interaktywnego", async ({ pag
   await expect(detail.getByRole("heading", { name: "Uwagi" })).toHaveCount(0);
   await expect(detail.locator(".detail-title .badge")).toHaveText("Bez zmian");
   await expect(page.locator("#openItems")).not.toContainText("telewizora multimedialnego");
+});
+
+test("sala 37: 18 stanowisk Dell, 6 biurek do dokupienia, telewizor, uchwyt i kabel", async ({ page }) => {
+  await page.goto("/#room-37");
+  const detail = page.locator("#roomDetail");
+  await expect(detail.locator(".equipment-group", { hasText: "Komputery" })).toContainText("18 stanowisk komputerów UNICEF Dell (stanowisko 15 do wymiany)");
+  await expect(detail).not.toContainText("25 stanowisk");
+  await expect(todoSection(page).locator("li:not(.is-done)")).toHaveText([
+    "Dokupić biurka i dostawić 6 kolejnych stanowisk z komputerami UNICEF Dell",
+    "Wymienić komputer na stanowisku 15",
+    "Przygotować stanowisko nauczyciela (komputer all-in-one)",
+    "Zapewnić internet kablowy na wszystkich stanowiskach",
+    "Dodać drukarkę A4, najlepiej z duplexem",
+  ]);
+  const purchases = detail.locator(".equipment-group", { hasText: "Do zakupu" });
+  for (const item of [
+    "Telewizor (4K, 85–86 cali)",
+    "Komputer all-in-one (bez ekranu dotykowego)",
+    "Biurko (pod stanowiska komputerowe)",
+    "Kabel HDMI światłowodowy (25 m)",
+    "Uchwyt VESA do telewizora (VESA 600 × 400)",
+  ]) {
+    await expect(purchases).toContainText(item);
+  }
+});
+
+test("biurka do sali 37 są na liście zakupów", async ({ page }) => {
+  await page.goto("/#zakupy");
+  const desks = card(page, "Biurko");
+  await expect(desks.locator(".qty-value")).toHaveText("6");
+  await expect(desks.locator(".room-chip")).toHaveText(["Sala 37"]);
+  await expect(desks).toContainText("6 kolejnych stanowisk");
+  await expect(desks.locator(".calc-line")).toHaveText("Brak ceny, pozycja nie wchodzi do sumy");
+});
+
+test("sala 38: wszystko zrobione", async ({ page }) => {
+  await page.goto("/#room-38");
+  await expect(doneTasks(page)).toHaveCount(3);
+  await expect(todoSection(page).locator("li:not(.is-done)")).toHaveCount(0);
+  await expect(page.locator("#roomDetail")).toContainText("Komputer nauczyciela zostaje");
+});
+
+test("sala 39 bez zmian", async ({ page }) => {
+  await page.goto("/#room-39");
+  await expect(page.locator("#roomDetail")).toContainText("Na tym etapie bez zmian w wyposażeniu");
+});
+
+test("sala 40: laptop KPO nauczyciela, 26 laptopów z sali 41 i konfiguracja incognito", async ({ page }) => {
+  await page.goto("/#room-40");
+  const detail = page.locator("#roomDetail");
+  await expect(detail.locator(".equipment-group", { hasText: "Komputery" })).toContainText("Laptop KPO dla nauczyciela");
+  await expect(detail.locator(".equipment-group", { hasText: "Docelowo" })).toContainText("26 wyczyszczonych laptopów z sali 41, razem z szafą");
+  await expect(todoSection(page).locator("li:not(.is-done)")).toHaveText([
+    "Zapewnić stabilne podłączenie telewizora multimedialnego do komputera",
+    "Sprawdzić, czy zestaw działa",
+    "Wstawić do sali 40 wyczyszczone 26 laptopów z sali 41 razem z szafą",
+    "Postawić na laptopach konfigurację zmazywalną: uczeń zawsze w trybie incognito (przygotowanie: Maciej Najwer)",
+  ]);
+});
+
+test("sala 41: 30 nowych laptopów KPO z InsERT, stanowisko nauczyciela i zakupy", async ({ page }) => {
+  await page.goto("/#room-41");
+  const detail = page.locator("#roomDetail");
+  await expect(detail.locator(".equipment-group", { hasText: "Komputery" })).toContainText("30 nowych laptopów KPO (do wstawienia, z zainstalowanym InsERT)");
+  await expect(detail.locator(".equipment-group", { hasText: "Komputery" })).toContainText("Laptop KPO (stanowisko nauczyciela)");
+  await expect(detail).not.toContainText("26 laptopów");
+  await expect(detail).not.toContainText("duży telewizor niedotykowy");
+  await expect(detail.locator(".equipment-group", { hasText: "Meble" })).toHaveCount(0);
+  await expect(todoSection(page).locator("li")).toContainText([
+    "Przenieść 26 wyczyszczonych laptopów z sali 41 do sali 40 razem z szafą",
+    "Wstawić 30 nowych laptopów KPO z zainstalowanym InsERT",
+  ]);
+  await expect(detail.locator(".is-urgent li")).toHaveText([
+    "Kupić monitor interaktywny (75 cali)",
+    "Kupić stojak do monitora interaktywnego (na kółkach, VESA 800 × 400)",
+  ]);
+  await expect(detail.locator(".equipment-group", { hasText: "Do zakupu" })).toContainText("Kabel HDMI światłowodowy (25 m)");
+  await expect(page.locator("#openItems")).toContainText("Ustalić, w jakiej szafie będzie 30 nowych laptopów");
+  await expect(page.locator("#openItems")).not.toContainText("duży telewizor niedotykowy");
+});
+
+test("sala 42: 30 laptopów KPO, nowa szafa i konfiguracja incognito", async ({ page }) => {
+  await page.goto("/#room-42");
+  const detail = page.locator("#roomDetail");
+  await expect(detail.locator(".equipment-group", { hasText: "Komputery" })).toContainText("30 laptopów KPO");
+  await expect(detail.locator(".equipment-group", { hasText: "Komputery" })).toContainText("Laptop KPO dla nauczyciela");
+  await expect(detail.locator(".equipment-group", { hasText: "Meble" })).toContainText("Szafa na laptopy (nowa, na 30 laptopów, do wstawienia)");
+  await expect(todoSection(page).locator("li")).toContainText([
+    "Wstawić nową szafę na 30 laptopów",
+    "Postawić na laptopach konfigurację zmazywalną: uczeń zawsze w trybie incognito (przygotowanie: Maciej Najwer)",
+  ]);
+  await expect(detail).not.toContainText("Wstawić 26 laptopów razem z szafą");
+  await expect(detail).not.toContainText("Zapewnić nowe i sprawne laptopy");
+});
+
+test("sala 43 zrobiona, sala 44: iPady do wstawienia", async ({ page }) => {
+  await page.goto("/#room-43");
+  await expect(doneTasks(page)).toHaveCount(2);
+  await expect(todoSection(page).locator("li:not(.is-done)")).toHaveCount(0);
+  await expect(page.locator("#roomDetail .detail-title .badge")).toHaveText("Bez zmian");
+
+  await page.goto("/#room-44");
+  const detail = page.locator("#roomDetail");
+  await expect(detail.locator(".equipment-group", { hasText: "Komputery" })).toContainText("Laptop KPO");
+  await expect(detail.locator(".equipment-group", { hasText: "Sprzęt multimedialny" })).toContainText("Monitor interaktywny");
+  await expect(detail.locator(".equipment-group", { hasText: "Tablety" })).toContainText("20 iPadów z KPO (do wstawienia)");
+  await expect(doneTasks(page)).toHaveCount(2);
+  await expect(todoSection(page).locator("li:not(.is-done)")).toHaveText([
+    "Wstawić 20 iPadów z KPO",
+    "Przygotować zasilanie dla tabletów",
+  ]);
 });
