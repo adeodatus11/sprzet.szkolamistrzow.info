@@ -263,11 +263,11 @@ export const purchaseItems = [
   {
     id: "vesa-interactive",
     tier: "accessories",
-    name: "Uchwyt VESA do monitora interaktywnego",
-    specs: ["VESA 800 × 400"],
+    name: "Stojak do monitora interaktywnego",
+    specs: ["na kółkach", "VESA 800 × 400"],
     qty: 8,
     roomIds: ["2", "18", "23", "29", "30", "32", "33", "41"],
-    note: "Monitor iiyama TE7515A-B2AG: VESA 800 × 400, waga 54,6 kg. Uchwyt musi to udźwignąć; standard potwierdzić w instrukcji",
+    note: "Mobilny stojak na kółkach, nie uchwyt ścienny. Monitor iiyama TE7515A-B2AG: VESA 800 × 400, waga 54,6 kg, 75 cali. Stojak musi to obsłużyć i udźwignąć; standard potwierdzić w instrukcji",
   },
   {
     id: "vesa-tv",
@@ -276,7 +276,16 @@ export const purchaseItems = [
     specs: ["VESA 600 × 400"],
     qty: 2,
     roomIds: ["37", "38"],
-    note: "Telewizor Hisense 85E7Q: VESA 600 × 400, waga 36 kg z podstawą. Standard potwierdzić w instrukcji",
+    note: "Telewizor Hisense 85E7Q: VESA 600 × 400, waga 36 kg z podstawą. Uchwyt Goldenline obsługuje VESA do 600 × 400 i 60 kg, więc pasuje. Standard potwierdzić w instrukcji",
+    offers: [
+      {
+        label: "Goldenline TM3770FMS",
+        shop: "mediaexpert.pl",
+        url: "https://www.mediaexpert.pl/telewizory-i-rtv/uchwyty-do-tv/uchwyty/uchwyt-goldenline-do-tv-37-90-cali-tm3770fms-czarny",
+        prices: [{ amount: 299.97, vat: "brutto" }],
+        checkedAt: "03.10.2026",
+      },
+    ],
   },
 ];
 
