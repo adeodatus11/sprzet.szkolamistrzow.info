@@ -232,3 +232,13 @@ test("telewizor 85 cali ma link do sklepu i cenę orientacyjną", async ({ page 
   await expect(card).toContainText("Ceny orientacyjne");
   await expect(page.locator(".print-sheet")).toContainText("np. Hisense 85E7Q, ok. 3799 zł (euro.com.pl)");
 });
+
+test("monitor interaktywny ma link do sklepu i cenę netto", async ({ page }) => {
+  await page.goto("/#zakupy");
+  const card = page.locator(".purchase-card", { hasText: "Monitor interaktywny" });
+  const link = card.getByRole("link", { name: "iiyama ProLite TE7515A-B2AG" });
+  await expect(link).toHaveAttribute("href", /^https:\/\/iiyama-sklep\.pl\/1866-.*te7515a-b2ag.*\.html$/);
+  await expect(card).toContainText("ok. 7245,53 zł netto");
+  await expect(page.locator(".purchase-card", { hasText: "85–86 cali" })).not.toContainText("netto");
+  await expect(page.locator(".print-sheet")).toContainText("ok. 7245,53 zł netto (iiyama-sklep.pl)");
+});
