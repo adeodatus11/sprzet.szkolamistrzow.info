@@ -1,4 +1,5 @@
 import {
+  cabinets,
   dataUpdatedAt,
   defaultRoomId,
   floors,
@@ -30,6 +31,7 @@ const els = {
   resourceTotal: document.querySelector("#resourceTotal"),
   resourceCards: document.querySelector("#resourceCards"),
   otherAssets: document.querySelector("#otherAssets"),
+  cabinetList: document.querySelector("#cabinetList"),
   resourceNotes: document.querySelector("#resourceNotes"),
   printResources: document.querySelector("#printResources"),
   printSheet: document.querySelector("#printSheet"),
@@ -824,6 +826,40 @@ const otherAssetCard = (asset) => {
   `;
 };
 
+const cabinetPlace = (place) => {
+  if (!place) return "";
+  if (place.roomId) {
+    const room = roomById(place.roomId);
+    return room ? roomLink(room, { label: room.name }) : escapeHtml(place.roomId);
+  }
+  return escapeHtml(place.text);
+};
+
+const cabinetContentQty = (cabinet) => cabinet.contents.reduce((sum, item) => sum + item.qty, 0);
+
+const cabinetCard = (cabinet) => {
+  const qty = cabinetContentQty(cabinet);
+  const isNew = !cabinet.from;
+  const target = roomById(cabinet.toRoomId);
+  return `
+    <article class="resource-card cabinet-card" data-cabinet-id="${escapeHtml(cabinet.id)}">
+      <header class="resource-head">
+        <h3>${escapeHtml(cabinet.name)}</h3>
+        <span class="badge ${isNew ? "ready" : "todo"}">${isNew ? "Nowa" : "Do przeniesienia"}</span>
+      </header>
+      <p class="cabinet-route">
+        ${isNew ? "" : `<span><strong>Teraz:</strong> ${cabinetPlace(cabinet.from)}</span>`}
+        <span><strong>Do sali:</strong> ${target ? roomLink(target, { label: target.name }) : escapeHtml(cabinet.toRoomId)}</span>
+      </p>
+      <p class="resource-note"><strong>Pojemność:</strong> ${cabinet.capacity} szt.</p>
+      <ul class="cabinet-contents">
+        ${cabinet.contents.map((item) => `<li>${escapeHtml(item.label)}</li>`).join("")}
+      </ul>
+      ${qty > cabinet.capacity ? `<p class="cabinet-warning" role="alert">Uwaga: w szafie ma stać ${qty} szt., a mieści się ${cabinet.capacity}</p>` : ""}
+    </article>
+  `;
+};
+
 const renderResources = () => {
   const totals = kpoTotals();
   els.resourcesTabCount.textContent = totals.delivered;
@@ -844,6 +880,7 @@ const renderResources = () => {
 
   els.resourceCards.innerHTML = kpoDelivery.map(resourceCard).join("");
   els.otherAssets.innerHTML = otherAssets.map(otherAssetCard).join("");
+  els.cabinetList.innerHTML = cabinets.map(cabinetCard).join("");
   els.resourceNotes.innerHTML = kpoNotes.map((note) => `<li>${escapeHtml(note)}</li>`).join("");
 };
 
@@ -885,6 +922,18 @@ const renderResourcesPrint = () => {
         asset.inBoxes ? `W pudełkach (niewykorzystane): ${asset.inBoxes} szt.${(asset.inBoxesDetails ?? []).map((detail) => `, ${detail.label}: ${detail.qty}`).join("")}` : "",
       ].filter(Boolean)));
     }).join("")}
+    ${printSection("Szafy na laptopy i iPady", listItems(cabinets.map((cabinet) => {
+      const from = cabinet.from?.roomId ? `sala ${chipLabel(roomById(cabinet.from.roomId))}` : cabinet.from?.text;
+      const target = roomById(cabinet.toRoomId);
+      const qty = cabinetContentQty(cabinet);
+      return [
+        `${cabinet.name} (pojemność ${cabinet.capacity})`,
+        from ? `teraz: ${from}` : "nowa",
+        `do sali: ${target ? chipLabel(target) : cabinet.toRoomId}`,
+        `w szafie: ${cabinet.contents.map((item) => item.label).join("; ")}`,
+        qty > cabinet.capacity ? `uwaga: ${qty} szt. przekracza pojemność` : "",
+      ].filter(Boolean).join(", ");
+    })))}
     ${printSection("Założenia zestawienia", listItems(kpoNotes))}
   `;
 };
