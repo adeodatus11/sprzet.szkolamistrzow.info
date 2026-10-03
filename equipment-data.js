@@ -693,11 +693,11 @@ export const rooms = [
     teachers: ["Iwona Bujanowska", "Ewa Ostrowska"],
     status: "missing",
     equipment: [
-      group(G.computers, ["Laptop KPO (do wstawienia)"]),
+      group(G.computers, ["Laptop KPO"]),
       group(G.media, ["Rzutnik (działa)"]),
     ],
     tasks: [
-      "Wstawić laptop KPO",
+      done("Wstawić laptop KPO"),
       "Sprawdzić stabilne połączenie rzutnika z komputerem",
       "Sprawdzić, czy zestaw działa",
     ],

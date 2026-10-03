@@ -823,9 +823,14 @@ test("sala 28: tablica interaktywna, bez telewizora i rzutnika", async ({ page }
 test("sale 29, 30, 32, 33: laptop KPO i zakupy monitora, stojaka (i kabla)", async ({ page }) => {
   await page.goto("/#room-29");
   let detail = page.locator("#roomDetail");
-  await expect(detail.locator(".equipment-group", { hasText: "Komputery" })).toContainText("Laptop KPO (do wstawienia)");
+  await expect(detail.locator(".equipment-group", { hasText: "Komputery" })).toContainText("Laptop KPO");
+  await expect(detail.locator(".equipment-group", { hasText: "Komputery" })).not.toContainText("do wstawienia");
   await expect(detail.locator(".equipment-group", { hasText: "Sprzęt multimedialny" })).toContainText("Rzutnik (działa)");
-  await expect(todoSection(page).locator("li:not(.is-done)").first()).toHaveText("Wstawić laptop KPO");
+  await expect(doneTasks(page)).toHaveText([/Wstawić laptop KPO/]);
+  await expect(todoSection(page).locator("li:not(.is-done)")).toHaveText([
+    "Sprawdzić stabilne połączenie rzutnika z komputerem",
+    "Sprawdzić, czy zestaw działa",
+  ]);
   await expect(detail.locator(".equipment-group", { hasText: "Do zakupu" })).toContainText("Monitor interaktywny (75 cali)");
   await expect(detail.locator(".equipment-group", { hasText: "Do zakupu" })).toContainText("Stojak do monitora interaktywnego");
 
