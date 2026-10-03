@@ -155,7 +155,10 @@ test("zakładka Do zakupu pokazuje listy zakupów", async ({ page }) => {
   await expect(rest.locator(".room-chip")).toHaveText(["Sala 23", "Sala 29", "Sala 30", "Sala 32", "Sala 33"]);
 
   await expect(page.locator(".purchase-card", { hasText: "bez ekranu dotykowego" })).toContainText("Sala 37");
-  await expect(page.locator(".purchase-card", { hasText: "z ekranem dotykowym" })).toContainText("monitor dotykowy (24 cale)");
+  const touch = page.locator(".purchase-card", { hasText: "Monitor dotykowy" });
+  await expect(touch).toContainText("27 cali");
+  await expect(touch).toContainText("Sala 16");
+  await expect(touch).toContainText("Do komputera do zastępstw w pokoju nauczycielskim");
   await expect(page.locator(".purchase-card", { hasText: "Monitor biurowy" })).toContainText("2 szt.");
   await expect(page.locator(".purchase-card", { hasText: "Do wyświetlania zastępstw" })).toContainText("Miejsce do ustalenia");
 });
@@ -193,7 +196,8 @@ test("zakupy trafiają na karty wskazanych sal", async ({ page }) => {
   await expect(page.locator("#roomDetail")).toContainText("Komputer all-in-one (bez ekranu dotykowego)");
 
   await page.goto("/#room-16");
-  await expect(page.locator("#roomDetail")).toContainText("albo monitor dotykowy (24 cale)");
+  await expect(page.locator("#roomDetail")).toContainText("Monitor dotykowy (27 cali, IPS)");
+  await expect(page.locator("#roomDetail")).not.toContainText("all-in-one z ekranem");
 
   await page.goto("/#room-38");
   await expect(page.locator("#roomDetail")).toContainText("Telewizor (4K, 86 cali, lista życzeń)");
@@ -257,4 +261,13 @@ test("monitor do zastępstw ma link bez śladów reklamowych i obie ceny", async
   expect(href).toMatch(/^https:\/\/iiyama-sklep\.pl\/1208-.*lh4341uhs-b2.*\.html$/);
   expect(href).not.toMatch(/gclid|utm_/);
   await expect(page.locator(".print-sheet")).toContainText("np. iiyama ProLite LH4341UHS-B2, 2 058 zł brutto / 1 673,17 zł netto, VAT 0% do potwierdzenia (iiyama-sklep.pl)");
+});
+
+test("monitor dotykowy do pokoju nauczycielskiego ma link i obie ceny", async ({ page }) => {
+  await page.goto("/#zakupy");
+  const card = page.locator(".purchase-card", { hasText: "Monitor dotykowy" });
+  await expect(card.getByRole("link", { name: "iiyama ProLite T2755MSC-B1" })).toHaveAttribute("href", /^https:\/\/iiyama-sklep\.pl\/1182-.*t2755msc-b1.*\.html$/);
+  await expect(card).toContainText("1 840 zł brutto / 1 495,93 zł netto");
+  await expect(card).toContainText("VAT 0% do potwierdzenia");
+  await expect(page.locator(".print-sheet")).toContainText("np. iiyama ProLite T2755MSC-B1, 1 840 zł brutto / 1 495,93 zł netto, VAT 0% do potwierdzenia (iiyama-sklep.pl)");
 });

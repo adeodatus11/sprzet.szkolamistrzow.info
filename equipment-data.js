@@ -142,12 +142,24 @@ export const purchaseItems = [
   {
     id: "aio-touch",
     tier: "buy",
-    name: "Komputer all-in-one",
-    specs: ["z ekranem dotykowym"],
-    alternative: "monitor dotykowy (24 cale)",
+    name: "Monitor dotykowy",
+    specs: ["27 cali", "IPS"],
     qty: 1,
     roomIds: ["16"],
-    note: "Do pokoju nauczycielskiego",
+    note: "Do komputera do zastępstw w pokoju nauczycielskim",
+    offers: [
+      {
+        label: "iiyama ProLite T2755MSC-B1",
+        shop: "iiyama-sklep.pl",
+        url: "https://iiyama-sklep.pl/1182-monitory-dotykowe-biurkowe-monitor-dotykowy-iiyama-prolite-t2755msc-b1-27-ips-led-hdmi-displayport-glosniki-powloka-nano-4948570122974.html",
+        prices: [
+          { amount: 1840, vat: "brutto" },
+          { amount: 1495.93, vat: "netto" },
+        ],
+        vatNote: "VAT 0% do potwierdzenia",
+        checkedAt: "03.10.2026",
+      },
+    ],
   },
   {
     id: "aio-plain",
@@ -200,11 +212,10 @@ export const purchaseItems = [
 
 export const purchaseLabel = ({ name, specs = [] }) => (specs.length ? `${name} (${specs.join(", ")})` : name);
 
-// Opis pozycji na karcie sali: lista życzeń i alternatywa są dopisane wprost.
+// Opis pozycji na karcie sali: lista życzeń jest dopisana wprost.
 const roomPurchaseLabel = (item) => {
   const specs = item.tier === "wish" ? [...item.specs, "lista życzeń"] : item.specs;
-  const label = purchaseLabel({ name: item.name, specs });
-  return item.alternative ? `${label} albo ${item.alternative}` : label;
+  return purchaseLabel({ name: item.name, specs });
 };
 
 const lowerFirst = (text) => text.charAt(0).toLowerCase() + text.slice(1);

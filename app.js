@@ -444,7 +444,6 @@ const purchaseCard = (item) => {
         <span class="qty-badge">${item.qty} szt.</span>
       </header>
       <ul class="spec-tags">${item.specs.map((spec) => `<li>${escapeHtml(spec)}</li>`).join("")}</ul>
-      ${item.alternative ? `<p class="purchase-note"><strong>Albo:</strong> ${escapeHtml(item.alternative)}</p>` : ""}
       ${item.note ? `<p class="purchase-note">${escapeHtml(item.note)}</p>` : ""}
       ${offersBlock(item)}
       ${roomsBlock}
@@ -482,7 +481,6 @@ const purchasePrintLine = (item) => {
 
   return [
     `${purchaseLabel(item)}, ${item.qty} szt.`,
-    item.alternative && `albo ${item.alternative}`,
     item.note,
     ...(item.offers ?? []).map((offer) => `np. ${offer.label}, ${[formatPrices(offer), offer.vatNote].filter(Boolean).join(", ")} (${offer.shop})`),
     roomText ? `sale: ${roomText}` : "miejsce do ustalenia",
