@@ -659,3 +659,121 @@ test("sala 8 bez zmian: zestaw nadal do sprawdzenia", async ({ page }) => {
   await expect(doneTasks(page)).toHaveCount(0);
   await expect(page.locator("#roomDetail")).toContainText("Sprawdzić, czy zestaw działa");
 });
+
+test("laptop KPO jest wpisany w salach 3, 4, 5, 05, 6, 17, 18, 19, 22", async ({ page }) => {
+  for (const id of ["3", "4", "5", "05-new", "6", "17", "18", "19", "22"]) {
+    await page.goto(`/#room-${id}`);
+    await expect(page.locator("#roomDetail .equipment-group", { hasText: "Komputery" })).toContainText("Laptop KPO");
+  }
+  await page.goto("/#room-8");
+  await expect(page.locator("#roomDetail .equipment-group", { hasText: "Komputery" })).toContainText("Komputer (do potwierdzenia, czy laptop KPO)");
+  await expect(todoSection(page).locator("li:not(.is-done)")).toHaveCount(2);
+});
+
+test("sala 16: laptopy KPO zamiast komputerów UNICEF, pilne drukarki i monitor dotykowy", async ({ page }) => {
+  await page.goto("/#room-16");
+  const detail = page.locator("#roomDetail");
+  await expect(detail).not.toContainText("UNICEF");
+  await expect(detail.getByRole("heading", { name: "Wyposażenie" })).toBeVisible();
+  await expect(detail.locator(".equipment-group")).toHaveCount(1);
+  await expect(detail.locator(".equipment-group")).toContainText("Monitor dotykowy (27 cali, IPS)");
+
+  await expect(detail.locator(".is-urgent li")).toContainText([
+    "Kupić drukarkę sieciową (dostępną przez internet)",
+    "Podłączyć drukarki przez sieć do 4 lub 5 laptopów w sali",
+    "Kupić monitor dotykowy (27 cali, IPS)",
+  ]);
+  await expect(todoSection(page).locator("li")).toHaveText([
+    "Zapewnić 4 sprawne stanowiska komputerowe, każde z dostępem do internetu",
+    "Wstawić 4 laptopy KPO przygotowane do pracy nauczycieli, uruchamiane zawsze w trybie incognito (to jest możliwe; przygotowanie: Maciej Najwer)",
+    "Sprawdzić, czy drukarki działają",
+    "Zdiagnozować usterki drukarek, jeśli nie działają",
+    "Zapewnić co najmniej jedną sprawną i szybką drukarkę",
+  ]);
+  await expect(detail).not.toContainText("Wstawić 4 komputery UNICEF");
+  await expect(detail.locator(".badge").first()).toHaveText("Braki");
+});
+
+test("sala 17: zamek i zasilacz zrobione, tablety i Wi-Fi do zrobienia", async ({ page }) => {
+  await page.goto("/#room-17");
+  await expect(doneTasks(page)).toHaveText([
+    /Wstawić zamek do jednej ze starych szafek/,
+    /Zapewnić w szafce zasilanie do ładowania tabletów – kupiony zasilacz/,
+  ]);
+  await expect(todoSection(page).locator("li:not(.is-done)")).toHaveText([
+    "Dostarczyć 28 tabletów KPO",
+    "Sprawdzić Wi-Fi i internet na tabletach",
+  ]);
+});
+
+test("sale 2 i 18: monitor interaktywny i stojak w pilnych zakupach", async ({ page }) => {
+  for (const id of ["2", "18"]) {
+    await page.goto(`/#room-${id}`);
+    const urgent = page.locator("#roomDetail .is-urgent");
+    await expect(urgent.locator("li")).toHaveText([
+      "Kupić monitor interaktywny (75 cali)",
+      "Kupić stojak do monitora interaktywnego (na kółkach, VESA 800 × 400)",
+    ]);
+    await expect(todoSection(page).locator("li:not(.is-done)")).toHaveCount(0);
+  }
+  await page.goto("/#room-18");
+  await expect(doneTasks(page)).toHaveCount(3);
+  await expect(page.locator("#roomDetail .detail-title .badge")).toHaveText("Braki");
+
+  // sala 23 nie jest priorytetowa: zakupy bez pilnych
+  await page.goto("/#room-23");
+  await expect(page.locator("#roomDetail .is-urgent")).toHaveCount(0);
+  await expect(page.locator("#roomDetail .equipment-group", { hasText: "Do zakupu" })).toContainText("Monitor interaktywny (75 cali)");
+  await expect(page.locator("#roomDetail .equipment-group", { hasText: "Do zakupu" })).toContainText("Stojak do monitora interaktywnego");
+});
+
+test("priorytety zakupów: stojak i monitor dotykowy na liście", async ({ page }) => {
+  await page.goto("/#zakupy");
+  const stand = card(page, "Stojak do monitora interaktywnego");
+  await expect(stand.locator(".purchase-rooms > div", { hasText: "Najpierw" }).locator(".room-chip")).toHaveText(["Sala 2", "Sala 18", "Sala 41"]);
+  const touch = card(page, "Monitor dotykowy");
+  await expect(touch.locator(".purchase-rooms > div", { hasText: "Najpierw" }).locator(".room-chip")).toHaveText(["Sala 16"]);
+});
+
+test("sala 19: wszystko zrobione, monitor interaktywny i laptop KPO", async ({ page }) => {
+  await page.goto("/#room-19");
+  await expect(doneTasks(page)).toHaveCount(4);
+  await expect(todoSection(page).locator("li:not(.is-done)")).toHaveCount(0);
+  await expect(page.locator("#roomDetail")).toContainText("Monitor interaktywny (75 cali, z pracowni AI)");
+  await expect(page.locator("#roomDetail")).not.toContainText("obecnie pod salą 36");
+  await expect(page.locator("#roomDetail .detail-title .badge")).toHaveText("Bez zmian");
+});
+
+test("sala 21: bez komputerów UNICEF, cztery stanowiska w czytelni", async ({ page }) => {
+  await page.goto("/#room-21");
+  const detail = page.locator("#roomDetail");
+  await expect(detail).not.toContainText("UNICEF");
+  await expect(detail.locator(".equipment-group", { hasText: "Komputery" })).toHaveCount(0);
+  await expect(todoSection(page).locator("li")).toHaveText([
+    "Przygotować 4 stanowiska komputerowe w czytelni dla uczniów",
+    "Podłączyć stanowiska do internetu",
+    "Uporządkować i zabezpieczyć przewody przy stanowiskach",
+  ]);
+});
+
+test("sala 22: zadania zrobione, laptop KPO i BenQ", async ({ page }) => {
+  await page.goto("/#room-22");
+  await expect(doneTasks(page)).toHaveCount(2);
+  await expect(page.locator("#roomDetail")).toContainText("Monitor multimedialny BenQ (75 cali)");
+  await expect(page.locator("#roomDetail")).toContainText("Na razie zostawić obecny układ");
+  await expect(page.locator("#roomDetail .detail-title .badge")).toHaveText("Bez zmian");
+});
+
+test("sala 23: laptopy w trybie incognito, nowa szafa z września 2026", async ({ page }) => {
+  await page.goto("/#room-23");
+  const detail = page.locator("#roomDetail");
+  await expect(todoSection(page).locator("li:not(.is-done)")).toHaveText([
+    "Wstawić tylko 30 laptopów (konfiguracja do używania zawsze w trybie incognito, przygotowanie: Maciej Najwer)",
+    "Wykorzystać szafę na laptopy kupioną we wrześniu 2026",
+  ]);
+  await expect(doneTasks(page)).toHaveText([/Sprawdzić, czy nowy rzutnik krótkoogniskowy działa prawidłowo/]);
+  await expect(detail).toContainText("Szafa na laptopy (kupiona we wrześniu 2026");
+  await expect(detail).not.toContainText("z III piętra");
+  await expect(detail).toContainText("Laptop KPO dla nauczyciela");
+  await expect(detail).toContainText("30 laptopów (do przygotowania)");
+});

@@ -157,6 +157,7 @@ export const purchaseItems = [
     specs: ["27 cali", "IPS"],
     qty: 1,
     roomIds: ["16"],
+    priorityRoomIds: ["16"],
     note: "Do komputera do zastępstw w pokoju nauczycielskim",
     offers: [
       {
@@ -290,6 +291,7 @@ export const purchaseItems = [
     specs: ["na kółkach", "VESA 800 × 400"],
     qty: 8,
     roomIds: ["2", "18", "23", "29", "30", "32", "33", "41"],
+    priorityRoomIds: ["2", "18", "41"],
     note: "Mobilny stojak na kółkach, nie uchwyt ścienny. Monitor iiyama TE7515A-B2AG: VESA 800 × 400, waga 54,6 kg, 75 cali. Stojak ART SD-22: do VESA 800 × 400, 45–90 cali i 60 kg, więc pasuje (zapas ok. 5 kg). Standard potwierdzić w instrukcji",
     offers: [
       {
@@ -388,7 +390,7 @@ export const rooms = [
     teachers: ["Agnieszka Jastrzębska", "Paweł Danielewski", "Iwona Leńczowska", "Edyta Jaworska"],
     status: "ready",
     equipment: [
-      group(G.computers, ["Komputer"]),
+      group(G.computers, ["Laptop KPO"]),
       group(G.media, ["Telewizor multimedialny (75 cali, na kółkach)"]),
     ],
     tasks: [
@@ -404,6 +406,7 @@ export const rooms = [
     teachers: ["Marcin Kruk", "Marcin Kopij"],
     status: "ready",
     equipment: [
+      group(G.computers, ["Laptop KPO"]),
       group(G.media, ["Telewizor dotykowy (65 cali, na ścianie)"]),
     ],
     tasks: [
@@ -424,6 +427,7 @@ export const rooms = [
     ],
     status: "missing",
     equipment: [
+      group(G.computers, ["Laptop KPO"]),
       group(G.furniture, ["Fotel barberski"]),
       group(G.media, ["Telewizor dotykowy Samsung (75 cali)"]),
       group(G.printers, ["Drukarka wielofunkcyjna A3"]),
@@ -477,7 +481,7 @@ export const rooms = [
     purpose: "Praktyczna pracownia fryzjerska (razem z salą 7)",
     status: "ready",
     equipment: [
-      group(G.computers, ["Komputer"]),
+      group(G.computers, ["Laptop KPO"]),
       group(G.media, ["Rzutnik (podwieszony pod sufitem)"]),
     ],
     tasks: [done("Sprawdzić podłączenie komputera do rzutnika")],
@@ -489,7 +493,7 @@ export const rooms = [
     floor: "Parter",
     purpose: "Gabinet",
     equipment: [
-      group(G.computers, ["Komputer"]),
+      group(G.computers, ["Komputer (do potwierdzenia, czy laptop KPO)"]),
       group(G.media, ["Rzutnik (zamontowany)"]),
     ],
     tasks: [
@@ -505,12 +509,14 @@ export const rooms = [
     name: "Sala 16",
     floor: "I piętro",
     purpose: "Pokój nauczycielski",
-    equipment: [
-      group(G.computers, ["4 komputery UNICEF", "4 sprawne stanowiska komputerowe"]),
+    status: "missing",
+    urgentTasks: [
+      "Kupić drukarkę sieciową (dostępną przez internet)",
+      "Podłączyć drukarki przez sieć do 4 lub 5 laptopów w sali",
     ],
     tasks: [
-      "Wstawić 4 komputery UNICEF",
       "Zapewnić 4 sprawne stanowiska komputerowe, każde z dostępem do internetu",
+      "Wstawić 4 laptopy KPO przygotowane do pracy nauczycieli, uruchamiane zawsze w trybie incognito (to jest możliwe; przygotowanie: Maciej Najwer)",
       "Sprawdzić, czy drukarki działają",
       "Zdiagnozować usterki drukarek, jeśli nie działają",
       "Zapewnić co najmniej jedną sprawną i szybką drukarkę",
@@ -525,14 +531,14 @@ export const rooms = [
     teachers: ["Marzena Filusz", "Małgorzata Fiodorow", OTHERS],
     status: "missing",
     equipment: [
-      group(G.computers, ["Komputer"]),
+      group(G.computers, ["Laptop KPO"]),
       group(G.media, ["Monitor multimedialny (75 cali, na kółkach)"]),
       group(G.tablets, ["28 tabletów KPO", "Szafka z zasilaniem do ładowania tabletów"]),
     ],
     tasks: [
       "Dostarczyć 28 tabletów KPO",
-      "Wstawić zamek do jednej ze starych szafek, żeby można ją było zamknąć na klucz",
-      "Zapewnić w szafce zasilanie do ładowania tabletów",
+      done("Wstawić zamek do jednej ze starych szafek, żeby można ją było zamknąć na klucz"),
+      done("Zapewnić w szafce zasilanie do ładowania tabletów – kupiony zasilacz"),
       "Sprawdzić Wi-Fi i internet na tabletach",
     ],
   }),
@@ -547,14 +553,15 @@ export const rooms = [
       "Waldemar Kaczorowski (ewentualnie)",
       "Marcin Kopij (ewentualnie)",
     ],
-    status: "todo",
+    status: "missing",
     equipment: [
+      group(G.computers, ["Laptop KPO"]),
       group(G.media, ["Rzutnik (nowy)"]),
     ],
     tasks: [
-      "Zamontować nowy rzutnik",
-      "Zapewnić stabilne połączenie rzutnika z komputerem",
-      "Sprawdzić, czy zestaw działa",
+      done("Zamontować nowy rzutnik"),
+      done("Zapewnić stabilne połączenie rzutnika z komputerem"),
+      done("Sprawdzić, czy zestaw działa"),
     ],
   }),
   room({
@@ -563,15 +570,16 @@ export const rooms = [
     floor: "I piętro",
     purpose: "Zajęcia Magdaleny Zaleskiej i Waldemara Kaczorowskiego",
     teachers: ["Magdalena Zaleska", "Waldemar Kaczorowski", "Marcin Kopij"],
-    status: "todo",
+    status: "ready",
     equipment: [
-      group(G.media, ["Monitor multimedialny z pracowni AI (obecnie pod salą 36)"]),
+      group(G.computers, ["Laptop KPO"]),
+      group(G.media, ["Monitor interaktywny (75 cali, z pracowni AI)"]),
     ],
     tasks: [
-      "Przenieść monitor multimedialny z pracowni AI spod sali 36",
-      "Zamontować monitor",
-      "Sprawdzić, czy monitor ma nóżki",
-      "Podłączyć monitor do komputera",
+      done("Przenieść monitor multimedialny z pracowni AI spod sali 36"),
+      done("Zamontować monitor"),
+      done("Sprawdzić, czy monitor ma nóżki"),
+      done("Podłączyć monitor do komputera"),
     ],
     notes: ["Sala 18 może być salą awaryjną dla tych zajęć"],
   }),
@@ -582,12 +590,10 @@ export const rooms = [
     purpose: "Biblioteka i czytelnia ze stanowiskami komputerowymi dla uczniów",
     status: "todo",
     equipment: [
-      group(G.computers, ["4 komputery UNICEF dla uczniów", "4 stanowiska komputerowe w czytelni"]),
       group(G.network, ["Internet na stanowiskach", "Uporządkowane i zabezpieczone przewody"]),
     ],
     tasks: [
-      "Wstawić do biblioteki 4 komputery UNICEF dla uczniów",
-      "Przygotować 4 stanowiska komputerowe w czytelni",
+      "Przygotować 4 stanowiska komputerowe w czytelni dla uczniów",
       "Podłączyć stanowiska do internetu",
       "Uporządkować i zabezpieczyć przewody przy stanowiskach",
     ],
@@ -598,13 +604,14 @@ export const rooms = [
     floor: "I piętro",
     purpose: "Język polski i inne przedmioty według planu",
     teachers: ["Magdalena Ulanowska", OTHERS],
+    status: "ready",
     equipment: [
-      group(G.computers, ["Komputer stacjonarny"]),
+      group(G.computers, ["Laptop KPO"]),
       group(G.media, ["Monitor multimedialny BenQ (75 cali)"]),
     ],
     tasks: [
-      "Sprawdzić podłączenie komputera do monitora BenQ",
-      "Sprawdzić, czy monitor 75 cali działa",
+      done("Sprawdzić podłączenie komputera do monitora BenQ"),
+      done("Sprawdzić, czy monitor 75 cali działa"),
     ],
     decisions: ["Na razie zostawić obecny układ"],
   }),
@@ -616,14 +623,14 @@ export const rooms = [
     teachers: ["Eleonora Smirnow-Zechman", "Inni nauczyciele (według planu)"],
     status: "todo",
     equipment: [
-      group(G.computers, ["30 laptopów"]),
-      group(G.furniture, ["Szafa na laptopy z KPO z III piętra"]),
+      group(G.computers, ["30 laptopów (do przygotowania)", "Laptop KPO dla nauczyciela"]),
+      group(G.furniture, ["Szafa na laptopy (kupiona we wrześniu 2026, jedna z trzech kupionych szaf na 30 laptopów)"]),
       group(G.media, ["Rzutnik krótkoogniskowy (nowy, zostaje)"]),
     ],
     tasks: [
-      "Wstawić tylko 30 laptopów",
-      "Wykorzystać szafę na laptopy z KPO z III piętra",
-      "Sprawdzić, czy nowy rzutnik krótkoogniskowy działa prawidłowo",
+      "Wstawić tylko 30 laptopów (konfiguracja do używania zawsze w trybie incognito, przygotowanie: Maciej Najwer)",
+      "Wykorzystać szafę na laptopy kupioną we wrześniu 2026",
+      done("Sprawdzić, czy nowy rzutnik krótkoogniskowy działa prawidłowo"),
     ],
     decisions: ["Nowy rzutnik krótkoogniskowy zostaje w sali"],
   }),
