@@ -296,7 +296,7 @@ test("monitor biurowy ma link i ceny brutto oraz netto", async ({ page }) => {
   await expect(card).toContainText("VAT 0%");
   await expect(card).not.toContainText("do potwierdzenia");
   await expect(page.locator(".print-sheet")).toContainText("np. Philips 5000 Series 34B2U5900C/00, 2 510,99 zł brutto / 2 041,46 zł netto, VAT 0% (supertech.pl)");
-  await expect(page.locator(".purchase-tier").nth(1)).toContainText("3 poz. · 3 szt.");
+  await expect(page.locator(".purchase-tier").nth(1)).toContainText("4 poz. · 4 szt.");
 });
 
 const card = (page, text) => page.locator(".purchase-card", { hasText: text });
@@ -398,4 +398,23 @@ test("kalkulator trafia na wydruk listy zakupów", async ({ page }) => {
   await page.locator(".calc-details summary").click();
   await page.locator("#calcClear").click();
   await expect(sheet).toContainText("Nie zaznaczono żadnych pozycji.");
+});
+
+test("monitor prezentacyjny jako tablica ogłoszeń ma miejsce, link i cenę brutto w kalkulatorze", async ({ page }) => {
+  await page.goto("/#zakupy");
+  const signage = card(page, "Monitor prezentacyjny");
+  await expect(signage).toContainText("55 cali");
+  await expect(signage).toContainText("Tablica ogłoszeń");
+  await expect(signage).toContainText("Miejsce: Naprzeciwko portierni");
+  await expect(signage).toContainText("3 612 zł brutto / 2 936,59 zł netto");
+  await expect(signage).toContainText("VAT 0% do potwierdzenia");
+  await expect(signage.getByRole("link", { name: "iiyama LH5564UHS-B1AG" })).toHaveAttribute("href", /^https:\/\/iiyama-sklep\.pl\/1616-.*lh5564uhs-b1ag.*\.html$/);
+  await expect(page.locator(".print-sheet")).toContainText("miejsce: naprzeciwko portierni");
+
+  // lista życzeń: domyślnie nie liczone; po zaznaczeniu brutto (VAT niepewny)
+  await expect(signage.getByRole("checkbox")).not.toBeChecked();
+  await expect(page.locator("#calcTotal")).toHaveText("66 852,24 zł");
+  await signage.getByRole("checkbox").check();
+  await expect(signage.locator(".calc-line")).toHaveText("Do sumy: 3 612,00 zł brutto × 1 = 3 612,00 zł");
+  await expect(page.locator("#calcTotal")).toHaveText("70 464,24 zł");
 });

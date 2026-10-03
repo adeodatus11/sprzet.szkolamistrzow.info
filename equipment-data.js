@@ -215,6 +215,29 @@ export const purchaseItems = [
     ],
   },
   {
+    id: "signage-55",
+    tier: "wish",
+    name: "Monitor prezentacyjny",
+    specs: ["55 cali", "4K", "praca 24/7"],
+    qty: 1,
+    roomIds: [],
+    place: { text: "Naprzeciwko portierni" },
+    note: "Tablica ogłoszeń",
+    offers: [
+      {
+        label: "iiyama LH5564UHS-B1AG",
+        shop: "iiyama-sklep.pl",
+        url: "https://iiyama-sklep.pl/1616-monitory-wielkoformatowe-monitor-prezentacyjny-55-iiyama-ds-lh5564uhs-b1ag-4k-va-led-usb-c-iisignage-cms-iicontrol-dms-iishare-247-4948570125319.html",
+        prices: [
+          { amount: 3612, vat: "brutto" },
+          { amount: 2936.59, vat: "netto" },
+        ],
+        zeroVat: "unknown",
+        checkedAt: "03.10.2026",
+      },
+    ],
+  },
+  {
     id: "monitor-office-1",
     tier: "wish",
     name: "Monitor biurowy",
