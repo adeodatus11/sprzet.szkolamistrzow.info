@@ -1203,11 +1203,14 @@ test("zasoby: komputery Dell UNICEF (2022) i laptopy Dell Pro jako inny sprzęt"
 
   const pro = resource(page, "dell-pro");
   await expect(pro.locator("h3")).toHaveText("Laptopy Dell Pro (pracownia AI)");
-  await expect(pro.locator(".resource-qty")).toHaveText("24 szt.");
+  await expect(pro.locator(".resource-qty")).toHaveText("32 szt.");
   await expect(pro.locator('[data-stat="placed"]')).toHaveText("24");
+  await expect(pro.locator('[data-stat="inBoxes"]')).toHaveText("8");
+  await expect(pro.locator(".resource-numbers .is-sub")).toHaveText("z tego mocne, ewentualnie dla nauczyciela2");
+  await expect(pro).toContainText("24 wykorzystane w sali 38, 8 niewykorzystanych leży w pudełkach");
   await expect(pro.locator('[data-stat="planned"]')).toHaveCount(0);
   await expect(pro.locator(".allocation-chips .room-chip")).toHaveText(["Sala 38 × 24"]);
-  await expect(page.locator("#resourceNotes")).toContainText("24 laptopy Dell Pro z pracowni AI w sali 38 nie są liczone do KPO");
+  await expect(page.locator("#resourceNotes")).toContainText("Laptopy Dell Pro z pracowni AI (24 w sali 38, 8 w pudełkach) nie są liczone do KPO");
 
   // nie wchodzą do sum z KPO
   await expect(page.locator('[data-total="delivered"] .total-value')).toHaveText("302");
@@ -1218,6 +1221,7 @@ test("zasoby: komputery Dell UNICEF (2022) i laptopy Dell Pro jako inny sprzęt"
   await expect(sheet).toContainText("Komputery stacjonarne Dell UNICEF (2022): inny sprzęt");
   await expect(sheet).toContainText("Do dostarczenia do: 37 × 7");
   await expect(sheet).toContainText("Do przeniesienia do: Maciej Najwer × 1");
+  await expect(sheet).toContainText("W pudełkach (niewykorzystane): 8 szt., z tego mocne, ewentualnie dla nauczyciela: 2");
 });
 
 test("zasoby: inny sprzęt nie przekracza ilości kupionej", async ({ page }) => {
@@ -1228,7 +1232,7 @@ test("zasoby: inny sprzęt nie przekracza ilości kupionej", async ({ page }) =>
       const used = kpoAllocations
         .filter((entry) => entry.deviceId === asset.id && entry.state !== "moving")
         .reduce((sum, entry) => sum + entry.qty, 0);
-      return used > asset.qty;
+      return used + (asset.inBoxes ?? 0) > asset.qty;
     }).map((asset) => asset.id);
   });
   expect(over).toEqual([]);

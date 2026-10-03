@@ -60,6 +60,7 @@ export const kpoAllocations = [
 
 // Inny sprzęt, który nie pochodzi z KPO, ale też jest podliczany w zakładce "Zasoby".
 // state "moving" w kpoAllocations = ma zostać przeniesiony do tej sali (nie liczy się do rozdysponowania).
+// inBoxes (opcjonalne) = ile sztuk leży niewykorzystanych w pudełkach; inBoxesDetails = podział tej liczby.
 export const otherAssets = [
   {
     id: "dell-unicef",
@@ -71,8 +72,10 @@ export const otherAssets = [
   {
     id: "dell-pro",
     name: "Laptopy Dell Pro (pracownia AI)",
-    qty: 24,
-    note: "Z pracowni AI, w sali 38. Nie wiadomo, czy pochodzą z KPO.",
+    qty: 32,
+    note: "Z pracowni AI: 24 wykorzystane w sali 38, 8 niewykorzystanych leży w pudełkach. Nie wiadomo, czy pochodzą z KPO.",
+    inBoxes: 8,
+    inBoxesDetails: [{ label: "z tego mocne, ewentualnie dla nauczyciela", qty: 2 }],
   },
   {
     id: "asus",
@@ -86,7 +89,7 @@ export const otherAssets = [
 export const kpoNotes = [
   "Liczymy tylko sprzęt z KPO: starsze iPady Air z sali 5 nie są z KPO i nie wchodzą do zestawienia.",
   "Laptop KPO jako komputer nauczyciela jest (albo ma być) w każdej sali lekcyjnej. Wyjątki: sale 37 i 38 (mają własne ustalenia o komputerze nauczyciela), pokoje nauczycielskie 04 i 16, biblioteka 21 i sala gimnastyczna 39.",
-  "24 laptopy Dell Pro z pracowni AI w sali 38 nie są liczone do KPO, bo nie wiadomo, czy z niego pochodzą.",
+  "Laptopy Dell Pro z pracowni AI (24 w sali 38, 8 w pudełkach) nie są liczone do KPO, bo nie wiadomo, czy z niego pochodzą.",
   "Przyjęto, że 30 laptopów w sali 23 pochodzi z KPO.",
   "Chromebooki nie mają jeszcze przydziału do sal (poza jednym używanym przez Marię Kaszak), więc reszta jest w pudełkach.",
   "26 laptopów Asus z pracowni handlowej (sala 41) nie pochodzi z KPO, więc są pokazane osobno, jako inny sprzęt.",

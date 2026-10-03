@@ -799,6 +799,10 @@ const otherAssetCard = (asset) => {
     ["is-planned", "Do dostarczenia", "planned", stats.planned, stats.plannedRooms, "Do dostarczenia do"],
     ["is-planned", "Do przeniesienia", "moving", sumRows(stats.movingRooms), stats.movingRooms, "Do przeniesienia do"],
   ].filter(([, , key, value]) => key === "placed" || value > 0);
+  const boxRows = asset.inBoxes
+    ? `<div class="is-free"><dt>W pudełkach (niewykorzystane)</dt><dd data-stat="inBoxes">${asset.inBoxes}</dd></div>
+        ${(asset.inBoxesDetails ?? []).map((detail) => `<div class="is-sub"><dt>${escapeHtml(detail.label)}</dt><dd>${detail.qty}</dd></div>`).join("")}`
+    : "";
 
   return `
     <article class="resource-card" data-device-id="${escapeHtml(asset.id)}">
@@ -810,6 +814,7 @@ const otherAssetCard = (asset) => {
       ${asset.plan ? `<p class="resource-note"><strong>Plan:</strong> ${escapeHtml(asset.plan)}</p>` : ""}
       <dl class="resource-numbers">
         ${lines.map(([cls, label, key, value]) => `<div class="${cls}"><dt>${label}</dt><dd data-stat="${key}">${value}</dd></div>`).join("")}
+        ${boxRows}
       </dl>
       <details class="resource-details" open>
         <summary>Podział na sale i osoby</summary>
@@ -877,6 +882,7 @@ const renderResourcesPrint = () => {
         `Teraz: ${roomQtyText(stats.placedRooms)}`,
         stats.plannedRooms.length ? `Do dostarczenia do: ${roomQtyText(stats.plannedRooms)}` : "",
         stats.movingRooms.length ? `Do przeniesienia do: ${roomQtyText(stats.movingRooms)}` : "",
+        asset.inBoxes ? `W pudełkach (niewykorzystane): ${asset.inBoxes} szt.${(asset.inBoxesDetails ?? []).map((detail) => `, ${detail.label}: ${detail.qty}`).join("")}` : "",
       ].filter(Boolean)));
     }).join("")}
     ${printSection("Założenia zestawienia", listItems(kpoNotes))}
