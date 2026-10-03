@@ -642,13 +642,14 @@ export const rooms = [
     floor: "II piętro",
     purpose: "Gabinet przyrodniczy",
     teachers: ["Barbara Małecka", "Karolina Sałdyka", "Anna Mucha", "Agnieszka Hudziec"],
+    status: "ready",
     equipment: [
-      group(G.computers, ["Komputer stacjonarny"]),
+      group(G.computers, ["Laptop KPO (jeżeli działa)"]),
       group(G.media, ["Telewizor (75 cali, na ścianie)"]),
     ],
     tasks: [
-      "Sprawdzić podłączenie komputera do telewizora",
-      "Zapewnić stabilne połączenie komputera z telewizorem",
+      done("Sprawdzić podłączenie komputera do telewizora"),
+      done("Zapewnić stabilne połączenie komputera z telewizorem"),
     ],
     decisions: ["Zostawić wyposażenie bez zmian"],
   }),
@@ -658,8 +659,18 @@ export const rooms = [
     floor: "II piętro",
     purpose: "Gabinet przyrodniczy (drugi)",
     teachers: ["Barbara Małecka", "Karolina Sałdyka", "Anna Mucha", "Agnieszka Hudziec"],
-    status: "ready",
-    decisions: ["Na razie nie wstawiać żadnego sprzętu"],
+    status: "todo",
+    equipment: [
+      group(G.computers, ["Laptop KPO (działa)"]),
+      group(G.planned, [
+        "Monitor interaktywny (75 cali, kupiony we wrześniu 2026)",
+        "Stojak do monitora (kupiony)",
+      ]),
+    ],
+    tasks: [
+      "Wstawić do sali monitor interaktywny 75 cali kupiony we wrześniu 2026",
+      "Wstawić do sali kupiony stojak do monitora",
+    ],
   }),
   room({
     id: "28",
@@ -667,16 +678,12 @@ export const rooms = [
     floor: "II piętro",
     purpose: "Gabinet przyrodniczy",
     teachers: ["Barbara Małecka", "Karolina Sałdyka", "Anna Mucha", "Agnieszka Hudziec"],
-    status: "decision",
+    status: "ready",
     equipment: [
-      group(G.computers, ["Komputer"]),
-      group(G.media, ["Telewizor multimedialny", "Rzutnik lub rzutniki (do potwierdzenia)"]),
+      group(G.computers, ["Laptop KPO"]),
+      group(G.media, ["Tablica interaktywna (75 cali)"]),
     ],
-    tasks: [
-      "Zapewnić telewizor multimedialny w sali",
-      "Sprawdzić podłączenie komputera do telewizora",
-    ],
-    notes: ["Do potwierdzenia, co oznacza decyzja „zostawiamy tylko rzutniki”"],
+    tasks: [done("Sprawdzić podłączenie komputera do tablicy interaktywnej")],
   }),
   room({
     id: "29",
@@ -684,15 +691,16 @@ export const rooms = [
     floor: "II piętro",
     purpose: "Gabinet matematyki",
     teachers: ["Iwona Bujanowska", "Ewa Ostrowska"],
+    status: "missing",
     equipment: [
-      group(G.computers, ["Komputer stacjonarny"]),
-      group(G.media, ["Rzutnik"]),
+      group(G.computers, ["Laptop KPO (do wstawienia)"]),
+      group(G.media, ["Rzutnik (działa)"]),
     ],
     tasks: [
+      "Wstawić laptop KPO",
       "Sprawdzić stabilne połączenie rzutnika z komputerem",
       "Sprawdzić, czy zestaw działa",
     ],
-    decisions: ["Zostawić wyposażenie bez zmian"],
   }),
   room({
     id: "30",
@@ -702,13 +710,12 @@ export const rooms = [
     teachers: ["Anna Filipek", OTHERS],
     status: "todo",
     equipment: [
-      group(G.computers, ["Komputer"]),
-      group(G.media, ["Rzutnik", "Telewizor (65 cali, obecnie pod salą 36)"]),
+      group(G.computers, ["Laptop KPO"]),
+      group(G.media, ["Rzutnik"]),
     ],
     tasks: [
       "Przenieść telewizor 65 cali spod sali 36 do sali 30",
       "Zamontować telewizor wysoko nad tablicą",
-      "Sprawdzić podłączenie komputera do rzutnika",
       "Sprawdzić podłączenie komputera do telewizora",
     ],
     decisions: ["Rzutnik zostaje w sali"],
@@ -719,16 +726,16 @@ export const rooms = [
     floor: "II piętro",
     purpose: "Gabinet przyrodniczy, geografia i inne przedmioty przyrodnicze",
     teachers: ["Alicja Smereka", OTHERS],
-    status: "todo",
+    status: "ready",
     equipment: [
-      group(G.computers, ["Komputer stacjonarny"]),
+      group(G.computers, ["Laptop KPO"]),
       group(G.media, ["Rzutnik", "Monitor z KPO (nowy, na kółkach)"]),
     ],
     tasks: [
-      "Wstawić nowy monitor z KPO na kółkach",
-      "Podłączyć rzutnik do komputera stacjonarnego",
-      "Sprawdzić podłączenie komputera do monitora z KPO",
-      "Sprawdzić, czy zestaw działa",
+      done("Wstawić nowy monitor z KPO na kółkach"),
+      done("Podłączyć rzutnik do laptopa KPO"),
+      done("Sprawdzić podłączenie komputera do monitora z KPO"),
+      done("Sprawdzić, czy zestaw działa"),
     ],
   }),
   room({
@@ -741,13 +748,14 @@ export const rooms = [
       "Aleksandra Karczmarz (ewentualnie)",
       "Anna Galert (ewentualnie)",
     ],
+    status: "missing",
     equipment: [
-      group(G.computers, ["Komputer"]),
-      group(G.media, ["Rzutnik"]),
+      group(G.computers, ["Laptop KPO"]),
+      group(G.media, ["Rzutnik (działa)"]),
     ],
     tasks: [
-      "Podłączyć rzutnik do komputera",
-      "Sprawdzić, czy zestaw działa",
+      done("Podłączyć rzutnik do komputera"),
+      done("Sprawdzić, czy zestaw działa"),
     ],
   }),
   room({
@@ -756,13 +764,14 @@ export const rooms = [
     floor: "II piętro",
     purpose: "Język polski i inne przedmioty według planu",
     teachers: ["Ewelina Krycia", OTHERS],
+    status: "missing",
     equipment: [
-      group(G.computers, ["Komputer"]),
+      group(G.computers, ["Laptop KPO"]),
       group(G.media, ["Telewizor (nowy)"]),
     ],
     tasks: [
-      "Zapewnić stabilne podłączenie komputera do nowego telewizora",
-      "Sprawdzić, czy obraz i system się nie zawieszają",
+      done("Zapewnić stabilne podłączenie komputera do nowego telewizora"),
+      done("Sprawdzić, czy obraz i system się nie zawieszają"),
     ],
   }),
   room({
@@ -771,13 +780,12 @@ export const rooms = [
     floor: "II piętro",
     purpose: "Przedmioty zawodowe i administracyjne według planu",
     teachers: ["Magdalena Nowak", "Arkadiusz Mocarski", "Małgorzata Kończyńska"],
-    status: "decision",
+    status: "ready",
     equipment: [
-      group(G.computers, ["Komputer stacjonarny"]),
-      group(G.media, ["Telewizor multimedialny"]),
+      group(G.computers, ["Laptop KPO"]),
+      group(G.media, ["Monitor interaktywny (75 cali)"]),
     ],
-    tasks: ["Podłączyć komputer stacjonarny do telewizora multimedialnego"],
-    notes: ["Potwierdzić, że telewizor multimedialny zastępuje rzutnik"],
+    tasks: [done("Podłączyć laptop KPO do monitora interaktywnego")],
   }),
 
   // III piętro
@@ -993,14 +1001,6 @@ export const unresolvedItems = [
   {
     roomIds: [],
     text: "Po sprawdzeniu Wi-Fi wskazać sale, które wymagają access pointów",
-  },
-  {
-    roomIds: ["28"],
-    text: "Potwierdzić, czy finalnie ma być telewizor multimedialny, rzutnik (rzutniki), czy oba typy sprzętu",
-  },
-  {
-    roomIds: ["34"],
-    text: "Potwierdzić, że komputer ma być podłączony do telewizora multimedialnego",
   },
   {
     roomIds: ["37"],

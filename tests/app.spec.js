@@ -20,8 +20,9 @@ test("filtruje po wyposażeniu i statusie", async ({ page }) => {
   await expect(page.getByRole("button", { name: /Sala 17/ })).toBeVisible();
 
   await page.getByLabel("Szukaj").fill("");
-  await page.getByLabel("Status").selectOption("decision");
-  await expect(page.getByRole("button", { name: /Sala 28/ })).toBeVisible();
+  await page.getByLabel("Status").selectOption("ready");
+  await expect(page.getByRole("button", { name: /Sala 3\b/ })).toBeVisible();
+  await expect(page.getByRole("button", { name: /Sala 41/ })).toHaveCount(0);
 });
 
 test("przygotowuje widok wydruku", async ({ page }) => {
@@ -107,16 +108,21 @@ test("strzałki na klawiaturze przechodzą między salami", async ({ page }) => 
 
 test("sprawa do potwierdzenia prowadzi do sali", async ({ page }) => {
   await page.goto("/#room-2");
-  await page.locator("#openItems").getByRole("link", { name: "Sala 34" }).click();
-  await expect(page.locator("#roomDetail").getByRole("heading", { name: "Sala 34" })).toBeVisible();
+  await page.locator("#openItems").getByRole("link", { name: "Sala 37" }).click();
+  await expect(page.locator("#roomDetail").getByRole("heading", { name: "Sala 37" })).toBeVisible();
 });
 
 test("kafelek statusu filtruje listę", async ({ page }) => {
   await page.goto("/");
   const total = await page.locator(".room-row").count();
-  await page.locator(".stat.decision").click();
-  await expect(page.locator(".room-row")).toHaveCount(2);
-  await page.locator(".stat.decision").click();
+  const ready = await page.evaluate(async () => {
+    const { rooms } = await import("/equipment-data.js");
+    return rooms.filter((room) => room.status === "ready").length;
+  });
+  expect(ready).toBeGreaterThan(0);
+  await page.locator(".stat.ready").click();
+  await expect(page.locator(".room-row")).toHaveCount(ready);
+  await page.locator(".stat.ready").click();
   await expect(page.locator(".room-row")).toHaveCount(total);
 });
 
@@ -776,4 +782,105 @@ test("sala 23: laptopy w trybie incognito, nowa szafa z września 2026", async (
   await expect(detail).not.toContainText("z III piętra");
   await expect(detail).toContainText("Laptop KPO dla nauczyciela");
   await expect(detail).toContainText("30 laptopów (do przygotowania)");
+});
+
+test("sala 26: połączenie sprawdzone, laptop KPO jeżeli działa", async ({ page }) => {
+  await page.goto("/#room-26");
+  await expect(doneTasks(page)).toHaveCount(2);
+  await expect(todoSection(page).locator("li:not(.is-done)")).toHaveCount(0);
+  await expect(page.locator("#roomDetail .equipment-group", { hasText: "Komputery" })).toContainText("Laptop KPO (jeżeli działa)");
+  await expect(page.locator("#roomDetail")).toContainText("Telewizor (75 cali, na ścianie)");
+  await expect(page.locator("#roomDetail")).not.toContainText("Komputer stacjonarny");
+});
+
+test("sala 27: laptop KPO działa, monitor z września i stojak do wstawienia", async ({ page }) => {
+  await page.goto("/#room-27");
+  const detail = page.locator("#roomDetail");
+  await expect(detail.locator(".equipment-group", { hasText: "Komputery" })).toContainText("Laptop KPO (działa)");
+  await expect(detail.locator(".equipment-group", { hasText: "Docelowo" })).toContainText("Monitor interaktywny (75 cali, kupiony we wrześniu 2026)");
+  await expect(detail.locator(".equipment-group", { hasText: "Docelowo" })).toContainText("Stojak do monitora (kupiony)");
+  await expect(todoSection(page).locator("li:not(.is-done)")).toHaveText([
+    "Wstawić do sali monitor interaktywny 75 cali kupiony we wrześniu 2026",
+    "Wstawić do sali kupiony stojak do monitora",
+  ]);
+  await expect(detail).not.toContainText("Na razie nie wstawiać żadnego sprzętu");
+  await expect(detail.locator(".detail-title .badge")).toHaveText("Do zrobienia");
+});
+
+test("sala 28: tablica interaktywna, bez telewizora i rzutnika", async ({ page }) => {
+  await page.goto("/#room-28");
+  const detail = page.locator("#roomDetail");
+  await expect(detail.locator(".equipment-group", { hasText: "Komputery" })).toContainText("Laptop KPO");
+  await expect(detail.locator(".equipment-group", { hasText: "Sprzęt multimedialny" })).toHaveText(/Tablica interaktywna \(75 cali\)/);
+  await expect(detail).not.toContainText("Telewizor");
+  await expect(detail).not.toContainText("Rzutnik");
+  await expect(detail.getByRole("heading", { name: "Uwagi" })).toHaveCount(0);
+  await expect(doneTasks(page)).toHaveText([/Sprawdzić podłączenie komputera do tablicy interaktywnej/]);
+  await expect(detail.locator(".detail-title .badge")).toHaveText("Bez zmian");
+  await expect(page.locator("#openItems")).not.toContainText("telewizor multimedialny, rzutnik");
+});
+
+test("sale 29, 30, 32, 33: laptop KPO i zakupy monitora, stojaka (i kabla)", async ({ page }) => {
+  await page.goto("/#room-29");
+  let detail = page.locator("#roomDetail");
+  await expect(detail.locator(".equipment-group", { hasText: "Komputery" })).toContainText("Laptop KPO (do wstawienia)");
+  await expect(detail.locator(".equipment-group", { hasText: "Sprzęt multimedialny" })).toContainText("Rzutnik (działa)");
+  await expect(todoSection(page).locator("li:not(.is-done)").first()).toHaveText("Wstawić laptop KPO");
+  await expect(detail.locator(".equipment-group", { hasText: "Do zakupu" })).toContainText("Monitor interaktywny (75 cali)");
+  await expect(detail.locator(".equipment-group", { hasText: "Do zakupu" })).toContainText("Stojak do monitora interaktywnego");
+
+  await page.goto("/#room-30");
+  detail = page.locator("#roomDetail");
+  await expect(todoSection(page).locator("li:not(.is-done)")).toHaveText([
+    "Przenieść telewizor 65 cali spod sali 36 do sali 30",
+    "Zamontować telewizor wysoko nad tablicą",
+    "Sprawdzić podłączenie komputera do telewizora",
+  ]);
+  await expect(detail).not.toContainText("Sprawdzić podłączenie komputera do rzutnika");
+  await expect(detail.locator(".equipment-group", { hasText: "Sprzęt multimedialny" })).toContainText("Rzutnik");
+  await expect(detail.locator(".equipment-group", { hasText: "Sprzęt multimedialny" })).not.toContainText("Telewizor");
+  await expect(detail.locator(".equipment-group", { hasText: "Komputery" })).toContainText("Laptop KPO");
+  await expect(detail.locator(".equipment-group", { hasText: "Do zakupu" })).toContainText("Monitor interaktywny (75 cali)");
+  await expect(detail.locator(".equipment-group", { hasText: "Do zakupu" })).toContainText("Stojak do monitora interaktywnego");
+  await expect(detail).toContainText("Rzutnik zostaje w sali");
+
+  for (const id of ["32", "33"]) {
+    await page.goto(`/#room-${id}`);
+    detail = page.locator("#roomDetail");
+    await expect(detail.locator(".equipment-group", { hasText: "Komputery" })).toContainText("Laptop KPO");
+    await expect(todoSection(page).locator("li:not(.is-done)")).toHaveCount(0);
+    const purchases = detail.locator(".equipment-group", { hasText: "Do zakupu" });
+    await expect(purchases).toContainText("Monitor interaktywny (75 cali)");
+    await expect(purchases).toContainText("Kabel HDMI światłowodowy (25 m)");
+    await expect(purchases).toContainText("Stojak do monitora interaktywnego");
+    await expect(detail.locator(".detail-title .badge")).toHaveText("Braki");
+  }
+  await page.goto("/#room-32");
+  await expect(doneTasks(page)).toHaveCount(2);
+  await expect(page.locator("#roomDetail")).toContainText("Rzutnik (działa)");
+  await page.goto("/#room-33");
+  await expect(doneTasks(page)).toHaveCount(2);
+  await expect(page.locator("#roomDetail")).toContainText("Telewizor (nowy)");
+});
+
+test("sala 31: wszystko zrobione, laptop KPO", async ({ page }) => {
+  await page.goto("/#room-31");
+  await expect(doneTasks(page)).toHaveCount(4);
+  await expect(todoSection(page).locator("li:not(.is-done)")).toHaveCount(0);
+  await expect(page.locator("#roomDetail .equipment-group", { hasText: "Komputery" })).toContainText("Laptop KPO");
+  await expect(page.locator("#roomDetail")).not.toContainText("Komputer stacjonarny");
+  await expect(page.locator("#roomDetail")).toContainText("Monitor z KPO (nowy, na kółkach)");
+  await expect(page.locator("#roomDetail .detail-title .badge")).toHaveText("Bez zmian");
+});
+
+test("sala 34: laptop KPO podłączony do monitora interaktywnego", async ({ page }) => {
+  await page.goto("/#room-34");
+  const detail = page.locator("#roomDetail");
+  await expect(detail.locator(".equipment-group", { hasText: "Komputery" })).toContainText("Laptop KPO");
+  await expect(detail.locator(".equipment-group", { hasText: "Sprzęt multimedialny" })).toContainText("Monitor interaktywny (75 cali)");
+  await expect(detail).not.toContainText("Telewizor multimedialny");
+  await expect(doneTasks(page)).toHaveText([/Podłączyć laptop KPO do monitora interaktywnego/]);
+  await expect(detail.getByRole("heading", { name: "Uwagi" })).toHaveCount(0);
+  await expect(detail.locator(".detail-title .badge")).toHaveText("Bez zmian");
+  await expect(page.locator("#openItems")).not.toContainText("telewizora multimedialnego");
 });
