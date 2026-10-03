@@ -94,6 +94,7 @@ const group = (name, items) => ({ name, items });
 // - tier: "buy" (do kupienia) albo "wish" (lista życzeń);
 // - roomIds: sale, do których trafi sprzęt (puste = miejsce do ustalenia);
 // - priorityRoomIds: sale kupowane najpierw (podzbiór roomIds);
+// - offers: przykładowe oferty ze sklepów (label, shop, url, price w zł, checkedAt); ceny są orientacyjne;
 // - karta sali dostaje wpis w grupie "Do zakupu", a sala priorytetowa także pilny zakup.
 export const purchaseTiers = [
   { id: "buy", label: "Do kupienia", hint: "Sprzęt, który dobrze byłoby kupić" },
@@ -117,6 +118,15 @@ export const purchaseItems = [
     specs: ["4K", "85–86 cali"],
     qty: 1,
     roomIds: ["37"],
+    offers: [
+      {
+        label: "Hisense 85E7Q",
+        shop: "euro.com.pl",
+        url: "https://www.euro.com.pl/telewizory-led-lcd-plazmowe/hisense-telewizor-85e7q.bhtml",
+        price: 3799,
+        checkedAt: "03.10.2026",
+      },
+    ],
   },
   {
     id: "aio-touch",

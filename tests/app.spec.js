@@ -221,3 +221,14 @@ test("na telefonie lista zakupów mieści się w ekranie", async ({ page }) => {
   }));
   expect(widths.document).toBe(widths.viewport);
 });
+
+test("telewizor 85 cali ma link do sklepu i cenę orientacyjną", async ({ page }) => {
+  await page.goto("/#zakupy");
+  const card = page.locator(".purchase-card", { hasText: "85–86 cali" });
+  const link = card.getByRole("link", { name: "Hisense 85E7Q" });
+  await expect(link).toHaveAttribute("href", "https://www.euro.com.pl/telewizory-led-lcd-plazmowe/hisense-telewizor-85e7q.bhtml");
+  await expect(link).toHaveAttribute("target", "_blank");
+  await expect(card).toContainText("ok. 3799 zł");
+  await expect(card).toContainText("Ceny orientacyjne");
+  await expect(page.locator(".print-sheet")).toContainText("np. Hisense 85E7Q, ok. 3799 zł (euro.com.pl)");
+});

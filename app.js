@@ -395,6 +395,25 @@ const purchaseRoomGroups = (item) => {
 const purchaseItemsOf = (tier) => purchaseItems.filter((item) => item.tier === tier.id);
 const totalQty = (items) => items.reduce((sum, item) => sum + item.qty, 0);
 
+const formatPrice = (price) => `${new Intl.NumberFormat("pl-PL").format(price)} zł`;
+
+const offersBlock = (item) => {
+  if (!item.offers?.length) return "";
+  const checked = [...new Set(item.offers.map((offer) => offer.checkedAt))].join(", ");
+  return `
+    <div class="purchase-offers">
+      <ul>${item.offers.map((offer) => `
+        <li>
+          <a href="${escapeHtml(offer.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(offer.label)}</a>
+          <span class="offer-price">ok. ${formatPrice(offer.price)}</span>
+          <span class="offer-shop">${escapeHtml(offer.shop)}</span>
+        </li>
+      `).join("")}</ul>
+      <p>Ceny orientacyjne, stan z ${escapeHtml(checked)}. Przed zakupem sprawdzić w sklepie.</p>
+    </div>
+  `;
+};
+
 const purchaseCard = (item) => {
   const groups = purchaseRoomGroups(item);
   const roomsBlock = groups.length
@@ -418,6 +437,7 @@ const purchaseCard = (item) => {
       <ul class="spec-tags">${item.specs.map((spec) => `<li>${escapeHtml(spec)}</li>`).join("")}</ul>
       ${item.alternative ? `<p class="purchase-note"><strong>Albo:</strong> ${escapeHtml(item.alternative)}</p>` : ""}
       ${item.note ? `<p class="purchase-note">${escapeHtml(item.note)}</p>` : ""}
+      ${offersBlock(item)}
       ${roomsBlock}
     </article>
   `;
@@ -455,6 +475,7 @@ const purchasePrintLine = (item) => {
     `${purchaseLabel(item)}, ${item.qty} szt.`,
     item.alternative && `albo ${item.alternative}`,
     item.note,
+    ...(item.offers ?? []).map((offer) => `np. ${offer.label}, ok. ${formatPrice(offer.price)} (${offer.shop})`),
     roomText ? `sale: ${roomText}` : "miejsce do ustalenia",
   ].filter(Boolean).join("; ");
 };

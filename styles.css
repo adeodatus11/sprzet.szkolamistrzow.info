@@ -1076,6 +1076,41 @@ body:not([data-view="purchases"]) .purchase-view {
   color: var(--ink);
 }
 
+.purchase-offers ul {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.purchase-offers li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 2px 10px;
+}
+
+.purchase-offers a {
+  color: var(--accent-strong);
+  font-weight: 700;
+}
+
+.offer-price {
+  font-weight: 800;
+}
+
+.offer-shop {
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+.purchase-offers p {
+  margin: 6px 0 0;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
 .purchase-rooms {
   display: grid;
   gap: 8px;
