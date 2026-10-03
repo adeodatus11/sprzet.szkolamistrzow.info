@@ -159,7 +159,8 @@ test("zakładka Do zakupu pokazuje listy zakupów", async ({ page }) => {
   await expect(touch).toContainText("27 cali");
   await expect(touch).toContainText("Sala 16");
   await expect(touch).toContainText("Do komputera do zastępstw w pokoju nauczycielskim");
-  await expect(page.locator(".purchase-card", { hasText: "Monitor biurowy 2" })).toContainText("24 cale");
+  await expect(page.locator(".purchase-card", { hasText: "Monitor biurowy" })).toHaveCount(1);
+  await expect(page.locator(".purchase-card", { hasText: "24 cale" })).toHaveCount(0);
   await expect(page.locator(".purchase-card", { hasText: "Do wyświetlania zastępstw" })).toContainText("Miejsce do ustalenia");
 });
 
@@ -282,14 +283,14 @@ test("komputer all-in-one ma link do sklepu i cenę", async ({ page }) => {
   await expect(page.locator(".print-sheet")).toContainText("np. Lenovo IdeaCentre AIO 27 (Ultra 5 226V, 16 GB, 512 GB), 4 049 zł brutto (x-kom.pl)");
 });
 
-test("monitor biurowy 1 ma link i ceny brutto oraz netto", async ({ page }) => {
+test("monitor biurowy ma link i ceny brutto oraz netto", async ({ page }) => {
   await page.goto("/#zakupy");
-  const card = page.locator(".purchase-card", { hasText: "Monitor biurowy 1" });
+  const card = page.locator(".purchase-card", { hasText: "Monitor biurowy" });
   await expect(card).toContainText("34 cale");
   await expect(card.getByRole("link", { name: "Philips 5000 Series 34B2U5900C/00" })).toHaveAttribute("href", /^https:\/\/supertech\.pl\/produkt\/philips_5000_series_34b2u5900c_00.*\.html$/);
   await expect(card).toContainText("2 510,99 zł brutto / 2 041,46 zł netto");
   await expect(card).toContainText("VAT 0%");
   await expect(card).not.toContainText("do potwierdzenia");
   await expect(page.locator(".print-sheet")).toContainText("np. Philips 5000 Series 34B2U5900C/00, 2 510,99 zł brutto / 2 041,46 zł netto, VAT 0% (supertech.pl)");
-  await expect(page.locator(".purchase-tier").nth(1)).toContainText("4 poz. · 4 szt.");
+  await expect(page.locator(".purchase-tier").nth(1)).toContainText("3 poz. · 3 szt.");
 });

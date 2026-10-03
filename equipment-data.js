@@ -212,7 +212,7 @@ export const purchaseItems = [
   {
     id: "monitor-office-1",
     tier: "wish",
-    name: "Monitor biurowy 1",
+    name: "Monitor biurowy",
     specs: ["34 cale", "5120 × 2160 (WUHD)"],
     qty: 1,
     roomIds: [],
@@ -229,14 +229,6 @@ export const purchaseItems = [
         checkedAt: "03.10.2026",
       },
     ],
-  },
-  {
-    id: "monitor-office-2",
-    tier: "wish",
-    name: "Monitor biurowy 2",
-    specs: ["2K", "24 cale"],
-    qty: 1,
-    roomIds: [],
   },
 ];
 
