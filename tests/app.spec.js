@@ -1343,3 +1343,79 @@ test("sala 29 nie ma już zapotrzebowania na liście zakupów", async ({ page })
   });
   expect(result).toEqual([]);
 });
+
+test("spójność danych: karty sal, przydziały KPO, szafy, zakupy i statusy", async ({ page }) => {
+  await page.goto("/");
+  const problems = await page.evaluate(async () => {
+    const { rooms, purchaseItems, kpoAllocations, kpoDelivery, otherAssets, cabinets } = await import("/equipment-data.js");
+    const byId = new Map(rooms.map((room) => [room.id, room]));
+    const items = (room, group) => room.equipment.filter((entry) => entry.name === group).flatMap((entry) => entry.items);
+    const out = [];
+
+    // laptop KPO jako komputer nauczyciela: karta sali zgodna z przydziałami (w sali / do wstawienia)
+    const teacher = { placed: new Set(), planned: new Set() };
+    rooms.forEach((room) => items(room, "Komputery").forEach((item) => {
+      if (item.startsWith("Laptop KPO (komputer nauczyciela")) teacher[item.includes("do wstawienia") ? "planned" : "placed"].add(room.id);
+    }));
+    ["placed", "planned"].forEach((state) => {
+      const alloc = new Set(kpoAllocations.filter((e) => e.deviceId === "laptop" && e.state === state && e.qty === 1).map((e) => e.roomId));
+      teacher[state].forEach((id) => { if (!alloc.has(id)) out.push(`teacher ${state} ${id}: brak w przydziałach`); });
+      alloc.forEach((id) => { if (!teacher[state].has(id)) out.push(`przydział ${state} ${id}: brak na karcie`); });
+    });
+
+    // liczby z kart zgodne z przydziałami
+    const qty = (deviceId, roomId, state) => kpoAllocations.filter((e) => e.deviceId === deviceId && e.roomId === roomId && e.state === state).reduce((sum, e) => sum + e.qty, 0);
+    const card = (roomId, group, text) => items(byId.get(roomId), group).some((item) => item.includes(text));
+    const checks = [
+      [qty("laptop", "42", "placed") === 33 && card("42", "Komputery", "32 laptopy KPO"), "sala 42: 32 laptopy KPO + nauczyciel"],
+      [qty("laptop", "41", "planned") === 30 && card("41", "Komputery", "30 nowych laptopów KPO"), "sala 41: 30 laptopów KPO"],
+      [qty("laptop", "28", "planned") === 30 && card("28", "Komputery", "30 laptopów KPO"), "sala 28: 30 laptopów KPO"],
+      [qty("laptop", "05-new", "planned") === 16 && card("05-new", "Komputery", "16 laptopów KPO"), "sala 05: 16 laptopów KPO"],
+      [qty("laptop", "16", "planned") === 4, "sala 16: 4 laptopy KPO"],
+      [qty("ipad", "17", "planned") === 32 && card("17", "Tablety", "32 iPady KPO"), "sala 17: 32 iPady"],
+      [qty("ipad", "44", "planned") === 26 && card("44", "Tablety", "26 iPadów"), "sala 44: 26 iPadów"],
+      [qty("dell-unicef", "37", "placed") === 18 && card("37", "Komputery", "18 komputerów stacjonarnych Dell UNICEF"), "sala 37: 18 Dell UNICEF"],
+      [qty("dell-pro", "38", "placed") === 24 && card("38", "Komputery", "24 laptopy Dell Pro"), "sala 38: 24 Dell Pro"],
+      [qty("asus", "41", "placed") === 26 && qty("asus", "40", "moving") === 26, "Asus: 26 w sali 41, do sali 40"],
+    ];
+    checks.forEach(([ok, label]) => { if (!ok) out.push(label); });
+
+    // szafy: sala docelowa i źródłowa wspominają o szafie; pojemność
+    cabinets.forEach((cabinet) => {
+      const mentions = (room) => room.equipment.flatMap((g) => g.items).concat(room.tasks.map((t) => t.text)).some((text) => /szaf/i.test(text));
+      if (!mentions(byId.get(cabinet.toRoomId))) out.push(`szafa ${cabinet.id}: sala docelowa nie wspomina o szafie`);
+      if (cabinet.from?.roomId && !mentions(byId.get(cabinet.from.roomId))) out.push(`szafa ${cabinet.id}: sala źródłowa nie wspomina o szafie`);
+    });
+
+    // zakupy: ilość = liczba sal tam, gdzie każda sala dostaje jedną sztukę; grupa Do zakupu zgodna z listą
+    purchaseItems.filter((p) => ["interactive-75", "tv-85", "hdmi-20m", "vesa-interactive", "vesa-tv"].includes(p.id)).forEach((p) => {
+      if (p.qty !== p.roomIds.length) out.push(`zakup ${p.id}: ilość ${p.qty} != sale ${p.roomIds.length}`);
+    });
+    rooms.forEach((room) => {
+      const expected = purchaseItems.filter((p) => p.roomIds.includes(room.id)).length;
+      if (items(room, "Do zakupu").length !== expected) out.push(`sala ${room.id}: grupa Do zakupu niezgodna z listą zakupów`);
+    });
+
+    // statusy zgodne z zadaniami
+    rooms.forEach((room) => {
+      const open = [...room.tasks, ...room.urgentTasks].filter((task) => !task.done);
+      if (room.status === "ready" && open.length) out.push(`sala ${room.id}: Bez zmian, a są otwarte zadania`);
+      if (room.status === "todo" && !open.length) out.push(`sala ${room.id}: Do zrobienia, a brak otwartych zadań`);
+    });
+
+    // sumy zasobów
+    kpoDelivery.forEach((device) => {
+      const used = kpoAllocations.filter((e) => e.deviceId === device.id && e.state !== "moving").reduce((sum, e) => sum + e.qty, 0);
+      if (used > device.qty) out.push(`zasoby ${device.id}: przydzielono ${used} > ${device.qty}`);
+    });
+    otherAssets.forEach((asset) => {
+      const used = kpoAllocations.filter((e) => e.deviceId === asset.id && e.state !== "moving").reduce((sum, e) => sum + e.qty, 0);
+      if (used + (asset.inBoxes ?? 0) > asset.qty) out.push(`inny sprzęt ${asset.id}: ${used}+${asset.inBoxes ?? 0} > ${asset.qty}`);
+    });
+
+    return { out, overfilled: cabinets.filter((c) => c.contents.reduce((s, i) => s + i.qty, 0) > c.capacity).map((c) => c.id) };
+  });
+  expect(problems.out).toEqual([]);
+  // znane ostrzeżenie: do szafy na 16 miejsc ma trafić 26 iPadów (sprawa do potwierdzenia w sali 44)
+  expect(problems.overfilled).toEqual(["cabinet-44"]);
+});

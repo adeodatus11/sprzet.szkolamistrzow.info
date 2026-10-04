@@ -773,7 +773,7 @@ export const rooms = [
     status: "todo",
     equipment: [
       group(G.computers, ["30 laptopów (do przygotowania)", KPO_TEACHER]),
-      group(G.furniture, ["Szafa na laptopy (kupiona we wrześniu 2026, jedna z trzech kupionych szaf na 30 laptopów)"]),
+      group(G.furniture, ["Szafa na laptopy (kupiona we wrześniu 2026, do potwierdzenia, która z szaf)"]),
       group(G.media, ["Rzutnik krótkoogniskowy (nowy, zostaje)"]),
     ],
     tasks: [
