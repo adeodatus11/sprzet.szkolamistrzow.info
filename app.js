@@ -747,12 +747,19 @@ const kpoTotals = () => {
 
 const percentOf = (part, whole) => (whole ? Math.round((part / whole) * 1000) / 10 : 0);
 
+// Skrót sali w podziale sprzętu: "s.2", "s.05" (bez dopisku "nowa"); pracownie zewnętrzne mają krótkie nazwy.
+const allocLabel = (room) => room.short || room.name.replace(/^Sala\s+/, "s.").replace(/\s*\(nowa\)$/, "");
+
 const roomQtyChips = (rows) => {
   if (!rows.length) return `<p class="placeholder">Brak</p>`;
   return `<div class="allocation-chips">${rows.map(({ roomId, assignee, qty }) => {
     const room = roomId ? roomById(roomId) : null;
-    const label = `${room ? room.name : roomId ?? assignee} × ${qty}`;
-    return room ? roomLink(room, { label }) : `<span class="room-chip">${escapeHtml(label)}</span>`;
+    const label = room ? allocLabel(room) : roomId ?? assignee;
+    const text = `${escapeHtml(label)} <span class="alloc-qty">– <strong>${qty} szt.</strong></span>`;
+    const wide = `${label} – ${qty} szt.`.length > 16 ? " is-wide" : "";
+    return room
+      ? `<a class="room-chip alloc-cell${wide}" href="#room-${encodeURIComponent(room.id)}" data-room-id="${escapeHtml(room.id)}" title="${escapeHtml(room.name)}">${text}</a>`
+      : `<span class="room-chip alloc-cell${wide}">${text}</span>`;
   }).join("")}</div>`;
 };
 
@@ -885,7 +892,7 @@ const renderResources = () => {
 };
 
 const roomQtyText = (rows) => (rows.length
-  ? rows.map(({ roomId, assignee, qty }) => `${roomById(roomId) ? chipLabel(roomById(roomId)) : roomId ?? assignee} × ${qty}`).join(", ")
+  ? rows.map(({ roomId, assignee, qty }) => `${roomById(roomId) ? allocLabel(roomById(roomId)) : roomId ?? assignee} – ${qty} szt.`).join(", ")
   : "brak");
 
 const renderResourcesPrint = () => {

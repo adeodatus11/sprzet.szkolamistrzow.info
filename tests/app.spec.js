@@ -1052,7 +1052,7 @@ test("zakładka Zasoby podlicza sprzęt z KPO: w salach, do wstawienia, w pudeł
   await expect(chromebooks.locator('[data-stat="free"]')).toHaveText("45");
   await expect(chromebooks.locator(".resource-note")).toHaveText("1 używany przez Marię Kaszak. Czy inne osoby z pomocy PP też nie mają jeszcze Chromebooków KPO?");
   await chromebooks.locator("summary").click();
-  await expect(chromebooks.locator(".allocation-chips").first().locator(".room-chip")).toHaveText(["Maria Kaszak × 1"]);
+  await expect(chromebooks.locator(".allocation-chips").first().locator(".room-chip")).toHaveText(["Maria Kaszak – 1 szt."]);
 
   // iPady KPO: 59 przydzielone (sale 17, 44 i Maria Kaszak), 37 wolne; iPady Air z sali 5 nie wchodzą
   const ipads = resource(page, "ipad");
@@ -1063,7 +1063,7 @@ test("zakładka Zasoby podlicza sprzęt z KPO: w salach, do wstawienia, w pudeł
   await expect(ipads.locator('[data-stat="free"]')).toHaveText("37");
   await expect(ipads.locator('[data-stat="allocated"]')).toHaveText("59");
   await ipads.locator("summary").click();
-  await expect(ipads.locator(".allocation-chips").first().locator(".room-chip")).toHaveText(["Sala 17 × 32", "Sala 44 × 26", "Maria Kaszak × 1"]);
+  await expect(ipads.locator(".allocation-chips").first().locator(".room-chip")).toHaveText(["s.17 – 32 szt.", "s.44 – 26 szt.", "Maria Kaszak – 1 szt."]);
   await expect(ipads.locator(".resource-details .placeholder")).toHaveText(["Brak"]);
   await expect(page.locator("#resourceNotes")).toContainText("starsze iPady Air z sali 5 nie są z KPO");
   await expect(page.locator("#resourceNotes")).toContainText("w każdej sali lekcyjnej");
@@ -1078,8 +1078,8 @@ test("zasoby: laptopy Asus z pracowni handlowej jako inny sprzęt", async ({ pag
   await expect(asus.locator('[data-stat="placed"]')).toHaveText("26");
   await expect(asus.locator('[data-stat="moving"]')).toHaveText("26");
   const chips = asus.locator(".allocation-chips");
-  await expect(chips.nth(0).locator(".room-chip")).toHaveText(["Sala 41 × 26"]);
-  await expect(chips.nth(1).locator(".room-chip")).toHaveText(["Sala 40 × 26"]);
+  await expect(chips.nth(0).locator(".room-chip")).toHaveText(["s.41 – 26 szt."]);
+  await expect(chips.nth(1).locator(".room-chip")).toHaveText(["s.40 – 26 szt."]);
   // nie jest to sprzęt z KPO: nie wchodzi do sum
   await expect(page.locator('[data-total="delivered"] .total-value')).toHaveText("302");
   await expect(page.locator('[data-total="placed"] .total-value')).toHaveText("57");
@@ -1096,23 +1096,23 @@ test("zasoby: podział laptopów KPO na sale", async ({ page }) => {
   await laptops.locator("summary").click();
   const placed = laptops.locator(".allocation-chips").nth(0).locator(".room-chip");
   await expect(placed).toHaveCount(24);
-  await expect(placed.filter({ hasText: "Sala 42 × 33" })).toHaveCount(1);
-  await expect(placed.filter({ hasText: "Sala 2 × 1" })).toHaveCount(1);
-  await expect(placed.filter({ hasText: "Sala 05 (nowa) × 1" })).toHaveCount(1);
+  await expect(placed.filter({ hasText: "s.42 – 33 szt." })).toHaveCount(1);
+  await expect(placed.filter({ hasText: "s.2 – 1 szt." })).toHaveCount(1);
+  await expect(placed.filter({ hasText: "s.05 – 1 szt." })).toHaveCount(1);
   const planned = laptops.locator(".allocation-chips").nth(1).locator(".room-chip");
   await expect(planned).toHaveText([
-    "Sala 41 × 30",
-    "Sala 28 × 30",
-    "Sala 05 (nowa) × 16",
-    "Sala 16 × 4",
-    "Sala 8 × 1",
-    "Sala 43 × 1",
-    "Pracownia gastronomiczna × 1",
-    "Pracownia fryzjerska – teoria × 1",
-    "Pracownia fryzjerska – praktyka × 1",
+    "s.41 – 30 szt.",
+    "s.28 – 30 szt.",
+    "s.05 – 16 szt.",
+    "s.16 – 4 szt.",
+    "s.8 – 1 szt.",
+    "s.43 – 1 szt.",
+    "Gastronomiczna – 1 szt.",
+    "Fryzjerska – teoria – 1 szt.",
+    "Fryzjerska – praktyka – 1 szt.",
   ]);
 
-  await planned.filter({ hasText: "Sala 41" }).click();
+  await planned.filter({ hasText: "s.41" }).click();
   await expect(page.locator("#roomDetail").getByRole("heading", { name: "Sala 41" })).toBeVisible();
   await expect(page).toHaveURL(/#room-41$/);
   await page.goBack();
@@ -1165,10 +1165,10 @@ test("zasoby: wydruk zestawienia i brak przewijania poziomego na telefonie", asy
   await expect(sheet).toContainText("Dostarczono: 160 szt.");
   await expect(sheet).toContainText("W salach i u osób: 56 szt.");
   await expect(sheet).toContainText("W pudełkach: 104 szt. (przydzielone: 85, wolne: 19)");
-  await expect(sheet).toContainText("Miejsca, do których ma trafić: 41 × 30, 28 × 30, 05 (nowa) × 16, 16 × 4, 8 × 1, 43 × 1, Gastronomiczna × 1, Fryzjerska – teoria × 1, Fryzjerska – praktyka × 1");
+  await expect(sheet).toContainText("Miejsca, do których ma trafić: s.41 – 30 szt., s.28 – 30 szt., s.05 – 16 szt., s.16 – 4 szt., s.8 – 1 szt., s.43 – 1 szt., Gastronomiczna – 1 szt., Fryzjerska – teoria – 1 szt., Fryzjerska – praktyka – 1 szt.");
   await expect(sheet).toContainText("1 używany przez Marię Kaszak");
   await expect(sheet).toContainText("Laptopy Asus (pracownia handlowa): inny sprzęt");
-  await expect(sheet).toContainText("Do przeniesienia do: 40 × 26");
+  await expect(sheet).toContainText("Do przeniesienia do: s.40 – 26 szt.");
   await expect(sheet).toContainText("Założenia zestawienia");
 
   const widths = await page.evaluate(() => ({
@@ -1219,9 +1219,9 @@ test("zasoby: komputery Dell UNICEF (2022) i laptopy Dell Pro jako inny sprzęt"
   await expect(unicef.locator('[data-stat="planned"]')).toHaveText("7");
   await expect(unicef.locator('[data-stat="moving"]')).toHaveText("1");
   const chips = unicef.locator(".allocation-chips");
-  await expect(chips.nth(0).locator(".room-chip")).toHaveText(["Sala 37 × 18"]);
-  await expect(chips.nth(1).locator(".room-chip")).toHaveText(["Sala 37 × 7"]);
-  await expect(chips.nth(2).locator(".room-chip")).toHaveText(["Maciej Najwer × 1"]);
+  await expect(chips.nth(0).locator(".room-chip")).toHaveText(["s.37 – 18 szt."]);
+  await expect(chips.nth(1).locator(".room-chip")).toHaveText(["s.37 – 7 szt."]);
+  await expect(chips.nth(2).locator(".room-chip")).toHaveText(["Maciej Najwer – 1 szt."]);
 
   const pro = resource(page, "dell-pro");
   await expect(pro.locator("h3")).toHaveText("Laptopy Dell Pro (pracownia AI)");
@@ -1231,7 +1231,7 @@ test("zasoby: komputery Dell UNICEF (2022) i laptopy Dell Pro jako inny sprzęt"
   await expect(pro.locator(".resource-numbers .is-sub")).toHaveText("z tego mocne, ewentualnie dla nauczyciela2");
   await expect(pro).toContainText("24 wykorzystane w sali 38, 8 niewykorzystanych leży w pudełkach");
   await expect(pro.locator('[data-stat="planned"]')).toHaveCount(0);
-  await expect(pro.locator(".allocation-chips .room-chip")).toHaveText(["Sala 38 × 24"]);
+  await expect(pro.locator(".allocation-chips .room-chip")).toHaveText(["s.38 – 24 szt."]);
   await expect(page.locator("#resourceNotes")).toContainText("Laptopy Dell Pro z pracowni AI (24 w sali 38, 8 w pudełkach) nie są liczone do KPO");
 
   // nie wchodzą do sum z KPO
@@ -1241,8 +1241,8 @@ test("zasoby: komputery Dell UNICEF (2022) i laptopy Dell Pro jako inny sprzęt"
   // wydruk
   const sheet = page.locator(".print-sheet");
   await expect(sheet).toContainText("Komputery stacjonarne Dell UNICEF (2022): inny sprzęt");
-  await expect(sheet).toContainText("Do dostarczenia do: 37 × 7");
-  await expect(sheet).toContainText("Do przeniesienia do: Maciej Najwer × 1");
+  await expect(sheet).toContainText("Do dostarczenia do: s.37 – 7 szt.");
+  await expect(sheet).toContainText("Do przeniesienia do: Maciej Najwer – 1 szt.");
   await expect(sheet).toContainText("W pudełkach (niewykorzystane): 8 szt., z tego mocne, ewentualnie dla nauczyciela: 2");
 });
 
