@@ -7,7 +7,7 @@
   "scripts": {
     "start": "python3 -m http.server 8788",
     "test": "playwright test",
-    "check": "node --check equipment-data.js && node --check app.js"
+    "check": "node --check equipment-data.js && node --check nis2-data.js && node --check app.js"
   },
   "keywords": [
     "zsz5",

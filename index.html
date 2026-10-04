@@ -47,6 +47,7 @@
         <a class="view-tab" id="roomsTab" href="#room-2" data-view="rooms">Sale <span class="tab-count" id="roomsTabCount">0</span></a>
         <a class="view-tab" id="purchasesTab" href="#zakupy" data-view="purchases">Do zakupu <span class="tab-count" id="purchasesTabCount">0</span></a>
         <a class="view-tab" id="resourcesTab" href="#zasoby" data-view="resources">Zasoby <span class="tab-count" id="resourcesTabCount">0</span></a>
+        <a class="view-tab" id="nis2Tab" href="#nis2" data-view="nis2">NIS2. Przepisy <span class="tab-count" id="nis2TabCount">0</span></a>
       </nav>
 
       <section class="intro" aria-labelledby="pageTitle">
@@ -154,6 +155,39 @@
           <h2 id="resourceNotesTitle">Założenia zestawienia</h2>
           <ul id="resourceNotes"></ul>
         </section>
+      </section>
+
+      <section class="nis2-view" id="nis2View" aria-labelledby="nis2Title">
+        <div class="purchase-intro">
+          <div class="intro-copy">
+            <p class="eyebrow">Cyberbezpieczeństwo, ustawa o KSC</p>
+            <h1 id="nis2Title" tabindex="-1">NIS2. Przepisy</h1>
+            <p id="nis2Updated"></p>
+          </div>
+          <div class="detail-actions">
+            <button class="primary" id="printNis2" type="button">Drukuj plan</button>
+          </div>
+        </div>
+        <p class="nis2-disclaimer" id="nis2Disclaimer"></p>
+        <h2 class="resource-section-title">Terminy</h2>
+        <div class="nis2-deadlines" id="nis2Deadlines"></div>
+        <h2 class="resource-section-title">Terminy szkoły</h2>
+        <div class="nis2-deadlines" id="nis2SchoolDeadlines"></div>
+        <h2 class="resource-section-title">Obowiązki stałe</h2>
+        <ul class="nis2-recurring" id="nis2Recurring"></ul>
+        <h2 class="resource-section-title">Co to oznacza dla szkoły</h2>
+        <ul class="nis2-text-list" id="nis2Summary"></ul>
+        <h2 class="resource-section-title">Plan działania (roadmapa)</h2>
+        <p class="nis2-progress" id="nis2Progress" aria-live="polite"></p>
+        <div class="nis2-phases" id="nis2Roadmap"></div>
+        <h2 class="resource-section-title">Załącznik nr 4: wymogi SZBI</h2>
+        <div class="nis2-annex" id="nis2Annex"></div>
+        <h2 class="resource-section-title">Ustalenia z wyszukiwania</h2>
+        <ul class="nis2-text-list" id="nis2Findings"></ul>
+        <h2 class="resource-section-title">Pytania do dalszych badań</h2>
+        <ol class="nis2-text-list" id="nis2Questions"></ol>
+        <h2 class="resource-section-title">Źródła</h2>
+        <ul class="nis2-sources" id="nis2Sources"></ul>
       </section>
     </main>
 

@@ -959,12 +959,18 @@ body[data-view="resources"] .intro,
 body[data-view="resources"] .workspace,
 body[data-view="resources"] .open-items,
 body[data-view="resources"] .mobile-room-nav,
-body[data-view="resources"] .catalog-toggle {
+body[data-view="resources"] .catalog-toggle,
+body[data-view="nis2"] .intro,
+body[data-view="nis2"] .workspace,
+body[data-view="nis2"] .open-items,
+body[data-view="nis2"] .mobile-room-nav,
+body[data-view="nis2"] .catalog-toggle {
   display: none !important;
 }
 
 body:not([data-view="purchases"]) .purchase-view,
-body:not([data-view="resources"]) .resources-view {
+body:not([data-view="resources"]) .resources-view,
+body:not([data-view="nis2"]) .nis2-view {
   display: none;
 }
 
@@ -1336,6 +1342,203 @@ body:not([data-view="resources"]) .resources-view {
   font-size: 0.9rem;
 }
 
+/* ---------- NIS2. Przepisy ---------- */
+
+.nis2-view .purchase-intro h1:focus {
+  outline: none;
+}
+
+.nis2-view h3 {
+  margin: 0;
+  font-size: 1.02rem;
+  line-height: 1.3;
+}
+
+.nis2-disclaimer {
+  margin: 0;
+  border-left: 4px solid var(--warn);
+  border-radius: var(--radius-sm);
+  background: var(--warn-soft);
+  color: var(--ink);
+  padding: 10px 14px;
+  font-size: 0.92rem;
+}
+
+.nis2-deadlines {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 1fr));
+  gap: 12px;
+}
+
+.nis2-deadline {
+  display: grid;
+  align-content: start;
+  gap: 6px;
+  border: 1px solid var(--line);
+  border-top: 6px solid var(--accent);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  padding: 14px;
+}
+
+.nis2-deadline p {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.nis2-deadline .nis2-date {
+  font-size: 1.25rem;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.nis2-deadline .nis2-status {
+  display: inline-block;
+  justify-self: start;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: var(--accent-strong);
+  font-weight: 800;
+  padding: 3px 12px;
+}
+
+.nis2-deadline.is-soon {
+  border-top-color: var(--warn);
+}
+
+.nis2-deadline.is-soon .nis2-status {
+  background: var(--warn-soft);
+  color: var(--warn);
+}
+
+.nis2-deadline.is-past {
+  border-top-color: var(--danger);
+}
+
+.nis2-deadline.is-past .nis2-status {
+  background: var(--danger-soft);
+  color: var(--danger);
+}
+
+.nis2-deadline.is-urgent {
+  background: var(--danger-soft);
+}
+
+.nis2-deadline.is-urgent .nis2-status {
+  background: #fff;
+}
+
+.nis2-recurring,
+.nis2-text-list,
+.nis2-sources {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding-left: 22px;
+}
+
+.nis2-sources {
+  list-style: none;
+  padding-left: 0;
+}
+
+.nis2-sources a {
+  overflow-wrap: anywhere;
+}
+
+.nis2-kind {
+  display: inline-block;
+  margin-left: 6px;
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+.nis2-progress {
+  margin: 0 0 10px;
+  color: var(--muted);
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+
+.nis2-phases,
+.nis2-annex {
+  display: grid;
+  gap: 14px;
+}
+
+.nis2-phase,
+.nis2-annex-group {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  padding: 14px;
+}
+
+.nis2-phase-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 4px 12px;
+  margin-bottom: 10px;
+}
+
+.nis2-when {
+  margin: 0;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: var(--accent-strong);
+  font-size: 0.85rem;
+  font-weight: 800;
+  padding: 2px 12px;
+}
+
+.nis2-steps {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.nis2-steps li label {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.nis2-steps li.is-done label span {
+  color: var(--muted);
+  text-decoration: line-through;
+}
+
+.nis2-step-link {
+  display: inline-block;
+  margin: 4px 8px 0 32px;
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+
+.nis2-annex-group ul {
+  display: grid;
+  gap: 8px;
+  margin: 10px 0 0;
+  padding-left: 22px;
+}
+
+.nis2-annex-group ul ul {
+  margin-top: 6px;
+}
+
+.nis2-extra {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
 /* ---------- Zasoby ---------- */
 
 .resources-view .purchase-intro h1:focus {
@@ -1697,7 +1900,8 @@ body:not([data-view="resources"]) .resources-view {
   }
 
   body[data-view="purchases"],
-  body[data-view="resources"] {
+  body[data-view="resources"],
+  body[data-view="nis2"] {
     padding-bottom: 0;
   }
 

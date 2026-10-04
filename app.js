@@ -15,6 +15,19 @@ import {
   statusLabels,
   unresolvedItems,
 } from "./equipment-data.js";
+import {
+  nis2Annex,
+  nis2Deadlines,
+  nis2Disclaimer,
+  nis2Questions,
+  nis2Recurring,
+  nis2Roadmap,
+  nis2SchoolDeadlines,
+  nis2SchoolFindings,
+  nis2Sources,
+  nis2Summary,
+  nis2Updated,
+} from "./nis2-data.js";
 
 const els = {
   stats: document.querySelector("#stats"),
@@ -27,6 +40,20 @@ const els = {
   openItems: document.querySelector("#openItems"),
   openItemsCount: document.querySelector("#openItemsCount"),
   resourcesTabCount: document.querySelector("#resourcesTabCount"),
+  nis2TabCount: document.querySelector("#nis2TabCount"),
+  nis2Updated: document.querySelector("#nis2Updated"),
+  nis2Disclaimer: document.querySelector("#nis2Disclaimer"),
+  nis2Deadlines: document.querySelector("#nis2Deadlines"),
+  nis2SchoolDeadlines: document.querySelector("#nis2SchoolDeadlines"),
+  nis2Recurring: document.querySelector("#nis2Recurring"),
+  nis2Summary: document.querySelector("#nis2Summary"),
+  nis2Progress: document.querySelector("#nis2Progress"),
+  nis2Roadmap: document.querySelector("#nis2Roadmap"),
+  nis2Annex: document.querySelector("#nis2Annex"),
+  nis2Findings: document.querySelector("#nis2Findings"),
+  nis2Questions: document.querySelector("#nis2Questions"),
+  nis2Sources: document.querySelector("#nis2Sources"),
+  printNis2: document.querySelector("#printNis2"),
   resourcesSummary: document.querySelector("#resourcesSummary"),
   resourceTotal: document.querySelector("#resourceTotal"),
   resourceCards: document.querySelector("#resourceCards"),
@@ -59,8 +86,8 @@ const els = {
   calcReset: document.querySelector("#calcReset"),
 };
 
-const VIEW_HASHES = { purchases: "#zakupy", resources: "#zasoby" };
-const VIEW_TITLES = { purchases: "Do zakupu", resources: "Zasoby" };
+const VIEW_HASHES = { purchases: "#zakupy", resources: "#zasoby", nis2: "#nis2" };
+const VIEW_TITLES = { purchases: "Do zakupu", resources: "Zasoby", nis2: "NIS2. Przepisy" };
 const baseTitle = document.title;
 
 const mobileCatalogQuery = window.matchMedia("(max-width: 980px)");
@@ -683,6 +710,156 @@ const renderPurchasePrint = () => {
   `;
 };
 
+// ---------- NIS2. Przepisy ----------
+
+const NIS2_STORAGE_KEY = "sprzet-nis2-v1";
+const nis2StepIds = nis2Roadmap.flatMap((phase) => phase.steps.map((step) => step.id));
+
+const loadNis2State = () => {
+  const saved = Object.fromEntries(nis2StepIds.map((id) => [id, false]));
+  try {
+    const stored = JSON.parse(localStorage.getItem(NIS2_STORAGE_KEY) ?? "{}");
+    Object.entries(stored).forEach(([id, value]) => {
+      if (id in saved && value === true) saved[id] = true;
+    });
+  } catch {
+    // Brak dostępu do pamięci przeglądarki: plan działa bez zapamiętywania.
+  }
+  return saved;
+};
+
+const nis2State = loadNis2State();
+
+const saveNis2State = () => {
+  try {
+    localStorage.setItem(NIS2_STORAGE_KEY, JSON.stringify(nis2State));
+  } catch {
+    // Zapis jest tylko udogodnieniem.
+  }
+};
+
+const nis2DateFormat = new Intl.DateTimeFormat("pl-PL", { day: "numeric", month: "long", year: "numeric" });
+
+// Dni kalendarzowe między dziś (czas lokalny) a datą RRRR-MM-DD; ujemne = termin minął.
+const daysUntil = (iso) => {
+  const [year, month, day] = iso.split("-").map(Number);
+  const now = new Date();
+  const today = Date.UTC(now.getFullYear(), now.getMonth(), now.getDate());
+  return Math.round((Date.UTC(year, month - 1, day) - today) / 86400000);
+};
+
+const pluralDays = (count) => (count === 1 ? "dzień" : "dni");
+
+const deadlineStatus = (iso) => {
+  const days = daysUntil(iso);
+  if (days < 0) {
+    const past = Math.abs(days);
+    return { tone: "past", text: `Termin minął ${past} ${pluralDays(past)} temu` };
+  }
+  if (days === 0) return { tone: "soon", text: "Termin mija dzisiaj" };
+  const tone = days <= 90 ? "soon" : "future";
+  return { tone, text: days === 1 ? "Pozostał 1 dzień" : `Pozostało ${days} dni` };
+};
+
+const formatIsoDate = (iso) => {
+  const [year, month, day] = iso.split("-").map(Number);
+  return nis2DateFormat.format(new Date(year, month - 1, day));
+};
+
+const deadlineCard = (item) => {
+  const status = deadlineStatus(item.date);
+  return `
+    <article class="nis2-deadline is-${status.tone}${item.urgent ? " is-urgent" : ""}" data-deadline="${escapeHtml(item.id)}">
+      <p class="nis2-date"><time datetime="${escapeHtml(item.date)}">${escapeHtml(formatIsoDate(item.date))}</time></p>
+      <p class="nis2-status">${escapeHtml(status.text)}</p>
+      <h3>${escapeHtml(item.title)}</h3>
+      <p>${escapeHtml(item.detail)}</p>
+    </article>
+  `;
+};
+
+const nis2AnnexItem = (item) => `
+  <li><strong>${escapeHtml(item.lead)}.</strong>${item.text ? ` ${escapeHtml(item.text)}` : ""}${item.sub ? `<ul>${item.sub.map((line) => `<li>${escapeHtml(line)}</li>`).join("")}</ul>` : ""}</li>
+`;
+
+const nis2StepHtml = (step) => `
+  <li class="${nis2State[step.id] ? "is-done" : ""}" data-step="${escapeHtml(step.id)}">
+    <label>
+      <input class="purchase-check nis2-check" type="checkbox" data-step-check${nis2State[step.id] ? " checked" : ""} />
+      <span>${escapeHtml(step.text)}</span>
+    </label>
+    ${(step.links ?? []).map((link) => `<a class="nis2-step-link" href="${VIEW_HASHES[link.view] ?? "#"}" data-view="${escapeHtml(link.view)}">${escapeHtml(link.label)}</a>`).join("")}
+  </li>
+`;
+
+const nis2PhaseHtml = (phase) => `
+  <section class="nis2-phase" data-phase="${escapeHtml(phase.id)}">
+    <div class="nis2-phase-head">
+      <h3>${escapeHtml(phase.title)}</h3>
+      <p class="nis2-when">${escapeHtml(phase.when)}</p>
+    </div>
+    <ul class="nis2-steps">${phase.steps.map(nis2StepHtml).join("")}</ul>
+  </section>
+`;
+
+const nis2Remaining = () => nis2StepIds.filter((id) => !nis2State[id]).length;
+
+const updateNis2Progress = () => {
+  const done = nis2StepIds.length - nis2Remaining();
+  els.nis2Progress.textContent = `Zrobione: ${done} z ${nis2StepIds.length} kroków. Zaznaczenia zapamiętuje ta przeglądarka.`;
+  els.nis2TabCount.textContent = nis2Remaining();
+};
+
+// Odliczanie zależy od bieżącej daty, więc odświeżamy je przy każdym wejściu w zakładkę.
+const renderNis2Deadlines = () => {
+  els.nis2Deadlines.innerHTML = nis2Deadlines.map(deadlineCard).join("");
+  els.nis2SchoolDeadlines.innerHTML = nis2SchoolDeadlines.length
+    ? nis2SchoolDeadlines.map(deadlineCard).join("")
+    : '<p class="placeholder">Brak terminów podanych przez szkołę. Zostaną dopisane tutaj.</p>';
+};
+
+const renderNis2 = () => {
+  els.nis2Updated.textContent = `Opracowanie robocze, stan z ${nis2Updated}.`;
+  els.nis2Disclaimer.textContent = nis2Disclaimer;
+  renderNis2Deadlines();
+  els.nis2Recurring.innerHTML = nis2Recurring.map((item) => `<li><strong>${escapeHtml(item.title)}.</strong> ${escapeHtml(item.detail)}</li>`).join("");
+  els.nis2Summary.innerHTML = nis2Summary.map((line) => `<li>${escapeHtml(line)}</li>`).join("");
+  els.nis2Roadmap.innerHTML = nis2Roadmap.map(nis2PhaseHtml).join("");
+  els.nis2Annex.innerHTML = `
+    <p>${escapeHtml(nis2Annex.intro)}</p>
+    ${nis2Annex.groups.map((group) => `
+      <section class="nis2-annex-group" data-group="${escapeHtml(group.id)}">
+        <h3>${escapeHtml(group.title)}</h3>
+        <ul>${group.items.map(nis2AnnexItem).join("")}</ul>
+      </section>
+    `).join("")}
+    <p class="nis2-extra">${escapeHtml(nis2Annex.extra)}</p>
+  `;
+  els.nis2Findings.innerHTML = nis2SchoolFindings.map((line) => `<li>${escapeHtml(line)}</li>`).join("");
+  els.nis2Questions.innerHTML = nis2Questions.map((line) => `<li>${escapeHtml(line)}</li>`).join("");
+  els.nis2Sources.innerHTML = nis2Sources.map((source) => `
+    <li><a href="${escapeHtml(source.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(source.label)}</a> <span class="nis2-kind">${escapeHtml(source.kind)}</span></li>
+  `).join("");
+  updateNis2Progress();
+};
+
+const renderNis2Print = () => {
+  const deadlineLine = (item) => `${formatIsoDate(item.date)}: ${item.title}. ${deadlineStatus(item.date).text}.`;
+  els.printSheet.innerHTML = `
+    <h1>NIS2. Przepisy i plan działania</h1>
+    <div class="print-meta">
+      <div><strong>Stan opracowania:</strong> ${escapeHtml(nis2Updated)}</div>
+      <div><strong>Wydruk:</strong> ${escapeHtml(formatIsoDate(new Date().toLocaleDateString("sv-SE")))}</div>
+    </div>
+    <p>${escapeHtml(nis2Disclaimer)}</p>
+    ${printSection("Terminy", listItems([...nis2Deadlines, ...nis2SchoolDeadlines].map(deadlineLine)))}
+    ${printSection("Obowiązki stałe", listItems(nis2Recurring.map((item) => `${item.title}. ${item.detail}`)))}
+    ${nis2Roadmap.map((phase) => printSection(`${phase.title} (${phase.when})`, `<ul>${phase.steps.map((step) => `<li>${nis2State[step.id] ? "[x]" : "[ ]"} ${escapeHtml(step.text)}</li>`).join("")}</ul>`)).join("")}
+    ${nis2Annex.groups.map((group) => printSection(group.title, `<ul>${group.items.map(nis2AnnexItem).join("")}</ul>`)).join("")}
+    ${printSection("Pytania do dalszych badań", listItems(nis2Questions))}
+  `;
+};
+
 const renderViewTabs = () => {
   document.body.dataset.view = state.view;
   document.title = VIEW_TITLES[state.view] ? `${VIEW_TITLES[state.view]} | ${baseTitle}` : baseTitle;
@@ -967,6 +1144,10 @@ const render = ({ historyMode = "replace", moveFocus = false } = {}) => {
   renderMobileNavigation();
   if (state.view === "purchases") renderPurchasePrint();
   if (state.view === "resources") renderResourcesPrint();
+  if (state.view === "nis2") {
+    renderNis2Deadlines();
+    renderNis2Print();
+  }
   syncHash(historyMode);
   if (state.view === "rooms") keepActiveRowVisible();
 
@@ -1065,6 +1246,18 @@ els.previousRoom.addEventListener("click", () => moveToAdjacentRoom(-1));
 els.nextRoom.addEventListener("click", () => moveToAdjacentRoom(1));
 els.printPurchases.addEventListener("click", () => window.print());
 els.printResources.addEventListener("click", () => window.print());
+els.printNis2.addEventListener("click", () => window.print());
+
+els.nis2Roadmap.addEventListener("change", (event) => {
+  const box = event.target.closest("[data-step-check]");
+  if (!box) return;
+  const item = box.closest("[data-step]");
+  nis2State[item.dataset.step] = box.checked;
+  item.classList.toggle("is-done", box.checked);
+  saveNis2State();
+  updateNis2Progress();
+  renderNis2Print();
+});
 
 els.purchaseLists.addEventListener("change", (event) => {
   const box = event.target.closest("[data-item-check]");
@@ -1122,5 +1315,6 @@ renderFilters();
 renderOpenItems();
 renderResources();
 renderPurchaseView();
+renderNis2();
 render();
 setCatalogOpen(false, { restoreFocus: false });

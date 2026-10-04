@@ -25,7 +25,8 @@ Zasady opisu (też w komentarzu na początku pliku): zadania i decyzje zaczynaj�
 
 ## Nawigacja
 
-- zakładki „Sale”, „Do zakupu” i „Zasoby” nad treścią przełączają widok; lista zakupów ma adres `#zakupy`, zasoby `#zasoby`, każdy z własnym wydrukiem,
+- zakładki „Sale”, „Do zakupu”, „Zasoby” i „NIS2. Przepisy” nad treścią przełączają widok; lista zakupów ma adres `#zakupy`, zasoby `#zasoby`, NIS2 `#nis2`, każdy z własnym wydrukiem,
+- „NIS2. Przepisy” to opracowanie ustawy o KSC (NIS2) dla szkoły: terminy z odliczaniem dni (liczonym od dzisiejszej daty), terminy podane przez szkołę, obowiązki stałe, roadmapa z checkboxami (zapamiętywanymi w przeglądarce), Załącznik nr 4, pytania do dalszych badań i źródła. Treść jest w `nis2-data.js`; własne terminy dopisuje się do `nis2SchoolDeadlines` (`{ id, date: "RRRR-MM-DD", title, detail }`),
 - w „Do zakupu” checkboxy i przyciski +/− ilości zasilają kalkulator kosztu: cena netto jest liczona tylko przy pewnym VAT 0%, w pozostałych przypadkach brutto, a pozycje bez ceny nie wchodzą do sumy; wybór zapamiętuje przeglądarka i trafia na wydruk,
 - lista sal po lewej jest pogrupowana według pięter, z przyciskami skoku do piętra,
 - w karcie sali jest przełącznik pięter i sal tego piętra oraz odnośniki do poprzedniej i następnej sali,

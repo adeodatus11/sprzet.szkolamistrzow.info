@@ -20,7 +20,7 @@ test("filtruje po wyposażeniu i statusie", async ({ page }) => {
   await expect(page.getByRole("button", { name: /Sala 17/ })).toBeVisible();
 
   await page.getByLabel("Szukaj").fill("");
-  await page.getByLabel("Status").selectOption("ready");
+  await page.locator("#statusFilter").selectOption("ready");
   await expect(page.getByRole("button", { name: /Sala 3\b/ })).toBeVisible();
   await expect(page.getByRole("button", { name: /Sala 41/ })).toHaveCount(0);
 });
@@ -358,7 +358,7 @@ test("kalkulator: domyślnie liczy wszystkie pozycje", async ({ page }) => {
   await expect(page.locator("#calcBreakdown")).toContainText("Zakupy towarzyszące");
   await expect(page.locator("#calcBreakdown")).toContainText("4 886,90 zł");
 
-  const boxes = page.locator(".purchase-check");
+  const boxes = page.locator(".purchase-card .purchase-check");
   await expect(boxes).toHaveCount(14);
   for (const box of await boxes.all()) await expect(box).toBeChecked();
 
@@ -1499,4 +1499,109 @@ test("sala 17: potrzebna szafa na 30 tabletów", async ({ page }) => {
   await expect(detail.locator(".equipment-group", { hasText: "Do zakupu" })).toContainText("Szafa na urządzenia (na 30 urządzeń)");
   await expect(detail.locator(".equipment-group", { hasText: "Tablety" })).toContainText("32 iPady KPO");
   await expect(detail.locator(".equipment-group", { hasText: "Tablety" })).toContainText("Szafka z zasilaniem do ładowania tabletów");
+});
+
+// ---------- NIS2. Przepisy ----------
+
+test.describe("NIS2. Przepisy", () => {
+  test.beforeEach(async ({ page }) => {
+    await page.clock.setFixedTime(new Date("2026-10-04T10:00:00"));
+  });
+
+  test("zakładka otwiera się z menu i z adresu #nis2", async ({ page }) => {
+    await page.goto("/");
+    await page.getByRole("link", { name: /NIS2\. Przepisy/ }).click();
+    await expect(page).toHaveURL(/#nis2$/);
+    await expect(page.getByRole("heading", { level: 1, name: "NIS2. Przepisy" })).toBeVisible();
+    await expect(page.locator("#roomDetail")).toBeHidden();
+    await expect(page).toHaveTitle(/NIS2\. Przepisy \|/);
+    await page.goto("/#nis2");
+    await expect(page.locator("#nis2View")).toBeVisible();
+    await expect(page.locator("#purchaseView")).toBeHidden();
+    await expect(page.locator("#nis2Tab")).toHaveAttribute("aria-current", "page");
+  });
+
+  test("terminy: liczą dni od dziś i wyróżniają minięty termin", async ({ page }) => {
+    await page.goto("/#nis2");
+    const deadline = (id) => page.locator(`[data-deadline="${id}"]`);
+    await expect(deadline("wykaz")).toHaveClass(/is-past/);
+    await expect(deadline("wykaz")).toContainText("Termin minął 1 dzień temu");
+    await expect(deadline("wykaz")).toContainText("3 października 2026");
+    await expect(deadline("szbi")).toContainText("Pozostało 181 dni");
+    await expect(deadline("szbi")).toContainText("3 kwietnia 2027");
+    await expect(deadline("audyt")).toContainText("Pozostało 547 dni");
+    await expect(deadline("wejscie")).toHaveClass(/is-past/);
+    await expect(page.locator("#nis2SchoolDeadlines")).toContainText("Brak terminów podanych przez szkołę");
+  });
+
+  test("załącznik nr 4: trzy grupy wymogów z wklejonego tekstu", async ({ page }) => {
+    await page.goto("/#nis2");
+    const groups = page.locator(".nis2-annex-group");
+    await expect(groups).toHaveCount(3);
+    await expect(groups.nth(0)).toContainText("Inwentaryzacja zasobów");
+    await expect(groups.nth(0)).toContainText("Zawieszanie uprawnień w przypadku niewykonywania obowiązków przez co najmniej 1 miesiąc");
+    await expect(groups.nth(1)).toContainText("generatywnych modeli sztucznej inteligencji");
+    await expect(groups.nth(2)).toContainText("Coroczny przegląd SZBI");
+  });
+
+  test("roadmapa: zaznaczenia i licznik są zapamiętywane po odświeżeniu", async ({ page }) => {
+    await page.goto("/#nis2");
+    const total = await page.locator("[data-step-check]").count();
+    expect(total).toBeGreaterThan(10);
+    await expect(page.locator("#nis2TabCount")).toHaveText(String(total));
+    await page.locator('[data-step="backup"] input').check();
+    await expect(page.locator('[data-step="backup"]')).toHaveClass(/is-done/);
+    await expect(page.locator("#nis2Progress")).toContainText(`Zrobione: 1 z ${total}`);
+    await expect(page.locator("#nis2TabCount")).toHaveText(String(total - 1));
+    await expect(page.locator(".print-sheet")).toContainText("[x] Kopie zapasowe");
+    await page.reload();
+    await expect(page.locator('[data-step="backup"] input')).toBeChecked();
+    await expect(page.locator("#nis2Progress")).toContainText(`Zrobione: 1 z ${total}`);
+  });
+
+  test("roadmapa: odnośniki do innych zakładek działają", async ({ page }) => {
+    await page.goto("/#nis2");
+    await page.locator('[data-step="inwentaryzacja"] a', { hasText: "Zasoby" }).click();
+    await expect(page).toHaveURL(/#zasoby$/);
+    await expect(page.locator("#resourcesView")).toBeVisible();
+  });
+
+  test("źródła otwierają się w nowej karcie", async ({ page }) => {
+    await page.goto("/#nis2");
+    const links = page.locator("#nis2Sources a");
+    expect(await links.count()).toBeGreaterThan(5);
+    for (const link of await links.all()) {
+      await expect(link).toHaveAttribute("href", /^https:\/\//);
+      await expect(link).toHaveAttribute("target", "_blank");
+      await expect(link).toHaveAttribute("rel", /noopener/);
+    }
+  });
+
+  test("wydruk i brak przewijania poziomego na telefonie", async ({ page }) => {
+    await page.setViewportSize({ width: 320, height: 700 });
+    await page.goto("/#nis2");
+    await expect(page.locator(".print-sheet")).toContainText("NIS2. Przepisy i plan działania");
+    await expect(page.locator(".print-sheet")).toContainText("Termin minął 1 dzień temu");
+    const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
+    expect(overflow).toBeLessThanOrEqual(0);
+  });
+});
+
+test("nis2-data: daty są poprawne i identyfikatory unikalne", async ({ page }) => {
+  await page.goto("/");
+  const problems = await page.evaluate(async () => {
+    const data = await import("/nis2-data.js");
+    const out = [];
+    const dates = data.nis2Deadlines.map((item) => item.date);
+    if (dates.some((date) => !/^\d{4}-\d{2}-\d{2}$/.test(date))) out.push("zły format daty");
+    if (dates.join() !== [...dates].sort().join()) out.push("terminy nie są posortowane");
+    const ids = data.nis2Roadmap.flatMap((phase) => phase.steps.map((step) => step.id));
+    if (new Set(ids).size !== ids.length) out.push("powtórzone id kroków");
+    const views = ["rooms", "purchases", "resources", "nis2"];
+    data.nis2Roadmap.flatMap((phase) => phase.steps).flatMap((step) => step.links ?? []).forEach((link) => {
+      if (!views.includes(link.view)) out.push(`nieznany widok ${link.view}`);
+    });
+    return out;
+  });
+  expect(problems).toEqual([]);
 });
