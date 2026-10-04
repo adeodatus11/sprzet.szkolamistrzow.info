@@ -352,14 +352,14 @@ test("kalkulator: domyślnie liczy wszystkie pozycje", async ({ page }) => {
   await page.goto("/#zakupy");
   // 8 × 7 245,53 (netto, VAT 0%) + 2 × 2 999 + 1 840 + 4 049 + 2 058 + 3 612 (brutto, VAT niepewny) + 2 041,46 (netto, VAT 0%)
   await expect(page.locator("#calcTotal")).toHaveText("75 204,07 zł");
-  await expect(page.locator("#calcMeta")).toHaveText("Zaznaczone: 12 poz. · 39 szt.");
+  await expect(page.locator("#calcMeta")).toHaveText("Zaznaczone: 13 poz. · 40 szt.");
   await expect(page.locator("#calcBreakdown")).toContainText("Sprzęt");
   await expect(page.locator("#calcBreakdown")).toContainText("70 317,17 zł");
   await expect(page.locator("#calcBreakdown")).toContainText("Zakupy towarzyszące");
   await expect(page.locator("#calcBreakdown")).toContainText("4 886,90 zł");
 
   const boxes = page.locator(".purchase-check");
-  await expect(boxes).toHaveCount(12);
+  await expect(boxes).toHaveCount(13);
   for (const box of await boxes.all()) await expect(box).toBeChecked();
 
   await expect(card(page, "Monitor interaktywny").locator(".calc-line")).toHaveText("Do sumy: 7 245,53 zł netto × 7 = 50 718,71 zł");
@@ -390,7 +390,7 @@ test("kalkulator: odznaczanie pozycji", async ({ page }) => {
   await expect(page.locator("#calcTotal")).toHaveText("69 550,61 zł");
   await card(page, "Monitor interaktywny").getByRole("checkbox").uncheck();
   await expect(page.locator("#calcTotal")).toHaveText("18 831,90 zł");
-  await expect(page.locator("#calcMeta")).toHaveText("Zaznaczone: 9 poz. · 30 szt.");
+  await expect(page.locator("#calcMeta")).toHaveText("Zaznaczone: 10 poz. · 31 szt.");
   await expect(card(page, "Monitor interaktywny")).toHaveClass(/is-excluded/);
 
   await card(page, "Kabel HDMI światłowodowy").getByRole("checkbox").uncheck();
@@ -407,8 +407,8 @@ test("kalkulator: zmiana ilości", async ({ page }) => {
   await expect(monitors.locator(".qty-value")).toHaveText("8");
   await expect(monitors.locator(".calc-line")).toHaveText("Do sumy: 7 245,53 zł netto × 8 = 57 964,24 zł");
   await expect(page.locator("#calcTotal")).toHaveText("82 449,60 zł");
-  await expect(page.locator("#calcMeta")).toHaveText("Zaznaczone: 12 poz. · 40 szt.");
-  await expect(page.locator(".purchase-tier").nth(0)).toContainText("9 poz. · 22 szt.");
+  await expect(page.locator("#calcMeta")).toHaveText("Zaznaczone: 13 poz. · 41 szt.");
+  await expect(page.locator(".purchase-tier").nth(0)).toContainText("10 poz. · 23 szt.");
   await expect(page.locator(".print-sheet")).toContainText("Monitor interaktywny (75 cali), 8 szt.");
 
   const minus = monitors.getByRole("button", { name: "Zmniejsz ilość" });
@@ -765,17 +765,33 @@ test("sala 22: zadania zrobione, laptop KPO i BenQ", async ({ page }) => {
   await expect(page.locator("#roomDetail .detail-title .badge")).toHaveText("Bez zmian");
 });
 
-test("sala 23: bez szafy, 26 albo 30 Chromebooków do wstawienia", async ({ page }) => {
+test("sala 23: potrzebna szafa na 30 laptopów z zasilaniem, 26 albo 30 Chromebooków do wstawienia", async ({ page }) => {
   await page.goto("/#room-23");
   const detail = page.locator("#roomDetail");
-  await expect(todoSection(page).locator("li:not(.is-done)")).toHaveText(["Wstawić 26 albo 30 Chromebooków, jeżeli będą dostępne"]);
+  await expect(todoSection(page).locator("li:not(.is-done)")).toHaveText([
+    "Zapewnić szafę na 30 laptopów z zasilaniem",
+    "Wstawić 26 albo 30 Chromebooków, jeżeli będą dostępne",
+  ]);
   await expect(doneTasks(page)).toHaveText([/Sprawdzić, czy nowy rzutnik krótkoogniskowy działa prawidłowo/]);
   await expect(detail.locator(".equipment-group", { hasText: "Docelowo" })).toContainText("26 albo 30 Chromebooków (do wstawienia, jeżeli będą dostępne)");
+  await expect(detail.locator(".equipment-group", { hasText: "Do zakupu" })).toContainText("Szafa na laptopy (na 30 laptopów, z zasilaniem)");
   await expect(detail.locator(".equipment-group", { hasText: "Komputery" })).toContainText("Laptop KPO (komputer nauczyciela)");
-  await expect(detail).not.toContainText("szaf");
-  await expect(detail).not.toContainText("30 laptopów");
+  await expect(detail.locator(".equipment-group", { hasText: "Meble" })).toHaveCount(0);
+  await expect(detail).not.toContainText("30 laptopów (do przygotowania)");
+  await expect(detail).not.toContainText("kupiona we wrześniu");
   await expect(detail).not.toContainText("incognito");
   await expect(detail).toContainText("Nowy rzutnik krótkoogniskowy zostaje w sali");
+});
+
+test("szafa na 30 laptopów z zasilaniem do sali 23 jest na liście zakupów", async ({ page }) => {
+  await page.goto("/#zakupy");
+  const cabinet23 = card(page, "Szafa na laptopy");
+  await expect(cabinet23.locator(".qty-value")).toHaveText("1");
+  await expect(cabinet23).toContainText("na 30 laptopów");
+  await expect(cabinet23).toContainText("z zasilaniem");
+  await expect(cabinet23).toContainText("Do sali 23, na 26 albo 30 Chromebooków");
+  await expect(cabinet23.locator(".room-chip")).toHaveText(["Sala 23"]);
+  await expect(cabinet23.locator(".calc-line")).toHaveText("Brak ceny, pozycja nie wchodzi do sumy");
 });
 
 test("sala 26: połączenie sprawdzone, laptop KPO jeżeli działa", async ({ page }) => {
@@ -1266,7 +1282,7 @@ test("zasoby: szafy na laptopy i iPady", async ({ page }) => {
   await page.goto("/#zasoby");
   await expect(page.getByRole("heading", { name: "Szafy na laptopy i iPady" })).toBeVisible();
   const cards = page.locator(".cabinet-card");
-  await expect(cards).toHaveCount(6);
+  await expect(cards).toHaveCount(7);
 
   const cabinet = (id) => page.locator(`.cabinet-card[data-cabinet-id="${id}"]`);
 
@@ -1305,7 +1321,16 @@ test("zasoby: szafy na laptopy i iPady", async ({ page }) => {
     await expect(c.locator(".cabinet-warning")).toHaveCount(0);
   }
 
+  const c23 = cabinet("cabinet-23");
+  await expect(c23).toContainText("Szafa na 30 laptopów z zasilaniem");
+  await expect(c23.locator(".badge")).toHaveText("Potrzebna (do zakupu)");
+  await expect(c23).not.toContainText("Teraz:");
+  await expect(c23.getByRole("link", { name: "Sala 23" })).toHaveAttribute("href", "#room-23");
+  await expect(c23).toContainText("26 albo 30 Chromebooków (jeżeli będą dostępne)");
+  await expect(c23.locator(".cabinet-warning")).toHaveCount(0);
+
   await expect(page.locator(".print-sheet")).toContainText("Szafy na laptopy i iPady");
+  await expect(page.locator(".print-sheet")).toContainText("Szafa na 30 laptopów z zasilaniem (pojemność 30), potrzebna (do zakupu), do sali: 23, w szafie: 26 albo 30 Chromebooków (jeżeli będą dostępne)");
   await expect(page.locator(".print-sheet")).toContainText("Szafa na 16 laptopów/iPadów (pojemność 16), teraz: pod salą 36, do sali: 05 (nowa), w szafie: 16 laptopów KPO w konfiguracji uczniowskiej");
   await expect(page.locator(".print-sheet")).toContainText("uwaga: 20 szt. przekracza pojemność (przyjęte świadomie)");
 });

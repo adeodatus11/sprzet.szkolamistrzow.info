@@ -846,16 +846,17 @@ const cabinetContentQty = (cabinet) => cabinet.contents.reduce((sum, item) => su
 
 const cabinetCard = (cabinet) => {
   const qty = cabinetContentQty(cabinet);
-  const isNew = !cabinet.from;
+  const isNew = !cabinet.from && !cabinet.needed;
   const target = roomById(cabinet.toRoomId);
+  const badge = cabinet.needed ? ["missing", "Potrzebna (do zakupu)"] : isNew ? ["ready", "Nowa"] : ["todo", "Do przeniesienia"];
   return `
     <article class="resource-card cabinet-card" data-cabinet-id="${escapeHtml(cabinet.id)}">
       <header class="resource-head">
         <h3>${escapeHtml(cabinet.name)}</h3>
-        <span class="badge ${isNew ? "ready" : "todo"}">${isNew ? "Nowa" : "Do przeniesienia"}</span>
+        <span class="badge ${badge[0]}">${badge[1]}</span>
       </header>
       <p class="cabinet-route">
-        ${isNew ? "" : `<span><strong>Teraz:</strong> ${cabinetPlace(cabinet.from)}</span>`}
+        ${cabinet.from ? `<span><strong>Teraz:</strong> ${cabinetPlace(cabinet.from)}</span>` : ""}
         <span><strong>Do sali:</strong> ${target ? roomLink(target, { label: target.name }) : escapeHtml(cabinet.toRoomId)}</span>
       </p>
       <p class="resource-note"><strong>Pojemność:</strong> ${cabinet.capacity} szt.</p>
@@ -935,7 +936,7 @@ const renderResourcesPrint = () => {
       const qty = cabinetContentQty(cabinet);
       return [
         `${cabinet.name} (pojemność ${cabinet.capacity})`,
-        from ? `teraz: ${from}` : "nowa",
+        from ? `teraz: ${from}` : cabinet.needed ? "potrzebna (do zakupu)" : "nowa",
         `do sali: ${target ? chipLabel(target) : cabinet.toRoomId}`,
         `w szafie: ${cabinet.contents.map((item) => item.label).join("; ")}`,
         qty > cabinet.capacity ? `uwaga: ${qty} szt. przekracza pojemność${cabinet.knownOverfill ? " (przyjęte świadomie)" : ""}` : "",

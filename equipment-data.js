@@ -89,7 +89,8 @@ export const otherAssets = [
 
 // Szafy na laptopy i iPady (zakładka "Zasoby"): pojemność, skąd i dokąd idą oraz co ma w nich stać.
 // from: { roomId } albo { text }; brak from = nowa szafa; toRoomId = sala docelowa;
-// knownOverfill: true = zawartość przekracza pojemność i zostało to przyjęte świadomie.
+// knownOverfill: true = zawartość przekracza pojemność i zostało to przyjęte świadomie;
+// needed: true = szafa jest potrzebna, ale jeszcze jej nie ma (do zakupu).
 export const cabinets = [
   {
     id: "cabinet-05",
@@ -129,6 +130,14 @@ export const cabinets = [
     capacity: 30,
     toRoomId: "42",
     contents: [{ label: "30 komputerów KPO z zainstalowanym Subiektem i Office 2007", qty: 30 }],
+  },
+  {
+    id: "cabinet-23",
+    name: "Szafa na 30 laptopów z zasilaniem",
+    capacity: 30,
+    needed: true,
+    toRoomId: "23",
+    contents: [{ label: "26 albo 30 Chromebooków (jeżeli będą dostępne)", qty: 30 }],
   },
   {
     id: "cabinet-28",
@@ -402,6 +411,15 @@ export const purchaseItems = [
     qty: 1,
     roomIds: ["5"],
     note: "Do wstawienia w sali 5. Ewentualnie można przynieść szafę na laptopy z III piętra i trzymać w niej iPady",
+  },
+  {
+    id: "cabinet-23",
+    tier: "main",
+    name: "Szafa na laptopy",
+    specs: ["na 30 laptopów", "z zasilaniem"],
+    qty: 1,
+    roomIds: ["23"],
+    note: "Do sali 23, na 26 albo 30 Chromebooków",
   },
   {
     id: "desks-37",
@@ -780,6 +798,7 @@ export const rooms = [
       group(G.planned, ["26 albo 30 Chromebooków (do wstawienia, jeżeli będą dostępne)"]),
     ],
     tasks: [
+      "Zapewnić szafę na 30 laptopów z zasilaniem",
       "Wstawić 26 albo 30 Chromebooków, jeżeli będą dostępne",
       done("Sprawdzić, czy nowy rzutnik krótkoogniskowy działa prawidłowo"),
     ],
