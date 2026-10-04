@@ -138,7 +138,7 @@ export const cabinets = [
   },
   {
     id: "cabinet-23",
-    name: "Szafa na 30 laptopów z zasilaniem",
+    name: "Szafa na 30 urządzeń",
     capacity: 30,
     needed: true,
     toRoomId: "23",
@@ -162,7 +162,7 @@ export const cabinets = [
   },
   {
     id: "cabinet-17",
-    name: "Szafa na 30 tabletów",
+    name: "Szafa na 30 urządzeń",
     capacity: 30,
     needed: true,
     toRoomId: "17",
@@ -454,22 +454,13 @@ export const purchaseItems = [
     note: "Do wstawienia w sali 5. Ewentualnie można przynieść szafę na laptopy z III piętra i trzymać w niej iPady",
   },
   {
-    id: "cabinet-23",
-    tier: "main",
-    name: "Szafa na laptopy",
-    specs: ["na 30 laptopów", "z zasilaniem"],
-    qty: 1,
-    roomIds: ["23"],
-    note: "Do sali 23, na 26 albo 30 Chromebooków",
-  },
-  {
-    id: "cabinet-32-43",
+    id: "cabinet-devices",
     tier: "main",
     name: "Szafa na urządzenia",
-    specs: ["na 30 urządzeń"],
-    qty: 4,
-    roomIds: ["32", "43", "17", "21"],
-    note: "Po jednej do sal 32 i 43 (na 20 iPadów w każdej), do sali 17 (na 30 tabletów) oraz do biblioteki, sali 21 (na 15 laptopów i 15 Chromebooków)",
+    specs: ["na 30 urządzeń", "z zasilaniem"],
+    qty: 5,
+    roomIds: ["23", "32", "43", "17", "21"],
+    note: "Jedna szafa do każdej z pięciu sal: 23 (26 albo 30 Chromebooków), 32 i 43 (po 20 iPadów), 17 (30 tabletów) oraz biblioteki, sali 21 (15 laptopów i 15 Chromebooków)",
   },
   {
     id: "desks-37",
@@ -757,7 +748,7 @@ export const rooms = [
     ],
     tasks: [
       "Dostarczyć 30 iPadów KPO",
-      "Zapewnić szafę na 30 tabletów",
+      "Zapewnić szafę na 30 urządzeń",
       done("Wstawić zamek do jednej ze starych szafek, żeby można ją było zamknąć na klucz"),
       done("Zapewnić w szafce zasilanie do ładowania tabletów – kupiony zasilacz"),
       "Sprawdzić Wi-Fi i internet na tabletach",
@@ -852,7 +843,7 @@ export const rooms = [
       group(G.planned, ["26 albo 30 Chromebooków (do wstawienia, jeżeli będą dostępne)"]),
     ],
     tasks: [
-      "Zapewnić szafę na 30 laptopów z zasilaniem",
+      "Zapewnić szafę na 30 urządzeń",
       "Wstawić 26 albo 30 Chromebooków, jeżeli będą dostępne",
       done("Sprawdzić, czy nowy rzutnik krótkoogniskowy działa prawidłowo"),
     ],
