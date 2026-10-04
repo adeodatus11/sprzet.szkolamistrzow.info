@@ -16,7 +16,7 @@ export const kpoDelivery = [
     id: "chromebook",
     name: "Laptopy przeglądarkowe (Chromebooki)",
     qty: 46,
-    note: "1 używany przez Marię Kaszak. Czy inne osoby z pomocy PP też nie mają jeszcze Chromebooków KPO?",
+    note: "1 używany przez Marię Kaszak. Do sali 23: 26 albo 30, jeżeli będą dostępne (liczone jako 30). Czy inne osoby z pomocy PP też nie mają jeszcze Chromebooków KPO?",
   },
   { id: "ipad", name: "Tablety (iPad)", qty: 96 },
 ];
@@ -40,11 +40,12 @@ export const kpoAllocations = [
   ...kpoLaptop(["8", "43", "p2", "prf3", "prf2"], 1, "planned", "komputer nauczyciela"),
   // iPady z KPO (iPady Air z sali 5 nie są z KPO)
   { deviceId: "ipad", roomId: "17", qty: 32, state: "planned", note: "32 iPady KPO do dostarczenia" },
-  { deviceId: "ipad", roomId: "44", qty: 26, state: "planned", note: "26 iPadów z KPO do wstawienia" },
+  { deviceId: "ipad", roomId: "44", qty: 20, state: "planned", note: "20 iPadów z KPO do wstawienia" },
   // przydział do osoby, nie do sali
   { deviceId: "ipad", assignee: "Maria Kaszak", qty: 1, state: "planned", note: "przypisany do osoby" },
   // Chromebooki z KPO
   { deviceId: "chromebook", assignee: "Maria Kaszak", qty: 1, state: "placed", note: "używany przez osobę" },
+  { deviceId: "chromebook", roomId: "23", qty: 30, state: "planned", note: "26 albo 30, jeżeli będą dostępne" },
 
   // komputery Dell UNICEF (2022): 18 w sali 37, 7 do znalezienia i dostarczenia, wadliwy ze stanowiska 15 do Macieja Najwera
   { deviceId: "dell-unicef", roomId: "37", qty: 18, state: "placed", note: "w tym wadliwy ze stanowiska 15" },
@@ -87,7 +88,8 @@ export const otherAssets = [
 ];
 
 // Szafy na laptopy i iPady (zakładka "Zasoby"): pojemność, skąd i dokąd idą oraz co ma w nich stać.
-// from: { roomId } albo { text }; brak from = nowa szafa; toRoomId = sala docelowa.
+// from: { roomId } albo { text }; brak from = nowa szafa; toRoomId = sala docelowa;
+// knownOverfill: true = zawartość przekracza pojemność i zostało to przyjęte świadomie.
 export const cabinets = [
   {
     id: "cabinet-05",
@@ -103,7 +105,8 @@ export const cabinets = [
     capacity: 16,
     from: { roomId: "42" },
     toRoomId: "44",
-    contents: [{ label: "26 iPadów KPO", qty: 26 }],
+    contents: [{ label: "20 iPadów KPO", qty: 20 }],
+    knownOverfill: true,
   },
   {
     id: "cabinet-40",
@@ -141,8 +144,8 @@ export const kpoNotes = [
   "Liczymy tylko sprzęt z KPO: starsze iPady Air z sali 5 nie są z KPO i nie wchodzą do zestawienia.",
   "Laptop KPO jako komputer nauczyciela jest (albo ma być) w każdej sali lekcyjnej. Wyjątki: sale 37 i 38 (mają własne ustalenia o komputerze nauczyciela), pokoje nauczycielskie 04 i 16, biblioteka 21 i sala gimnastyczna 39.",
   "Laptopy Dell Pro z pracowni AI (24 w sali 38, 8 w pudełkach) nie są liczone do KPO, bo nie wiadomo, czy z niego pochodzą.",
-  "30 laptopów w sali 23 nie jest liczone do KPO: laptopy KPO w nowych szafach na 30 komputerów trafiają do sal 41, 42 i 28 (do potwierdzenia).",
-  "Chromebooki nie mają jeszcze przydziału do sal (poza jednym używanym przez Marię Kaszak), więc reszta jest w pudełkach.",
+  "W sali 23 nie ma szafy; mają tam trafić Chromebooki (26 albo 30, jeżeli będą dostępne), w zestawieniu liczone jako 30.",
+  "Chromebooki: jeden używa Maria Kaszak, do sali 23 przewidziano 26 albo 30, reszta jest w pudełkach.",
   "26 laptopów Asus z pracowni handlowej (sala 41) nie pochodzi z KPO, więc są pokazane osobno, jako inny sprzęt.",
 ];
 
@@ -772,13 +775,12 @@ export const rooms = [
     teachers: ["Eleonora Smirnow-Zechman", "Inni nauczyciele (według planu)"],
     status: "todo",
     equipment: [
-      group(G.computers, ["30 laptopów (do przygotowania)", KPO_TEACHER]),
-      group(G.furniture, ["Szafa na laptopy (kupiona we wrześniu 2026, do potwierdzenia, która z szaf)"]),
+      group(G.computers, [KPO_TEACHER]),
       group(G.media, ["Rzutnik krótkoogniskowy (nowy, zostaje)"]),
+      group(G.planned, ["26 albo 30 Chromebooków (do wstawienia, jeżeli będą dostępne)"]),
     ],
     tasks: [
-      "Wstawić tylko 30 laptopów (konfiguracja do używania zawsze w trybie incognito, przygotowanie: Maciej Najwer)",
-      "Wykorzystać szafę na laptopy kupioną we wrześniu 2026",
+      "Wstawić 26 albo 30 Chromebooków, jeżeli będą dostępne",
       done("Sprawdzić, czy nowy rzutnik krótkoogniskowy działa prawidłowo"),
     ],
     decisions: ["Nowy rzutnik krótkoogniskowy zostaje w sali"],
@@ -1100,14 +1102,14 @@ export const rooms = [
       group(G.computers, [KPO_TEACHER]),
       group(G.furniture, ["Szafa na 16 laptopów/iPadów (do przeniesienia z sali 42)"]),
       group(G.media, ["Monitor interaktywny"]),
-      group(G.tablets, ["26 iPadów z KPO (do wstawienia)"]),
+      group(G.tablets, ["20 iPadów z KPO (do wstawienia)"]),
       group(G.network, ["Zasilanie dla tabletów"]),
     ],
     tasks: [
       done("Zapewnić monitor w sali"),
       done("Podłączyć komputer do monitora"),
       "Przenieść szafę na 16 laptopów/iPadów z sali 42 do sali 44",
-      "Wstawić do szafy 26 iPadów z KPO",
+      "Wstawić do szafy 20 iPadów z KPO",
       "Przygotować zasilanie dla tabletów",
     ],
   }),
@@ -1187,11 +1189,7 @@ export const unresolvedItems = [
     text: "Dołączyć osobny szkic układu ławek",
   },
   {
-    roomIds: ["44"],
-    text: "Szafa na 16 laptopów/iPadów, a do sali 44 ma trafić 26 iPadów: sprawdzić pojemność szafy",
-  },
-  {
     roomIds: ["23"],
-    text: "Potwierdzić, skąd jest 30 laptopów w sali 23 i której szafy użyć (nowe szafy na 30 komputerów idą do sal 41, 42 i 28)",
+    text: "Potwierdzić, czy do sali 23 będzie dostępnych 26 czy 30 Chromebooków",
   },
 ];

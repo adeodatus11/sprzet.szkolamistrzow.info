@@ -862,7 +862,7 @@ const cabinetCard = (cabinet) => {
       <ul class="cabinet-contents">
         ${cabinet.contents.map((item) => `<li>${escapeHtml(item.label)}</li>`).join("")}
       </ul>
-      ${qty > cabinet.capacity ? `<p class="cabinet-warning" role="alert">Uwaga: w szafie ma stać ${qty} szt., a mieści się ${cabinet.capacity}</p>` : ""}
+      ${qty > cabinet.capacity ? `<p class="cabinet-warning" role="alert">Uwaga: w szafie ma stać ${qty} szt., a mieści się ${cabinet.capacity}${cabinet.knownOverfill ? " (przyjęte świadomie)" : ""}</p>` : ""}
     </article>
   `;
 };
@@ -938,7 +938,7 @@ const renderResourcesPrint = () => {
         from ? `teraz: ${from}` : "nowa",
         `do sali: ${target ? chipLabel(target) : cabinet.toRoomId}`,
         `w szafie: ${cabinet.contents.map((item) => item.label).join("; ")}`,
-        qty > cabinet.capacity ? `uwaga: ${qty} szt. przekracza pojemność` : "",
+        qty > cabinet.capacity ? `uwaga: ${qty} szt. przekracza pojemność${cabinet.knownOverfill ? " (przyjęte świadomie)" : ""}` : "",
       ].filter(Boolean).join(", ");
     })))}
     ${printSection("Założenia zestawienia", listItems(kpoNotes))}
