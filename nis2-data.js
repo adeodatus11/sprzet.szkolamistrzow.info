@@ -46,13 +46,44 @@ export const nis2Deadlines = [
     date: "2028-04-03",
     title: "Koniec 24 miesięcy: pierwszy audyt podmiotów kluczowych",
     detail:
-      "Obowiązkowy audyt dotyczy podmiotów kluczowych, nie ważnych. Wg jednego ze źródeł administracyjne kary pieniężne będzie można nakładać dopiero po tym terminie (do potwierdzenia).",
+      "Obowiązkowy audyt dotyczy podmiotów kluczowych, nie ważnych, więc szkoły (podmiot ważny) co do zasady go nie dotyczy.",
+    kind: "legal",
+  },
+  {
+    id: "kary",
+    date: "2028-04-03",
+    title: "Koniec okresu ochronnego: pierwsze kary pieniężne dopiero po 2 latach",
+    detail:
+      "Przepisy przejściowe: administracyjne kary pieniężne można po raz pierwszy nałożyć po upływie 24 miesięcy od wejścia ustawy w życie. Czas na wdrożenie procedur i poprawienie błędów bez ryzyka kar finansowych (wg źródeł; do potwierdzenia w ustawie).",
     kind: "legal",
   },
 ];
 
 // Terminy podane przez szkołę (np. od organu prowadzącego); dodawane na bieżąco.
-export const nis2SchoolDeadlines = [];
+// Bez pola date: termin zależy od zdarzenia, opisuje go pole when.
+export const nis2SchoolDeadlines = [
+  {
+    id: "szkola-s46",
+    when: "6 miesięcy od doręczenia wezwania",
+    title: "Zweryfikowanie i uzupełnienie danych szkoły w systemie S46",
+    detail:
+      "Podmioty publiczne wpisane z urzędu nie składają wniosku, tylko mają 6 miesięcy od doręczenia zawiadomienia lub wezwania na sprawdzenie i uzupełnienie danych. Ustalić, czy szkoła takie wezwanie dostała i kiedy, bo od tej daty biegnie jej własny termin.",
+    urgent: true,
+  },
+  {
+    id: "szkola-szbi",
+    date: "2027-04-03",
+    title: "Pełne wdrożenie SZBI w szkole (12 miesięcy)",
+    detail:
+      "Opracowanie i wdrożenie systemu zarządzania bezpieczeństwem informacji (Załącznik nr 4) oraz realizacja obowiązków ustawowych. W materiałach eksperckich (Sekurak) wskazywana data docelowa dla większości podmiotów.",
+  },
+  {
+    id: "szkola-kary",
+    date: "2028-04-03",
+    title: "Koniec okresu bez kar pieniężnych (2 lata)",
+    detail: "Do tego dnia nie można nałożyć administracyjnej kary pieniężnej. Nie oznacza to zwolnienia z obowiązków: wdrożenie ma być gotowe wcześniej.",
+  },
+];
 
 // Obowiązki stałe, bez jednej daty.
 export const nis2Recurring = [
@@ -178,8 +209,8 @@ export const nis2Roadmap = [
 export const nis2SchoolFindings = [
   "Szkoły, przedszkola i placówki będące samorządowymi jednostkami budżetowymi są w komentarzach opisywane jako podmioty ważne będące podmiotami publicznymi. Stosują uproszczone wymogi z Załącznika nr 4 i mogą korzystać ze wspólnej obsługi cyberbezpieczeństwa.",
   "Za wdrożenie odpowiada kierownik jednostki, czyli dyrektor, także gdy zadania przekazał innej osobie albo zewnętrznej firmie. Dyrektor powinien przejść roczne szkolenie z cyberbezpieczeństwa i udokumentować udział.",
-  "Urzędy samorządowe i inne podmioty publiczne wpisano do wykazu z urzędu (13 kwietnia do 6 maja 2026) i uzupełniają dane w 6 miesięcy od doręczenia wezwania. Nie jest jasne, czy dotyczy to także szkół jako jednostek organizacyjnych.",
-  "Kary: komentarze podają dla podmiotów ważnych do 7 mln EUR lub 1,4% przychodów (art. 73 ust. 4), a dla kierownika podmiotu różne wysokości (od 100% do 300% wynagrodzenia). Wg jednego źródła kary administracyjne będzie można nakładać dopiero po 3 kwietnia 2028.",
+  "Urzędy samorządowe i inne podmioty publiczne wpisano do wykazu z urzędu (13 kwietnia do 6 maja 2026) i uzupełniają dane w 6 miesięcy od doręczenia wezwania. Nie jest jasne, czy dotyczy to także szkół jako jednostek organizacyjnych. Jeśli szkoła została wpisana z urzędu, jej termin na uzupełnienie danych biegnie od doręczenia wezwania.",
+  "Kary: komentarze podają dla podmiotów ważnych do 7 mln EUR lub 1,4% przychodów (art. 73 ust. 4), a dla kierownika podmiotu różne wysokości (od 100% do 300% wynagrodzenia). Wg przepisów przejściowych (w relacjach źródeł) kary administracyjne będzie można nakładać dopiero po 2 latach od wejścia ustawy w życie, czyli po 3 kwietnia 2028.",
 ];
 
 // Pytania do dalszych badań (do ustalenia z organem prowadzącym, NASK albo prawnikiem).

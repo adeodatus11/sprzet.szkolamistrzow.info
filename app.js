@@ -767,10 +767,13 @@ const formatIsoDate = (iso) => {
 };
 
 const deadlineCard = (item) => {
-  const status = deadlineStatus(item.date);
+  const status = item.date ? deadlineStatus(item.date) : { tone: "soon", text: "Termin do ustalenia" };
+  const when = item.date
+    ? `<time datetime="${escapeHtml(item.date)}">${escapeHtml(formatIsoDate(item.date))}</time>`
+    : escapeHtml(item.when);
   return `
     <article class="nis2-deadline is-${status.tone}${item.urgent ? " is-urgent" : ""}" data-deadline="${escapeHtml(item.id)}">
-      <p class="nis2-date"><time datetime="${escapeHtml(item.date)}">${escapeHtml(formatIsoDate(item.date))}</time></p>
+      <p class="nis2-date">${when}</p>
       <p class="nis2-status">${escapeHtml(status.text)}</p>
       <h3>${escapeHtml(item.title)}</h3>
       <p>${escapeHtml(item.detail)}</p>
@@ -815,7 +818,7 @@ const renderNis2Deadlines = () => {
   els.nis2Deadlines.innerHTML = nis2Deadlines.map(deadlineCard).join("");
   els.nis2SchoolDeadlines.innerHTML = nis2SchoolDeadlines.length
     ? nis2SchoolDeadlines.map(deadlineCard).join("")
-    : '<p class="placeholder">Brak terminów podanych przez szkołę. Zostaną dopisane tutaj.</p>';
+    : '<p class="placeholder">Brak terminów podanych przez szkołę.</p>';
 };
 
 const renderNis2 = () => {
@@ -844,7 +847,9 @@ const renderNis2 = () => {
 };
 
 const renderNis2Print = () => {
-  const deadlineLine = (item) => `${formatIsoDate(item.date)}: ${item.title}. ${deadlineStatus(item.date).text}.`;
+  const deadlineLine = (item) => (item.date
+    ? `${formatIsoDate(item.date)}: ${item.title}. ${deadlineStatus(item.date).text}.`
+    : `${item.when}: ${item.title}. Termin do ustalenia.`);
   els.printSheet.innerHTML = `
     <h1>NIS2. Przepisy i plan działania</h1>
     <div class="print-meta">

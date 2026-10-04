@@ -1523,15 +1523,21 @@ test.describe("NIS2. Przepisy", () => {
 
   test("terminy: liczą dni od dziś i wyróżniają minięty termin", async ({ page }) => {
     await page.goto("/#nis2");
-    const deadline = (id) => page.locator(`[data-deadline="${id}"]`);
+    const deadline = (id) => page.locator(`#nis2Deadlines [data-deadline="${id}"]`);
     await expect(deadline("wykaz")).toHaveClass(/is-past/);
     await expect(deadline("wykaz")).toContainText("Termin minął 1 dzień temu");
     await expect(deadline("wykaz")).toContainText("3 października 2026");
     await expect(deadline("szbi")).toContainText("Pozostało 181 dni");
     await expect(deadline("szbi")).toContainText("3 kwietnia 2027");
-    await expect(deadline("audyt")).toContainText("Pozostało 547 dni");
+    await expect(page.locator('#nis2Deadlines [data-deadline="audyt"]')).toContainText("Pozostało 547 dni");
     await expect(deadline("wejscie")).toHaveClass(/is-past/);
-    await expect(page.locator("#nis2SchoolDeadlines")).toContainText("Brak terminów podanych przez szkołę");
+    await expect(deadline("kary")).toContainText("Pozostało 547 dni");
+    const school = page.locator("#nis2SchoolDeadlines");
+    await expect(school.locator("[data-deadline]")).toHaveCount(3);
+    await expect(school.locator('[data-deadline="szkola-s46"]')).toContainText("6 miesięcy od doręczenia wezwania");
+    await expect(school.locator('[data-deadline="szkola-s46"]')).toContainText("Termin do ustalenia");
+    await expect(school.locator('[data-deadline="szkola-szbi"]')).toContainText("Pozostało 181 dni");
+    await expect(school.locator('[data-deadline="szkola-kary"]')).toContainText("Pozostało 547 dni");
   });
 
   test("załącznik nr 4: trzy grupy wymogów z wklejonego tekstu", async ({ page }) => {
