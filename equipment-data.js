@@ -41,6 +41,8 @@ export const kpoAllocations = [
   // iPady z KPO (iPady Air z sali 5 nie są z KPO)
   { deviceId: "ipad", roomId: "17", qty: 32, state: "planned", note: "32 iPady KPO do dostarczenia" },
   { deviceId: "ipad", roomId: "44", qty: 20, state: "planned", note: "20 iPadów z KPO do wstawienia" },
+  { deviceId: "ipad", roomId: "43", qty: 20, state: "planned", note: "20 iPadów z KPO do wstawienia" },
+  { deviceId: "ipad", roomId: "32", qty: 20, state: "planned", note: "20 iPadów z KPO do wstawienia" },
   // przydział do osoby, nie do sali
   { deviceId: "ipad", assignee: "Maria Kaszak", qty: 1, state: "planned", note: "przypisany do osoby" },
   // Chromebooki z KPO
@@ -138,6 +140,22 @@ export const cabinets = [
     needed: true,
     toRoomId: "23",
     contents: [{ label: "26 albo 30 Chromebooków (jeżeli będą dostępne)", qty: 30 }],
+  },
+  {
+    id: "cabinet-32",
+    name: "Szafa na 30 urządzeń",
+    capacity: 30,
+    needed: true,
+    toRoomId: "32",
+    contents: [{ label: "20 iPadów KPO", qty: 20 }],
+  },
+  {
+    id: "cabinet-43",
+    name: "Szafa na 30 urządzeń",
+    capacity: 30,
+    needed: true,
+    toRoomId: "43",
+    contents: [{ label: "20 iPadów KPO", qty: 20 }],
   },
   {
     id: "cabinet-28",
@@ -420,6 +438,15 @@ export const purchaseItems = [
     qty: 1,
     roomIds: ["23"],
     note: "Do sali 23, na 26 albo 30 Chromebooków",
+  },
+  {
+    id: "cabinet-32-43",
+    tier: "main",
+    name: "Szafa na urządzenia",
+    specs: ["na 30 urządzeń"],
+    qty: 2,
+    roomIds: ["32", "43"],
+    note: "Po jednej do sal 32 i 43, na 20 iPadów w każdej",
   },
   {
     id: "desks-37",
@@ -932,10 +959,13 @@ export const rooms = [
     equipment: [
       group(G.computers, [KPO_TEACHER]),
       group(G.media, ["Rzutnik (działa)"]),
+      group(G.tablets, ["20 iPadów z KPO (do wstawienia)"]),
     ],
     tasks: [
       done("Podłączyć rzutnik do komputera"),
       done("Sprawdzić, czy zestaw działa"),
+      "Zapewnić szafę na 30 urządzeń",
+      "Wstawić 20 iPadów z KPO",
     ],
   }),
   room({
@@ -1103,9 +1133,12 @@ export const rooms = [
     equipment: [
       group(G.computers, [KPO_TEACHER_PLANNED]),
       group(G.media, ["Telewizor multimedialny"]),
+      group(G.tablets, ["20 iPadów z KPO (do wstawienia)"]),
     ],
     tasks: [
       "Wstawić laptop KPO jako komputer nauczyciela",
+      "Zapewnić szafę na 30 urządzeń",
+      "Wstawić 20 iPadów z KPO",
       done("Zapewnić podłączenie telewizora do komputera"),
       done("Sprawdzić, czy wszystko działa"),
     ],

@@ -352,14 +352,14 @@ test("kalkulator: domyślnie liczy wszystkie pozycje", async ({ page }) => {
   await page.goto("/#zakupy");
   // 8 × 7 245,53 (netto, VAT 0%) + 2 × 2 999 + 1 840 + 4 049 + 2 058 + 3 612 (brutto, VAT niepewny) + 2 041,46 (netto, VAT 0%)
   await expect(page.locator("#calcTotal")).toHaveText("75 204,07 zł");
-  await expect(page.locator("#calcMeta")).toHaveText("Zaznaczone: 13 poz. · 40 szt.");
+  await expect(page.locator("#calcMeta")).toHaveText("Zaznaczone: 14 poz. · 42 szt.");
   await expect(page.locator("#calcBreakdown")).toContainText("Sprzęt");
   await expect(page.locator("#calcBreakdown")).toContainText("70 317,17 zł");
   await expect(page.locator("#calcBreakdown")).toContainText("Zakupy towarzyszące");
   await expect(page.locator("#calcBreakdown")).toContainText("4 886,90 zł");
 
   const boxes = page.locator(".purchase-check");
-  await expect(boxes).toHaveCount(13);
+  await expect(boxes).toHaveCount(14);
   for (const box of await boxes.all()) await expect(box).toBeChecked();
 
   await expect(card(page, "Monitor interaktywny").locator(".calc-line")).toHaveText("Do sumy: 7 245,53 zł netto × 7 = 50 718,71 zł");
@@ -390,7 +390,7 @@ test("kalkulator: odznaczanie pozycji", async ({ page }) => {
   await expect(page.locator("#calcTotal")).toHaveText("69 550,61 zł");
   await card(page, "Monitor interaktywny").getByRole("checkbox").uncheck();
   await expect(page.locator("#calcTotal")).toHaveText("18 831,90 zł");
-  await expect(page.locator("#calcMeta")).toHaveText("Zaznaczone: 10 poz. · 31 szt.");
+  await expect(page.locator("#calcMeta")).toHaveText("Zaznaczone: 11 poz. · 33 szt.");
   await expect(card(page, "Monitor interaktywny")).toHaveClass(/is-excluded/);
 
   await card(page, "Kabel HDMI światłowodowy").getByRole("checkbox").uncheck();
@@ -407,8 +407,8 @@ test("kalkulator: zmiana ilości", async ({ page }) => {
   await expect(monitors.locator(".qty-value")).toHaveText("8");
   await expect(monitors.locator(".calc-line")).toHaveText("Do sumy: 7 245,53 zł netto × 8 = 57 964,24 zł");
   await expect(page.locator("#calcTotal")).toHaveText("82 449,60 zł");
-  await expect(page.locator("#calcMeta")).toHaveText("Zaznaczone: 13 poz. · 41 szt.");
-  await expect(page.locator(".purchase-tier").nth(0)).toContainText("10 poz. · 23 szt.");
+  await expect(page.locator("#calcMeta")).toHaveText("Zaznaczone: 14 poz. · 43 szt.");
+  await expect(page.locator(".purchase-tier").nth(0)).toContainText("11 poz. · 25 szt.");
   await expect(page.locator(".print-sheet")).toContainText("Monitor interaktywny (75 cali), 8 szt.");
 
   const minus = monitors.getByRole("button", { name: "Zmniejsz ilość" });
@@ -873,7 +873,7 @@ test("sale 29, 30, 32, 33: laptop KPO i zakupy monitora, stojaka (i kabla)", asy
     await page.goto(`/#room-${id}`);
     detail = page.locator("#roomDetail");
     await expect(detail.locator(".equipment-group", { hasText: "Komputery" })).toContainText("Laptop KPO");
-    await expect(todoSection(page).locator("li:not(.is-done)")).toHaveCount(0);
+    await expect(todoSection(page).locator("li:not(.is-done)")).toHaveCount(id === "32" ? 2 : 0);
     const purchases = detail.locator(".equipment-group", { hasText: "Do zakupu" });
     await expect(purchases).toContainText("Monitor interaktywny (75 cali)");
     await expect(purchases).toContainText("Kabel HDMI światłowodowy (25 m)");
@@ -1011,7 +1011,11 @@ test("sala 42: 32 laptopy KPO, nowa szafa i konfiguracja incognito", async ({ pa
 test("sala 43 zrobiona, sala 44: iPady do wstawienia", async ({ page }) => {
   await page.goto("/#room-43");
   await expect(doneTasks(page)).toHaveCount(2);
-  await expect(todoSection(page).locator("li:not(.is-done)")).toHaveText(["Wstawić laptop KPO jako komputer nauczyciela"]);
+  await expect(todoSection(page).locator("li:not(.is-done)")).toHaveText([
+    "Wstawić laptop KPO jako komputer nauczyciela",
+    "Zapewnić szafę na 30 urządzeń",
+    "Wstawić 20 iPadów z KPO",
+  ]);
   await expect(page.locator("#roomDetail .equipment-group", { hasText: "Komputery" })).toContainText("Laptop KPO (komputer nauczyciela, do wstawienia)");
   await expect(page.locator("#roomDetail .detail-title .badge")).toHaveText("Do zrobienia");
 
@@ -1042,11 +1046,11 @@ test("zakładka Zasoby podlicza sprzęt z KPO: w salach, do wstawienia, w pudeł
   await expect(page.locator(".mobile-room-nav")).toBeHidden();
   await expect(page.locator("#resourcesTabCount")).toHaveText("302");
 
-  // razem (tylko KPO): 302 = 57 na miejscu + 245 w pudełkach; 168 przydzielone
+  // razem (tylko KPO): 302 = 57 na miejscu + 245 w pudełkach; 208 przydzielone
   await expect(page.locator('[data-total="delivered"] .total-value')).toHaveText("302");
   await expect(page.locator('[data-total="placed"] .total-value')).toHaveText("57");
   await expect(page.locator('[data-total="inBoxes"] .total-value')).toHaveText("245");
-  await expect(page.locator('[data-total="planned"] .total-value')).toHaveText("168");
+  await expect(page.locator('[data-total="planned"] .total-value')).toHaveText("208");
 
   // laptopy: 160 = 56 na miejscu + 85 przydzielone + 19 wolne
   await expect(page.locator(".resource-card[data-device-id]")).toHaveCount(6);
@@ -1071,16 +1075,16 @@ test("zakładka Zasoby podlicza sprzęt z KPO: w salach, do wstawienia, w pudeł
   await expect(chromebooks.locator(".allocation-chips").nth(0).locator(".room-chip")).toHaveText(["Maria Kaszak – 1 szt."]);
   await expect(chromebooks.locator(".allocation-chips").nth(1).locator(".room-chip")).toHaveText(["s.23 – 30 szt."]);
 
-  // iPady KPO: 53 przydzielone (sale 17, 44 i Maria Kaszak), 43 wolne; iPady Air z sali 5 nie wchodzą
+  // iPady KPO: 93 przydzielone (sale 17, 44, 43, 32 i Maria Kaszak), 3 wolne; iPady Air z sali 5 nie wchodzą
   const ipads = resource(page, "ipad");
   await expect(ipads.locator(".resource-qty")).toHaveText("96 szt.");
   await expect(ipads.locator('[data-stat="placed"]')).toHaveText("0");
   await expect(ipads.locator('[data-stat="inBoxes"]')).toHaveText("96");
-  await expect(ipads.locator('[data-stat="planned"]')).toHaveText("53");
-  await expect(ipads.locator('[data-stat="free"]')).toHaveText("43");
-  await expect(ipads.locator('[data-stat="allocated"]')).toHaveText("53");
+  await expect(ipads.locator('[data-stat="planned"]')).toHaveText("93");
+  await expect(ipads.locator('[data-stat="free"]')).toHaveText("3");
+  await expect(ipads.locator('[data-stat="allocated"]')).toHaveText("93");
   await ipads.locator("summary").click();
-  await expect(ipads.locator(".allocation-chips").first().locator(".room-chip")).toHaveText(["s.17 – 32 szt.", "s.44 – 20 szt.", "Maria Kaszak – 1 szt."]);
+  await expect(ipads.locator(".allocation-chips").first().locator(".room-chip")).toHaveText(["s.17 – 32 szt.", "s.44 – 20 szt.", "s.43 – 20 szt.", "s.32 – 20 szt.", "Maria Kaszak – 1 szt."]);
   await expect(ipads.locator(".resource-details .placeholder")).toHaveText(["Brak"]);
   await expect(page.locator("#resourceNotes")).toContainText("starsze iPady Air z sali 5 nie są z KPO");
   await expect(page.locator("#resourceNotes")).toContainText("w każdej sali lekcyjnej");
@@ -1282,7 +1286,7 @@ test("zasoby: szafy na laptopy i iPady", async ({ page }) => {
   await page.goto("/#zasoby");
   await expect(page.getByRole("heading", { name: "Szafy na laptopy i iPady" })).toBeVisible();
   const cards = page.locator(".cabinet-card");
-  await expect(cards).toHaveCount(7);
+  await expect(cards).toHaveCount(9);
 
   const cabinet = (id) => page.locator(`.cabinet-card[data-cabinet-id="${id}"]`);
 
@@ -1318,6 +1322,15 @@ test("zasoby: szafy na laptopy i iPady", async ({ page }) => {
     await expect(c).not.toContainText("Teraz:");
     await expect(c.getByRole("link", { name: room })).toBeVisible();
     await expect(c).toContainText(contents);
+    await expect(c.locator(".cabinet-warning")).toHaveCount(0);
+  }
+
+  for (const [id, room] of [["cabinet-32", "Sala 32"], ["cabinet-43", "Sala 43"]]) {
+    const c = cabinet(id);
+    await expect(c).toContainText("Szafa na 30 urządzeń");
+    await expect(c.locator(".badge")).toHaveText("Potrzebna (do zakupu)");
+    await expect(c.getByRole("link", { name: room })).toBeVisible();
+    await expect(c).toContainText("20 iPadów KPO");
     await expect(c.locator(".cabinet-warning")).toHaveCount(0);
   }
 
@@ -1446,4 +1459,24 @@ test("spójność danych: karty sal, przydziały KPO, szafy, zakupy i statusy", 
   expect(problems.out).toEqual([]);
   // znane ostrzeżenie: do szafy na 16 miejsc ma trafić 26 iPadów (sprawa do potwierdzenia w sali 44)
   expect(problems.overfilled).toEqual(["cabinet-44"]);
+});
+
+test("sale 32 i 43: po 20 iPadów i szafa na 30 urządzeń", async ({ page }) => {
+  for (const id of ["32", "43"]) {
+    await page.goto(`/#room-${id}`);
+    const detail = page.locator("#roomDetail");
+    await expect(detail.locator(".equipment-group", { hasText: "Tablety" })).toContainText("20 iPadów z KPO (do wstawienia)");
+    await expect(todoSection(page).locator("li:not(.is-done)")).toContainText([
+      "Zapewnić szafę na 30 urządzeń",
+      "Wstawić 20 iPadów z KPO",
+    ]);
+    await expect(detail.locator(".equipment-group", { hasText: "Do zakupu" })).toContainText("Szafa na urządzenia (na 30 urządzeń)");
+  }
+
+  await page.goto("/#zakupy");
+  const cabinets = card(page, "Szafa na urządzenia");
+  await expect(cabinets.locator(".qty-value")).toHaveText("2");
+  await expect(cabinets.locator(".room-chip")).toHaveText(["Sala 32", "Sala 43"]);
+  await expect(cabinets).toContainText("Po jednej do sal 32 i 43, na 20 iPadów w każdej");
+  await expect(cabinets.locator(".calc-line")).toHaveText("Brak ceny, pozycja nie wchodzi do sumy");
 });
