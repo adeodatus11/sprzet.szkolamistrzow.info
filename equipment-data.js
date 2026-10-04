@@ -158,6 +158,14 @@ export const cabinets = [
     contents: [{ label: "20 iPadów KPO", qty: 20 }],
   },
   {
+    id: "cabinet-17",
+    name: "Szafa na 30 tabletów",
+    capacity: 30,
+    needed: true,
+    toRoomId: "17",
+    contents: [{ label: "32 iPady KPO", qty: 32 }],
+  },
+  {
     id: "cabinet-28",
     name: "Nowa szafa na 30 komputerów",
     capacity: 30,
@@ -444,9 +452,9 @@ export const purchaseItems = [
     tier: "main",
     name: "Szafa na urządzenia",
     specs: ["na 30 urządzeń"],
-    qty: 2,
-    roomIds: ["32", "43"],
-    note: "Po jednej do sal 32 i 43, na 20 iPadów w każdej",
+    qty: 3,
+    roomIds: ["32", "43", "17"],
+    note: "Po jednej do sal 32 i 43 (na 20 iPadów w każdej) oraz do sali 17 (na tablety)",
   },
   {
     id: "desks-37",
@@ -734,6 +742,7 @@ export const rooms = [
     ],
     tasks: [
       "Dostarczyć 32 iPady KPO",
+      "Zapewnić szafę na 30 tabletów",
       done("Wstawić zamek do jednej ze starych szafek, żeby można ją było zamknąć na klucz"),
       done("Zapewnić w szafce zasilanie do ładowania tabletów – kupiony zasilacz"),
       "Sprawdzić Wi-Fi i internet na tabletach",
@@ -1239,6 +1248,10 @@ export const unresolvedItems = [
   {
     roomIds: ["37"],
     text: "Dołączyć osobny szkic układu ławek",
+  },
+  {
+    roomIds: ["17"],
+    text: "Szafa na 30 tabletów, a do sali 17 ma trafić 32 iPady: sprawdzić pojemność szafy",
   },
   {
     roomIds: ["23"],
