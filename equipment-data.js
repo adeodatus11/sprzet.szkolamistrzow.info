@@ -46,7 +46,9 @@ export const kpoAllocations = [
   { deviceId: "ipad", roomId: "43", qty: 20, state: "planned", note: "20 iPadów z KPO do wstawienia" },
   { deviceId: "ipad", roomId: "32", qty: 20, state: "planned", note: "20 iPadów z KPO do wstawienia" },
   // przydział do osoby, nie do sali
-  { deviceId: "ipad", assignee: "Maria Kaszak", qty: 1, state: "planned", note: "przypisany do osoby" },
+  { deviceId: "ipad", assignee: "Maria Kaszak", qty: 1, state: "placed", note: "ma iPada" },
+  { deviceId: "ipad", assignee: "Aleksandra Aszkiełowicz", qty: 1, state: "placed", note: "ma iPada" },
+  { deviceId: "ipad", assignee: "Sylwia Bokuniewicz", qty: 1, state: "placed", note: "ma iPada" },
   // Chromebooki z KPO
   { deviceId: "chromebook", assignee: "Maria Kaszak", qty: 1, state: "placed", note: "używany przez osobę" },
   { deviceId: "chromebook", roomId: "23", qty: 30, state: "planned", note: "26 albo 30, jeżeli będą dostępne" },
@@ -59,6 +61,9 @@ export const kpoAllocations = [
 
   // laptopy Dell Pro z pracowni AI, w sali 38
   { deviceId: "dell-pro", roomId: "38", qty: 24, state: "placed", note: "z pracowni AI" },
+  { deviceId: "dell-pro", assignee: "Maria Kaszak", qty: 1, state: "placed", note: "ma laptopa" },
+  { deviceId: "dell-pro", assignee: "Aleksandra Aszkiełowicz", qty: 1, state: "placed", note: "ma laptopa" },
+  { deviceId: "dell-pro", assignee: "Sylwia Bokuniewicz", qty: 1, state: "placed", note: "ma laptopa" },
 
   // laptopy Asus z pracowni handlowej (nie z KPO, patrz otherAssets): teraz w sali 41, mają trafić do sali 40
   { deviceId: "asus", roomId: "41", qty: 26, state: "placed", note: "teraz w pracowni handlowej" },
@@ -80,8 +85,8 @@ export const otherAssets = [
     id: "dell-pro",
     name: "Laptopy Dell Pro (pracownia AI)",
     qty: 32,
-    note: "Z pracowni AI: 24 wykorzystane w sali 38, 8 niewykorzystanych leży w pudełkach. Nie wiadomo, czy pochodzą z KPO.",
-    inBoxes: 8,
+    note: "Z pracowni AI: 24 wykorzystane w sali 38, po 1 mają Maria Kaszak, Aleksandra Aszkiełowicz i Sylwia Bokuniewicz, 5 niewykorzystanych leży w pudełkach. Nie wiadomo, czy pochodzą z KPO.",
+    inBoxes: 5,
     inBoxesDetails: [{ label: "z tego mocne, ewentualnie dla nauczyciela", qty: 2 }],
   },
   {
@@ -192,7 +197,8 @@ export const cabinets = [
 export const kpoNotes = [
   "Liczymy tylko sprzęt z KPO: starsze iPady Air z sali 5 nie są z KPO i nie wchodzą do zestawienia.",
   "Laptop KPO jako komputer nauczyciela jest (albo ma być) w każdej sali lekcyjnej. Wyjątki: sale 37 i 38 (mają własne ustalenia o komputerze nauczyciela), pokoje nauczycielskie 04 i 16, biblioteka 21 i sala gimnastyczna 39.",
-  "Laptopy Dell Pro z pracowni AI (24 w sali 38, 8 w pudełkach) nie są liczone do KPO, bo nie wiadomo, czy z niego pochodzą.",
+  "Laptopy Dell Pro z pracowni AI (24 w sali 38, 3 u osób, 5 w pudełkach) nie są liczone do KPO, bo nie wiadomo, czy z niego pochodzą.",
+  "Maria Kaszak, Aleksandra Aszkiełowicz i Sylwia Bokuniewicz mają każda po jednym iPadzie KPO i po jednym laptopie Dell Pro (z pracowni AI).",
   "W sali 23 nie ma szafy; mają tam trafić Chromebooki (26 albo 30, jeżeli będą dostępne), w zestawieniu liczone jako 30.",
   "Chromebooki: jeden używa Maria Kaszak, do sali 23 przewidziano 26 albo 30, reszta jest w pudełkach.",
   "Do biblioteki (sala 21) mają trafić 15 laptopów KPO i 15 Chromebooków KPO, razem 30 urządzeń w jednej nowej szafie (do zakupu).",
