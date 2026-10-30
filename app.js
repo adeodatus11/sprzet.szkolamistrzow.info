@@ -1026,6 +1026,18 @@ const cabinetPlace = (place) => {
 
 const cabinetContentQty = (cabinet) => cabinet.contents.reduce((sum, item) => sum + item.qty, 0);
 
+const cabinetStatusText = (item) => {
+  if (item.status === "done") return "zrobione, zakończone";
+  if (item.status === "progress") return `w trakcie${item.by ? `: ${item.by}` : ""}`;
+  return "";
+};
+
+const cabinetContentItem = (item) => {
+  const status = cabinetStatusText(item);
+  if (!status) return `<li>${escapeHtml(item.label)}</li>`;
+  return `<li class="${item.status === "done" ? "is-done" : ""}">${escapeHtml(item.label)} <span class="badge ${item.status === "done" ? "ready" : "todo"}">${escapeHtml(status)}</span></li>`;
+};
+
 const cabinetCard = (cabinet) => {
   const qty = cabinetContentQty(cabinet);
   const isNew = !cabinet.from && !cabinet.needed;
@@ -1043,7 +1055,7 @@ const cabinetCard = (cabinet) => {
       </p>
       <p class="resource-note"><strong>Pojemność:</strong> ${cabinet.capacity} szt.</p>
       <ul class="cabinet-contents">
-        ${cabinet.contents.map((item) => `<li>${escapeHtml(item.label)}</li>`).join("")}
+        ${cabinet.contents.map(cabinetContentItem).join("")}
       </ul>
       ${qty > cabinet.capacity ? `<p class="cabinet-warning" role="alert">Uwaga: w szafie ma stać ${qty} szt., a mieści się ${cabinet.capacity}${cabinet.knownOverfill ? " (przyjęte świadomie)" : ""}</p>` : ""}
     </article>
@@ -1120,7 +1132,7 @@ const renderResourcesPrint = () => {
         `${cabinet.name} (pojemność ${cabinet.capacity})`,
         from ? `teraz: ${from}` : cabinet.needed ? "potrzebna (do zakupu)" : "nowa",
         `do sali: ${target ? chipLabel(target) : cabinet.toRoomId}`,
-        `w szafie: ${cabinet.contents.map((item) => item.label).join("; ")}`,
+        `w szafie: ${cabinet.contents.map((item) => (cabinetStatusText(item) ? `${item.label} (${cabinetStatusText(item)})` : item.label)).join("; ")}`,
         qty > cabinet.capacity ? `uwaga: ${qty} szt. przekracza pojemność${cabinet.knownOverfill ? " (przyjęte świadomie)" : ""}` : "",
       ].filter(Boolean).join(", ");
     })))}

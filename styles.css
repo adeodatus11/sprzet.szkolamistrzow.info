@@ -1719,6 +1719,15 @@ body:not([data-view="nis2"]) .nis2-view {
   padding-left: 20px;
 }
 
+.cabinet-contents li.is-done {
+  color: var(--muted);
+}
+
+.cabinet-contents .badge {
+  margin-left: 4px;
+  vertical-align: 1px;
+}
+
 .cabinet-warning {
   margin: 0;
   border-radius: var(--radius-sm);
