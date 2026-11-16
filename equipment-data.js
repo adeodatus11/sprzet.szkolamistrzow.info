@@ -7,10 +7,10 @@
 
 export const dataUpdatedAt = "16.11.2026";
 
-// Pismo, według którego kupiono nowe monitory interaktywne i szafy (data do potwierdzenia: 15 albo 16 listopada).
-export const purchaseLetter = "pismo dyrektora Kalety z 15 lub 16 listopada 2026 r. (data do potwierdzenia)";
-const NEW_MONITOR = "Monitor interaktywny (75 cali, na statywie, kupiony wg pisma z 15 lub 16.11.2026)";
-const NEW_CABINET = "Szafa na 30 urządzeń (kupiona wg pisma z 15 lub 16.11.2026)";
+// Pismo, według którego kupiono nowe monitory interaktywne i szafy.
+export const purchaseLetter = "pismo dyrektora Kalety z 15 listopada 2026 r.";
+const NEW_MONITOR = "Monitor interaktywny (75 cali, na statywie, kupiony wg pisma z 15.11.2026)";
+const NEW_CABINET = "Szafa na 30 urządzeń (kupiona wg pisma z 15.11.2026)";
 
 export const defaultRoomId = "2";
 
@@ -79,7 +79,7 @@ export const kpoAllocations = [
 
   // nowe monitory interaktywne na statywach (kupione wg pisma, do dostarczenia i zamontowania)
   ...["2", "18", "29", "41"].map((roomId) => ({ deviceId: "interactive-bought", roomId, qty: 1, state: "planned", note: "kupiony wg pisma, do zamontowania na statywie" })),
-  { deviceId: "interactive-bought", assignee: "Sala 09", qty: 1, state: "planned", note: "kupiony wg pisma; sali 09 nie ma jeszcze w spisie sal" },
+  { deviceId: "interactive-bought", roomId: "09", qty: 1, state: "planned", note: "kupiony wg pisma, do zamontowania na statywie" },
 ];
 
 // Inny sprzęt, który nie pochodzi z KPO, ale też jest podliczany w zakładce "Zasoby".
@@ -111,7 +111,7 @@ export const otherAssets = [
     id: "interactive-bought",
     name: "Monitory interaktywne 75 cali na statywach (nowe)",
     qty: 5,
-    note: `Kupione według: ${purchaseLetter}.`,
+    note: `Kupione według: ${purchaseLetter}`,
     plan: "Dostarczyć do sal 2, 18, 29, 41 i 09 i zamontować na statywach",
   },
 ];
@@ -120,7 +120,7 @@ export const otherAssets = [
 // from: { roomId } albo { text }; brak from = nowa szafa; toRoomId = sala docelowa;
 // knownOverfill: true = zawartość przekracza pojemność i zostało to przyjęte świadomie;
 // needed: true = szafa jest potrzebna, ale jeszcze jej nie ma (do zakupu);
-// bought: true = szafa została kupiona (wg pisma) i czeka na dostarczenie; brak toRoomId = sala do ustalenia.
+// bought: true = szafa została kupiona (wg pisma) i czeka na dostarczenie; unassigned: true = bez przydziału do sali (niezagospodarowana).
 export const cabinets = [
   {
     id: "cabinet-05",
@@ -209,7 +209,8 @@ export const cabinets = [
     name: "Szafa na 30 urządzeń",
     capacity: 30,
     bought: true,
-    contents: [{ label: "Piąta szafa z pisma: przeznaczenie do ustalenia, kiedy indziej", qty: 0 }],
+    unassigned: true,
+    contents: [{ label: "Piąta szafa z pisma, niezagospodarowana (nie przydzielona do żadnej sali)", qty: 0 }],
   },
   {
     id: "cabinet-28",
@@ -494,7 +495,7 @@ export const purchaseItems = [
     specs: ["na 30 urządzeń", "z zasilaniem"],
     qty: 1,
     roomIds: ["17"],
-    note: "Do sali 17 (30 tabletów); tego nie obejmuje pismo dyrektora Kalety. Pięć szaf z pisma (sale 23, 32, 43, 21 i jedna do ustalenia) jest już kupionych, patrz zakładka Zasoby",
+    note: "Do sali 17 (30 tabletów); tego nie obejmuje pismo dyrektora Kalety. Pięć szaf z pisma (sale 23, 32, 43, 21 i jedna niezagospodarowana) jest już kupionych, patrz zakładka Zasoby",
   },
   {
     id: "desks-37",
@@ -750,6 +751,20 @@ export const rooms = [
   }),
 
   // I piętro
+  room({
+    id: "09",
+    name: "Sala 09",
+    floor: "Parter",
+    place: "Położenie do uzupełnienia",
+    status: "todo",
+    equipment: [
+      group(G.planned, [NEW_MONITOR]),
+    ],
+    tasks: [
+      "Zamontować kupiony monitor interaktywny 75 cali na statywie",
+      "Uzupełnić dane sali: piętro, położenie i przeznaczenie",
+    ],
+  }),
   room({
     id: "16",
     name: "Sala 16",
@@ -1304,18 +1319,7 @@ export const unresolvedItems = [
     text: "Potwierdzić, czy do sali 23 będzie dostępnych 26 czy 30 Chromebooków",
   },
   {
-    roomIds: [],
-    scope: "Zakupy",
-    text: "Potwierdzić datę pisma dyrektora Kalety, według którego kupiono 5 monitorów interaktywnych i 5 szaf: 15 czy 16 listopada 2026",
-  },
-  {
-    roomIds: [],
-    scope: "Sala 09",
-    text: "Jeden z 5 nowych monitorów interaktywnych ma trafić do sali 09, której nie ma jeszcze w spisie sal: dodać salę (piętro, przeznaczenie) albo poprawić jej numer",
-  },
-  {
-    roomIds: [],
-    scope: "Szafy",
-    text: "Ustalić, do której sali trafi piąta szafa na 30 urządzeń kupiona według pisma (pozostałe cztery: sale 23, 32, 43 i 21)",
+    roomIds: ["09"],
+    text: "Uzupełnić dane sali 09 (piętro, położenie, przeznaczenie): wpisano ją roboczo na parterze, bo do niej ma trafić nowy monitor interaktywny",
   },
 ];

@@ -1181,7 +1181,7 @@ const cabinetCard = (cabinet) => {
   const qty = cabinetContentQty(cabinet);
   const isNew = !cabinet.from && !cabinet.needed && !cabinet.bought;
   const target = roomById(cabinet.toRoomId);
-  const badge = cabinet.needed ? ["missing", "Potrzebna (do zakupu)"] : cabinet.bought ? ["ready", "Kupiona (do dostarczenia)"] : isNew ? ["ready", "Nowa"] : ["todo", "Do przeniesienia"];
+  const badge = cabinet.needed ? ["missing", "Potrzebna (do zakupu)"] : cabinet.unassigned ? ["todo", "Kupiona, niezagospodarowana"] : cabinet.bought ? ["ready", "Kupiona (do dostarczenia)"] : isNew ? ["ready", "Nowa"] : ["todo", "Do przeniesienia"];
   return `
     <article class="resource-card cabinet-card" data-cabinet-id="${escapeHtml(cabinet.id)}">
       <header class="resource-head">
@@ -1190,10 +1190,10 @@ const cabinetCard = (cabinet) => {
       </header>
       <p class="cabinet-route">
         ${cabinet.from ? `<span><strong>Teraz:</strong> ${cabinetPlace(cabinet.from)}</span>` : ""}
-        <span><strong>Do sali:</strong> ${target ? roomLink(target, { label: target.name }) : escapeHtml(cabinet.toRoomId ?? "do ustalenia")}</span>
+        <span><strong>Do sali:</strong> ${target ? roomLink(target, { label: target.name }) : escapeHtml(cabinet.toRoomId ?? "niezagospodarowana")}</span>
       </p>
       <p class="resource-note"><strong>Pojemność:</strong> ${cabinet.capacity} szt.</p>
-      ${cabinet.bought ? `<p class="resource-note">Kupiona według: ${escapeHtml(purchaseLetter)}. Taka sama jak kupione ostatnio (30 miejsc).</p>` : ""}
+      ${cabinet.bought ? `<p class="resource-note">Kupiona według: ${escapeHtml(purchaseLetter)} Taka sama jak kupione ostatnio (30 miejsc).</p>` : ""}
       <ul class="cabinet-contents">
         ${cabinet.contents.map(cabinetContentItem).join("")}
       </ul>
@@ -1270,8 +1270,8 @@ const renderResourcesPrint = () => {
       const qty = cabinetContentQty(cabinet);
       return [
         `${cabinet.name} (pojemność ${cabinet.capacity})`,
-        from ? `teraz: ${from}` : cabinet.needed ? "potrzebna (do zakupu)" : cabinet.bought ? "kupiona wg pisma, do dostarczenia" : "nowa",
-        `do sali: ${target ? chipLabel(target) : cabinet.toRoomId ?? "do ustalenia"}`,
+        from ? `teraz: ${from}` : cabinet.needed ? "potrzebna (do zakupu)" : cabinet.unassigned ? "kupiona wg pisma, niezagospodarowana" : cabinet.bought ? "kupiona wg pisma, do dostarczenia" : "nowa",
+        `do sali: ${target ? chipLabel(target) : cabinet.toRoomId ?? "niezagospodarowana"}`,
         `w szafie: ${cabinet.contents.map((item) => (cabinetStatusText(item) ? `${item.label} (${cabinetStatusText(item)})` : item.label)).join("; ")}`,
         qty > cabinet.capacity ? `uwaga: ${qty} szt. przekracza pojemność${cabinet.knownOverfill ? " (przyjęte świadomie)" : ""}` : "",
       ].filter(Boolean).join(", ");
