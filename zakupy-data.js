@@ -341,8 +341,8 @@ export const zakupyListopad = {
       "opis": "Ceny netto + stawka VAT (0% dla sprzętu komputerowego wskazanego przez szkołę) • oferty od ręki + 2 oferty kontra (ceny netto) • weryfikacja: 16.11.2026",
       "ceny": "netto",
       "sumy": {
-        "razem_netto": 100096.02,
-        "razem_brutto": 119488.56
+        "razem_netto": 96707.4,
+        "razem_brutto": 115320.56
       },
       "sekcje": [
         {
@@ -646,11 +646,11 @@ export const zakupyListopad = {
               "kategoria": "Robot planetarny",
               "produkt": "Kenwood Titanium Chef Patissier XL KWL90.244SI",
               "parametry": "1400 W, dwie misy (7 l i 5 l), wbudowana waga, funkcja podgrzewania misy; bez blendera kielichowego (blender osobno, poz. 11a)",
-              "ilosc": 2,
+              "ilosc": 1,
               "cena_szt_netto": 3088.62,
               "vat": 0.23,
               "cena_szt_brutto": 3799.0,
-              "wartosc_brutto": 7598.0,
+              "wartosc_brutto": 3799.0,
               "sklep": "Media Expert",
               "dostepnosc": "Do potwierdzenia",
               "dostawa": "Do potwierdzenia w koszyku",
@@ -670,17 +670,17 @@ export const zakupyListopad = {
               "lp": "11a",
               "kategoria": "Blender kielichowy do robota",
               "produkt": "Kenwood KAH359GL – blender szklany ThermoResist 1,6 l",
-              "parametry": "Nakładka blender kielichowy do robotów Kenwood Chef Titanium / Chef XL Titanium (gniazdo szybkich obrotów); szkło ThermoResist do 160 °C, 1,6 l, 4 ostrza",
-              "ilosc": 2,
+              "parametry": "Nakładka blender kielichowy do robotów Kenwood Chef Titanium / Chef XL Titanium (gniazdo szybkich obrotów); szkło ThermoResist do 160 °C, pojemność 1,6 l wg większości sklepów (Coolblue podaje 1,2 l), 4 ostrza",
+              "ilosc": 1,
               "cena_szt_netto": 300.0,
               "vat": 0.23,
               "cena_szt_brutto": 369.0,
-              "wartosc_brutto": 738.0,
+              "wartosc_brutto": 369.0,
               "sklep": "Kenwood Polska (kenwoodworld.com)",
               "dostepnosc": "W magazynie (wg sklepu)",
               "dostawa": "Darmowa wysyłka powyżej 120 zł",
               "link": "https://www.kenwoodworld.com/pl-pl/blender-thermoresist-kah359gl/p/KAH359GL",
-              "uwagi": "Blender kupowany osobno do robotów Titanium Chef Patissier XL (po 1 szt. do robota). Zgodność z KWL90 potwierdzić w instrukcji lub u producenta (lista zgodności z opisów sklepów). Na części stron cena 379 zł.",
+              "uwagi": "Blender kupowany osobno do robota Titanium Chef Patissier XL (1 szt. do 1 robota). Mniejszego kielicha do robotów Kenwood Chef nie znalazłem: nakładki szklane KAH358GL i KAH359GL mają ten sam kielich (ok. 1,6 l). Samodzielny Kenwood Blend-X Compact BLP31 też ma jug 1,6 l, plastikowy, więc nie jest mniejszy. Zgodność z KWL90 potwierdzić w instrukcji lub u producenta. Na części stron cena 379 zł.",
               "data_sprawdzenia": "2026-11-16",
               "weryfikacja": "Nowa pozycja (16.11.2026).",
               "kontroferty": [
