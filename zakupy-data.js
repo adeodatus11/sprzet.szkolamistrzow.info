@@ -341,8 +341,8 @@ export const zakupyListopad = {
       "opis": "Ceny netto + stawka VAT (0% dla sprzętu komputerowego wskazanego przez szkołę) • oferty od ręki + 2 oferty kontra (ceny netto) • weryfikacja: 16.11.2026",
       "ceny": "netto",
       "sumy": {
-        "razem_netto": 96707.4,
-        "razem_brutto": 115320.56
+        "razem_netto": 100638.29,
+        "razem_brutto": 120155.56
       },
       "sekcje": [
         {
@@ -508,6 +508,44 @@ export const zakupyListopad = {
               "link": null,
               "uwagi": "Dodany obok komputera do grafiki. Brak ceny i oferty: ustalić sklep, cenę i stawkę VAT (pozycja nie wchodzi do sumy).",
               "data_sprawdzenia": null,
+              "kontroferty": []
+            },
+            {
+              "lp": "5b",
+              "kategoria": "Monitor do grafiki (wariant 1: 4K)",
+              "produkt": "Dell UltraSharp U2725QE 27″ 4K (3840 × 2160)",
+              "parametry": "27″, 4K 120 Hz, IPS, Thunderbolt 4, RJ-45 2,5 Gb/s, hub USB, ładowanie do 140 W",
+              "ilosc": 1,
+              "cena_szt_netto": 2259.35,
+              "vat": 0.23,
+              "cena_szt_brutto": 2779.0,
+              "wartosc_brutto": 2779.0,
+              "sklep": "Media Expert",
+              "dostepnosc": "Do potwierdzenia",
+              "dostawa": "Do potwierdzenia",
+              "link": "https://www.mediaexpert.pl/komputery-i-tablety/monitory-led/monitor-dell-ultrasharp-u2725qe-27-3840x2160px-ips-120hz",
+              "uwagi": "Wariant 1: monitor 4K + monitor QHD (poz. 5b i 5c) do komputera do grafiki. Cena 2 779 zł brutto z oferty podanej przez szkołę. VAT 23%; jeśli szkoła kupuje monitory z 0% VAT, cena spadnie. Pozycja 5a (ASUS 5K) to osobna propozycja, bez ceny.",
+              "data_sprawdzenia": "2026-11-16",
+              "weryfikacja": "Nowa pozycja (16.11.2026).",
+              "kontroferty": []
+            },
+            {
+              "lp": "5c",
+              "kategoria": "Monitor do grafiki (wariant 1: QHD)",
+              "produkt": "Dell UltraSharp U2724DE 27″ QHD (2560 × 1440)",
+              "parametry": "27″, QHD 120 Hz, IPS, Thunderbolt 4, RJ-45, hub USB",
+              "ilosc": 1,
+              "cena_szt_netto": 1478.86,
+              "vat": 0.23,
+              "cena_szt_brutto": 1819.0,
+              "wartosc_brutto": 1819.0,
+              "sklep": "Media Expert",
+              "dostepnosc": "Do potwierdzenia",
+              "dostawa": "Do potwierdzenia",
+              "link": "https://www.mediaexpert.pl/komputery-i-tablety/monitory-led/monitor-dell-ultrasharp-u2724de-27-2560x1440px-ips-120hz",
+              "uwagi": "Wariant 1: drugi monitor (QHD) obok monitora 4K (poz. 5b). Cena 1 819 zł brutto z oferty podanej przez szkołę. VAT 23%; przy 0% VAT cena spadnie.",
+              "data_sprawdzenia": "2026-11-16",
+              "weryfikacja": "Nowa pozycja (16.11.2026).",
               "kontroferty": []
             }
           ]
@@ -690,6 +728,25 @@ export const zakupyListopad = {
                   "link": "https://www.komputronik.pl/product/640502/kenwood-kah-359gl.html"
                 }
               ]
+            },
+            {
+              "lp": "11b",
+              "kategoria": "Mały robot planetarny",
+              "produkt": "Maestro MR-557 – robot planetarny, misa 3 l, 1200 W",
+              "parametry": "Najmniejszy robot planetarny, jaki znalazłem: misa ze stali nierdzewnej 3 l, trzy końcówki (ubijanie, mieszanie, wyrabianie); niemarkowy, do małych porcji",
+              "ilosc": 1,
+              "cena_szt_netto": 192.68,
+              "vat": 0.23,
+              "cena_szt_brutto": 237.0,
+              "wartosc_brutto": 237.0,
+              "sklep": "MediaMarkt",
+              "dostepnosc": "Do potwierdzenia",
+              "dostawa": "Do potwierdzenia",
+              "link": "https://mediamarkt.pl/pl/product/_mikser-planetarny-maestro-mr-557-czarny-srebrny-172612739.html",
+              "uwagi": "Drugi, dużo mniejszy robot do małych ilości (np. 2 żółtka). Cena 237 zł brutto z wyników wyszukiwarki; promocja MediaMarkt była ważna tylko do 19.07.2026, więc cenę potwierdzić. W Empik ok. 220 zł brutto (bez linku). Przy 2 żółtkach 3 l to nadal dużo: do tak małych porcji lepszy może być ręczny mikser. Inne małe: Bosch MUM Serie 2 MUMS2EB01 (3,8 l, 700 W), cena w PLN do sprawdzenia.",
+              "data_sprawdzenia": "2026-11-16",
+              "weryfikacja": "Nowa pozycja (16.11.2026).",
+              "kontroferty": []
             },
             {
               "lp": 12,
