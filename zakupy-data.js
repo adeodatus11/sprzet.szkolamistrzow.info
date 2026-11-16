@@ -18,11 +18,11 @@ export const zakupyListopad = {
     {
       "id": "maturalne",
       "nazwa": "Wyposażenie maturalne",
-      "opis": "bizhub C450i wg oferty e-mail (Copytec) • ceny brutto • weryfikacja ofert i 2 oferty kontra: 14–16.11.2026",
+      "opis": "bizhub C450i wg oferty e-mail (Copytec) • ceny brutto • weryfikacja ofert i 2 oferty kontra: 14–16.11.2026 • kwota wniosku: 15 000 zł",
       "ceny": "brutto",
       "sumy": {
-        "suma_kontra_1_brutto": 18025.97,
-        "suma_kontra_2_brutto": 36609.56
+        "suma_kontra_1_brutto": 17569.93,
+        "suma_kontra_2_brutto": 35056.72
       },
       "pozycje": [
         {
@@ -58,9 +58,9 @@ export const zakupyListopad = {
           "kategoria": "Napęd optyczny",
           "produkt": "Hitachi-LG GP57EB40, czarny",
           "parametry": "Zewnętrzna nagrywarka DVD±RW slim, USB 2.0, kabel USB w zestawie",
-          "ilosc": 2,
+          "ilosc": 1,
           "cena_szt_brutto": 119.99,
-          "wartosc_brutto": 239.98,
+          "wartosc_brutto": 119.99,
           "sklep": "Morele.net (sprzedaje Morele.net)",
           "dostepnosc": "Dostępny – odbiór ok. czw. 19.11",
           "dostawa": "Dostawa od 9,90 zł (darmowa od 399 zł)",
@@ -86,14 +86,14 @@ export const zakupyListopad = {
           "kategoria": "Flipchart",
           "produkt": "Flipchart magnetyczny mobilny 70×100 cm + gratisy",
           "parametry": "Na kółkach, suchościeralny, magnetyczny, regulowana wysokość, uchwyt na blok papieru",
-          "ilosc": 10,
+          "ilosc": 8,
           "cena_szt_brutto": 285.0,
-          "wartosc_brutto": 2850.0,
+          "wartosc_brutto": 2280.0,
           "sklep": "anytech.pl",
           "dostepnosc": "Dostępny – duża dostępność, wysyłka tego samego dnia (opłacone do 17:00)",
           "dostawa": "Darmowa dostawa od 100 zł",
           "link": "https://anytech.pl/strona-glowna/967-flipchart-magnetyczny-mobilny-70x100-gratisy-5904310264945",
-          "uwagi": "Bez marki (kod TAB_MAG_KOL_70x100). Sklep podaje „dużą dostępność” – potwierdzić 10 szt.",
+          "uwagi": "Bez marki (kod TAB_MAG_KOL_70x100). Sklep podaje „dużą dostępność” – potwierdzić 8 szt.",
           "data_sprawdzenia": "2026-11-16",
           "weryfikacja": "Nowa pozycja. Najtaniej od ręki.",
           "kontroferty": [
@@ -113,10 +113,10 @@ export const zakupyListopad = {
           "lp": 4,
           "kategoria": "Papier do flipcharta",
           "produkt": "Blok INTERDRUK 65×100 cm, 20 kartek, gładki",
-          "parametry": "Zapas: 3 bloki na każdy z 10 flipchartów",
-          "ilosc": 30,
+          "parametry": "Zapas bloków do flipcharta (16 szt. w wyposażeniu maturalnym, 14 szt. w pracowni handlowej)",
+          "ilosc": 16,
           "cena_szt_brutto": 27.39,
-          "wartosc_brutto": 821.7,
+          "wartosc_brutto": 438.24,
           "sklep": "dlabiura24.pl",
           "dostepnosc": "Dostępny, wysyłka 72h",
           "dostawa": "0 zł – zamówienie > 250 zł",
@@ -169,15 +169,15 @@ export const zakupyListopad = {
           "lp": 6,
           "kategoria": "Markery do flipcharta",
           "produkt": "Toma, komplet 4 szt.",
-          "parametry": "1 komplet (4 markery) na każdy z 10 flipchartów",
-          "ilosc": 10,
+          "parametry": "1 komplet (4 markery) na każdy z 8 flipchartów",
+          "ilosc": 8,
           "cena_szt_brutto": 17.13,
-          "wartosc_brutto": 171.3,
+          "wartosc_brutto": 137.04,
           "sklep": "taniaksiazka.pl",
           "dostepnosc": "Dostępny – wysyłka w 24h",
           "dostawa": "Darmowa dostawa DPD Pickup od 159 zł",
           "link": "https://www.taniaksiazka.pl/toma-marker-flipchart-4-szt-p-1078297.html",
-          "uwagi": "Ilość 10 kompletów potwierdzić w sklepie. Tańsze Kamet 10,07 zł (Lobos), ale wysyłka 3–5 dni.",
+          "uwagi": "Ilość 8 kompletów potwierdzić w sklepie. Tańsze Kamet 10,07 zł (Lobos), ale wysyłka 3–5 dni.",
           "data_sprawdzenia": "2026-11-16",
           "weryfikacja": "Nowa pozycja. Najtaniej od ręki.",
           "kontroferty": [
@@ -194,48 +194,20 @@ export const zakupyListopad = {
           ]
         },
         {
-          "lp": 7,
-          "kategoria": "Niszczarka",
-          "produkt": "Fellowes Powershred 92Cs",
-          "parametry": "P-4, do 18 arkuszy, kosz 25 l",
-          "ilosc": 2,
-          "cena_szt_brutto": 777.73,
-          "wartosc_brutto": 1555.46,
-          "sklep": "Media Expert (mediaexpert.pl)",
-          "dostepnosc": "Dostępna – u Ciebie dziś/jutro, odbiór w sklepie",
-          "dostawa": "Darmowa dostawa",
-          "link": "https://www.mediaexpert.pl/komputery-i-tablety/drukarki-i-urzadzenia-biurowe/niszczarki/niszczarka-fellowes-92cs",
-          "uwagi": "Wspólne zamówienie z papierem A4 w Media Expert.",
-          "data_sprawdzenia": "2026-11-16",
-          "weryfikacja": "Nowa pozycja (cena sprawdzona 16.11). Najtaniej od ręki.",
-          "kontroferty": [
-            {
-              "opis": "morele.net – dostępna (14.11)",
-              "cena_brutto": 925.99,
-              "link": "https://www.morele.net/niszczarka-fellowes-92cs-p-4-6295842/"
-            },
-            {
-              "opis": "niszczarki24.pl – wysyłka 1 dzień, darmowa dostawa (14.11)",
-              "cena_brutto": 930.0,
-              "link": "https://www.niszczarki24.pl/niszczarka-fellowes-92cs-4x38-25l.html"
-            }
-          ]
-        },
-        {
           "lp": 8,
           "kategoria": "Papier A4",
           "produkt": "Pollux A4 80 g/m², karton 5 ryz (2 500 ark.)",
           "parametry": "Klasa B, białość CIE 161; 1 karton = 2 500 arkuszy",
           "ilosc": 1,
-          "cena_szt_brutto": 74.95,
-          "wartosc_brutto": 74.95,
+          "cena_szt_brutto": 76.22,
+          "wartosc_brutto": 76.22,
           "sklep": "Media Expert (mediaexpert.pl)",
           "dostepnosc": "Dostępny natychmiast",
           "dostawa": "Darmowa dostawa od 99 zł",
           "link": "https://www.mediaexpert.pl/komputery-i-tablety/tusze-i-tonery/papier-i-folie-do-drukarek/papier-ksero-international-paper-a4-80g-cie161-klasa-b",
-          "uwagi": "Sprzedawany jako zestaw 5 ryz (14,99 zł/ryza). Część opinii zgłasza uszkodzone opakowania przy dostawie.",
+          "uwagi": "Kwota planowana w piśmie maturalnym: 76,22 zł za karton (cena w sklepie 74,95 zł). Sprzedawany jako zestaw 5 ryz (14,99 zł/ryza). Część opinii zgłasza uszkodzone opakowania przy dostawie.",
           "data_sprawdzenia": "2026-11-16",
-          "weryfikacja": "Nowa pozycja. Najtaniej od ręki.",
+          "weryfikacja": "Plan 76,22 zł za karton 5 ryz; osobna ryza usunięta.",
           "kontroferty": [
             {
               "opis": "smartoffice-online.pl – Pollux, karton 5 ryz, 150 szt. na stanie, darmowa dostawa od 250 zł",
@@ -246,34 +218,6 @@ export const zakupyListopad = {
               "opis": "x-kom.pl – PolSpeed A4 80 g, karton 5 ryz, dostępny",
               "cena_brutto": 109.0,
               "link": "https://www.x-kom.pl/p/1179966-papier-do-drukarki-pol-papier-a4-polspeed-80g-karton-x5-ryza-2500-arkuszy.html"
-            }
-          ]
-        },
-        {
-          "lp": 9,
-          "kategoria": "Papier A4",
-          "produkt": "Pollux A4 80 g/m², ryza 500 ark.",
-          "parametry": "Klasa B, białość CIE 161 – dodatkowa ryza",
-          "ilosc": 1,
-          "cena_szt_brutto": 14.99,
-          "wartosc_brutto": 14.99,
-          "sklep": "Media Expert (mediaexpert.pl)",
-          "dostepnosc": "Dostępny natychmiast",
-          "dostawa": "Darmowa dostawa (wspólne zamówienie z niszczarkami i kartonami)",
-          "link": "https://www.mediaexpert.pl/komputery-i-tablety/tusze-i-tonery/papier-i-folie-do-drukarek/papier-ksero-international-paper-a4-80g-cie161-klasa-b",
-          "uwagi": "Ten sam produkt co poz. 8, wariant 1 ryza.",
-          "data_sprawdzenia": "2026-11-16",
-          "weryfikacja": "Nowa pozycja. Najtaniej od ręki.",
-          "kontroferty": [
-            {
-              "opis": "x-kom.pl – Pollux ryza, chwilowo niedostępny",
-              "cena_brutto": 29.99,
-              "link": "https://www.x-kom.pl/p/1181157-papier-do-drukarki-pol-papier-a4-pollux-80g-ryza-500-arkuszy.html"
-            },
-            {
-              "opis": "x-kom.pl – PolSpeed ryza, dostępny, odbiór w salonie 0 zł",
-              "cena_brutto": 32.99,
-              "link": "https://www.x-kom.pl/p/1179968-papier-do-drukarki-pol-papier-a4-polspeed-80g-ryza-500-arkuszy.html"
             }
           ]
         },
@@ -332,6 +276,57 @@ export const zakupyListopad = {
               "link": "https://www.ceneo.pl/107976503"
             }
           ]
+        },
+        {
+          "lp": 12,
+          "kategoria": "Tablica magnetyczna",
+          "produkt": "Tablica ścienna magnetyczna 150 × 100 cm – ALLboards",
+          "parametry": "Biała, suchościeralna, w aluminiowej ramie PREMIUM EXPO, zestaw akcesoriów",
+          "ilosc": 2,
+          "cena_szt_brutto": 194.49,
+          "wartosc_brutto": 388.98,
+          "sklep": "ALLboards (sklep-allboards.pl)",
+          "dostepnosc": null,
+          "dostawa": null,
+          "link": "https://sklep-allboards.pl/pl/p/Tablica-magnetyczna-biala-150x100-cm-suchoscieralna-w-aluminiowej-ramie-PREMIUM-EXPO-zestaw-akcesoriow/113",
+          "uwagi": "Do wyposażenia maturalnego; ceny brutto z wniosku, dostępność i dostawę potwierdzić w sklepie.",
+          "data_sprawdzenia": "2026-11-16",
+          "weryfikacja": "Nowa pozycja (16.11.2026).",
+          "kontroferty": []
+        },
+        {
+          "lp": 13,
+          "kategoria": "Tablica magnetyczna",
+          "produkt": "Tablica ścienna magnetyczna 200 × 100 cm – e-tablica.pl (TSA1020)",
+          "parametry": "Suchościeralna, magnetyczna, 200 × 100 cm",
+          "ilosc": 2,
+          "cena_szt_brutto": 375.0,
+          "wartosc_brutto": 750.0,
+          "sklep": "e-tablica.pl",
+          "dostepnosc": null,
+          "dostawa": null,
+          "link": "https://e-tablica.pl/pl/p/Tablica-magnetyczna-suchoscieralna-200x100-cm-TSA1020-/36",
+          "uwagi": "Do wyposażenia maturalnego; ceny brutto z wniosku, dostępność i dostawę potwierdzić w sklepie.",
+          "data_sprawdzenia": "2026-11-16",
+          "weryfikacja": "Nowa pozycja (16.11.2026).",
+          "kontroferty": []
+        },
+        {
+          "lp": 14,
+          "kategoria": "Gablota",
+          "produkt": "Zamykana gablota magnetyczna 140 × 100 cm, szkło hartowane – Gabloty.com (GCS)",
+          "parametry": "Gablota ogłoszeniowa zamykana, szkło hartowane, 140 × 100 cm",
+          "ilosc": 1,
+          "cena_szt_brutto": 1560.87,
+          "wartosc_brutto": 1560.87,
+          "sklep": "Gabloty.com",
+          "dostepnosc": null,
+          "dostawa": null,
+          "link": "https://gabloty.com/gabloty-ogloszeniowe-gcs/8753-gablota-ogloszeniowa-gcs-140x100cm-szklo-hartowane.html",
+          "uwagi": "Do wyposażenia maturalnego; ceny brutto z wniosku, dostępność i dostawę potwierdzić w sklepie.",
+          "data_sprawdzenia": "2026-11-16",
+          "weryfikacja": "Nowa pozycja (16.11.2026).",
+          "kontroferty": []
         }
       ]
     },
@@ -526,6 +521,213 @@ export const zakupyListopad = {
               "data_sprawdzenia": "2026-11-16",
               "weryfikacja": "Nowa pozycja (16.11.2026).",
               "kontroferty": []
+            },
+            {
+              "lp": "3h",
+              "kategoria": "Flipchart",
+              "produkt": "Flipchart magnetyczny mobilny 70×100 cm + gratisy",
+              "parametry": "Na kółkach, suchościeralny, magnetyczny, regulowana wysokość, uchwyt na blok papieru",
+              "ilosc": 2,
+              "cena_szt_brutto": 285.0,
+              "wartosc_brutto": 570.0,
+              "sklep": "anytech.pl",
+              "dostepnosc": "Dostępny – duża dostępność, wysyłka tego samego dnia (opłacone do 17:00)",
+              "dostawa": "Darmowa dostawa od 100 zł",
+              "link": "https://anytech.pl/strona-glowna/967-flipchart-magnetyczny-mobilny-70x100-gratisy-5904310264945",
+              "uwagi": "Z pozycji 3 wyposażenia maturalnego (podział 8 + 2 szt.). Bez marki (kod TAB_MAG_KOL_70x100). Sklep podaje „dużą dostępność” – potwierdzić 10 szt.",
+              "data_sprawdzenia": "2026-11-16",
+              "weryfikacja": "Nowa pozycja. Najtaniej od ręki.",
+              "kontroferty": [
+                {
+                  "opis": "sklep-allboards.pl – 100×70 srebrny + gratisy (gąbka, 2 markery, magnesy), wysyłka 24h, odroczona płatność dla jednostek budżetowych",
+                  "cena_brutto": 319.99,
+                  "link": "https://sklep-allboards.pl/pl/p/Flipchart-suchoscieralny-magnetyczny-mobilny-na-kolkach-100x70-cm-srebrny-GRATIS/3001"
+                },
+                {
+                  "opis": "dlabiura24.pl – 2x3 Mobilechart Red, wysyłka 24h, darmowa dostawa",
+                  "cena_brutto": 781.44,
+                  "link": "https://dlabiura24.pl/tablica-flipchart-2x3-mobilechart-red-na-kolkach"
+                }
+              ],
+              "cena_szt_netto": 231.71,
+              "vat": 0.23
+            },
+            {
+              "lp": "4h",
+              "kategoria": "Papier do flipcharta",
+              "produkt": "Blok INTERDRUK 65×100 cm, 20 kartek, gładki",
+              "parametry": "Zapas: 3 bloki na każdy z 10 flipchartów",
+              "ilosc": 14,
+              "cena_szt_brutto": 27.39,
+              "wartosc_brutto": 383.46,
+              "sklep": "dlabiura24.pl",
+              "dostepnosc": "Dostępny, wysyłka 72h",
+              "dostawa": "0 zł – zamówienie > 250 zł",
+              "link": "https://dlabiura24.pl/blok-do-flipcharta-interdruk-uniwersalny-65x100cm-20-kartek-gladki",
+              "uwagi": "Z pozycji 4 wyposażenia maturalnego (podział 16 + 14 szt.). Same bloki (821,70 zł) przekraczają próg darmowej dostawy 250 zł.",
+              "data_sprawdzenia": "2026-11-16",
+              "weryfikacja": "Nowa pozycja. Najtaniej od ręki.",
+              "kontroferty": [
+                {
+                  "opis": "tableo.eu – MemoBe, duża ilość, wysyłka 24h",
+                  "cena_brutto": 33.8,
+                  "link": "https://tableo.eu/pl/p/Blok-do-flipchartow-MemoBe-bialy-gladki-20-kartek/492"
+                },
+                {
+                  "opis": "tanietablice.pl – 98 szt. na stanie",
+                  "cena_brutto": 39.0,
+                  "link": "https://www.tanietablice.pl/flipcharty-2x3-i-nobo/2470-blok-do-flipchart%C3%B3w-bia%C5%82y-g%C5%82adki-20-kartek-65x100-cm.html"
+                }
+              ],
+              "cena_szt_netto": 22.27,
+              "vat": 0.23
+            },
+            {
+              "lp": "6h",
+              "kategoria": "Markery do flipcharta",
+              "produkt": "Toma, komplet 4 szt.",
+              "parametry": "1 komplet (4 markery) na każdy z 10 flipchartów",
+              "ilosc": 2,
+              "cena_szt_brutto": 17.13,
+              "wartosc_brutto": 34.26,
+              "sklep": "taniaksiazka.pl",
+              "dostepnosc": "Dostępny – wysyłka w 24h",
+              "dostawa": "Darmowa dostawa DPD Pickup od 159 zł",
+              "link": "https://www.taniaksiazka.pl/toma-marker-flipchart-4-szt-p-1078297.html",
+              "uwagi": "Z pozycji 6 wyposażenia maturalnego (podział 8 + 2 komplety). Ilość 10 kompletów potwierdzić w sklepie. Tańsze Kamet 10,07 zł (Lobos), ale wysyłka 3–5 dni.",
+              "data_sprawdzenia": "2026-11-16",
+              "weryfikacja": "Nowa pozycja. Najtaniej od ręki.",
+              "kontroferty": [
+                {
+                  "opis": "e-sklep.koh-i-noor.pl – Koh-i-noor 1405, 4 kolory, tylko 2 szt. na stanie",
+                  "cena_brutto": 17.87,
+                  "link": "https://e-sklep.koh-i-noor.pl/flamastry-markery-i-zakreslacze/889-771405jd02pk1204-kin-marker-1405-flipchart-kpl-4-kol-okragla-koncowka-8593539324423.html"
+                },
+                {
+                  "opis": "biuropaczka.pl – Staedtler Lumocolor 4 kolory, w magazynie, realizacja 2–3 dni",
+                  "cena_brutto": 45.46,
+                  "link": "https://biuropaczka.pl/marker-do-tablic-flipchart-staedtler-lumocolor-okragly-4-kolory-w-etui"
+                }
+              ],
+              "cena_szt_netto": 13.93,
+              "vat": 0.23
+            },
+            {
+              "lp": "2h",
+              "kategoria": "Napęd optyczny",
+              "produkt": "Hitachi-LG GP57EB40, czarny",
+              "parametry": "Zewnętrzna nagrywarka DVD±RW slim, USB 2.0, kabel USB w zestawie",
+              "ilosc": 1,
+              "cena_szt_brutto": 119.99,
+              "wartosc_brutto": 119.99,
+              "sklep": "Morele.net (sprzedaje Morele.net)",
+              "dostepnosc": "Dostępny – odbiór ok. czw. 19.11",
+              "dostawa": "Dostawa od 9,90 zł (darmowa od 399 zł)",
+              "link": "https://www.morele.net/naped-lg-hlds-gp57eb40-ahle10b-5809842/",
+              "uwagi": "Z pozycji 2 wyposażenia maturalnego (podział 1 + 1 szt.). Kabel USB w zestawie standardowo (wg opinii kupujących) – potwierdzić przy zamówieniu.",
+              "data_sprawdzenia": "2026-11-16",
+              "weryfikacja": "Nowa pozycja. Najtaniej od ręki.",
+              "kontroferty": [
+                {
+                  "opis": "sferis.pl – dostępny, dostawa 17.11, od 14,90 zł",
+                  "cena_brutto": 125.0,
+                  "link": "https://www.sferis.pl/nagrywarka-lg-gp57eb40-gp57eb40-usb-2-0-zewnetrzna-i171966"
+                },
+                {
+                  "opis": "komputronik.pl – w magazynie, wysyłka 1 dzień, darmowa dostawa",
+                  "cena_brutto": 159.9,
+                  "link": "https://www.komputronik.pl/product/603159/hitachi-lg-supermulti-dvd-rw-gp57eb40-czarna.html"
+                }
+              ],
+              "cena_szt_netto": 97.55,
+              "vat": 0.23
+            },
+            {
+              "lp": "7h",
+              "kategoria": "Niszczarka",
+              "produkt": "Fellowes Powershred 92Cs",
+              "parametry": "P-4, do 18 arkuszy, kosz 25 l",
+              "ilosc": 2,
+              "cena_szt_brutto": 777.73,
+              "wartosc_brutto": 1555.46,
+              "sklep": "Media Expert (mediaexpert.pl)",
+              "dostepnosc": "Dostępna – u Ciebie dziś/jutro, odbiór w sklepie",
+              "dostawa": "Darmowa dostawa",
+              "link": "https://www.mediaexpert.pl/komputery-i-tablety/drukarki-i-urzadzenia-biurowe/niszczarki/niszczarka-fellowes-92cs",
+              "uwagi": "Przeniesione z wyposażenia maturalnego (obie niszczarki). Wspólne zamówienie z papierem A4 w Media Expert.",
+              "data_sprawdzenia": "2026-11-16",
+              "weryfikacja": "Nowa pozycja (cena sprawdzona 16.11). Najtaniej od ręki.",
+              "kontroferty": [
+                {
+                  "opis": "morele.net – dostępna (14.11)",
+                  "cena_brutto": 925.99,
+                  "link": "https://www.morele.net/niszczarka-fellowes-92cs-p-4-6295842/"
+                },
+                {
+                  "opis": "niszczarki24.pl – wysyłka 1 dzień, darmowa dostawa (14.11)",
+                  "cena_brutto": 930.0,
+                  "link": "https://www.niszczarki24.pl/niszczarka-fellowes-92cs-4x38-25l.html"
+                }
+              ],
+              "cena_szt_netto": 632.3,
+              "vat": 0.23
+            },
+            {
+              "lp": "12h",
+              "kategoria": "Tablica magnetyczna",
+              "produkt": "Tablica ścienna magnetyczna 150 × 100 cm – ALLboards",
+              "parametry": "Biała, suchościeralna, w aluminiowej ramie PREMIUM EXPO, zestaw akcesoriów",
+              "ilosc": 2,
+              "cena_szt_brutto": 194.49,
+              "wartosc_brutto": 388.98,
+              "sklep": "ALLboards (sklep-allboards.pl)",
+              "dostepnosc": null,
+              "dostawa": null,
+              "link": "https://sklep-allboards.pl/pl/p/Tablica-magnetyczna-biala-150x100-cm-suchoscieralna-w-aluminiowej-ramie-PREMIUM-EXPO-zestaw-akcesoriow/113",
+              "uwagi": "Do ekspozycji prac uczniów w pracowni handlowej (drugi komplet obok wyposażenia maturalnego, pozycja 12). Dostępność i dostawę potwierdzić w sklepie.",
+              "data_sprawdzenia": "2026-11-16",
+              "weryfikacja": "Nowa pozycja (16.11.2026).",
+              "kontroferty": [],
+              "cena_szt_netto": 158.12,
+              "vat": 0.23
+            },
+            {
+              "lp": "13h",
+              "kategoria": "Tablica magnetyczna",
+              "produkt": "Tablica ścienna magnetyczna 200 × 100 cm – e-tablica.pl (TSA1020)",
+              "parametry": "Suchościeralna, magnetyczna, 200 × 100 cm",
+              "ilosc": 2,
+              "cena_szt_brutto": 375.0,
+              "wartosc_brutto": 750.0,
+              "sklep": "e-tablica.pl",
+              "dostepnosc": null,
+              "dostawa": null,
+              "link": "https://e-tablica.pl/pl/p/Tablica-magnetyczna-suchoscieralna-200x100-cm-TSA1020-/36",
+              "uwagi": "Do ekspozycji prac uczniów w pracowni handlowej (drugi komplet obok wyposażenia maturalnego, pozycja 13). Dostępność i dostawę potwierdzić w sklepie.",
+              "data_sprawdzenia": "2026-11-16",
+              "weryfikacja": "Nowa pozycja (16.11.2026).",
+              "kontroferty": [],
+              "cena_szt_netto": 304.88,
+              "vat": 0.23
+            },
+            {
+              "lp": "14h",
+              "kategoria": "Gablota",
+              "produkt": "Zamykana gablota magnetyczna 140 × 100 cm, szkło hartowane – Gabloty.com (GCS)",
+              "parametry": "Gablota ogłoszeniowa zamykana, szkło hartowane, 140 × 100 cm",
+              "ilosc": 1,
+              "cena_szt_brutto": 1560.87,
+              "wartosc_brutto": 1560.87,
+              "sklep": "Gabloty.com",
+              "dostepnosc": null,
+              "dostawa": null,
+              "link": "https://gabloty.com/gabloty-ogloszeniowe-gcs/8753-gablota-ogloszeniowa-gcs-140x100cm-szklo-hartowane.html",
+              "uwagi": "Do ekspozycji prac uczniów w pracowni handlowej (drugi komplet obok wyposażenia maturalnego, pozycja 14). Dostępność i dostawę potwierdzić w sklepie.",
+              "data_sprawdzenia": "2026-11-16",
+              "weryfikacja": "Nowa pozycja (16.11.2026).",
+              "kontroferty": [],
+              "cena_szt_netto": 1269.0,
+              "vat": 0.23
             }
           ]
         },
