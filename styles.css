@@ -964,13 +964,19 @@ body[data-view="nis2"] .intro,
 body[data-view="nis2"] .workspace,
 body[data-view="nis2"] .open-items,
 body[data-view="nis2"] .mobile-room-nav,
-body[data-view="nis2"] .catalog-toggle {
+body[data-view="nis2"] .catalog-toggle,
+body[data-view="shopping"] .intro,
+body[data-view="shopping"] .workspace,
+body[data-view="shopping"] .open-items,
+body[data-view="shopping"] .mobile-room-nav,
+body[data-view="shopping"] .catalog-toggle {
   display: none !important;
 }
 
 body:not([data-view="purchases"]) .purchase-view,
 body:not([data-view="resources"]) .resources-view,
-body:not([data-view="nis2"]) .nis2-view {
+body:not([data-view="nis2"]) .nis2-view,
+body:not([data-view="shopping"]) .shopping-view {
   display: none;
 }
 
@@ -1539,6 +1545,186 @@ body:not([data-view="nis2"]) .nis2-view {
   font-size: 0.92rem;
 }
 
+/* ---------- Zakupy listopad 2027 ---------- */
+
+.shopping-view .purchase-intro h1:focus {
+  outline: none;
+}
+
+.shop-jump {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 12px 0 4px;
+}
+
+.shop-jump a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--ink);
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 4px 14px;
+  text-decoration: none;
+}
+
+.shop-jump a:hover {
+  border-color: var(--accent);
+}
+
+.shop-sections {
+  display: grid;
+  gap: 26px;
+}
+
+.shop-section {
+  scroll-margin-top: calc(var(--topbar-height) + 12px);
+}
+
+.shop-section .panel-heading {
+  margin-top: 8px;
+}
+
+.shop-section-note,
+.shop-contra {
+  margin: 4px 0 10px;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.shop-items {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 420px), 1fr));
+  gap: 12px;
+}
+
+.shop-item {
+  display: grid;
+  align-content: start;
+  gap: 8px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  padding: 14px;
+}
+
+.shop-item.is-unpriced {
+  border-style: dashed;
+  background: var(--surface-soft);
+}
+
+.shop-head {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: start;
+  gap: 10px;
+}
+
+.shop-lp {
+  min-width: 30px;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: var(--accent-strong);
+  font-size: 0.78rem;
+  font-weight: 800;
+  padding: 3px 8px;
+  text-align: center;
+}
+
+.shop-category {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.shop-title h3 {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.3;
+  overflow-wrap: anywhere;
+}
+
+.shop-value {
+  display: grid;
+  margin: 0;
+  text-align: right;
+}
+
+.shop-value span {
+  color: var(--muted);
+  font-size: 0.72rem;
+}
+
+.shop-value strong {
+  font-size: 1.05rem;
+  white-space: nowrap;
+}
+
+.shop-specs,
+.shop-note,
+.shop-verify {
+  margin: 0;
+  font-size: 0.88rem;
+}
+
+.shop-specs {
+  color: var(--muted);
+}
+
+.shop-note {
+  border-left: 3px solid var(--line);
+  padding-left: 10px;
+}
+
+.shop-facts {
+  display: grid;
+  gap: 4px;
+  margin: 0;
+  font-size: 0.88rem;
+}
+
+.shop-facts div {
+  display: grid;
+  grid-template-columns: 96px 1fr;
+  gap: 8px;
+}
+
+.shop-facts dt {
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.shop-facts dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.shop-offers h4 {
+  margin: 0 0 4px;
+  color: var(--muted);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+}
+
+.shop-offers ul {
+  display: grid;
+  gap: 4px;
+  margin: 0;
+  padding-left: 18px;
+  font-size: 0.85rem;
+}
+
+.shop-offers a {
+  overflow-wrap: anywhere;
+}
+
 /* ---------- Zasoby ---------- */
 
 .resources-view .purchase-intro h1:focus {
@@ -1910,7 +2096,8 @@ body:not([data-view="nis2"]) .nis2-view {
 
   body[data-view="purchases"],
   body[data-view="resources"],
-  body[data-view="nis2"] {
+  body[data-view="nis2"],
+  body[data-view="shopping"] {
     padding-bottom: 0;
   }
 

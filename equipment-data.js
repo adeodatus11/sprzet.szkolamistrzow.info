@@ -5,7 +5,12 @@
 // - sprzęt zapisujemy jako "Nazwa (cecha, cecha)";
 // - przeznaczenie sali to krótki rzeczownik ("Gabinet matematyki"), bez ukośników.
 
-export const dataUpdatedAt = "30.10.2026";
+export const dataUpdatedAt = "16.11.2026";
+
+// Pismo, według którego kupiono nowe monitory interaktywne i szafy (data do potwierdzenia: 15 albo 16 listopada).
+export const purchaseLetter = "pismo dyrektora Kalety z 15 lub 16 listopada 2026 r. (data do potwierdzenia)";
+const NEW_MONITOR = "Monitor interaktywny (75 cali, na statywie, kupiony wg pisma z 15 lub 16.11.2026)";
+const NEW_CABINET = "Szafa na 30 urządzeń (kupiona wg pisma z 15 lub 16.11.2026)";
 
 export const defaultRoomId = "2";
 
@@ -71,6 +76,10 @@ export const kpoAllocations = [
   // laptopy Asus z pracowni handlowej (nie z KPO, patrz otherAssets): teraz w sali 41, mają trafić do sali 40
   { deviceId: "asus", roomId: "41", qty: 26, state: "placed", note: "teraz w pracowni handlowej" },
   { deviceId: "asus", roomId: "40", qty: 26, state: "moving", note: "po wyczyszczeniu i przygotowaniu" },
+
+  // nowe monitory interaktywne na statywach (kupione wg pisma, do dostarczenia i zamontowania)
+  ...["2", "18", "29", "41"].map((roomId) => ({ deviceId: "interactive-bought", roomId, qty: 1, state: "planned", note: "kupiony wg pisma, do zamontowania na statywie" })),
+  { deviceId: "interactive-bought", assignee: "Sala 09", qty: 1, state: "planned", note: "kupiony wg pisma; sali 09 nie ma jeszcze w spisie sal" },
 ];
 
 // Inny sprzęt, który nie pochodzi z KPO, ale też jest podliczany w zakładce "Zasoby".
@@ -98,12 +107,20 @@ export const otherAssets = [
     qty: 26,
     plan: "Wyczyścić, przygotować i przenieść do sali 40 razem z szafą",
   },
+  {
+    id: "interactive-bought",
+    name: "Monitory interaktywne 75 cali na statywach (nowe)",
+    qty: 5,
+    note: `Kupione według: ${purchaseLetter}.`,
+    plan: "Dostarczyć do sal 2, 18, 29, 41 i 09 i zamontować na statywach",
+  },
 ];
 
 // Szafy na laptopy i iPady (zakładka "Zasoby"): pojemność, skąd i dokąd idą oraz co ma w nich stać.
 // from: { roomId } albo { text }; brak from = nowa szafa; toRoomId = sala docelowa;
 // knownOverfill: true = zawartość przekracza pojemność i zostało to przyjęte świadomie;
-// needed: true = szafa jest potrzebna, ale jeszcze jej nie ma (do zakupu).
+// needed: true = szafa jest potrzebna, ale jeszcze jej nie ma (do zakupu);
+// bought: true = szafa została kupiona (wg pisma) i czeka na dostarczenie; brak toRoomId = sala do ustalenia.
 export const cabinets = [
   {
     id: "cabinet-05",
@@ -148,7 +165,7 @@ export const cabinets = [
     id: "cabinet-23",
     name: "Szafa na 30 urządzeń",
     capacity: 30,
-    needed: true,
+    bought: true,
     toRoomId: "23",
     contents: [{ label: "26 albo 30 Chromebooków (jeżeli będą dostępne)", qty: 30 }],
   },
@@ -156,7 +173,7 @@ export const cabinets = [
     id: "cabinet-32",
     name: "Szafa na 30 urządzeń",
     capacity: 30,
-    needed: true,
+    bought: true,
     toRoomId: "32",
     contents: [{ label: "20 iPadów KPO", qty: 20 }],
   },
@@ -164,7 +181,7 @@ export const cabinets = [
     id: "cabinet-43",
     name: "Szafa na 30 urządzeń",
     capacity: 30,
-    needed: true,
+    bought: true,
     toRoomId: "43",
     contents: [{ label: "20 iPadów KPO", qty: 20 }],
   },
@@ -180,12 +197,19 @@ export const cabinets = [
     id: "cabinet-21",
     name: "Szafa na 30 urządzeń",
     capacity: 30,
-    needed: true,
+    bought: true,
     toRoomId: "21",
     contents: [
       { label: "15 laptopów KPO", qty: 15 },
       { label: "15 Chromebooków KPO", qty: 15 },
     ],
+  },
+  {
+    id: "cabinet-spare",
+    name: "Szafa na 30 urządzeń",
+    capacity: 30,
+    bought: true,
+    contents: [{ label: "Piąta szafa z pisma: przeznaczenie do ustalenia, kiedy indziej", qty: 0 }],
   },
   {
     id: "cabinet-28",
@@ -314,9 +338,9 @@ export const purchaseItems = [
     tier: "main",
     name: "Monitor interaktywny",
     specs: ["75 cali"],
-    qty: 7,
-    roomIds: ["2", "18", "23", "30", "32", "33", "41"],
-    priorityRoomIds: ["2", "18", "41"],
+    qty: 4,
+    roomIds: ["23", "30", "32", "33"],
+    note: "Monitory dla sal 2, 18, 29, 41 i 09 są już kupione (pismo dyrektora Kalety), patrz zakładka Zasoby",
     offers: [
       {
         label: "iiyama ProLite TE7515A-B2AG",
@@ -468,9 +492,9 @@ export const purchaseItems = [
     tier: "main",
     name: "Szafa na urządzenia",
     specs: ["na 30 urządzeń", "z zasilaniem"],
-    qty: 5,
-    roomIds: ["23", "32", "43", "17", "21"],
-    note: "Jedna szafa do każdej z pięciu sal: 23 (26 albo 30 Chromebooków), 32 i 43 (po 20 iPadów), 17 (30 tabletów) oraz biblioteki, sali 21 (15 laptopów i 15 Chromebooków)",
+    qty: 1,
+    roomIds: ["17"],
+    note: "Do sali 17 (30 tabletów); tego nie obejmuje pismo dyrektora Kalety. Pięć szaf z pisma (sale 23, 32, 43, 21 i jedna do ustalenia) jest już kupionych, patrz zakładka Zasoby",
   },
   {
     id: "desks-37",
@@ -504,10 +528,9 @@ export const purchaseItems = [
     tier: "accessories",
     name: "Stojak do monitora interaktywnego",
     specs: ["na kółkach", "VESA 800 × 400"],
-    qty: 7,
-    roomIds: ["2", "18", "23", "30", "32", "33", "41"],
-    priorityRoomIds: ["2", "18", "41"],
-    note: "Mobilny stojak na kółkach, nie uchwyt ścienny. Monitor iiyama TE7515A-B2AG: VESA 800 × 400, waga 54,6 kg, 75 cali. Stojak ART SD-22: do VESA 800 × 400, 45–90 cali i 60 kg, więc pasuje (zapas ok. 5 kg). Standard potwierdzić w instrukcji",
+    qty: 4,
+    roomIds: ["23", "30", "32", "33"],
+    note: "Mobilny stojak na kółkach, nie uchwyt ścienny. Monitor iiyama TE7515A-B2AG: VESA 800 × 400, waga 54,6 kg, 75 cali. Stojak ART SD-22: do VESA 800 × 400, 45–90 cali i 60 kg, więc pasuje (zapas ok. 5 kg). Standard potwierdzić w instrukcji. Stojaki dla sal 2, 18, 29, 41 i 09 są już w zestawach z kupionymi monitorami",
     offers: [
       {
         label: "ART SD-22",
@@ -590,11 +613,13 @@ export const rooms = [
     equipment: [
       group(G.computers, [KPO_TEACHER]),
       group(G.media, ["Rzutnik (nowy)"]),
+      group(G.planned, [NEW_MONITOR]),
     ],
     tasks: [
       done("Zamontować nowy rzutnik"),
       done("Sprawdzić podłączenie komputera do rzutnika"),
       done("Sprawdzić, czy obraz wyświetla się poprawnie"),
+      "Zamontować kupiony monitor interaktywny 75 cali na statywie",
     ],
   }),
   room({
@@ -779,11 +804,13 @@ export const rooms = [
     equipment: [
       group(G.computers, [KPO_TEACHER]),
       group(G.media, ["Rzutnik (nowy)"]),
+      group(G.planned, [NEW_MONITOR]),
     ],
     tasks: [
       done("Zamontować nowy rzutnik"),
       done("Zapewnić stabilne połączenie rzutnika z komputerem"),
       done("Sprawdzić, czy zestaw działa"),
+      "Zamontować kupiony monitor interaktywny 75 cali na statywie",
     ],
   }),
   room({
@@ -814,9 +841,10 @@ export const rooms = [
     equipment: [
       group(G.computers, ["15 laptopów KPO (do wstawienia)", "15 Chromebooków KPO (do wstawienia)"]),
       group(G.network, ["Internet na stanowiskach", "Uporządkowane i zabezpieczone przewody"]),
+      group(G.planned, [NEW_CABINET]),
     ],
     tasks: [
-      "Zapewnić szafę na 30 urządzeń",
+      "Ustawić kupioną szafę na 30 urządzeń",
       "Wstawić 15 laptopów KPO i 15 Chromebooków KPO",
       "Przygotować 4 stanowiska komputerowe w czytelni dla uczniów",
       "Podłączyć stanowiska do internetu",
@@ -850,10 +878,10 @@ export const rooms = [
     equipment: [
       group(G.computers, [KPO_TEACHER]),
       group(G.media, ["Rzutnik krótkoogniskowy (nowy, zostaje)"]),
-      group(G.planned, ["26 albo 30 Chromebooków (do wstawienia, jeżeli będą dostępne)"]),
+      group(G.planned, ["26 albo 30 Chromebooków (do wstawienia, jeżeli będą dostępne)", NEW_CABINET]),
     ],
     tasks: [
-      "Zapewnić szafę na 30 urządzeń",
+      "Ustawić kupioną szafę na 30 urządzeń",
       "Wstawić 26 albo 30 Chromebooków, jeżeli będą dostępne",
       done("Sprawdzić, czy nowy rzutnik krótkoogniskowy działa prawidłowo"),
     ],
@@ -926,13 +954,12 @@ export const rooms = [
       group(G.computers, [KPO_TEACHER]),
       group(G.media, ["Rzutnik (działa)"]),
       group(G.planned, [
-        "Monitor interaktywny (75 cali, kupiony)",
-        "Stojak do monitora (kupiony)",
+        NEW_MONITOR,
       ]),
     ],
     tasks: [
       done("Wstawić laptop KPO"),
-      "Zamontować kupiony monitor interaktywny 75 cali na kupionym stojaku",
+      "Zamontować kupiony monitor interaktywny 75 cali na statywie",
       "Sprawdzić stabilne połączenie rzutnika z komputerem",
       "Sprawdzić, czy zestaw działa",
     ],
@@ -988,11 +1015,12 @@ export const rooms = [
       group(G.computers, [KPO_TEACHER]),
       group(G.media, ["Rzutnik (działa)"]),
       group(G.tablets, ["20 iPadów z KPO (do wstawienia)"]),
+      group(G.planned, [NEW_CABINET]),
     ],
     tasks: [
       done("Podłączyć rzutnik do komputera"),
       done("Sprawdzić, czy zestaw działa"),
-      "Zapewnić szafę na 30 urządzeń",
+      "Ustawić kupioną szafę na 30 urządzeń",
       "Wstawić 20 iPadów z KPO",
     ],
   }),
@@ -1119,6 +1147,7 @@ export const rooms = [
       group(G.media, ["Rzutnik (nowy, zostaje)"]),
       group(G.printers, ["Drukarka Xerox 7100 (duża, nowa, ARAW)"]),
       group(G.network, ["Przeciągnięty kabel sieciowy do podłączenia"]),
+      group(G.planned, [NEW_MONITOR]),
     ],
     tasks: [
       "Wyczyścić, przygotować i przenieść 26 laptopów Asus z sali 41 do sali 40 razem z szafą (w trakcie: Maciej Najwer)",
@@ -1127,6 +1156,7 @@ export const rooms = [
       "Podłączyć laptopy do internetu",
       "Podłączyć przeciągnięty kabel sieciowy",
       "Wpiąć drukarkę Xerox 7100 do sieci, żeby można było drukować z komputerów w salach 41, 42 i 37, także uczniowskich",
+      "Zamontować kupiony monitor interaktywny 75 cali na statywie",
     ],
   }),
   room({
@@ -1162,10 +1192,11 @@ export const rooms = [
       group(G.computers, [KPO_TEACHER_PLANNED]),
       group(G.media, ["Telewizor multimedialny"]),
       group(G.tablets, ["20 iPadów z KPO (do wstawienia)"]),
+      group(G.planned, [NEW_CABINET]),
     ],
     tasks: [
       "Wstawić laptop KPO jako komputer nauczyciela",
-      "Zapewnić szafę na 30 urządzeń",
+      "Ustawić kupioną szafę na 30 urządzeń",
       "Wstawić 20 iPadów z KPO",
       done("Zapewnić podłączenie telewizora do komputera"),
       done("Sprawdzić, czy wszystko działa"),
@@ -1271,5 +1302,20 @@ export const unresolvedItems = [
   {
     roomIds: ["23"],
     text: "Potwierdzić, czy do sali 23 będzie dostępnych 26 czy 30 Chromebooków",
+  },
+  {
+    roomIds: [],
+    scope: "Zakupy",
+    text: "Potwierdzić datę pisma dyrektora Kalety, według którego kupiono 5 monitorów interaktywnych i 5 szaf: 15 czy 16 listopada 2026",
+  },
+  {
+    roomIds: [],
+    scope: "Sala 09",
+    text: "Jeden z 5 nowych monitorów interaktywnych ma trafić do sali 09, której nie ma jeszcze w spisie sal: dodać salę (piętro, przeznaczenie) albo poprawić jej numer",
+  },
+  {
+    roomIds: [],
+    scope: "Szafy",
+    text: "Ustalić, do której sali trafi piąta szafa na 30 urządzeń kupiona według pisma (pozostałe cztery: sale 23, 32, 43 i 21)",
   },
 ];

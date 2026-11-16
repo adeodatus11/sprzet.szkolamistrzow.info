@@ -9,12 +9,14 @@ import {
   otherAssets,
   purchaseItems,
   purchaseLabel,
+  purchaseLetter,
   purchaseTiers,
   rooms,
   standardControlTasks,
   statusLabels,
   unresolvedItems,
 } from "./equipment-data.js";
+import { zakupyListopad } from "./zakupy-data.js";
 import {
   nis2Annex,
   nis2Deadlines,
@@ -54,6 +56,12 @@ const els = {
   nis2Questions: document.querySelector("#nis2Questions"),
   nis2Sources: document.querySelector("#nis2Sources"),
   printNis2: document.querySelector("#printNis2"),
+  shoppingTabCount: document.querySelector("#shoppingTabCount"),
+  shoppingSummary: document.querySelector("#shoppingSummary"),
+  shoppingTotals: document.querySelector("#shoppingTotals"),
+  shoppingJump: document.querySelector("#shoppingJump"),
+  shoppingSections: document.querySelector("#shoppingSections"),
+  printShopping: document.querySelector("#printShopping"),
   resourcesSummary: document.querySelector("#resourcesSummary"),
   resourceTotal: document.querySelector("#resourceTotal"),
   resourceCards: document.querySelector("#resourceCards"),
@@ -86,8 +94,8 @@ const els = {
   calcReset: document.querySelector("#calcReset"),
 };
 
-const VIEW_HASHES = { purchases: "#zakupy", resources: "#zasoby", nis2: "#nis2" };
-const VIEW_TITLES = { purchases: "Do zakupu", resources: "Zasoby", nis2: "NIS2. Przepisy" };
+const VIEW_HASHES = { purchases: "#zakupy", resources: "#zasoby", nis2: "#nis2", shopping: "#zakupy-listopad" };
+const VIEW_TITLES = { purchases: "Do zakupu", resources: "Zasoby", nis2: "NIS2. Przepisy", shopping: zakupyListopad.tytul };
 const baseTitle = document.title;
 
 const mobileCatalogQuery = window.matchMedia("(max-width: 980px)");
@@ -639,7 +647,7 @@ const commitPurchaseState = () => {
 };
 
 const renderPurchaseView = () => {
-  els.purchaseSummary.textContent = `Sprzęt, który dobrze byłoby kupić. Zaznacz pozycje i ustaw ilości, a kalkulator policzy koszt. Pozycje z przypisanymi salami są też na kartach tych sal. Stan z ${dataUpdatedAt}.`;
+  els.purchaseSummary.textContent = `Sprzęt, który dobrze byłoby kupić. Zaznacz pozycje i ustaw ilości, a kalkulator policzy koszt. Pozycje z przypisanymi salami są też na kartach tych sal. Już kupione, według: ${purchaseLetter}: 5 monitorów interaktywnych na statywach i 5 szaf na 30 urządzeń (patrz zakładka Zasoby), więc nie ma ich na tej liście. Stan z ${dataUpdatedAt}.`;
   els.purchasesTabCount.textContent = purchaseItems.length;
 
   els.purchaseLists.innerHTML = purchaseTiers.map((tier) => {
@@ -865,6 +873,137 @@ const renderNis2Print = () => {
   `;
 };
 
+// ---------- Zakupy listopad 2027 ----------
+
+const moneyFormat = new Intl.NumberFormat("pl-PL", { minimumFractionDigits: 2, maximumFractionDigits: 2, useGrouping: "always" });
+const zl = (value) => `${moneyFormat.format(value)} zł`;
+const isoToPl = (iso) => (iso ? iso.split("-").reverse().join(".") : "");
+const hasPrice = (item) => item.cena_szt_brutto != null || item.cena_szt_netto != null;
+const vatText = (vat) => (vat === 0 ? "VAT 0%" : `VAT ${Math.round(vat * 100)}%`);
+
+// Suma sekcji: brutto z wartosc_brutto, netto z ceny netto × ilość; pozycje bez ceny nie wchodzą do sum.
+const shopSectionTotals = (section) => {
+  const priced = section.pozycje.filter(hasPrice);
+  const brutto = priced.reduce((sum, item) => sum + (item.wartosc_brutto ?? 0), 0);
+  const netto = priced.reduce((sum, item) => sum + (item.cena_szt_netto ?? item.cena_szt_brutto) * item.ilosc, 0);
+  const contra = [0, 1].map((index) => section.pozycje.reduce((sum, item) => {
+    const offer = item.kontroferty?.[index];
+    return sum + (offer ? (offer.cena_brutto ?? offer.cena_netto) * item.ilosc : (item.wartosc_brutto ?? 0));
+  }, 0));
+  return { brutto, netto, contra, count: section.pozycje.length, missing: section.pozycje.length - priced.length };
+};
+
+const shopPriceLine = (item, section) => {
+  if (!hasPrice(item)) return "Brak ceny, pozycja nie wchodzi do sumy";
+  if (section.ceny === "netto") {
+    return `${zl(item.cena_szt_netto)} netto (${vatText(item.vat)}) = ${zl(item.cena_szt_brutto)} brutto za szt.`;
+  }
+  return `${zl(item.cena_szt_brutto)} brutto za szt.`;
+};
+
+const shopOfferLine = (offer) => `${offer.cena_brutto != null ? `${zl(offer.cena_brutto)} brutto` : `${zl(offer.cena_netto)} netto`}`;
+
+const shopFact = (label, value) => (value ? `<div><dt>${label}</dt><dd>${value}</dd></div>` : "");
+
+const shopItemCard = (item, section) => {
+  const shop = item.link
+    ? `<a href="${escapeHtml(item.link)}" target="_blank" rel="noopener noreferrer">${escapeHtml(item.sklep)}</a>`
+    : escapeHtml(item.sklep ?? "");
+  const offers = (item.kontroferty ?? []).map((offer) => `
+    <li><a href="${escapeHtml(offer.link)}" target="_blank" rel="noopener noreferrer">${escapeHtml(offer.opis)}</a> <strong>${shopOfferLine(offer)}</strong></li>
+  `).join("");
+  return `
+    <article class="shop-item${hasPrice(item) ? "" : " is-unpriced"}" data-lp="${escapeHtml(item.lp)}">
+      <header class="shop-head">
+        <span class="shop-lp">${escapeHtml(item.lp)}</span>
+        <div class="shop-title">
+          <p class="shop-category">${escapeHtml(item.kategoria)}</p>
+          <h3>${escapeHtml(item.produkt)}</h3>
+        </div>
+        <p class="shop-value">${item.wartosc_brutto != null ? `<span>Razem brutto</span><strong>${zl(item.wartosc_brutto)}</strong>` : "<span>Razem</span><strong>brak ceny</strong>"}</p>
+      </header>
+      ${item.parametry ? `<p class="shop-specs">${escapeHtml(item.parametry)}</p>` : ""}
+      <dl class="shop-facts">
+        ${shopFact("Ilość", `${item.ilosc} szt.`)}
+        ${shopFact("Cena", escapeHtml(shopPriceLine(item, section)))}
+        ${shopFact("Sklep", shop)}
+        ${shopFact("Dostępność", item.dostepnosc ? escapeHtml(item.dostepnosc) : "")}
+        ${shopFact("Dostawa", item.dostawa ? escapeHtml(item.dostawa) : "")}
+        ${shopFact("Sprawdzono", item.data_sprawdzenia ? escapeHtml(isoToPl(item.data_sprawdzenia)) : "")}
+      </dl>
+      ${item.uwagi ? `<p class="shop-note">${escapeHtml(item.uwagi)}</p>` : ""}
+      ${item.weryfikacja ? `<p class="shop-verify"><strong>Weryfikacja:</strong> ${escapeHtml(item.weryfikacja)}</p>` : ""}
+      ${offers ? `<div class="shop-offers"><h4>Kontroferty</h4><ul>${offers}</ul></div>` : ""}
+    </article>
+  `;
+};
+
+const shopSectionHtml = (section) => {
+  const totals = shopSectionTotals(section);
+  const isNet = section.ceny === "netto";
+  const summary = [
+    `${totals.count} poz.`,
+    isNet ? `${zl(totals.netto)} netto` : null,
+    `${zl(totals.brutto)} brutto`,
+    totals.missing ? `${totals.missing} bez ceny` : null,
+  ].filter(Boolean).join(" · ");
+  const contra = isNet ? "" : `<p class="shop-contra">Gdyby kupić według kontrofert: <strong>${zl(totals.contra[0])}</strong> (oferta kontra 1) lub <strong>${zl(totals.contra[1])}</strong> (oferta kontra 2) brutto.</p>`;
+  return `
+    <section class="shop-section" id="shop-${escapeHtml(section.id)}" data-section="${escapeHtml(section.id)}" aria-labelledby="shop-title-${escapeHtml(section.id)}">
+      <div class="panel-heading">
+        <h2 id="shop-title-${escapeHtml(section.id)}">${escapeHtml(section.nazwa)}</h2>
+        <span>${escapeHtml(summary)}</span>
+      </div>
+      ${section.opis ? `<p class="shop-section-note">${escapeHtml(section.opis)}</p>` : ""}
+      ${contra}
+      <div class="shop-items">${section.pozycje.map((item) => shopItemCard(item, section)).join("")}</div>
+    </section>
+  `;
+};
+
+const shopAllTotals = () => zakupyListopad.sekcje.reduce((sum, section) => {
+  const totals = shopSectionTotals(section);
+  return {
+    brutto: sum.brutto + totals.brutto,
+    count: sum.count + totals.count,
+    missing: sum.missing + totals.missing,
+  };
+}, { brutto: 0, count: 0, missing: 0 });
+
+const renderShopping = () => {
+  const all = shopAllTotals();
+  els.shoppingTabCount.textContent = all.count;
+  els.shoppingSummary.textContent = `Oferty ze sklepów z linkami i kontrofertami, według działów. Ceny sprawdzone ${isoToPl(zakupyListopad.data_eksportu)}. Pozycje bez ceny nie wchodzą do sum.`;
+  const tiles = [
+    ["count", "Pozycji", all.count],
+    ["brutto", "Razem brutto", zl(all.brutto)],
+    ["missing", "Bez ceny", all.missing],
+  ];
+  els.shoppingTotals.innerHTML = tiles.map(([key, label, value]) => `
+    <div class="total-tile" data-total="${key}">
+      <span class="total-value">${value}</span>
+      <span class="total-label">${escapeHtml(label)}</span>
+    </div>
+  `).join("");
+  els.shoppingJump.innerHTML = zakupyListopad.sekcje.map((section) => `<a class="floor-chip" href="#shop-${escapeHtml(section.id)}" data-shop-jump="${escapeHtml(section.id)}">${escapeHtml(section.nazwa)}</a>`).join("");
+  els.shoppingSections.innerHTML = zakupyListopad.sekcje.map(shopSectionHtml).join("");
+};
+
+const renderShoppingPrint = () => {
+  const line = (item, section) => {
+    const price = hasPrice(item) ? `${item.ilosc} szt. × ${shopPriceLine(item, section)}, razem ${zl(item.wartosc_brutto)} brutto` : `${item.ilosc} szt., brak ceny`;
+    return [`${item.lp}. ${item.produkt}`, price, item.sklep, item.link].filter(Boolean).join("; ");
+  };
+  els.printSheet.innerHTML = `
+    <h1>${escapeHtml(zakupyListopad.tytul)}</h1>
+    <div class="print-meta">
+      <div><strong>Ceny sprawdzone:</strong> ${escapeHtml(isoToPl(zakupyListopad.data_eksportu))}</div>
+      <div><strong>Razem brutto:</strong> ${escapeHtml(zl(shopAllTotals().brutto))}</div>
+    </div>
+    ${zakupyListopad.sekcje.map((section) => printSection(`${section.nazwa} (${zl(shopSectionTotals(section).brutto)} brutto)`, listItems(section.pozycje.map((item) => line(item, section))))).join("")}
+  `;
+};
+
 const renderViewTabs = () => {
   document.body.dataset.view = state.view;
   document.title = VIEW_TITLES[state.view] ? `${VIEW_TITLES[state.view]} | ${baseTitle}` : baseTitle;
@@ -881,7 +1020,7 @@ const renderOpenItems = () => {
     const targets = item.roomIds.map(roomById).filter(Boolean);
     const links = targets.length
       ? targets.map((room) => `<a class="item-room" href="#room-${encodeURIComponent(room.id)}" data-room-id="${escapeHtml(room.id)}">${escapeHtml(room.name)}</a>`).join("")
-      : `<span class="item-room is-general">Wszystkie sale</span>`;
+      : `<span class="item-room is-general">${escapeHtml(item.scope ?? "Wszystkie sale")}</span>`;
     return `<li>${links}<span>${escapeHtml(item.text)}</span></li>`;
   }).join("");
 };
@@ -1040,9 +1179,9 @@ const cabinetContentItem = (item) => {
 
 const cabinetCard = (cabinet) => {
   const qty = cabinetContentQty(cabinet);
-  const isNew = !cabinet.from && !cabinet.needed;
+  const isNew = !cabinet.from && !cabinet.needed && !cabinet.bought;
   const target = roomById(cabinet.toRoomId);
-  const badge = cabinet.needed ? ["missing", "Potrzebna (do zakupu)"] : isNew ? ["ready", "Nowa"] : ["todo", "Do przeniesienia"];
+  const badge = cabinet.needed ? ["missing", "Potrzebna (do zakupu)"] : cabinet.bought ? ["ready", "Kupiona (do dostarczenia)"] : isNew ? ["ready", "Nowa"] : ["todo", "Do przeniesienia"];
   return `
     <article class="resource-card cabinet-card" data-cabinet-id="${escapeHtml(cabinet.id)}">
       <header class="resource-head">
@@ -1051,9 +1190,10 @@ const cabinetCard = (cabinet) => {
       </header>
       <p class="cabinet-route">
         ${cabinet.from ? `<span><strong>Teraz:</strong> ${cabinetPlace(cabinet.from)}</span>` : ""}
-        <span><strong>Do sali:</strong> ${target ? roomLink(target, { label: target.name }) : escapeHtml(cabinet.toRoomId)}</span>
+        <span><strong>Do sali:</strong> ${target ? roomLink(target, { label: target.name }) : escapeHtml(cabinet.toRoomId ?? "do ustalenia")}</span>
       </p>
       <p class="resource-note"><strong>Pojemność:</strong> ${cabinet.capacity} szt.</p>
+      ${cabinet.bought ? `<p class="resource-note">Kupiona według: ${escapeHtml(purchaseLetter)}. Taka sama jak kupione ostatnio (30 miejsc).</p>` : ""}
       <ul class="cabinet-contents">
         ${cabinet.contents.map(cabinetContentItem).join("")}
       </ul>
@@ -1130,8 +1270,8 @@ const renderResourcesPrint = () => {
       const qty = cabinetContentQty(cabinet);
       return [
         `${cabinet.name} (pojemność ${cabinet.capacity})`,
-        from ? `teraz: ${from}` : cabinet.needed ? "potrzebna (do zakupu)" : "nowa",
-        `do sali: ${target ? chipLabel(target) : cabinet.toRoomId}`,
+        from ? `teraz: ${from}` : cabinet.needed ? "potrzebna (do zakupu)" : cabinet.bought ? "kupiona wg pisma, do dostarczenia" : "nowa",
+        `do sali: ${target ? chipLabel(target) : cabinet.toRoomId ?? "do ustalenia"}`,
         `w szafie: ${cabinet.contents.map((item) => (cabinetStatusText(item) ? `${item.label} (${cabinetStatusText(item)})` : item.label)).join("; ")}`,
         qty > cabinet.capacity ? `uwaga: ${qty} szt. przekracza pojemność${cabinet.knownOverfill ? " (przyjęte świadomie)" : ""}` : "",
       ].filter(Boolean).join(", ");
@@ -1161,6 +1301,7 @@ const render = ({ historyMode = "replace", moveFocus = false } = {}) => {
   renderMobileNavigation();
   if (state.view === "purchases") renderPurchasePrint();
   if (state.view === "resources") renderResourcesPrint();
+  if (state.view === "shopping") renderShoppingPrint();
   if (state.view === "nis2") {
     renderNis2Deadlines();
     renderNis2Print();
@@ -1264,6 +1405,7 @@ els.nextRoom.addEventListener("click", () => moveToAdjacentRoom(1));
 els.printPurchases.addEventListener("click", () => window.print());
 els.printResources.addEventListener("click", () => window.print());
 els.printNis2.addEventListener("click", () => window.print());
+els.printShopping.addEventListener("click", () => window.print());
 
 els.nis2Roadmap.addEventListener("change", (event) => {
   const box = event.target.closest("[data-step-check]");
@@ -1333,5 +1475,6 @@ renderOpenItems();
 renderResources();
 renderPurchaseView();
 renderNis2();
+renderShopping();
 render();
 setCatalogOpen(false, { restoreFocus: false });

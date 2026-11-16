@@ -48,13 +48,14 @@
         <a class="view-tab" id="purchasesTab" href="#zakupy" data-view="purchases">Do zakupu <span class="tab-count" id="purchasesTabCount">0</span></a>
         <a class="view-tab" id="resourcesTab" href="#zasoby" data-view="resources">Zasoby <span class="tab-count" id="resourcesTabCount">0</span></a>
         <a class="view-tab" id="nis2Tab" href="#nis2" data-view="nis2">NIS2. Przepisy <span class="tab-count" id="nis2TabCount">0</span></a>
+        <a class="view-tab" id="shoppingTab" href="#zakupy-listopad" data-view="shopping">Zakupy listopad 2027 <span class="tab-count" id="shoppingTabCount">0</span></a>
       </nav>
 
       <section class="intro" aria-labelledby="pageTitle">
         <div class="intro-copy">
           <p class="eyebrow">Robocza kartoteka wyposażenia</p>
           <h1 id="pageTitle">Sprzęt i wyposażenie sal</h1>
-          <p>Lista do kontroli sal i drukowania kart. Dane robocze, stan z 30 października 2026 r.</p>
+          <p>Lista do kontroli sal i drukowania kart. Dane robocze, stan z 16 listopada 2026 r.</p>
         </div>
         <div class="stats" id="stats" role="group" aria-label="Podsumowanie sal"></div>
       </section>
@@ -188,6 +189,22 @@
         <ol class="nis2-text-list" id="nis2Questions"></ol>
         <h2 class="resource-section-title">Źródła</h2>
         <ul class="nis2-sources" id="nis2Sources"></ul>
+      </section>
+
+      <section class="shopping-view" id="shoppingView" aria-labelledby="shoppingTitle">
+        <div class="purchase-intro">
+          <div class="intro-copy">
+            <p class="eyebrow">Zestawienie zakupów</p>
+            <h1 id="shoppingTitle" tabindex="-1">Zakupy listopad 2027</h1>
+            <p id="shoppingSummary"></p>
+          </div>
+          <div class="detail-actions">
+            <button class="primary" id="printShopping" type="button">Drukuj zestawienie</button>
+          </div>
+        </div>
+        <div class="resource-total" id="shoppingTotals" role="group" aria-label="Podsumowanie zakupów"></div>
+        <nav class="shop-jump" id="shoppingJump" aria-label="Przejdź do działu"></nav>
+        <div class="shop-sections" id="shoppingSections"></div>
       </section>
     </main>
 
