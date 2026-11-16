@@ -341,8 +341,8 @@ export const zakupyListopad = {
       "opis": "Ceny netto + stawka VAT (0% dla sprzętu komputerowego wskazanego przez szkołę) • oferty od ręki + 2 oferty kontra (ceny netto) • weryfikacja: 16.11.2026",
       "ceny": "netto",
       "sumy": {
-        "razem_netto": 94943.18,
-        "razem_brutto": 113150.56
+        "razem_netto": 100096.02,
+        "razem_brutto": 119488.56
       },
       "sekcje": [
         {
@@ -643,31 +643,51 @@ export const zakupyListopad = {
           "pozycje": [
             {
               "lp": 11,
-              "kategoria": "Robot planetarny (mniejszy)",
-              "produkt": "Kenwood Prospero+ KHC29.X0SI z wagą i blenderem kielichowym",
-              "parametry": "1000 W, misa 4,3 l, wbudowana waga, blender kielichowy i maszynka do mięsa w zestawie (wg opisu sklepu); sprzęt kuchenny do domu, mniejszy niż gastronomiczny 7 l",
+              "kategoria": "Robot planetarny",
+              "produkt": "Kenwood Titanium Chef Patissier XL KWL90.244SI",
+              "parametry": "1400 W, dwie misy (7 l i 5 l), wbudowana waga, funkcja podgrzewania misy; bez blendera kielichowego (blender osobno, poz. 11a)",
               "ilosc": 2,
-              "cena_szt_netto": 812.2,
+              "cena_szt_netto": 3088.62,
               "vat": 0.23,
-              "cena_szt_brutto": 999.0,
-              "wartosc_brutto": 1998.0,
+              "cena_szt_brutto": 3799.0,
+              "wartosc_brutto": 7598.0,
               "sklep": "Media Expert",
               "dostepnosc": "Do potwierdzenia",
               "dostawa": "Do potwierdzenia w koszyku",
-              "link": "https://www.mediaexpert.pl/agd-male/do-kuchni/roboty-kuchenne/robot-kuchenny-planetarny-kenwood-khc29a-x0si-prospero-1000w-z-waga-blenderem-kielichowym-i-maszynka-do-miesa",
-              "uwagi": "Zamiast gastronomicznego miksera Hendi 7 l (za duży). Zestaw domowy z wagą i blenderem; maszynka do mięsa nie jest potrzebna, a akcesoria cukiernicze (rózga, hak, mieszadło) potwierdzić w karcie produktu. Cena 999 zł brutto (wcześniej 1 039,99 zł) z wyników wyszukiwarki, do potwierdzenia w sklepie. Przy pracy grupowej rozważyć 3–4 szt.",
+              "link": "https://www.mediaexpert.pl/p/2465264",
+              "uwagi": "Wybór szkoły 16.11.2026 zamiast gastronomicznego miksera 7 l i domowego Prospero+. Cena 3 799 zł brutto to cena sugerowana z karty Media Expert (z wyszukiwarki), do potwierdzenia. Wariant KWL90.124SI ma wg opisu Morele wbudowany blender kielichowy 1,6 l (patrz kontroferta): jeśli to się potwierdzi, można go kupić zamiast tego robota i osobnego blendera.",
               "data_sprawdzenia": "2026-11-16",
-              "weryfikacja": "Zmiana 16.11.2026: poprzednio Hendi 222829 7 l, 2 324,25 zł netto za szt.",
+              "weryfikacja": "Zmiana 16.11.2026: poprzednio Hendi 222829 7 l (2 324,25 zł netto) i Kenwood Prospero+ 4,3 l.",
               "kontroferty": [
                 {
-                  "opis": "kenwoodworld.com – Kenwood kMix KMX750ABK, misa 5 l, bez wagi i blendera, 1 169,10 zł brutto",
-                  "cena_netto": 950.49,
-                  "link": "https://www.kenwoodworld.com/pl-pl/kmix-black-kmx750abk/p/KMX750ABK"
-                },
+                  "opis": "mediamarkt.pl – Kenwood Titanium Chef Patissier XL KWL90.124SI: waga, podgrzewanie, misy 7 l i 5 l, wg Morele z blenderem kielichowym 1,6 l w zestawie; cena orientacyjna 3 599 zł brutto, potwierdzić zawartość zestawu",
+                  "cena_netto": 2926.02,
+                  "link": "https://mediamarkt.pl/pl/product/_robot-planetarny-kenwood-chef-patissier-xl-kwl90124si-srebrny-1490897.html"
+                }
+              ]
+            },
+            {
+              "lp": "11a",
+              "kategoria": "Blender kielichowy do robota",
+              "produkt": "Kenwood KAH359GL – blender szklany ThermoResist 1,6 l",
+              "parametry": "Nakładka blender kielichowy do robotów Kenwood Chef Titanium / Chef XL Titanium (gniazdo szybkich obrotów); szkło ThermoResist do 160 °C, 1,6 l, 4 ostrza",
+              "ilosc": 2,
+              "cena_szt_netto": 300.0,
+              "vat": 0.23,
+              "cena_szt_brutto": 369.0,
+              "wartosc_brutto": 738.0,
+              "sklep": "Kenwood Polska (kenwoodworld.com)",
+              "dostepnosc": "W magazynie (wg sklepu)",
+              "dostawa": "Darmowa wysyłka powyżej 120 zł",
+              "link": "https://www.kenwoodworld.com/pl-pl/blender-thermoresist-kah359gl/p/KAH359GL",
+              "uwagi": "Blender kupowany osobno do robotów Titanium Chef Patissier XL (po 1 szt. do robota). Zgodność z KWL90 potwierdzić w instrukcji lub u producenta (lista zgodności z opisów sklepów). Na części stron cena 379 zł.",
+              "data_sprawdzenia": "2026-11-16",
+              "weryfikacja": "Nowa pozycja (16.11.2026).",
+              "kontroferty": [
                 {
-                  "opis": "mediaexpert.pl – Kenwood Titanium Chef Patissier XL KWL90.244SI, 1400 W, waga i podgrzewanie, 2 misy (7 l i 5 l), bez blendera kielichowego, cena sugerowana 3 799 zł brutto",
-                  "cena_netto": 3088.62,
-                  "link": "https://www.mediaexpert.pl/p/2465264"
+                  "opis": "komputronik.pl – Kenwood KAH 359GL, chwilowo niedostępny",
+                  "cena_netto": 300.0,
+                  "link": "https://www.komputronik.pl/product/640502/kenwood-kah-359gl.html"
                 }
               ]
             },
