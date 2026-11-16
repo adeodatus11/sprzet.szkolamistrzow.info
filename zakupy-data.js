@@ -469,20 +469,47 @@ export const zakupyListopad = {
             {
               "lp": 5,
               "kategoria": "Komputer do grafiki",
-              "produkt": "Komputer do projektowania graficznego, renderowania i montażu",
-              "parametry": "Rezerwa budżetowa 13 000 zł brutto – konfiguracja do ustalenia",
+              "produkt": "Apple MacBook Pro 14″ M5 Pro (15-rdzeniowy CPU, 16-rdzeniowy GPU), 24 GB RAM, 1 TB SSD, gwiezdna czerń, klawiatura US, zasilacz 70 W (MGDR4)",
+              "parametry": "Laptop do projektowania graficznego, renderowania i montażu; wersja z klawiaturą US i zasilaczem 70 W, w magazynie wg lantre.pl",
               "ilosc": 1,
               "cena_szt_netto": 10569.11,
               "vat": 0.23,
               "cena_szt_brutto": 13000.0,
               "wartosc_brutto": 13000.0,
-              "sklep": "Do ustalenia",
-              "dostepnosc": null,
-              "dostawa": null,
-              "link": null,
-              "uwagi": "Laptop nie jest w wykazie sprzętu z zał. nr 8 do ustawy o VAT (tylko zestawy stacjonarne) – VAT 23%. Rezerwa 13 000 zł brutto.",
+              "sklep": "lantre.pl",
+              "dostepnosc": "Dostępny w magazynie (wg opisu sklepu)",
+              "dostawa": "Do potwierdzenia",
+              "link": "https://lantre.pl/apple-macbook-pro-14-m5-pro-24gb-1tb-15-core-cpu-16-core-gpu-klawiatura-us-zasilacz-70-w-gwiezdna-czern-space-black-mgdr4-us-70w.html",
+              "uwagi": "Model wskazany przez szkołę (link lantre.pl). Nie mogłem otworzyć strony sklepu, więc w sumie zostaje rezerwa budżetowa 13 000 zł brutto: cenę ze strony lantre.pl wpisać po sprawdzeniu. Laptop nie jest w wykazie sprzętu z zał. nr 8 do ustawy o VAT (tylko zestawy stacjonarne), więc VAT 23%. Klawiatura US i zasilacz 70 W to wersja niestandardowa dla Polski. W kontrofertach droższe MacBooki z innych sklepów; w iSpot, x-kom, Media Expert i Morele nie znalazłem cen tego modelu.",
               "data_sprawdzenia": "2026-11-16",
-              "kontroferty": []
+              "kontroferty": [
+                {
+                  "opis": "komputronik.pl – MacBook Pro 14 M5 Pro (15/16), 24 GB, 1 TB, gwiezdna czerń, nano, US; chwilowo niedostępny",
+                  "cena_brutto": 13249.0,
+                  "link": "https://www.komputronik.pl/product/1021432/laptop-apple-macbook-pro-m5-pro-15-16-14-2-24gb-1tb-mac-os-nano-us-gwiezdna-czern-.html"
+                },
+                {
+                  "opis": "komputronik.pl – MacBook Pro 14 M5 Pro (18/20), 24 GB, 1 TB, gwiezdna czerń, zasilacz 96 W (mocniejszy procesor)",
+                  "cena_brutto": 13799.0,
+                  "link": "https://www.komputronik.pl/product/1004148/laptop-apple-macbook-pro-m5-pro-18-20-14-2-24gb-1tb-mac-os-gwiezdna-czern-zasilacz-96w.html"
+                },
+                {
+                  "opis": "lantre.pl – MacBook Pro 16 M5 Pro (18/20), 24 GB, 1 TB, gwiezdna czerń (MGEA4ZE/A), cena w zestawie z akcesoriami wg strony, do sprawdzenia",
+                  "cena_brutto": 14145.0,
+                  "link": "https://lantre.pl/apple-macbook-pro-16-m5-pro-24gb-1tb-18-core-cpu-20-core-gpu-gwiezdna-czern-space-black-mgea4ze-a.html"
+                },
+                {
+                  "opis": "komputronik.pl – MacBook Pro PROLED XDR 14 M5 Pro (15/16), 24 GB, 1 TB, gwiezdna czerń",
+                  "cena_brutto": 14999.0,
+                  "link": "https://www.komputronik.pl/product/1038898/laptop-apple-macbook-pro-proled-xdr-m5-pro-15-16-14-2-24gb-1tb-mac-os-gwiezdna-czern.html"
+                },
+                {
+                  "opis": "mediamarkt.pl – MacBook Pro 16 M5 Pro (18/20), 24 GB RAM, gwiezdna czerń; pojemność SSD sprawdzić",
+                  "cena_brutto": 17370.0,
+                  "link": "https://mediamarkt.pl/pl/product/_laptop-apple-macbook-pro-16-czip-m5-pro-18-rdzeniowy-cpu-20-rdzeniowy-gpu-24-gb-ram-ssd-m5-macos-gwiezdna-czern-178327001.html"
+                }
+              ],
+              "weryfikacja": "Zmiana 16.11.2026: konkretny model z lantre.pl zamiast ogólnej rezerwy; kwota nadal rezerwa 13 000 zł."
             },
             {
               "lp": "5a",
