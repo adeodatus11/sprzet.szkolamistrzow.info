@@ -1581,12 +1581,23 @@ body:not([data-view="shopping"]) .shopping-view {
   gap: 26px;
 }
 
+.shop-sheet,
 .shop-section {
   scroll-margin-top: calc(var(--topbar-height) + 12px);
 }
 
-.shop-section .panel-heading {
+.shop-sheet > .panel-heading {
   margin-top: 8px;
+  border-bottom: 2px solid var(--accent);
+}
+
+.shop-section {
+  margin-top: 18px;
+}
+
+.shop-section .panel-heading h3 {
+  margin: 0;
+  font-size: 1.05rem;
 }
 
 .shop-section-note,
@@ -1644,7 +1655,7 @@ body:not([data-view="shopping"]) .shopping-view {
   text-transform: uppercase;
 }
 
-.shop-title h3 {
+.shop-title h4 {
   margin: 0;
   font-size: 1rem;
   line-height: 1.3;
@@ -1706,7 +1717,7 @@ body:not([data-view="shopping"]) .shopping-view {
   overflow-wrap: anywhere;
 }
 
-.shop-offers h4 {
+.shop-offers-title {
   margin: 0 0 4px;
   color: var(--muted);
   font-size: 0.72rem;
