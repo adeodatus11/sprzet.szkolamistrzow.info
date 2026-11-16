@@ -3,7 +3,8 @@
 // pracownia handlowa, pracownie zawodowe, pracownia gastronomiczno-spożywcza, pracownia fryzjerska.
 // lp to numer pozycji z arkusza (5a = pozycja dopisana później). Daty w formacie RRRR-MM-DD.
 // Kontroferty mają cena_brutto albo cena_netto, zależnie od arkusza. Pozycja bez ceny nie wchodzi do sum.
-// sumy: dla maturalnych z arkusza; dla pracowni przeliczone z pozycji po zmianach z 16.11.2026.
+// Kwota do zapłaty pozycji = wartosc_brutto: przy VAT 0% to cena netto, przy VAT 23% cena brutto.
+// sumy: tylko sumy przy kontrofertach dla wyposażenia maturalnego (z arkusza); pozostałe sumy liczy strona.
 
 export const zakupyListopad = {
   "tytul": "Zakupy listopad 2027",
@@ -20,7 +21,6 @@ export const zakupyListopad = {
       "opis": "bizhub C450i wg oferty e-mail (Copytec) • ceny brutto • weryfikacja ofert i 2 oferty kontra: 14–16.11.2026",
       "ceny": "brutto",
       "sumy": {
-        "suma_brutto": 14977.04,
         "suma_kontra_1_brutto": 18025.97,
         "suma_kontra_2_brutto": 36609.56
       },
@@ -340,10 +340,7 @@ export const zakupyListopad = {
       "nazwa": "Wyposażenie pracowni",
       "opis": "Ceny netto + stawka VAT (0% dla sprzętu komputerowego wskazanego przez szkołę) • oferty od ręki + 2 oferty kontra (ceny netto) • weryfikacja: 16.11.2026",
       "ceny": "netto",
-      "sumy": {
-        "razem_netto": 100638.29,
-        "razem_brutto": 120155.56
-      },
+      "sumy": {},
       "sekcje": [
         {
           "id": "handlowa",
@@ -499,14 +496,14 @@ export const zakupyListopad = {
               "parametry": "27″, 4K 120 Hz, IPS, Thunderbolt 4, RJ-45 2,5 Gb/s, hub USB, ładowanie do 140 W",
               "ilosc": 1,
               "cena_szt_netto": 2259.35,
-              "vat": 0.23,
-              "cena_szt_brutto": 2779.0,
-              "wartosc_brutto": 2779.0,
+              "vat": 0.0,
+              "cena_szt_brutto": 2259.35,
+              "wartosc_brutto": 2259.35,
               "sklep": "Media Expert",
               "dostepnosc": "Do potwierdzenia",
               "dostawa": "Do potwierdzenia",
               "link": "https://www.mediaexpert.pl/komputery-i-tablety/monitory-led/monitor-dell-ultrasharp-u2725qe-27-3840x2160px-ips-120hz",
-              "uwagi": "Dwa monitory do komputera do grafiki (poz. 5a i 5b): monitor 4K i monitor QHD, zamiast wcześniej planowanego ASUS ProArt PA27JCV 5K. Cena 2 779 zł brutto z oferty podanej przez szkołę. VAT 23%; jeśli szkoła kupuje monitory z 0% VAT, cena spadnie.",
+              "uwagi": "Dwa monitory do komputera do grafiki (poz. 5a i 5b): monitor 4K i monitor QHD, zamiast wcześniej planowanego ASUS ProArt PA27JCV 5K. Cena 2 779 zł brutto z oferty podanej przez szkołę. Monitor w pracowni handlowej liczony z VAT 0%: poniesiona zostanie cena netto 2 259,35 zł (2 779 zł brutto w ofercie).",
               "data_sprawdzenia": "2026-11-16",
               "weryfikacja": "Nowa pozycja (16.11.2026).",
               "kontroferty": []
@@ -518,14 +515,14 @@ export const zakupyListopad = {
               "parametry": "27″, QHD 120 Hz, IPS, Thunderbolt 4, RJ-45, hub USB",
               "ilosc": 1,
               "cena_szt_netto": 1478.86,
-              "vat": 0.23,
-              "cena_szt_brutto": 1819.0,
-              "wartosc_brutto": 1819.0,
+              "vat": 0.0,
+              "cena_szt_brutto": 1478.86,
+              "wartosc_brutto": 1478.86,
               "sklep": "Media Expert",
               "dostepnosc": "Do potwierdzenia",
               "dostawa": "Do potwierdzenia",
               "link": "https://www.mediaexpert.pl/komputery-i-tablety/monitory-led/monitor-dell-ultrasharp-u2724de-27-2560x1440px-ips-120hz",
-              "uwagi": "Drugi monitor (QHD) obok monitora 4K (poz. 5a), zamiast ASUS ProArt PA27JCV 5K. Cena 1 819 zł brutto z oferty podanej przez szkołę. VAT 23%; przy 0% VAT cena spadnie.",
+              "uwagi": "Drugi monitor (QHD) obok monitora 4K (poz. 5a), zamiast ASUS ProArt PA27JCV 5K. Cena 1 819 zł brutto z oferty podanej przez szkołę. Monitor w pracowni handlowej liczony z VAT 0%: poniesiona zostanie cena netto 1 478,86 zł (1 819 zł brutto w ofercie).",
               "data_sprawdzenia": "2026-11-16",
               "weryfikacja": "Nowa pozycja (16.11.2026).",
               "kontroferty": []

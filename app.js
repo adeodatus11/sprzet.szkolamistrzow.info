@@ -879,18 +879,15 @@ const moneyFormat = new Intl.NumberFormat("pl-PL", { minimumFractionDigits: 2, m
 const zl = (value) => `${moneyFormat.format(value)} zł`;
 const isoToPl = (iso) => (iso ? iso.split("-").reverse().join(".") : "");
 const hasPrice = (item) => item.cena_szt_brutto != null || item.cena_szt_netto != null;
-const vatText = (vat) => (vat === 0 ? "VAT 0%" : `VAT ${Math.round(vat * 100)}%`);
 
-// Suma działu liczona z pozycji (brutto z wartosc_brutto, netto z ceny netto × ilość);
-// pozycje bez ceny nie wchodzą do sum.
+// Kwota, która zostanie poniesiona: przy VAT 0% cena netto, przy VAT 23% cena z VAT (wartosc_brutto).
 const shopItemsOf = (node) => node.pozycje ?? node.sekcje.flatMap((section) => section.pozycje);
 
 const shopTotals = (node) => {
   const items = shopItemsOf(node);
   const priced = items.filter(hasPrice);
   return {
-    brutto: priced.reduce((sum, item) => sum + (item.wartosc_brutto ?? 0), 0),
-    netto: priced.reduce((sum, item) => sum + (item.cena_szt_netto ?? item.cena_szt_brutto) * item.ilosc, 0),
+    pay: priced.reduce((sum, item) => sum + (item.wartosc_brutto ?? 0), 0),
     count: items.length,
     missing: items.length - priced.length,
   };
@@ -899,12 +896,17 @@ const shopTotals = (node) => {
 const shopPriceLine = (item, sheet) => {
   if (!hasPrice(item)) return "Brak ceny, pozycja nie wchodzi do sumy";
   if (sheet.ceny === "netto") {
-    return `${zl(item.cena_szt_netto)} netto (${vatText(item.vat)}) = ${zl(item.cena_szt_brutto)} brutto za szt.`;
+    return item.vat === 0
+      ? `${zl(item.cena_szt_netto)} za szt., VAT 0%: taka cena zostanie poniesiona`
+      : `${zl(item.cena_szt_brutto)} za szt. z VAT ${Math.round(item.vat * 100)}%: taka cena zostanie poniesiona`;
   }
-  return `${zl(item.cena_szt_brutto)} brutto za szt.`;
+  return `${zl(item.cena_szt_brutto)} za szt.`;
 };
 
-const shopOfferLine = (offer) => `${offer.cena_brutto != null ? `${zl(offer.cena_brutto)} brutto` : `${zl(offer.cena_netto)} netto`}`;
+// Cena kontroferty w tej samej logice: przy VAT 0% netto, przy VAT 23% z VAT.
+const shopOfferPay = (offer, item) => (offer.cena_brutto != null
+  ? offer.cena_brutto
+  : Math.round(offer.cena_netto * (1 + (item.vat ?? 0)) * 100) / 100);
 
 const shopFact = (label, value) => (value ? `<div><dt>${label}</dt><dd>${value}</dd></div>` : "");
 
@@ -913,7 +915,7 @@ const shopItemCard = (item, sheet) => {
     ? `<a href="${escapeHtml(item.link)}" target="_blank" rel="noopener noreferrer">${escapeHtml(item.sklep)}</a>`
     : escapeHtml(item.sklep ?? "");
   const offers = (item.kontroferty ?? []).map((offer) => `
-    <li><a href="${escapeHtml(offer.link)}" target="_blank" rel="noopener noreferrer">${escapeHtml(offer.opis)}</a> <strong>${shopOfferLine(offer)}</strong></li>
+    <li><a href="${escapeHtml(offer.link)}" target="_blank" rel="noopener noreferrer">${escapeHtml(offer.opis)}</a> <strong>${zl(shopOfferPay(offer, item))}</strong></li>
   `).join("");
   return `
     <article class="shop-item${hasPrice(item) ? "" : " is-unpriced"}" data-lp="${escapeHtml(item.lp)}">
@@ -923,7 +925,7 @@ const shopItemCard = (item, sheet) => {
           <p class="shop-category">${escapeHtml(item.kategoria)}</p>
           <h4>${escapeHtml(item.produkt)}</h4>
         </div>
-        <p class="shop-value">${item.wartosc_brutto != null ? `<span>Razem brutto</span><strong>${zl(item.wartosc_brutto)}</strong>` : "<span>Razem</span><strong>brak ceny</strong>"}</p>
+        <p class="shop-value">${item.wartosc_brutto != null ? `<span>Razem do zapłaty</span><strong>${zl(item.wartosc_brutto)}</strong>` : "<span>Razem</span><strong>brak ceny</strong>"}</p>
       </header>
       ${item.parametry ? `<p class="shop-specs">${escapeHtml(item.parametry)}</p>` : ""}
       <dl class="shop-facts">
@@ -936,28 +938,16 @@ const shopItemCard = (item, sheet) => {
       </dl>
       ${item.uwagi ? `<p class="shop-note">${escapeHtml(item.uwagi)}</p>` : ""}
       ${item.weryfikacja ? `<p class="shop-verify"><strong>Weryfikacja:</strong> ${escapeHtml(item.weryfikacja)}</p>` : ""}
-      ${offers ? `<div class="shop-offers"><p class="shop-offers-title">Kontroferty</p><ul>${offers}</ul></div>` : ""}
+      ${offers ? `<div class="shop-offers"><p class="shop-offers-title">Kontroferty (kwota do zapłaty)</p><ul>${offers}</ul></div>` : ""}
     </article>
   `;
 };
 
-const shopSummaryText = (node, prices) => {
+const shopSummaryText = (node) => {
   const totals = shopTotals(node);
   return [
     `${totals.count} poz.`,
-    prices === "netto" ? `${zl(totals.netto)} netto` : null,
-    `${zl(totals.brutto)} brutto`,
-    totals.missing ? `${totals.missing} bez ceny` : null,
-  ].filter(Boolean).join(" · ");
-};
-
-// Podsumowanie arkusza z sum podanych w arkuszu (sumy działów liczone są z pozycji).
-const shopSheetSummary = (sheet) => {
-  const totals = shopTotals(sheet);
-  return [
-    `${totals.count} poz.`,
-    sheet.sumy.razem_netto != null ? `${zl(sheet.sumy.razem_netto)} netto` : null,
-    `${zl(sheet.sumy.suma_brutto ?? sheet.sumy.razem_brutto)} brutto`,
+    `${zl(totals.pay)} do zapłaty`,
     totals.missing ? `${totals.missing} bez ceny` : null,
   ].filter(Boolean).join(" · ");
 };
@@ -965,8 +955,8 @@ const shopSheetSummary = (sheet) => {
 const shopItemsHtml = (items, sheet) => `<div class="shop-items">${items.map((item) => shopItemCard(item, sheet)).join("")}</div>`;
 
 const shopSheetHtml = (sheet) => {
-  const contra = sheet.sumy.suma_kontra_1_brutto != null
-    ? `<p class="shop-contra">Gdyby kupić według kontrofert: <strong>${zl(sheet.sumy.suma_kontra_1_brutto)}</strong> (oferta kontra 1) lub <strong>${zl(sheet.sumy.suma_kontra_2_brutto)}</strong> (oferta kontra 2) brutto.</p>`
+  const contra = sheet.sumy?.suma_kontra_1_brutto != null
+    ? `<p class="shop-contra">Gdyby kupić według kontrofert: <strong>${zl(sheet.sumy.suma_kontra_1_brutto)}</strong> (oferta kontra 1) lub <strong>${zl(sheet.sumy.suma_kontra_2_brutto)}</strong> (oferta kontra 2).</p>`
     : "";
   const body = sheet.pozycje
     ? shopItemsHtml(sheet.pozycje, sheet)
@@ -974,7 +964,7 @@ const shopSheetHtml = (sheet) => {
       <section class="shop-section" id="shop-${escapeHtml(section.id)}" data-section="${escapeHtml(section.id)}" aria-labelledby="shop-title-${escapeHtml(section.id)}">
         <div class="panel-heading">
           <h3 id="shop-title-${escapeHtml(section.id)}">${escapeHtml(section.nazwa)}</h3>
-          <span>${escapeHtml(shopSummaryText(section, sheet.ceny))}</span>
+          <span>${escapeHtml(shopSummaryText(section))}</span>
         </div>
         ${shopItemsHtml(section.pozycje, sheet)}
       </section>
@@ -983,7 +973,7 @@ const shopSheetHtml = (sheet) => {
     <section class="shop-sheet" id="shop-${escapeHtml(sheet.id)}" data-sheet="${escapeHtml(sheet.id)}" aria-labelledby="shop-title-${escapeHtml(sheet.id)}">
       <div class="panel-heading">
         <h2 id="shop-title-${escapeHtml(sheet.id)}">${escapeHtml(sheet.nazwa)}</h2>
-        <span>${escapeHtml(shopSheetSummary(sheet))}</span>
+        <span>${escapeHtml(shopSummaryText(sheet))}</span>
       </div>
       ${sheet.opis ? `<p class="shop-section-note">${escapeHtml(sheet.opis)}</p>` : ""}
       ${contra}
@@ -992,21 +982,22 @@ const shopSheetHtml = (sheet) => {
   `;
 };
 
-// Pozycje, sekcje i sumy arkuszy do podsumowania na górze i do skoków.
+// Wszystkie sumy liczone z pozycji: osobno wyposażenie maturalne i wyposażenie pracowni, potem razem.
 const shopAllTotals = () => zakupyListopad.arkusze.reduce((sum, sheet) => {
   const totals = shopTotals(sheet);
-  return { brutto: sum.brutto + (sheet.sumy.suma_brutto ?? sheet.sumy.razem_brutto), count: sum.count + totals.count, missing: sum.missing + totals.missing };
-}, { brutto: 0, count: 0, missing: 0 });
+  return { pay: sum.pay + totals.pay, count: sum.count + totals.count, missing: sum.missing + totals.missing };
+}, { pay: 0, count: 0, missing: 0 });
 
 const shopJumpTargets = () => zakupyListopad.arkusze.flatMap((sheet) => (sheet.sekcje ?? [sheet]).map((node) => ({ id: node.id, nazwa: node.nazwa })));
 
 const renderShopping = () => {
   const all = shopAllTotals();
   els.shoppingTabCount.textContent = all.count;
-  els.shoppingSummary.textContent = `Dokładnie według arkusza: wyposażenie maturalne oraz wyposażenie pracowni (handlowa, zawodowe, gastronomiczno-spożywcza, fryzjerska), z linkami do sklepów i kontrofertami. Ceny sprawdzone ${isoToPl(zakupyListopad.data_eksportu)}. Pozycje bez ceny nie wchodzą do sum.`;
+  els.shoppingSummary.textContent = `Wyposażenie maturalne oraz wyposażenie pracowni (handlowa, zawodowe, gastronomiczno-spożywcza, fryzjerska), z linkami do sklepów i kontrofertami. Przy każdej pozycji kwota do zapłaty: przy VAT 0% cena netto, przy VAT 23% cena z VAT. Ceny sprawdzone ${isoToPl(zakupyListopad.data_eksportu)}. Pozycje bez ceny nie wchodzą do sum.`;
   const tiles = [
+    ...zakupyListopad.arkusze.map((sheet) => [`sheet-${sheet.id}`, sheet.nazwa, zl(shopTotals(sheet).pay)]),
+    ["total", "Razem do zapłaty", zl(all.pay)],
     ["count", "Pozycji", all.count],
-    ["brutto", "Razem brutto", zl(all.brutto)],
     ["missing", "Bez ceny", all.missing],
   ];
   els.shoppingTotals.innerHTML = tiles.map(([key, label, value]) => `
@@ -1021,7 +1012,7 @@ const renderShopping = () => {
 
 const renderShoppingPrint = () => {
   const line = (item, sheet) => {
-    const price = hasPrice(item) ? `${item.ilosc} szt. × ${shopPriceLine(item, sheet)}, razem ${zl(item.wartosc_brutto)} brutto` : `${item.ilosc} szt., brak ceny`;
+    const price = hasPrice(item) ? `${item.ilosc} szt. × ${shopPriceLine(item, sheet)}, razem ${zl(item.wartosc_brutto)} do zapłaty` : `${item.ilosc} szt., brak ceny`;
     return [`${item.lp}. ${item.produkt}`, price, item.sklep, item.link].filter(Boolean).join("; ");
   };
   const sections = zakupyListopad.arkusze.flatMap((sheet) => (sheet.sekcje ?? [sheet]).map((node) => ({ sheet, node })));
@@ -1029,9 +1020,10 @@ const renderShoppingPrint = () => {
     <h1>${escapeHtml(zakupyListopad.tytul)}</h1>
     <div class="print-meta">
       <div><strong>Ceny sprawdzone:</strong> ${escapeHtml(isoToPl(zakupyListopad.data_eksportu))}</div>
-      <div><strong>Razem brutto:</strong> ${escapeHtml(zl(shopAllTotals().brutto))}</div>
+      ${zakupyListopad.arkusze.map((sheet) => `<div><strong>${escapeHtml(sheet.nazwa)}:</strong> ${escapeHtml(zl(shopTotals(sheet).pay))}</div>`).join("")}
+      <div><strong>Razem do zapłaty:</strong> ${escapeHtml(zl(shopAllTotals().pay))}</div>
     </div>
-    ${sections.map(({ sheet, node }) => printSection(`${node.nazwa} (${zl(shopTotals(node).brutto)} brutto)`, listItems(node.pozycje.map((item) => line(item, sheet))))).join("")}
+    ${sections.map(({ sheet, node }) => printSection(`${node.nazwa} (${zl(shopTotals(node).pay)})`, listItems(node.pozycje.map((item) => line(item, sheet))))).join("")}
   `;
 };
 
