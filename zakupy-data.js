@@ -3,7 +3,7 @@
 // pracownia handlowa, pracownie zawodowe, pracownia gastronomiczno-spożywcza, pracownia fryzjerska.
 // lp to numer pozycji z arkusza (5a = pozycja dopisana później). Daty w formacie RRRR-MM-DD.
 // Kontroferty mają cena_brutto albo cena_netto, zależnie od arkusza. Pozycja bez ceny nie wchodzi do sum.
-// sumy = sumy podane w arkuszu (różnią się o kilka groszy od sum liczonych z pozycji).
+// sumy: dla maturalnych z arkusza; dla pracowni przeliczone z pozycji po zmianach z 16.11.2026.
 
 export const zakupyListopad = {
   "tytul": "Zakupy listopad 2027",
@@ -341,8 +341,8 @@ export const zakupyListopad = {
       "opis": "Ceny netto + stawka VAT (0% dla sprzętu komputerowego wskazanego przez szkołę) • oferty od ręki + 2 oferty kontra (ceny netto) • weryfikacja: 16.11.2026",
       "ceny": "netto",
       "sumy": {
-        "razem_netto": 93958.25,
-        "razem_brutto": 112737.03
+        "razem_netto": 94943.18,
+        "razem_brutto": 113150.56
       },
       "sekcje": [
         {
@@ -439,31 +439,40 @@ export const zakupyListopad = {
             {
               "lp": 4,
               "kategoria": "Monitor interaktywny",
-              "produkt": "Avtek TouchScreen 8.1 Easy 75\" z Androidem (1TV378)",
-              "parametry": "75\", 4K UHD, Android, kompatybilny z modułami OPS",
+              "produkt": "iiyama ProLite TE7515A-B2AG 75″ 4K UHD (Google EDLA, iiShare)",
+              "parametry": "75″, 4K UHD, Google EDLA, iiShare, DMS, Wi-Fi 6E, USB-C, HDMI, DisplayPort, NFC; VESA 800 × 400, waga 54,6 kg",
               "ilosc": 1,
-              "cena_szt_netto": 3776.41,
+              "cena_szt_netto": 7245.53,
               "vat": 0.0,
-              "cena_szt_brutto": 3776.41,
-              "wartosc_brutto": 3776.41,
-              "sklep": "Morele.net",
-              "dostepnosc": "Dostępny, dostawa pojutrze",
-              "dostawa": "Darmowa",
-              "link": "https://www.morele.net/system-interaktywny-avtek-ts-8-1-easy-75-z-androidem-1tv378-15458955/",
-              "uwagi": "Cena sklepu 4 644,98 zł (z VAT 23%); netto wyliczone do zakupu z 0% VAT – potwierdzić ze sklepem. Uchwyt ścienny nie jest wliczony.",
+              "cena_szt_brutto": 7245.53,
+              "wartosc_brutto": 7245.53,
+              "sklep": "iiyama-sklep.pl",
+              "dostepnosc": null,
+              "dostawa": null,
+              "link": "https://iiyama-sklep.pl/1866-tablice-interaktywne-monitor-interaktywny-iiyama-75-te7515a-b2ag-4k-uhd-google-edla-iishare-dms-wifi-6e-usb-c-hdmi-dp-nfc-4948570127498.html",
+              "uwagi": "Zamiast Avtek TouchScreen 8.1 Easy 75″ (wybór szkoły 16.11.2026). Cena netto 7 245,53 zł, liczona z VAT 0% (jak przy monitorach interaktywnych na liście „Do zakupu”); przy braku zwolnienia z VAT brutto byłoby wyższe o 23%. Dostępność i dostawę potwierdzić w sklepie.",
+              "data_sprawdzenia": "2026-10-03",
+              "weryfikacja": "Cena z wcześniejszego sprawdzenia w iiyama-sklep.pl (03.10.2026); do ponownego potwierdzenia.",
+              "kontroferty": []
+            },
+            {
+              "lp": "4a",
+              "kategoria": "Uchwyt ścienny do monitora interaktywnego",
+              "produkt": "ART AR-92XL – uchwyt ścienny 55–120″, ruchomy, do 140 kg",
+              "parametry": "Solidny uchwyt ścienny do powieszenia monitora na ścianie; udźwig 140 kg (monitor iiyama waży 54,6 kg), regulacja położenia",
+              "ilosc": 1,
+              "cena_szt_netto": 539.88,
+              "vat": 0.23,
+              "cena_szt_brutto": 664.05,
+              "wartosc_brutto": 664.05,
+              "sklep": "Media Expert",
+              "dostepnosc": "Do potwierdzenia",
+              "dostawa": "Do potwierdzenia",
+              "link": "https://www.mediaexpert.pl/telewizory-i-rtv/uchwyty-do-tv/uchwyty/uchwyt-art-do-tv-55-120-cali-ar-92xl-czarny",
+              "uwagi": "Wieszak do ściany zamiast stojaka na kółkach. Zgodność z rozstawem VESA 800 × 400 i montaż na ścianie nośnej potwierdzić w karcie produktu. Cena netto z zestawienia (wcześniej jako kontroferta uchwytu do telewizora). Alternatywa z wyszukiwarki: uchwyt E-System 50–86″, VESA 800 × 400, 80 kg, ok. 553 zł brutto (Kaufland), do sprawdzenia.",
               "data_sprawdzenia": "2026-11-16",
-              "kontroferty": [
-                {
-                  "opis": "x-kom – ten sam model Avtek TS 8.1 Easy 75, dostępny",
-                  "cena_netto": 4852.85,
-                  "link": "https://www.x-kom.pl/p/1363914-monitor-led-22-215-234-avtek-touchscreen-81-easy-75.html"
-                },
-                {
-                  "opis": "Morele.net – Avtek TS 8 Lite G 75\" (1TV355)",
-                  "cena_netto": 5314.89,
-                  "link": "https://www.morele.net/system-interaktywny-avtek-ts-8-lite-g-75-1tv355-14444412/"
-                }
-              ]
+              "weryfikacja": "Nowa pozycja: wieszak dla monitora interaktywnego (16.11.2026).",
+              "kontroferty": []
             },
             {
               "lp": 5,
@@ -634,30 +643,31 @@ export const zakupyListopad = {
           "pozycje": [
             {
               "lp": 11,
-              "kategoria": "Mikser planetarny",
-              "produkt": "Hendi Kitchen Line, mikser planetarny 7 l (222829)",
-              "parametry": "Gastronomiczny, 230 V / 650 W, 3 prędkości, podnoszona misa ze stali nierdzewnej, osłona z wyłącznikiem; hak, rózga, mieszadło w zestawie",
+              "kategoria": "Robot planetarny (mniejszy)",
+              "produkt": "Kenwood Prospero+ KHC29.X0SI z wagą i blenderem kielichowym",
+              "parametry": "1000 W, misa 4,3 l, wbudowana waga, blender kielichowy i maszynka do mięsa w zestawie (wg opisu sklepu); sprzęt kuchenny do domu, mniejszy niż gastronomiczny 7 l",
               "ilosc": 2,
-              "cena_szt_netto": 2324.25,
+              "cena_szt_netto": 812.2,
               "vat": 0.23,
-              "cena_szt_brutto": 2858.83,
-              "wartosc_brutto": 5717.66,
-              "sklep": "XXLgastro",
-              "dostepnosc": "Na magazynie, dostawa 24/48 h",
+              "cena_szt_brutto": 999.0,
+              "wartosc_brutto": 1998.0,
+              "sklep": "Media Expert",
+              "dostepnosc": "Do potwierdzenia",
               "dostawa": "Do potwierdzenia w koszyku",
-              "link": "https://www.xxlgastro.pl/en/hendi-planetary-mixer-7l.html",
-              "uwagi": "Misa 7 l – najbliższy gastronomiczny model do 6 l (Hendi 6,65 l wycofany ze sprzedaży). Tańszy Hendi Blackbolt 7 l (1 799 zł netto) jest półprofesjonalny. Kenwood 6,7/7 l w sklepach gastro bez potwierdzenia wersji.",
+              "link": "https://www.mediaexpert.pl/agd-male/do-kuchni/roboty-kuchenne/robot-kuchenny-planetarny-kenwood-khc29a-x0si-prospero-1000w-z-waga-blenderem-kielichowym-i-maszynka-do-miesa",
+              "uwagi": "Zamiast gastronomicznego miksera Hendi 7 l (za duży). Zestaw domowy z wagą i blenderem; maszynka do mięsa nie jest potrzebna, a akcesoria cukiernicze (rózga, hak, mieszadło) potwierdzić w karcie produktu. Cena 999 zł brutto (wcześniej 1 039,99 zł) z wyników wyszukiwarki, do potwierdzenia w sklepie. Przy pracy grupowej rozważyć 3–4 szt.",
               "data_sprawdzenia": "2026-11-16",
+              "weryfikacja": "Zmiana 16.11.2026: poprzednio Hendi 222829 7 l, 2 324,25 zł netto za szt.",
               "kontroferty": [
                 {
-                  "opis": "sklep.technica.pl – Bartscher 101923, 7 l, 650 W, dostępność 14 dni",
-                  "cena_netto": 2534.96,
-                  "link": "https://sklep.technica.pl/miksery-planetarne"
+                  "opis": "kenwoodworld.com – Kenwood kMix KMX750ABK, misa 5 l, bez wagi i blendera, 1 169,10 zł brutto",
+                  "cena_netto": 950.49,
+                  "link": "https://www.kenwoodworld.com/pl-pl/kmix-black-kmx750abk/p/KMX750ABK"
                 },
                 {
-                  "opis": "sklep.technica.pl – Stalgast 783071, 7 l, dostępność 2 dni",
-                  "cena_netto": 2601.63,
-                  "link": "https://sklep.technica.pl/miksery-planetarne"
+                  "opis": "mediaexpert.pl – Kenwood Titanium Chef Patissier XL KWL90.244SI, 1400 W, waga i podgrzewanie, 2 misy (7 l i 5 l), bez blendera kielichowego, cena sugerowana 3 799 zł brutto",
+                  "cena_netto": 3088.62,
+                  "link": "https://www.mediaexpert.pl/p/2465264"
                 }
               ]
             },

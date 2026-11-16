@@ -1006,7 +1006,7 @@ const renderShopping = () => {
   els.shoppingSummary.textContent = `Dokładnie według arkusza: wyposażenie maturalne oraz wyposażenie pracowni (handlowa, zawodowe, gastronomiczno-spożywcza, fryzjerska), z linkami do sklepów i kontrofertami. Ceny sprawdzone ${isoToPl(zakupyListopad.data_eksportu)}. Pozycje bez ceny nie wchodzą do sum.`;
   const tiles = [
     ["count", "Pozycji", all.count],
-    ["brutto", "Razem brutto (wg arkusza)", zl(all.brutto)],
+    ["brutto", "Razem brutto", zl(all.brutto)],
     ["missing", "Bez ceny", all.missing],
   ];
   els.shoppingTotals.innerHTML = tiles.map(([key, label, value]) => `
@@ -1029,7 +1029,7 @@ const renderShoppingPrint = () => {
     <h1>${escapeHtml(zakupyListopad.tytul)}</h1>
     <div class="print-meta">
       <div><strong>Ceny sprawdzone:</strong> ${escapeHtml(isoToPl(zakupyListopad.data_eksportu))}</div>
-      <div><strong>Razem brutto (wg arkusza):</strong> ${escapeHtml(zl(shopAllTotals().brutto))}</div>
+      <div><strong>Razem brutto:</strong> ${escapeHtml(zl(shopAllTotals().brutto))}</div>
     </div>
     ${sections.map(({ sheet, node }) => printSection(`${node.nazwa} (${zl(shopTotals(node).brutto)} brutto)`, listItems(node.pozycje.map((item) => line(item, sheet))))).join("")}
   `;
