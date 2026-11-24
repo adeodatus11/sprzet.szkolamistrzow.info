@@ -315,7 +315,7 @@ tr.total td { font-weight: 700; border-top: 2px solid var(--ink); }
     <h3>Sprawdzenie dostępności, 24.11.2026</h3>
     <ul>
       <li>IKEA: wszystkie pozycje z listy (28 produktów razem z zamiennikami) są w aktualnej ofercie, żadna nie jest wycofana ani oznaczona jako wyprzedana. Sklep internetowy pokazuje wysoki stan magazynowy każdej z nich.</li>
-      <li>IKEA Wrocław Bielany: stanów konkretnego sklepu nie dało się odczytać automatycznie. Przed zamówieniem otwórz link produktu, wybierz sklep Wrocław i sprawdź całe ilości (np. 34 × LÄKTARE) albo zamów przez IKEA dla Firm z dostawą.</li>
+      <li>IKEA Wrocław Bielany: stanów konkretnego sklepu nie dało się odczytać automatycznie. Przed zamówieniem otwórz link produktu, wybierz sklep Wrocław i sprawdź całe ilości (np. 22 × LÄKTARE) albo zamów przez IKEA dla Firm z dostawą.</li>
       <li>Szafy skrytkowe OLIVER (Kupmeble): na magazynie, wysyłka w 48 h. Zamieniłem nimi szafy z Kauflandu, których dostępności nie da się sprawdzić.</li>
       <li>Czajnik i centrum dowodzenia (Morele): monitor, minikomputer, uchwyt i klawiatura na stanie.</li>
       <li>Podstawa pod Xeroxa (agapo.pl): dostępna, wysyłka w 3 dni; wykonywana pod podany model. Zamienniki: Szkolmeb (cena na zapytanie), Kamila Meble Rd1 (861 zł, na wymiar).</li>
@@ -428,8 +428,8 @@ const C = [
   { k: "czajnik", z: "kitchen", name: "Czajnik elektryczny Lafe Steelo EK02, stal", dims: "1,7 l, 2200 W", price: 84, qty: 1, shop: "Morele.net (sprzedawca zewnętrzny)", url: "https://www.morele.net/czajnik-lafe-elektryczny-1-7-l-steelo-ek02-600730490/", avail: "na stanie", status: ["ok", "Na stanie"] },
   { k: "lodowka", z: "kitchen", name: "Lodówka wolnostojąca, szer. 60 cm", dims: "60 × 65 × ok. 220 cm, szara, zawiasy po stronie aneksu", qty: 1, status: ["mute", "Nie kupujemy w tym zakupie"], outside: true },
   { k: "stol_jad", z: "dining", name: "IKEA MITTZON stół konferencyjny, okleina dębowa / czarny, 140 × 68 cm, jednolity blat", dims: "140 × 68 × 75 cm, ten sam model co stół roboczy; 4 szt. zestawione w blok 280 × 136 cm, 8 miejsc (bez krzeseł na szczytach)", sku: "s39513952", price: 649, qty: 4, shop: IKEA, url: ip("mittzon-stol-konferencyjny-okl-deb-czarny-s39513952"), status: ["ok", "W sprzedaży, na stanie"] },
-  { k: "krz_jad", z: "dining", name: "IKEA LÄKTARE krzesło konferencyjne, średnioszary / biały", dims: "55 × 50 × 84 cm, podłokietniki, siedzisko z okleiną brzozową, 8 przy stole jadalni, 2 ze szczytów w stosie w narożniku", sku: "s49503250", price: 299, qty: 10, shop: IKEA, url: ip("laektare-krzeslo-konferencyjne-srednioszary-bialy-s49503250"), status: ["ok", "W jadalni, w sprzedaży, na stanie"] },
-  { k: "krz_zapas", z: "dining", name: "IKEA LÄKTARE krzesło konferencyjne, średnioszary / biały (dodatkowe, w stosach)", dims: "Razem z 2 krzesłami ze szczytów 16 szt. w 4 stosach po 4 w narożniku przy oknie (LÄKTARE sztapluje się do 5 szt.). Po rozsunięciu 8 stołów 140 × 68 każdy ma 4 krzesła: 32 miejsca", sku: "s49503250", price: 299, qty: 14, shop: IKEA, url: ip("laektare-krzeslo-konferencyjne-srednioszary-bialy-s49503250"), status: ["ok", "W sprzedaży, na stanie"] },
+  { k: "krz_jad", z: "dining", name: "IKEA LÄKTARE krzesło konferencyjne, średnioszary / biały", dims: "55 × 50 × 84 cm, podłokietniki, siedzisko z okleiną brzozową, pokrycie Gunnared do prania, sztaplowane (do 5 szt.), 8 przy stole jadalni", sku: "s49503250", price: 299, qty: 8, shop: IKEA, url: ip("laektare-krzeslo-konferencyjne-srednioszary-bialy-s49503250"), status: ["ok", "W jadalni, w sprzedaży, na stanie"] },
+  { k: "krz_zapas", z: "dining", name: "IKEA LÄKTARE krzesło konferencyjne, średnioszary / biały (dodatkowe, w narożniku)", dims: "4 szt. w jednym rzędzie: 2 stosy po 2 krzesła w narożniku przy oknie, na gości lub do rozsuniętych stołów", sku: "s49503250", price: 299, qty: 4, shop: IKEA, url: ip("laektare-krzeslo-konferencyjne-srednioszary-bialy-s49503250"), status: ["ok", "W sprzedaży, na stanie"] },
   { k: "sofa3", z: "lounge", name: "IKEA EKTORP sofa 3-osobowa, Hakebo ciemnoszary", dims: "218 × 88 × 88 cm, pokrycie zdejmowane, pranie w pralce", sku: "s39508998", price: 1999, qty: 2, shop: IKEA, url: ip("ektorp-sofa-3-osobowa-hakebo-ciemnoszary-s39508998"), status: ["ok", "W sprzedaży, na stanie"] },
   { k: "cmd_monitor", z: "cmd", sw: "tech", name: "Monitor dotykowy iiyama ProLite T2755MSC-B1, 27″ Full HD", dims: "36 × 61 cm, montaż w pionie (uchwyt z funkcją pivot), 1920 × 1080, dotyk pojemnościowy 10-punktowy, 5,8 kg, VESA 100 × 100", price: 1793.04, qty: 1, shop: "Morele.net", url: "https://www.morele.net/monitor-iiyama-prolite-t2755msc-b1-13179166/", avail: "na stanie, sprzedaje Morele.net", status: ["ok", "Na stanie"], alt: [{ name: "iiyama ProLite T2755QSC-B1, 27″ QHD dotykowy", price: 2274.95, url: "https://www.morele.net/monitor-iiyama-prolite-t2755qsc-b1-13239211/" }] },
   { k: "cmd_pc", z: "cmd", name: "Minikomputer Qoobe Mini PC N100, 12 GB RAM, 512 GB SSD, Windows 11 Pro (QE-IN100)", dims: "mały i cichy, wystarczy do przeglądarki; montaż za monitorem na uchwycie VESA Maclean MC-115 B", price: 1839, qty: 1, shop: "Morele.net", url: "https://www.morele.net/komputer-qoobe-mini-pc-n100-12gb-512gb-w11-pro-qe-in100-12gb-512gb-600575926/", avail: "na stanie, sprzedaje Morele.net", status: ["warn", "Na stanie; potwierdzić Wi-Fi (karta produktu go nie podaje)"], alt: [{ name: "Beelink Mini S12 Pro, N100, 16 GB, 500 GB, Windows 11 Pro, Wi-Fi 6 (sprzedawca TeKaPi)", price: 2789, url: "https://www.morele.net/beelink-mini-s12-pro-mini-pc-lake-n100-16-gb-ddr4-ram-500-gb-15183822/" }] },
@@ -441,12 +441,15 @@ const C = [
   { k: "tablica_druk", z: "deco", name: "Tablica magnetyczna nad strefą druku i stołem do kompletowania", dims: "ok. 200 × 100 cm, dół 165 cm (nad otwartym podajnikiem bizhuba)", qty: 1, status: ["mute", "Poza zakupem"], outside: true },
   { k: "rzutnik", z: "deco", name: "Białe pole na ścianie pod obraz z rzutnika (bez ekranu)", dims: "ok. 260 × 146 cm (16:9, ok. 118″), dół ok. 190 cm, góra ok. 336 cm, matowa biała farba, środek na osi stołu", qty: 1, status: ["mute", "Malowanie"], outside: true },
   { k: "zielen_sciana", z: "deco", name: "Wąskie pasy roślin zwisających po obu bokach pola rzutnika", dims: "2 listwy ok. 40 × 150 cm z doniczkami u góry, długie zwisające pędy (np. epipremnum, bluszcz, scindapsus)", qty: 2, status: ["mute", "Poza zakupem"], outside: true },
-  { k: "zielen_okna", z: "deco", name: "Zieleń w oknach i na filarach: doniczki na parapetach (wnęki 40 cm) i wiszące między oknami", dims: "3 parapety, 2 filary", qty: 1, status: ["mute", "Poza zakupem"], outside: true },
+  { k: "ogloszenia", z: "deco", name: "Małe tablice ogłoszeń korkowe w drewnianej ramie: na dwóch filarach między oknami i na filarze w narożniku przy krzesłach", dims: "2 × ok. 60 × 45 cm (dół 145 cm) i 1 × ok. 80 × 60 cm (dół 125 cm, nad krzesłami)", qty: 3, status: ["mute", "Poza zakupem"], outside: true },
+  { k: "zielen_szafy", z: "deco", name: "Doniczki na szafach skrytkowych", dims: "3 doniczki ok. 24 cm, dwie z roślinami zwisającymi", qty: 3, status: ["mute", "Poza zakupem"], outside: true },
+  { k: "zielen_okna", z: "deco", name: "Zieleń w oknach i na filarach: doniczki na parapetach (wnęki 40 cm) i wiszące wysoko na filarach między oknami", dims: "3 parapety, 2 filary (doniczki od ok. 235 cm, pod nimi tablice ogłoszeń)", qty: 1, status: ["mute", "Poza zakupem"], outside: true },
   { k: "laptop", z: "tech", name: "Laptop KPO (tryb incognito)", dims: "już w szkole", qty: 4, status: ["ok", "Przydzielone do sali 16"], outside: true },
 ];
 /* rzeczywiste kolory produktów (2D i 3D) */
 const OAK = "#c9a273", ASH = "#d8c19b", WHITE_FRAME = "#f1f0eb", HAV = "#cfbc98";
 const PAL = {
+  ogloszenia: { col: "#b88a55" }, zielen_szafy: { col: "#6f9a5b" },
   krz_zapas: { col: "#8f9294" },
   szafa: { col: "#f1f0eb", front: "#c79e6c" }, scianka: { col: "#cdc3b0" },
   biurko: { col: OAK, frame: "#2a2a2a" }, stol_pracy: { col: OAK, frame: "#2a2a2a" }, stol_jad: { col: OAK, frame: "#2a2a2a" },
@@ -502,7 +505,7 @@ add("stol_jad", { x: 756, y: 175, w: 68, d: 140, h: 75, kind: "table" });
 add("stol_jad", { x: 688, y: 315, w: 68, d: 140, h: 75, kind: "table" });
 add("stol_jad", { x: 756, y: 315, w: 68, d: 140, h: 75, kind: "table" });
 [210, 280, 350, 420].forEach((y) => { add("krz_jad", { cx: 663, cy: y, w: 50, d: 55, face: "E", kind: "chair", h: 84 }); add("krz_jad", { cx: 849, cy: y, w: 50, d: 55, face: "W", kind: "chair", h: 84 }); });
-[[790, 500], [845, 500], [790, 550], [845, 550]].forEach(([x, y]) => add("krz_zapas", { x, y, w: 55, d: 50, h: 111, n: 4, face: "N", kind: "stack", label: "4" }));
+[790, 845].forEach((x) => add("krz_zapas", { x, y: 545, w: 55, d: 50, h: 93, n: 2, face: "N", kind: "stack", label: "2" }));
 add("sofa3", { x: 172, y: 497, w: 218, d: 88, h: 88, face: "N", kind: "sofa", label: "Sofa 3", seats: 3 });
 add("sofa3", { x: 400, y: 497, w: 218, d: 88, h: 88, face: "N", kind: "sofa", label: "Sofa 3", seats: 3 });
 add("przegroda", { x: 0, y: 346, w: 70, d: 8, h: 72, z: 52, kind: "divider" });
@@ -513,7 +516,10 @@ add("rzutnik", { x: 899, y: 185, w: 1, d: 260, h: 146, z: 190, kind: "board", ab
 add("zielen_sciana", { x: 892, y: 137, w: 8, d: 40, h: 150, z: 200, kind: "plants", above: true });
 add("zielen_sciana", { x: 892, y: 453, w: 8, d: 40, h: 150, z: 200, kind: "plants", above: true });
 WINDOWS.forEach(([a, b]) => [0.25, 0.5, 0.75].forEach((f) => add("zielen_okna", { x: a + (b - a) * f - 9, y: 612, w: 18, d: 18, h: 35, z: SILL, kind: "pot" })));
-[[275, 362], [526, 618]].forEach(([a, b]) => add("zielen_okna", { x: (a + b) / 2 - 12, y: 588, w: 24, d: 12, h: 40, z: 170, kind: "pot", above: true }));
+[[275, 362], [526, 618]].forEach(([a, b]) => add("zielen_okna", { x: (a + b) / 2 - 12, y: 588, w: 24, d: 12, h: 40, z: 235, kind: "pot", above: true }));
+[[275, 362], [526, 618]].forEach(([a, b]) => add("ogloszenia", { x: (a + b) / 2 - 30, y: 597, w: 60, d: 3, h: 45, z: 145, kind: "board", above: true }));
+add("ogloszenia", { x: 800, y: 597, w: 80, d: 3, h: 60, z: 125, kind: "board", above: true });
+[[8, 18], [10, 78], [8, 138]].forEach(([x, y], i) => add("zielen_szafy", { x, y, w: 24, d: 24, h: 40, z: 185, kind: "pot", trail: i !== 1, above: true }));
 I.forEach((it) => { if (it.cx != null) { it.x = it.cx - it.w / 2; it.y = it.cy - it.d / 2; } });
 
 /* instalacje proponowane */
@@ -577,7 +583,7 @@ const seats = I.filter((i) => i.kind === "chair").length + I.filter((i) => i.kin
 const known = C.filter((c) => c.price && !c.outside).reduce((s, c) => s + c.price * c.qty, 0);
 document.getElementById("facts").innerHTML = [
   ["Powierzchnia", "54 m² <small>900 × 600 cm</small>"],
-  ["Miejsca siedzące", `${seats} <small>ustawione, + ${stacked} krzeseł w stosach: 8 stołów × 4 osoby</small>`],
+  ["Miejsca siedzące", `${seats} <small>ustawione, + ${stacked} dodatkowe krzesła w narożniku</small>`],
   ["Skrytki", "66 <small>2 szafy × 33</small>"],
   ["Drukarki A3", "2 <small>przy wejściu i przy biurkach</small>"],
   ["Aneks", "240 cm <small>+ lodówka 60 cm</small>"],
@@ -730,10 +736,10 @@ function drawPlan() {
 }
 function badgePos(it) {
   const map = {
-    szafa: [70, 150], przegroda: [84, 340], klucze: [92, 22], tablica_biurka: [24, 248], tablica_druk: [452, 26], rzutnik: [872, 315], zielen_sciana: [872, 157], zielen_okna: [196, 632], cmd_monitor: [256, 26], cmd_pc: [284, 50], scianka: [100, 205], biurko: [84, 357], krz_biuro: [140, 290], stol_pracy: [232, 262], krz_pracy: [300, 196], pojemniki: [290, 336],
+    szafa: [70, 150], przegroda: [84, 340], klucze: [92, 22], tablica_biurka: [24, 248], tablica_druk: [452, 26], rzutnik: [872, 315], zielen_sciana: [872, 157], zielen_okna: [196, 632], ogloszenia: [318, 572], zielen_szafy: [22, 60], cmd_monitor: [256, 26], cmd_pc: [284, 50], scianka: [100, 205], biurko: [84, 357], krz_biuro: [140, 290], stol_pracy: [232, 262], krz_pracy: [300, 196], pojemniki: [290, 336],
     druk_duza: [400, 92], finiszer: [342, 92], druk_mala: [88, 582], podstawa: [88, 542], stol_wysoki: [575, 88], tonery: [545, 74], akcesoria: [482, 64], lodowka: [630, 98], czajnik: [705, 110], mikrofala: [750, 110],
     an_szuflady: [690, 76], an_polki: [750, 76], zmywarka: [810, 76], an_zlew: [880, 76], an_wiszaca: [780, 132], blat: [850, 132],
-    stol_jad: [700, 196], krz_jad: [648, 182], krz_zapas: [818, 528], sofa3: [185, 486], sofa2: [412, 486], stolik: [577, 508], fotel: [642, 494], laptop: [44, 365],
+    stol_jad: [700, 196], krz_jad: [648, 182], krz_zapas: [845, 530], sofa3: [185, 486], sofa2: [412, 486], stolik: [577, 508], fotel: [642, 494], laptop: [44, 365],
   };
   return map[it.k] || [it.x + it.w + 10, it.y];
 }
@@ -860,10 +866,11 @@ function drawElev(key) {
       n.style.fill = it.kind === "lockers" && key === "W" ? pal.front : pal.col;
     });
     if (it.kind === "board" && it.k !== "rzutnik") gi.querySelectorAll("rect.it").forEach((n) => { n.style.stroke = it.k === "klucze" ? "#8a6a43" : "#9aa0a2"; n.style.strokeWidth = 2; });
-    if (it.kind === "board" && it.k !== "rzutnik" && it.k !== "klucze") {
+    if (it.kind === "board" && it.k !== "rzutnik" && it.k !== "klucze" && it.k !== "ogloszenia") {
       const cols = Math.max(2, Math.floor((w - 10) / 32));
       for (let i = 0; i < cols; i++) for (let r = 0; r < 2; r++) if ((i + r) % 3 !== 2) el("rect", { x: u0 + 8 + i * 32, y: Y(it.z + it.h - 10 - r * 45), width: 21, height: 30, fill: ["#fff6c8", "#e8f1fb", "#ffffff", "#fde3e0"][(i + r) % 4], stroke: "#b9b2a3", "stroke-width": 0.6 }, gi);
     }
+    if (it.k === "ogloszenia") for (let i = 0; i < Math.floor((w - 8) / 16); i++) el("rect", { x: u0 + 5 + i * 16, y: Y(it.z + it.h - 6 - (i % 2) * 8), width: 12, height: 16 + (i % 3) * 3, fill: ["#ffffff", "#fff3b5", "#e2edfb", "#fde0db"][i % 4], stroke: "#a58660", "stroke-width": 0.5 }, gi);
     if (it.k === "klucze") for (let i = 0; i < 6; i++) for (let r = 0; r < 3; r++) el("circle", { cx: u0 + 8 + i * 11, cy: Y(it.z + it.h - 10 - r * 14), r: 1.6, fill: "#6b5a3f" }, gi);
     if (it.k === "rzutnik") { const n = gi.querySelector("rect.it"); if (n) { n.style.strokeDasharray = "6 4"; } txt(gi, u0 + w / 2, Y(it.z + it.h / 2) + 4, "biała ściana pod obraz z rzutnika", "lbl sm", { "text-anchor": "middle" }); }
     if (it.kind === "plants") {
@@ -914,8 +921,8 @@ function drawElev(key) {
   const notes = {
     N: "Przy szafach skrytkowych tablica na klucze do sal (ok. 70 × 50 cm). Drzwi otwierają się na zewnątrz, w prawo. Nad bizhubem i stołem do kompletowania tablica magnetyczna ok. 200 × 100 cm (dół 165 cm). Tuż przy drzwiach ekran dotykowy 27″ zawieszony w pionie na uchwycie ściennym (dół 100 cm, góra 161 cm), minikomputer za ekranem. Obok bizhub C450i z finiszerem FS-539SD; po prawej 34 cm zapasu na tacę boczną. Stół do kompletowania TROTTEN 120 × 70 z elektryczną regulacją (ok. 95 cm), pod nim szafka na tonery i papier. Lodówka 60 cm oddziela strefę druku od aneksu 240 cm. Na blacie: czajnik, mikrofalówka; szafki wiszące 4 × 60, dół 150 cm, góra 250 cm.",
     W: "Nad biurkami tablica magnetyczna ok. 200 × 100 cm z kartkami (dół 110 cm). Między biurkami beżowy ekran akustyczny MITTZON 70 × 72 cm. Ścianka MITTZON na kółkach (205 cm) między szafami a biurkiem 1, widoczna z boku; druga ścianka jest wsunięta między stół do kompletowania a lodówkę i oddziela strefę druku od aneksu. Obok biurek Xerox B7130 na podstawie KSW ok. 45 cm (razem ok. 122 cm). Szafy skrytkowe 3 × 11 skrytek każda.",
-    S: "Okna we wnękach: parapet na 90 cm, głębokość wnęki ok. 40 cm, na parapetach doniczki; na filarach między oknami wiszące doniczki. Sofy EKTORP (88 cm) poniżej parapetu, przed grzejnikami min. 15 cm odstępu.",
-    E: "Ściana za jadalnią: białe pole pod obraz z rzutnika (ok. 260 × 146 cm, od 190 do 336 cm) na osi stołu, po obu bokach wąskie pasy roślin z długimi zwisającymi pędami. W narożniku przy oknie 4 stosy po 4 krzesła LÄKTARE. Ściany w ciepłym beżu, sala ok. 450 cm wysokości.",
+    S: "Okna we wnękach: parapet na 90 cm, głębokość wnęki ok. 40 cm, na parapetach doniczki; na filarach między oknami małe tablice ogłoszeń (dół 145 cm), a nad nimi wysoko wiszące doniczki; w narożniku przy krzesłach tablica 80 × 60 cm. Sofy EKTORP (88 cm) poniżej parapetu, przed grzejnikami min. 15 cm odstępu.",
+    E: "Ściana za jadalnią: białe pole pod obraz z rzutnika (ok. 260 × 146 cm, od 190 do 336 cm) na osi stołu, po obu bokach wąskie pasy roślin z długimi zwisającymi pędami. W narożniku przy oknie 4 dodatkowe krzesła LÄKTARE (2 stosy po 2), nad nimi na filarze tablica ogłoszeń. Ściany w ciepłym beżu, sala ok. 450 cm wysokości.",
   };
   document.getElementById("elev-note").innerHTML = `<span>${esc(notes[key])}</span>`;
 }
@@ -1176,6 +1183,14 @@ I.forEach((it) => {
     pot.position.copy(P(it.x + it.w / 2, it.y + it.d / 2, it.z + it.h * 0.21)); pot.castShadow = true; pot.receiveShadow = true;
     pot.userData.owner = it; pickables.push(pot); furniture.add(pot);
     foliage(it.x + it.w / 2, it.y + it.d / 2, it.z + it.h * 0.5, Math.max(it.w, it.d) * 0.7);
+    if (it.trail) {
+      const leafGeo = new THREE.SphereGeometry(0.024, 8, 6), greens = [mat(0x4d8642, { roughness: 0.7 }), mat(0x6a9c55, { roughness: 0.7 }), mat(0x8bb36f, { roughness: 0.7 })];
+      for (let k = 0; k < 5; k++) {
+        let cx = it.x + it.w - 4, cy = it.y + 3 + k * (it.d - 6) / 4; const len = 55 + rnd() * 45;
+        let zz = it.z + 6;
+        for (let t = 0; t < len; t += 3.5) { if (cx < 47) { cx += 3; zz = Math.max(it.z + 2, zz - 0.6); } else { cx = 47 + rnd() * 1.5; zz -= 3.5; } const lf = new THREE.Mesh(leafGeo, greens[(k + Math.floor(t / 7)) % 3]); lf.position.copy(P(cx, cy + Math.sin(t / 9 + k) * 1.5, zz)); lf.scale.set(0.9, 0.6 + rnd() * 0.5, 0.9); lf.castShadow = true; furniture.add(lf); }
+      }
+    }
     return;
   }
   if (it.kind === "plants") {
@@ -1241,17 +1256,30 @@ I.forEach((it) => {
   if (it.k === "scianka" || it.k === "przegroda") material = fabricMat(pal ? hex(pal.col) : 0xcdc3b0);
   if (it.k === "blat") material = woodMat("worktop", false, { roughness: 0.4 });
   if (it.k === "rzutnik") material = mat(0xffffff, { roughness: 1 });
-  if (it.kind === "board" && it.k !== "rzutnik" && it.k !== "klucze") material = mat(0xfafaf8, { roughness: 0.25 });
+  if (it.kind === "board" && it.k !== "rzutnik" && it.k !== "klucze") material = it.k === "ogloszenia" ? mat(0xb88a55, { map: TEX.cork }) : mat(0xfafaf8, { roughness: 0.25 });
   if (it.k === "druk_duza" || it.k === "druk_mala" || it.k === "finiszer" || it.k === "lodowka" || it.k === "zmywarka" || it.k === "mikrofala") material = mat(color, it.k === "lodowka" ? { roughness: 0.35, metalness: 0.45 } : { roughness: 0.4 });
   const m = box(it.x, it.y, it.z, it.w, it.d, it.h, material, furniture, it);
   if (it.kind === "board" && it.k !== "rzutnik") {
     // tablica: rama aluminiowa, kartki A4 i A5, kolorowe magnesy; klucze: korek, haczyki i breloki
     const along = it.w > it.d, len = along ? it.w : it.d;
-    const put = (u, zz, uw, hh, depth, mm) => along ? box(it.x + u, it.y + it.d, zz, uw, depth, hh, mm, furniture, null, false) : box(it.x + it.w, it.y + u, zz, depth, uw, hh, mm, furniture, null, false);
-    const alu = mat(0xc9cdcf, { metalness: 0.7, roughness: 0.3 });
+    const south = along && it.y > ROOM.d / 2;
+    const put = (u, zz, uw, hh, depth, mm) => along ? box(it.x + u, south ? it.y - depth : it.y + it.d, zz, uw, depth, hh, mm, furniture, null, false) : box(it.x + it.w, it.y + u, zz, depth, uw, hh, mm, furniture, null, false);
+    const alu = it.k === "ogloszenia" ? woodMat("oak", false, { roughness: 0.5 }) : mat(0xc9cdcf, { metalness: 0.7, roughness: 0.3 });
     put(-2.5, it.z - 2.5, len + 5, 3, 2.2, alu); put(-2.5, it.z + it.h - 0.5, len + 5, 3, 2.2, alu);
     put(-2.5, it.z - 2.5, 3, it.h + 5, 2.2, alu); put(len - 0.5, it.z - 2.5, 3, it.h + 5, 2.2, alu);
-    if (it.k === "klucze") {
+    if (it.k === "ogloszenia") {
+      put(0.5, it.z + 0.5, len - 1, it.h - 1, 0.6, mat(0xffffff, { map: TEX.cork, roughness: 0.95 }));
+      const papers = [0xffffff, 0xfff3b5, 0xe2edfb, 0xfde0db, 0xe3f2dd], pins = [0xd9473a, 0x3b78d4, 0xe7b031, 0x47a865];
+      for (let k = 0; k < Math.floor((len - 6) / 17); k++) for (let r = 0; r < Math.floor((it.h - 6) / 24); r++) {
+        if ((k * 3 + r) % 5 === 4) continue;
+        const pw = (k + r) % 3 === 0 ? 10.5 : 14.8, ph = (k + r) % 3 === 0 ? 14.8 : 21 * 0.98, zz = it.z + it.h - 4 - ph - r * 24 + (k % 2) * 2;
+        if (zz < it.z + 2) continue;
+        const u = 4 + k * 17;
+        put(u, zz, pw, ph, 1.1, mat(papers[(k + 2 * r) % 5], { roughness: 0.9 }));
+        put(u + pw / 2 - 0.9, zz + ph - 2.5, 1.8, 1.8, 2.2, mat(pins[(k + r) % 4], { roughness: 0.3 }));
+        for (let ln = 0; ln < 3; ln++) put(u + 2, zz + ph - 6 - ln * 3.5, pw - 4 - (ln % 2) * 3, 0.7, 1.25, mat(0x8d969a));
+      }
+    } else if (it.k === "klucze") {
       put(1, it.z + 1, len - 2, it.h - 2, 0.6, mat(0xffffff, { map: TEX.cork, roughness: 0.95 }));
       const tags = [0xd9473a, 0x3b78d4, 0xe7b031, 0x47a865, 0x8b57cc, 0xf2f2f2];
       for (let r = 0; r < 3; r++) for (let k = 0; k < 7; k++) {
