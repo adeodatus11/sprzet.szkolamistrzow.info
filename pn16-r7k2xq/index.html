@@ -310,7 +310,7 @@ tr.total td { font-weight: 700; border-top: 2px solid var(--ink); }
       <li>IKEA: wszystkie pozycje z listy (33 produkty razem z zamiennikami) są w aktualnej ofercie, żadna nie jest wycofana ani oznaczona jako wyprzedana. Sklep internetowy pokazuje wysoki stan magazynowy każdej z nich.</li>
       <li>IKEA Wrocław Bielany: stanów konkretnego sklepu nie dało się odczytać automatycznie. Przed zamówieniem otwórz link produktu, wybierz sklep Wrocław i sprawdź całe ilości (np. 10 × FLINTAN, 10 × TEODORES) albo zamów przez IKEA dla Firm z dostawą.</li>
       <li>Szafy skrytkowe OLIVER (Kupmeble): na magazynie, wysyłka w 48 h. Zamieniłem nimi szafy z Kauflandu, których dostępności nie da się sprawdzić.</li>
-      <li>Ekspres JURA W4 i czajnik (Morele): na stanie.</li>
+      <li>Czajnik (Morele): na stanie.</li>
       <li>Podstawa pod Xeroxa (agapo.pl): dostępna, wysyłka w 3 dni; wykonywana pod podany model. Zamienniki: Szkolmeb (cena na zapytanie), Kamila Meble Rd1 (861 zł, na wymiar).</li>
       <li>Jeden fotel z wcześniejszej wersji (EKENÄSET w tańszym wariancie za 699 zł) zniknął z oferty IKEA; w zestawieniu jest wariant w sprzedaży (799 zł).</li>
     </ul>
@@ -413,7 +413,6 @@ const C = [
   { k: "led_kabel", z: "kitchen", name: "IKEA VÅGDAL przewód połączeniowy, biały", dims: "3,5 m", sku: "704.636.00", price: 15, qty: 2, shop: IKEA, url: ip("vagdal-przewod-polaczeniowy-bialy-70463600"), status: ["ok", "W sprzedaży, na stanie"], noDraw: true },
   { k: "mikrofala", z: "kitchen", name: "IKEA TILLREDA kuchenka mikrofalowa wolnostojąca, biały", dims: "20 l, 700 W", sku: "504.867.92", price: 249, qty: 1, shop: IKEA, url: ip("tillreda-kuchenka-mikrofalowa-bialy-50486792"), status: ["ok", "W sprzedaży, na stanie"] },
   { k: "czajnik", z: "kitchen", name: "Czajnik elektryczny Lafe Steelo EK02, stal", dims: "1,7 l, 2200 W", price: 84, qty: 1, shop: "Morele.net (sprzedawca zewnętrzny)", url: "https://www.morele.net/czajnik-lafe-elektryczny-1-7-l-steelo-ek02-600730490/", avail: "na stanie", status: ["ok", "Na stanie"] },
-  { k: "ekspres", z: "kitchen", name: "Ekspres automatyczny na ziarno JURA W4 (EA) Dark Inox, do biura", dims: "29,5 × 44,6 × 44,3 cm, do 50 kaw dziennie, woda 3 l, ziarno 500 g, kawa i gorąca woda", price: 6599, qty: 1, shop: "Morele.net (sprzedawca kawawbiurze)", url: "https://www.morele.net/ekspres-cisnieniowy-jura-w4-ea-dark-inox-15365193/", avail: "na stanie", status: ["ok", "Na stanie, bez spieniacza mleka"], alt: [{ name: "JURA W8 (EB) Dark Inox: to samo plus napoje mleczne (cappuccino, latte)", price: 7799, url: "https://www.morele.net/ekspres-cisnieniowy-jura-w8-dark-inox-eb-600731472/" }] },
   { k: "lodowka", z: "kitchen", name: "Lodówka wolnostojąca, szer. 60 cm", dims: "60 × 65 × ok. 185 cm, zawiasy po stronie aneksu", qty: 1, status: ["mute", "Nie kupujemy w tym zakupie"], outside: true },
   { k: "stol_jad", z: "dining", name: "IKEA MITTZON stół konferencyjny, biały (ten sam model co stół roboczy)", dims: "140 × 108 × 75 cm, 2 szt. = 280 × 108, 10 miejsc", sku: "s19533381", price: 1098, qty: 2, shop: IKEA, url: ip("mittzon-stol-konferencyjny-bialy-s19533381"), status: ["ok", "Stół modułowy, łączy się z roboczym"] },
   { k: "krz_jad", z: "dining", name: "IKEA TEODORES krzesło, biały, sztaplowane", dims: "46 × 50 cm", sku: "903.509.37", price: 129, qty: 10, shop: IKEA, url: ip("teodores-krzeslo-bialy-90350937"), status: ["ok", "W sprzedaży, na stanie"] },
@@ -450,7 +449,6 @@ add("an_polki", { x: 720, y: 0, w: 60, d: 60, h: 86, kind: "box", label: "Półk
 add("zmywarka", { x: 780, y: 0, w: 60, d: 60, h: 86, kind: "box", label: "ZM" });
 add("an_zlew", { x: 840, y: 0, w: 60, d: 60, h: 86, kind: "box", label: "Zlew" });
 add("blat", { x: 660, y: 0, w: 240, d: 63, h: 4, z: 86, kind: "box", hidePlan: true });
-add("ekspres", { x: 664, y: 4, w: 30, d: 45, h: 44, z: 90, kind: "box", ontop: true });
 add("czajnik", { x: 698, y: 10, w: 22, d: 16, h: 25, z: 90, kind: "box", ontop: true });
 add("mikrofala", { x: 728, y: 4, w: 45, d: 34, h: 26, z: 90, kind: "box", ontop: true });
 [660, 720, 780, 840].forEach((x) => add("an_wiszaca", { x, y: 0, w: 60, d: 37, h: 100, z: 150, kind: "box", above: true }));
@@ -477,7 +475,7 @@ const INST = [
   { t: "p230", x: 480, y: 0, z: 30, txt: "Stół wysoki: gniazdo pod blatem (niszczarka)" },
   { t: "p230", x: 630, y: 0, z: 30, txt: "Lodówka: gniazdo za lodówką" },
   { t: "rj", x: 560, y: 0, z: 110, txt: "Stół wysoki: RJ45 (skaner) i rezerwa" },
-  { t: "p230", x: 680, y: 0, z: 110, txt: "Aneks: gniazdo podwójne nad blatem (ekspres, czajnik)" },
+  { t: "p230", x: 680, y: 0, z: 110, txt: "Aneks: gniazdo podwójne nad blatem (czajnik i rezerwa)" },
   { t: "p230", x: 750, y: 0, z: 110, txt: "Aneks: gniazdo nad blatem (mikrofalówka)" },
   { t: "p230", x: 810, y: 0, z: 30, txt: "Zmywarka: gniazdo w szafce obok" },
   { t: "h2o", x: 880, y: 0, z: 50, txt: "Woda i odpływ pod zlewem (narożnik)" },
@@ -669,7 +667,7 @@ function drawPlan() {
 function badgePos(it) {
   const map = {
     szafa: [70, 20], scianka: [100, 205], biurko: [84, 357], ladowarka: [72, 250], krz_biuro: [140, 290], stol_pracy: [232, 272], krz_pracy: [300, 214],
-    druk_duza: [255, 98], druk_mala: [88, 582], podstawa: [88, 542], stol_wysoki: [575, 88], tonery: [545, 74], akcesoria: [482, 64], lodowka: [630, 98], ekspres: [672, 110], czajnik: [705, 110], mikrofala: [750, 110],
+    druk_duza: [255, 98], druk_mala: [88, 582], podstawa: [88, 542], stol_wysoki: [575, 88], tonery: [545, 74], akcesoria: [482, 64], lodowka: [630, 98], czajnik: [705, 110], mikrofala: [750, 110],
     an_szuflady: [690, 76], an_polki: [750, 76], zmywarka: [810, 76], an_zlew: [880, 76], an_wiszaca: [780, 132], blat: [850, 132],
     stol_jad: [735, 240], krz_jad: [668, 222], sofa: [185, 486], stolik: [577, 508], fotel: [642, 494], monitor: [44, 335], laptop: [44, 365],
   };
@@ -829,7 +827,7 @@ function drawElev(key) {
   txt(elev, W.len, -22, W.right, "wtxt", { "text-anchor": "end" });
   txt(elev, W.len / 2, -22, W.title, "lbl", { "text-anchor": "middle" });
   const notes = {
-    N: "Stół do kompletowania TROTTEN 120 × 70 z elektryczną regulacją (ok. 95 cm), pod nim szafka na tonery i papier. Lodówka 60 cm oddziela strefę druku od aneksu 240 cm. Na blacie: ekspres, czajnik, mikrofalówka; szafki wiszące 4 × 60, dół 150 cm, góra 250 cm.",
+    N: "Stół do kompletowania TROTTEN 120 × 70 z elektryczną regulacją (ok. 95 cm), pod nim szafka na tonery i papier. Lodówka 60 cm oddziela strefę druku od aneksu 240 cm. Na blacie: czajnik, mikrofalówka; szafki wiszące 4 × 60, dół 150 cm, góra 250 cm.",
     W: "Dwie ścianki MITTZON na kółkach (205 cm), widoczne z boku: między szafami a biurkiem 1 i między biurkiem 2 a Xeroxem B7130 na podstawie KSW ok. 45 cm (razem ok. 122 cm). Szafka ładująca: dół 140 cm, nad biurkiem 1. Szafy skrytkowe 3 × 11 skrytek każda. *Wysokość sali przyjęta, do pomiaru.",
     S: "Parapet przyjęty na 90 cm, nadproże 260 cm. Sofy i fotel (80 cm) nie zasłaniają okien, ale stoją przed grzejnikami: zostawić min. 15 cm odstępu od ściany na obieg ciepła.",
     E: "Ściana prawie wolna. Krzesła jadalni stoją 85 cm od krawędzi stołu. Jeśli zapadnie decyzja o lodówce, to najbliższe sensowne miejsce jest tutaj przy aneksie, kosztem krzesła szczytowego.",
@@ -874,8 +872,8 @@ function costTable() {
   document.getElementById("cost-sum").innerHTML = `
     <div><dt>Razem do zapłaty</dt><dd>${fmt(sum)}<small>meble i aneks, brutto, bez dostawy i montażu</small></dd></div>
     <div><dt>W tym IKEA</dt><dd>${fmt(sumIkea)}<small>jedno zamówienie, można poprosić IKEA dla Firm o fakturę i montaż</small></dd></div>
-    <div><dt>W tym inne sklepy</dt><dd>${fmt(sum - sumIkea)}<small>szafy skrytkowe (Kupmeble), ekspres i czajnik (Morele), podstawa pod Xeroxa (agapo.pl)</small></dd></div>
-    <div><dt>W tym aneks kuchenny</dt><dd>${fmt(kitchen)}<small>4 szafki dolne i 4 wiszące, blat 240, zlew, bateria, zmywarka, LED, ekspres, mikrofalówka, czajnik</small></dd></div>`;
+    <div><dt>W tym inne sklepy</dt><dd>${fmt(sum - sumIkea)}<small>szafy skrytkowe (Kupmeble), czajnik (Morele), podstawa pod Xeroxa (agapo.pl)</small></dd></div>
+    <div><dt>W tym aneks kuchenny</dt><dd>${fmt(kitchen)}<small>4 szafki dolne i 4 wiszące, blat 240, zlew, bateria, zmywarka, LED, mikrofalówka, czajnik</small></dd></div>`;
 }
 costTable();
 
@@ -999,7 +997,6 @@ I.forEach((it) => {
   if (it.k === "tonery" || it.k === "podstawa") color = 0xf1f0ec;
   if (it.k === "mikrofala") color = 0xf4f4f2;
   if (it.k === "czajnik") color = 0xaeb5b8;
-  if (it.k === "ekspres") color = 0x2b2f31;
   if (it.k === "lodowka") color = 0xf6f6f4;
   if (it.k === "bror_regal") {
     const g = furniture;
