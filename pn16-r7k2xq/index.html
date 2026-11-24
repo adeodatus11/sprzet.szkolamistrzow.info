@@ -182,6 +182,10 @@ th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--lin
 th { font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); font-weight: 600; background: var(--sheet); position: sticky; top: 0; }
 td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
 td.mono { font-family: var(--font-mono); font-size: 12.5px; white-space: nowrap; }
+.item-cell { min-width: 260px; }
+.item-cell .meta { font-size: 12.5px; color: var(--muted); margin-top: 2px; }
+.item-cell .alt { font-size: 12.5px; margin-top: 3px; }
+tr.out td { color: var(--muted); }
 tr.zone-row td { background: var(--paper); font-weight: 600; font-size: 13px; letter-spacing: 0.02em; }
 tr.total td { font-weight: 700; border-top: 2px solid var(--ink); }
 .pill { display: inline-block; font-size: 12px; padding: 1px 8px; border-radius: 999px; white-space: nowrap; }
@@ -294,8 +298,8 @@ tr.total td { font-weight: 700; border-top: 2px solid var(--ink); }
 </section>
 
 <section id="zestawienie" aria-labelledby="h-list">
-  <h2 id="h-list"><span class="num">E</span>Zestawienie wyposażenia i kosztorys roboczy</h2>
-  <p class="sec-lead">Ceny pochodzą z wcześniejszej rozmowy (lista zakupowa z pakietu) i nie zostały ponownie sprawdzone. Pozycje bez ceny nie są liczone jako zero, tylko wykazane osobno. Drukarki, laptopy i monitor dotykowy są poza budżetem mebli.</p>
+  <h2 id="h-list"><span class="num">E</span>Zakupy: meble i aneks kuchenny</h2>
+  <p class="sec-lead">Konkretne produkty z linkami do sklepów i cenami brutto sprawdzonymi 24.11.2026 (odczyt ze stron sklepów). Zakup obejmuje meble i cały aneks kuchenny bez lodówki. Sprzętu IT (drukarki, szafka ładująca, monitor, niszczarka) nie kupujemy w tym zakupie; jest na końcu listy, bez sumy. Dostępności w IKEA Wrocław Bielany nie da się sprawdzić automatycznie: przed zamówieniem trzeba ją potwierdzić dla całych ilości.</p>
   <dl class="cost-sum" id="cost-sum"></dl>
   <div class="tbl-wrap"><table id="list-table"></table></div>
 </section>
@@ -323,13 +327,13 @@ tr.total td { font-weight: 700; border-top: 2px solid var(--ink); }
     <div class="card">
       <h3>Decyzje</h3>
       <ol>
-        <li>Ścianka akustyczna: wysokość (170 cm zasłania głowę siedzącego i stojącego niskiej osoby), długość, materiał trudnozapalny, mocowanie do ściany (w szczelinie 15 cm nie zmieszczą się stopy).</li>
-        <li>Model wysokiego stołu do kompletowania (stały 95 cm czy z regulacją wysokości).</li>
+        <li>Ścianka akustyczna AP 180-2 jest składana i stoi sama: sprawdzić stabilność w szczelinie 15 cm, ewentualnie przykręcić skrzydło do ściany. Sprawdzić klasę palności materiału.</li>
+        <li>Stół wysoki: 2 × TROTTEN z regulacją elektryczną (1 998 zł) czy 1 × TROTTEN 160 × 80 (1 199 zł, krótszy blat).</li>
         <li>Strona sprzętu planuje 4 laptopy KPO dla sali 16: rzut zakłada 2 na biurkach, 1 przy stole roboczym i 1 w szafce ładującej.</li>
         <li>Model dużej drukarki A3 z finiszerem i jej rzeczywisty gabaryt z modułami (rezerwa na rzucie: 190 × 70 cm plus 110 cm obsługi).</li>
         <li>Model mniejszej A3 i jej masa (dobór podstawy przy biurkach), sposób podawania papieru z przodu.</li>
-        <li>Lodówka: tak czy nie. Na rzucie nie ma na nią miejsca w aneksie; możliwe miejsce to ściana przy jadalni obok aneksu.</li>
-        <li>Modele dwóch sof 2-osobowych i fotela: głębokość najlepiej do 85 cm, tapicerka zmywalna, odporna na ścieranie.</li>
+        <li>Bateria: SALLSJÖN (349 zł) czy najtańsza LAGAN (119 zł).</li>
+        <li>Kolor pokryć KLIPPAN (pokrycie zdejmowane, można dokupić zapasowe).</li>
         <li>Zasilanie stołu roboczego: puszka podłogowa albo przewód z sufitu.</li>
       </ol>
     </div>
@@ -338,12 +342,12 @@ tr.total td { font-weight: 700; border-top: 2px solid var(--ink); }
       <ul>
         <li>Stół roboczy przesunięty niżej (krawędź 260 cm od ściany z wejściem), żeby krzesła nie wchodziły w strefę obsługi drukarek.</li>
         <li>Jadalnia odsunięta od prawej ściany na 85 cm od krawędzi stołu, żeby dało się odsunąć krzesła.</li>
-        <li>Zamiast sofy 3-osobowej dwie sofy 2-osobowe i fotel w rzędzie pod oknami, między sofami okrągły stolik Ø 50 cm; przed sofami nie ma miejsca na zwykły stolik kawowy.</li>
+        <li>Zamiast sofy 3-osobowej dwie sofy KLIPPAN 2-osobowe i fotel EKENÄSET w rzędzie pod oknami, między nimi stolik GLADOM Ø 45 cm; przed sofami nie ma miejsca na zwykły stolik kawowy.</li>
         <li>Na biurku 1 przewidziano monitor dotykowy 27″ do komputera do zastępstw (pozycja z zakładki „Do zakupu”).</li>
         <li>Mniejsza A3 przeniesiona na podstawę przy biurkach; zostają 2 stanowiska komputerowe zamiast 3.</li>
-        <li>W strefie druku przy wejściu zamiast mniejszej A3, ławy i regału na papier stoi wysoki stół 240 × 80 cm do kompletowania dokumentów; pod nim szafka na tonery i papier oraz niszczarka.</li>
+        <li>W strefie druku przy wejściu zamiast mniejszej A3, ławy i regału na papier stoi wysoki stół 240 × 70 cm (dwa biurka TROTTEN z regulacją elektryczną) do kompletowania dokumentów; pod nim zamykana szafka TROTTEN na tonery i papier.</li>
         <li>Bez osobnego regału na papier.</li>
-        <li>Ścianka akustyczna 140 × 170 cm między szafami skrytkowymi a biurkami: oddziela hałas przy szafkach od stanowisk komputerowych.</li>
+        <li>Ścianka akustyczna 120 × 180 cm między szafami skrytkowymi a biurkami: oddziela hałas przy szafkach od stanowisk komputerowych.</li>
       </ul>
     </div>
   </div>
@@ -363,43 +367,54 @@ const WINDOWS = [[112, 275], [362, 526], [618, 780]];
 const SILL = 90, HEAD = 260;
 const RADIATORS = WINDOWS.map(([a, b]) => ({ x: (a + b) / 2 - 60, y: 588, w: 120, d: 10, h: 60, z: 15 }));
 
-/* katalog: jedna pozycja = jeden wiersz zestawienia */
+/* katalog: jedna pozycja = jeden wiersz zestawienia. Ceny brutto sprawdzone 24.11.2026. */
+const CHECKED = "24.11.2026";
+const IKEA = "IKEA (Wrocław Bielany / ikea.com/pl)";
+const ip = (slug) => "https://www.ikea.com/pl/pl/p/" + slug + "/";
 const ZONES = {
-  storage: "Szafki osobiste",
-  work: "Praca indywidualna i wspólna",
-  print: "Strefa druku",
-  kitchen: "Aneks",
+  storage: "Szafki osobiste i ścianka",
+  work: "Stanowiska komputerowe i stół roboczy",
+  print: "Strefa druku (meble)",
+  kitchen: "Aneks kuchenny (bez lodówki)",
   dining: "Jadalnia",
   lounge: "Wypoczynek",
-  tech: "Sprzęt (poza budżetem mebli)",
+  tech: "Sprzęt IT – nie kupujemy w tym zakupie",
 };
 const C = [
-  { k: "szafa", z: "storage", name: "Szafa metalowa 33 skrytki", dims: "90 × 45 × 185 cm", qty: 2, status: ["ok", "Zaakceptowane, model do ustalenia"], note: "Razem 66 skrytek, układ 3 × 11" },
-  { k: "biurko", z: "work", name: "IKEA MITTZON biurko", dims: "120 × 60 cm", sku: "695.258.59", price: 699, qty: 2, status: ["ok", "2 stanowiska komputerowe"] },
-  { k: "krz_biuro", z: "work", name: "IKEA FLINTAN krzesło biurowe", dims: "beż", sku: "704.922.02", price: 249, qty: 2, status: ["mute", "Propozycja"] },
-  { k: "ladowarka", z: "work", name: "Szafka ładująca wisząca, Manhattan 181204", dims: "10 laptopów, 52,6 × 51 × 52,5 cm", sku: "181204", price: 1259.74, qty: 1, status: ["ok", "Jedna zaakceptowana, model do weryfikacji"] },
-  { k: "scianka", z: "work", sw: "acoustic", name: "Ścianka akustyczna (bariera dźwiękochłonna)", dims: "140 × 170 × 6 cm", qty: 1, status: ["mute", "Nowa pozycja, model do wyboru"], note: "Panel PET lub filc, pochłanianie dźwięku obustronne, materiał trudnozapalny" },
-  { k: "stol_pracy", z: "work", name: "IKEA MITTZON stół konferencyjny", dims: "140 × 108 cm, łączone 280 × 108", qty: 2, status: ["mute", "Propozycja, cena do ustalenia"] },
-  { k: "krz_pracy", z: "work", name: "Krzesło robocze ergonomiczne", dims: "ok. 50 × 52 cm", qty: 8, status: ["mute", "Model do wyboru"] },
-  { k: "zasilanie", z: "work", name: "Moduły zasilania (biurka i stół)", dims: "230 V, ew. USB-C", qty: 5, status: ["mute", "Do wyceny"], noDraw: true },
-  { k: "druk_duza", z: "tech", name: "Drukarka A3 z finiszerem broszurującym", dims: "rezerwa 190 × 70 cm + 110 obsługi", qty: 1, status: ["ok", "Zaakceptowana, model do ustalenia"], outside: true },
-  { k: "druk_mala", z: "tech", name: "Drukarka A3 mniejsza (przy komputerach)", dims: "ok. 60 × 58 cm", qty: 1, status: ["ok", "Zaakceptowana, model do ustalenia"], outside: true },
-  { k: "podstawa", z: "print", name: "Podstawa pod mniejszą A3", dims: "85 × 70 × 60 cm", qty: 1, status: ["mute", "Dobrać do masy drukarki"] },
-  { k: "stol_wysoki", z: "print", name: "Stół wysoki do kompletowania dokumentów", dims: "240 × 80 cm, blat na 95 cm", qty: 1, status: ["mute", "Nowa pozycja, model do wyboru"], note: "Np. dwa stoły z regulacją wysokości albo stół warsztatowy; praca na stojąco" },
-  { k: "tonery", z: "print", name: "Szafka zamykana na tonery i ryzy papieru", dims: "60 × 40 × 65 cm", qty: 1, status: ["mute", "Do wyboru, pod stołem wysokim"] },
-  { k: "akcesoria", z: "print", name: "Niszczarka, bindownica, zszywacz, dziurkacz, skaner", dims: "zestaw", qty: 1, status: ["mute", "Ustalić, co już jest"] },
-  { k: "an_szuflady", z: "kitchen", name: "IKEA METOD/MAXIMERA szafka z 3 szufladami", dims: "60 cm", sku: "094.267.01", price: 835, qty: 1, status: ["mute", "Cena historyczna"] },
-  { k: "zmywarka", z: "kitchen", name: "IKEA RENGÖRA zmywarka do zabudowy", dims: "60 cm", sku: "404.755.72", price: 1599, qty: 1, status: ["warn", "Gwarancja przy użyciu szkolnym do sprawdzenia"] },
-  { k: "an_zlew", z: "kitchen", name: "IKEA METOD szafka pod zlew", dims: "60 cm", sku: "494.551.31", price: 340, qty: 1, status: ["mute", "Cena historyczna"] },
-  { k: "blat", z: "kitchen", name: "Blat, zlew, bateria, front, akcesoria", dims: "180 cm", price: 1500, qty: 1, status: ["warn", "Tylko szacunek"], estimate: true },
-  { k: "an_wiszaca", z: "kitchen", name: "IKEA METOD szafka ścienna HAVSTORP", dims: "60 × 100 cm", sku: "894.613.28", price: 405, qty: 3, status: ["mute", "Cena historyczna"] },
-  { k: "led", z: "kitchen", name: "Oświetlenie LED podszafkowe", dims: "180 cm", qty: 1, status: ["mute", "Sprawdzić, czy w akcesoriach"], noDraw: true },
-  { k: "stol_jad", z: "dining", name: "Stół modułowy jadalni", dims: "140 × 80 cm, łączone 280 × 80", qty: 2, status: ["mute", "Model i seria do ustalenia"] },
-  { k: "krz_jad", z: "dining", name: "IKEA TEODORES krzesło sztaplowane", dims: "46 × 50 cm", sku: "903.509.37", price: 129, qty: 10, status: ["mute", "Cena historyczna, normy do sprawdzenia"] },
-  { k: "sofa", z: "lounge", name: "Sofa 2-osobowa", dims: "ok. 150 × 85 cm", qty: 2, status: ["mute", "Model do wyboru, tapicerka zmywalna"] },
-  { k: "stolik", z: "lounge", name: "Stolik boczny okrągły", dims: "Ø 50 cm", qty: 1, status: ["mute", "Do wyboru"] },
-  { k: "fotel", z: "lounge", name: "Fotel", dims: "ok. 80 × 80 cm", qty: 1, status: ["mute", "Do wyboru"] },
-  { k: "monitor", z: "tech", name: "Monitor dotykowy 27″ iiyama T2755MSC-B1", dims: "do komputera do zastępstw", price: 1840, qty: 1, status: ["mute", "Pozycja z zakładki „Do zakupu”"], outside: true },
+  { k: "szafa", z: "storage", name: "Szafa metalowa skrytkowa 3B11A, 33 skrytki", dims: "185 × 90 × 45 cm, stal malowana proszkowo", qty: 2, price: 1699.99, shop: "Kaufland.pl (sprzedawca Domator24)", url: "https://www.kaufland.pl/product/535305251/", src: "cena z wyniku wyszukiwania; strona sklepu blokuje automatyczny odczyt", status: ["warn", "Sprawdzić ręcznie: układ 3 × 11, zamki, wymiar skrytki"], note: "Razem 66 skrytek" },
+  { k: "scianka", z: "storage", sw: "acoustic", name: "Ścianka akustyczna t.akustik AP 180-2", dims: "2 skrzydła 60 × 180 cm (razem 120 cm), gr. 5 cm, PET, pokrowiec filcowy do prania", qty: 1, price: 968, shop: "Thomann.pl", url: "https://www.thomann.pl/t.akustik_ap_180_2.htm", status: ["ok", "Dostępna w magazynie"], alt: [{ name: "t.akustik PET Mobile Wall 195 WH, 95 × 195 cm, na kółkach", price: 1090, url: "https://www.thomann.pl/t.akustik_pet_mobile_wall_195_wh.htm" }] },
+  { k: "biurko", z: "work", name: "IKEA MITTZON biurko, biały", dims: "120 × 60 cm, regulacja 65–85 cm", sku: "s89525844", price: 699, qty: 2, shop: IKEA, url: ip("mittzon-biurko-bialy-s89525844"), status: ["ok", "2 stanowiska komputerowe"], alt: [{ name: "MITTZON okleina dębowa/czarny (s69525859)", price: 699, url: ip("mittzon-biurko-okl-deb-czarny-s69525859") }] },
+  { k: "krz_biuro", z: "work", name: "IKEA FLINTAN krzesło biurowe, beżowy", dims: "obrotowe, na kółkach", sku: "704.922.02", price: 249, qty: 2, shop: IKEA, url: ip("flintan-krzeslo-biurowe-bezowy-70492202"), status: ["ok", "Przy biurkach"] },
+  { k: "ladowarka", z: "tech", name: "Szafka ładująca Manhattan 181204 (10 laptopów)", dims: "52,6 × 51 × 52,5 cm", qty: 1, shop: "Komputronik (chwilowo niedostępna, 1 539 zł)", url: "https://www.komputronik.pl/product/1027700/szafa-rack-manhattan-181204-szafa-ladujaca-na-10-laptopow-16-10-gniazd-ac-230v.html", status: ["mute", "Sprzęt IT, nie w tym zakupie"], outside: true },
+  { k: "stol_pracy", z: "work", name: "IKEA MITTZON stół konferencyjny, biały", dims: "140 × 108 × 75 cm, łączone 280 × 108", sku: "s19533381", price: 1098, qty: 2, shop: IKEA, url: ip("mittzon-stol-konferencyjny-bialy-s19533381"), status: ["ok", "Odczyt ze strony"] },
+  { k: "krz_pracy", z: "work", name: "IKEA FLINTAN krzesło biurowe, beżowy", dims: "obrotowe, na kółkach", sku: "704.922.02", price: 249, qty: 8, shop: IKEA, url: ip("flintan-krzeslo-biurowe-bezowy-70492202"), status: ["ok", "Przy stole roboczym"] },
+  { k: "druk_duza", z: "tech", name: "Drukarka A3 z finiszerem broszurującym", dims: "rezerwa 190 × 70 cm", qty: 1, status: ["mute", "Sprzęt IT, nie w tym zakupie"], outside: true },
+  { k: "druk_mala", z: "tech", name: "Drukarka A3 mniejsza (przy komputerach)", dims: "ok. 60 × 58 cm", qty: 1, status: ["mute", "Sprzęt IT, nie w tym zakupie"], outside: true },
+  { k: "podstawa", z: "print", name: "IKEA TROTTEN szafka z drzwiami przesuwnymi, biały (podstawa pod A3)", dims: "80 × 55 × 75 cm, zamek, obciążenie blatu do 60 kg", sku: "404.747.61", price: 599, qty: 1, shop: IKEA, url: ip("trotten-szafka-z-drzwiami-przesuwnymi-bialy-40474761"), status: ["warn", "Sprawdzić masę drukarki (do 60 kg)"], note: "W środku papier" },
+  { k: "stol_wysoki", z: "print", name: "IKEA TROTTEN biurko z regulacją wysokości, elektryczne, biały", dims: "120 × 70 cm, 2 szt. obok siebie = 240 × 70, wys. 71–118 cm", sku: "s49621871", price: 999, qty: 2, shop: IKEA, url: ip("trotten-biurko-z-regulacja-wysokosci-elektryczny-bialy-s49621871"), status: ["ok", "Stół wysoki do kompletowania"], alt: [{ name: "1 × TROTTEN elektryczne 160 × 80 (s39621895)", price: 1199, url: ip("trotten-biurko-z-regulacja-wysokosci-elektryczny-bialy-s39621895") }] },
+  { k: "tonery", z: "print", name: "IKEA TROTTEN szafka z drzwiami przesuwnymi, biały (tonery i papier)", dims: "80 × 55 × 75 cm, zamek", sku: "404.747.61", price: 599, qty: 1, shop: IKEA, url: ip("trotten-szafka-z-drzwiami-przesuwnymi-bialy-40474761"), status: ["ok", "Pod stołem wysokim"] },
+  { k: "akcesoria", z: "tech", name: "Niszczarka, bindownica, zszywacz, skaner", dims: "zestaw", qty: 1, status: ["mute", "Sprzęt, nie w tym zakupie"], outside: true },
+  { k: "an_szuflady", z: "kitchen", name: "IKEA METOD/MAXIMERA szafka z 3 szufladami, biały/Havstorp beżowy", dims: "60 × 60 cm", sku: "s09426701", price: 835, qty: 1, shop: IKEA, url: ip("metod-maximera-szafka-stojaca-z-3-szufladami-bialy-havstorp-bezowy-s09426701"), status: ["ok", "Odczyt ze strony"] },
+  { k: "zmywarka", z: "kitchen", name: "IKEA RENGÖRA zmywarka do zabudowy", dims: "60 cm", sku: "404.755.72", price: 1599, qty: 1, shop: IKEA, url: ip("rengoera-zmywarka-do-zabudowy-ikea-300-40475572"), status: ["warn", "Gwarancja przy użyciu w szkole do sprawdzenia"] },
+  { k: "front_zm", z: "kitchen", name: "IKEA METOD 1 front do zmywarki, Havstorp beżowy", dims: "60 × 80 cm", sku: "s69530097", price: 190, qty: 1, shop: IKEA, url: ip("metod-1-front-do-zmywarki-havstorp-bezowy-s69530097"), status: ["ok", "Odczyt ze strony"], noDraw: true },
+  { k: "an_zlew", z: "kitchen", name: "IKEA METOD szafka pod zlew, biały/Havstorp beżowy", dims: "60 × 60 cm", sku: "s49455131", price: 340, qty: 1, shop: IKEA, url: ip("metod-szafka-pod-zlew-bialy-havstorp-bezowy-s49455131"), status: ["ok", "Odczyt ze strony"] },
+  { k: "zlew", z: "kitchen", name: "IKEA LÅNGUDDEN zlew wpuszczany, 1 komora, stal nierdzewna", dims: "46 × 46 cm", sku: "s59157391", price: 289, qty: 1, shop: IKEA, url: ip("langudden-zlew-wpuszczany-1-komorowy-stal-nierdz-s59157391"), status: ["ok", "Odczyt ze strony"], noDraw: true, alt: [{ name: "VRESJÖN 54 × 44 cm, stal", price: 1079, url: ip("vresjoen-zlew-wpuszczany-1-komora-stal-nierdz-s99425721") }] },
+  { k: "bateria", z: "kitchen", name: "IKEA SALLSJÖN bateria kuchenna z uchwytem z boku, stalowy", dims: "jednouchwytowa", sku: "706.009.04", price: 349, qty: 1, shop: IKEA, url: ip("sallsjoen-bateria-kuchenna-z-uchwytem-z-boku-stalowy-70600904"), status: ["ok", "Odczyt ze strony"], noDraw: true, alt: [{ name: "LAGAN, chrom (najtańsza)", price: 119, url: ip("lagan-bateria-kuchenna-chrom-10085027") }] },
+  { k: "blat", z: "kitchen", name: "IKEA EKBACKEN blat, imitacja sklejki/laminat", dims: "186 × 63,5 × 2,8 cm, docinany na 180", sku: "706.090.42", price: 259, qty: 1, shop: IKEA, url: ip("ekbacken-blat-imitacja-sklejki-laminat-70609042"), status: ["ok", "Odczyt ze strony"] },
+  { k: "an_wiszaca", z: "kitchen", name: "IKEA METOD szafka ścienna z półkami, 2 drzwi, biały/Havstorp beżowy", dims: "60 × 100 cm", sku: "s89461328", price: 405, qty: 3, shop: IKEA, url: ip("metod-szafka-scienna-z-polkami-2-drzwi-bialy-havstorp-bezowy-s89461328"), status: ["ok", "Odczyt ze strony"] },
+  { k: "cokol", z: "kitchen", name: "IKEA HAVSTORP cokół, beżowy", dims: "220 × 8 cm", sku: "404.752.56", price: 95, qty: 1, shop: IKEA, url: ip("havstorp-cokol-bezowy-40475256"), status: ["ok", "Odczyt ze strony"], noDraw: true },
+  { k: "panel_m", z: "kitchen", name: "IKEA HAVSTORP panel maskujący, beżowy (bok szafki z szufladami)", dims: "39 × 86 cm", sku: "504.752.51", price: 110, qty: 1, shop: IKEA, url: ip("havstorp-panel-maskujacy-bezowy-50475251"), status: ["ok", "Odczyt ze strony"], noDraw: true },
+  { k: "led", z: "kitchen", name: "IKEA MITTLED listwa LED pod szafki, ściemniana, biały", dims: "60 cm", sku: "605.285.84", price: 65, qty: 3, shop: IKEA, url: ip("mittled-listwa-oswietleniowa-led-do-bl-kuch-mozna-przyciemniac-bialy-60528584"), status: ["ok", "Odczyt ze strony"], noDraw: true },
+  { k: "led_zas", z: "kitchen", name: "IKEA TRÅDFRI zasilacz 30 W do oświetlenia LED", dims: "do 9 listew", sku: "603.426.56", price: 130, qty: 1, shop: IKEA, url: ip("tradfri-zasilacz-do-sterowania-bezprzewod-smart-szary-60342656"), status: ["warn", "Dobrać przewód zasilający w sklepie"], noDraw: true },
+  { k: "led_kabel", z: "kitchen", name: "IKEA VÅGDAL przewód połączeniowy, biały", dims: "3,5 m", sku: "704.636.00", price: 15, qty: 2, shop: IKEA, url: ip("vagdal-przewod-polaczeniowy-bialy-70463600"), status: ["ok", "Odczyt ze strony"], noDraw: true },
+  { k: "mikrofala", z: "kitchen", name: "IKEA TILLREDA kuchenka mikrofalowa wolnostojąca, biały", dims: "20 l, 700 W", sku: "504.867.92", price: 249, qty: 1, shop: IKEA, url: ip("tillreda-kuchenka-mikrofalowa-bialy-50486792"), status: ["ok", "Odczyt ze strony"] },
+  { k: "czajnik", z: "kitchen", name: "Czajnik elektryczny Lafe Steelo EK02, stal", dims: "1,7 l, 2200 W", price: 84, qty: 1, shop: "Morele.net (sprzedawca zewnętrzny)", url: "https://www.morele.net/czajnik-lafe-elektryczny-1-7-l-steelo-ek02-600730490/", status: ["ok", "Odczyt ze strony"] },
+  { k: "stol_jad", z: "dining", name: "IKEA TROTTEN biurko jako stół jadalny, biały", dims: "140 × 80 × 75 cm, łączone 280 × 80", sku: "s59429556", price: 499, qty: 2, shop: IKEA, url: ip("trotten-biurko-bialy-s59429556"), status: ["ok", "Testowany do użytku biurowego"], alt: [{ name: "MITTZON biurko 140 × 80 (ta sama seria co stół roboczy)", price: 949, url: ip("mittzon-biurko-bialy-s59528113") }] },
+  { k: "krz_jad", z: "dining", name: "IKEA TEODORES krzesło, biały, sztaplowane", dims: "46 × 50 cm", sku: "903.509.37", price: 129, qty: 10, shop: IKEA, url: ip("teodores-krzeslo-bialy-90350937"), status: ["ok", "Odczyt ze strony"] },
+  { k: "sofa", z: "lounge", name: "IKEA KLIPPAN sofa 2-osobowa, Vissle szary", dims: "180 × 88 cm, pokrycie zdejmowane, pranie 40°C", sku: "s79010614", price: 899, qty: 2, shop: IKEA, url: ip("klippan-sofa-2-osobowa-vissle-szary-s79010614"), status: ["ok", "Odczyt ze strony"], alt: [{ name: "GLOSTAD 2-osobowa, 121 × 78 cm (mniejsza, pokrycie stałe)", price: 599, url: ip("glostad-sofa-2-osobowa-knisa-ciemnoszary-50489012") }] },
+  { k: "stolik", z: "lounge", name: "IKEA GLADOM stolik z tacą, biały", dims: "Ø 45 × 53 cm", sku: "703.378.19", price: 49, qty: 1, shop: IKEA, url: ip("gladom-stolik-z-taca-bialy-70337819"), status: ["ok", "Odczyt ze strony"] },
+  { k: "fotel", z: "lounge", name: "IKEA EKENÄSET fotel, imitacja dębu/Kilanda jasnobeżowy", dims: "64 × 78 cm, rama z litego drewna", sku: "106.243.28", price: 799, qty: 1, shop: IKEA, url: ip("ekenaeset-fotel-imit-debu-kilanda-jasnobezowy-10624328"), status: ["ok", "Odczyt ze strony"] },
+  { k: "monitor", z: "tech", name: "Monitor dotykowy 27″ iiyama T2755MSC-B1", dims: "do komputera do zastępstw", qty: 1, status: ["mute", "Na zakładce „Do zakupu”"], outside: true },
   { k: "laptop", z: "tech", name: "Laptop KPO (tryb incognito)", dims: "już w szkole", qty: 4, status: ["ok", "Przydzielone do sali 16"], outside: true },
 ];
 const CAT = Object.fromEntries(C.map((c, i) => [c.k, { ...c, n: i + 1 }]));
@@ -409,7 +424,7 @@ const I = [];
 const add = (k, o) => I.push({ k, z: 0, ...o });
 add("szafa", { x: 0, y: 0, w: 45, d: 90, h: 185, kind: "lockers", face: "E", label: "33" });
 add("szafa", { x: 0, y: 90, w: 45, d: 90, h: 185, kind: "lockers", face: "E", label: "33" });
-add("scianka", { x: 0, y: 184, w: 140, d: 6, h: 170, kind: "panel" });
+add("scianka", { x: 0, y: 185, w: 120, d: 5, h: 180, kind: "panel" });
 [195, 315].forEach((y, i) => add("biurko", { x: 0, y, w: 60, d: 120, h: 75, kind: "table", label: `Biurko ${i + 1}` }));
 add("ladowarka", { x: 0, y: 228.7, w: 51, d: 52.6, h: 52.5, z: 140, kind: "box", above: true, label: "Ładowarka" });
 add("monitor", { x: 6, y: 226, w: 20, d: 62, h: 42, z: 75, kind: "box", ontop: true });
@@ -417,15 +432,18 @@ add("monitor", { x: 6, y: 226, w: 20, d: 62, h: 42, z: 75, kind: "box", ontop: t
 add("laptop", { x: 356, y: 330, w: 32, d: 24, h: 2, z: 75, kind: "box", ontop: true });
 [255, 375].forEach((y) => add("krz_biuro", { cx: 100, cy: y, w: 50, d: 50, face: "W", kind: "chair", h: 95 }));
 add("druk_duza", { x: 245, y: 8, w: 190, d: 70, h: 120, kind: "box", label: "A3 + finiszer" });
-add("podstawa", { x: 0, y: 455, w: 70, d: 85, h: 60, kind: "box" });
-add("druk_mala", { x: 6, y: 467, w: 58, d: 60, h: 45, z: 60, kind: "box", label: "A3" });
-add("stol_wysoki", { x: 465, y: 0, w: 240, d: 80, h: 95, kind: "table", label: "Stół wysoki" });
-add("tonery", { x: 630, y: 10, w: 60, d: 40, h: 65, kind: "box" });
-add("akcesoria", { x: 480, y: 12, w: 40, d: 35, h: 60, kind: "box" });
+add("podstawa", { x: 0, y: 455, w: 55, d: 80, h: 75, kind: "box" });
+add("druk_mala", { x: 0, y: 465, w: 58, d: 60, h: 45, z: 75, kind: "box", label: "A3" });
+add("stol_wysoki", { x: 465, y: 0, w: 120, d: 70, h: 95, kind: "table" });
+add("stol_wysoki", { x: 585, y: 0, w: 120, d: 70, h: 95, kind: "table" });
+add("tonery", { x: 615, y: 5, w: 80, d: 55, h: 75, kind: "box" });
+add("akcesoria", { x: 475, y: 10, w: 40, d: 35, h: 60, kind: "box" });
 add("an_szuflady", { x: 720, y: 0, w: 60, d: 60, h: 86, kind: "box", label: "Szuf." });
 add("zmywarka", { x: 780, y: 0, w: 60, d: 60, h: 86, kind: "box", label: "ZM" });
 add("an_zlew", { x: 840, y: 0, w: 60, d: 60, h: 86, kind: "box", label: "Zlew" });
 add("blat", { x: 720, y: 0, w: 180, d: 63, h: 4, z: 86, kind: "box", hidePlan: true });
+add("mikrofala", { x: 724, y: 4, w: 45, d: 34, h: 26, z: 90, kind: "box", ontop: true });
+add("czajnik", { x: 790, y: 10, w: 22, d: 16, h: 25, z: 90, kind: "box", ontop: true });
 [720, 780, 840].forEach((x) => add("an_wiszaca", { x, y: 0, w: 60, d: 37, h: 100, z: 150, kind: "box", above: true }));
 add("stol_pracy", { x: 230, y: 260, w: 140, d: 108, h: 75, kind: "table", label: "Stół roboczy · 8" });
 add("stol_pracy", { x: 370, y: 260, w: 140, d: 108, h: 75, kind: "table" });
@@ -435,10 +453,10 @@ add("stol_jad", { x: 735, y: 355, w: 80, d: 140, h: 75, kind: "table" });
 [250, 320, 390, 460].forEach((y) => { add("krz_jad", { cx: 708, cy: y, w: 46, d: 46, face: "E", kind: "chair", h: 80 }); add("krz_jad", { cx: 842, cy: y, w: 46, d: 46, face: "W", kind: "chair", h: 80 }); });
 add("krz_jad", { cx: 775, cy: 187, w: 46, d: 46, face: "S", kind: "chair", h: 80 });
 add("krz_jad", { cx: 775, cy: 523, w: 46, d: 46, face: "N", kind: "chair", h: 80 });
-add("sofa", { x: 190, y: 500, w: 150, d: 85, h: 80, face: "N", kind: "sofa", label: "Sofa 2" });
-add("stolik", { x: 350, y: 520, w: 50, d: 50, h: 50, kind: "round" });
-add("sofa", { x: 410, y: 500, w: 150, d: 85, h: 80, face: "N", kind: "sofa", label: "Sofa 2" });
-add("fotel", { x: 575, y: 505, w: 80, d: 80, h: 80, face: "N", kind: "sofa", label: "Fotel" });
+add("sofa", { x: 175, y: 497, w: 180, d: 88, h: 66, face: "N", kind: "sofa", label: "Sofa 2" });
+add("sofa", { x: 365, y: 497, w: 180, d: 88, h: 66, face: "N", kind: "sofa", label: "Sofa 2" });
+add("stolik", { x: 555, y: 520, w: 45, d: 45, h: 53, kind: "round" });
+add("fotel", { x: 610, y: 507, w: 64, d: 78, h: 76, face: "N", kind: "sofa", label: "Fotel" });
 I.forEach((it) => { if (it.cx != null) { it.x = it.cx - it.w / 2; it.y = it.cy - it.d / 2; } });
 
 /* instalacje proponowane */
@@ -469,9 +487,9 @@ const CHECKS = [
   { a: [775, 60], b: [775, 163], need: 100, name: "Front aneksu ↔ krzesło szczytowe jadalni", why: "Praca przy zlewie i otwarta zmywarka" },
   { a: [815, 430], b: [900, 430], need: 75, name: "Krawędź stołu jadalni ↔ prawa ściana", why: "Odsunięcie krzeseł, bez przejścia za nimi" },
   { a: [775, 495], b: [775, 600], need: 75, name: "Krawędź stołu jadalni ↔ ściana z oknami", why: "Krzesło szczytowe" },
-  { a: [480, 438], b: [480, 500], need: 75, name: "Krzesła stołu roboczego (odsunięte) ↔ front sof", why: "Miejsce na nogi siedzących na sofie", soft: 55 },
-  { a: [70, 497], b: [190, 497], need: 100, name: "Front mniejszej A3 ↔ sofa", why: "Obsługa drukarki przy biurkach, wymiana tonera" },
-  { a: [140, 190], b: [241, 211], need: 90, name: "Koniec ścianki akustycznej ↔ krzesło stołu roboczego", why: "Wejście do stanowisk komputerowych od strony drzwi" },
+  { a: [480, 438], b: [480, 497], need: 75, name: "Krzesła stołu roboczego (odsunięte) ↔ front sof", why: "Miejsce na nogi siedzących na sofie", soft: 55 },
+  { a: [55, 497], b: [175, 497], need: 100, name: "Front szafki z mniejszą A3 ↔ sofa", why: "Obsługa drukarki przy biurkach, wymiana tonera" },
+  { a: [120, 190], b: [241, 211], need: 90, name: "Koniec ścianki akustycznej ↔ krzesło stołu roboczego", why: "Wejście do stanowisk komputerowych od strony drzwi" },
   { a: [45, 140], b: [125, 140], need: 70, name: "Strefa przed szafami skrytkowymi", why: "Otwieranie drzwiczek skrytek", fixedOk: true },
   { a: [60, 560], b: [60, 600], hide: true },
 ];
@@ -497,14 +515,13 @@ const esc = (s) => String(s).replace(/[&<>"]/g, (m) => ({ "&": "&amp;", "<": "&l
 /* ---------- liczby w nagłówku ---------- */
 const seats = I.filter((i) => i.kind === "chair").length + I.filter((i) => i.k === "sofa").length * 2 + I.filter((i) => i.k === "fotel").length;
 const known = C.filter((c) => c.price && !c.outside).reduce((s, c) => s + c.price * c.qty, 0);
-const unknownCount = C.filter((c) => !c.price && !c.outside).length;
 document.getElementById("facts").innerHTML = [
   ["Powierzchnia", "54 m² <small>900 × 600 cm</small>"],
   ["Miejsca siedzące", `${seats} <small>nominalnie</small>`],
   ["Skrytki", "66 <small>2 szafy × 33</small>"],
   ["Drukarki A3", "2 <small>przy wejściu i przy biurkach</small>"],
   ["Aneks", "180 cm <small>zlew, zmywarka</small>"],
-  ["Meble z ceną", `${Math.round(known).toLocaleString("pl-PL")} zł <small>+ ${unknownCount} bez ceny</small>`],
+  ["Zakup mebli i aneksu", `${Math.round(known).toLocaleString("pl-PL")} zł <small>brutto, bez dostawy</small>`],
 ].map(([a, b]) => `<div><dt>${a}</dt><dd>${b}</dd></div>`).join("");
 
 /* ---------- RZUT 2D ---------- */
@@ -640,10 +657,10 @@ function drawPlan() {
 }
 function badgePos(it) {
   const map = {
-    szafa: [70, 20], scianka: [154, 172], biurko: [84, 322], ladowarka: [72, 214], krz_biuro: [140, 255], stol_pracy: [222, 270], krz_pracy: [290, 214],
-    druk_duza: [255, 98], druk_mala: [84, 512], podstawa: [84, 466], stol_wysoki: [690, 98], tonery: [660, 64], akcesoria: [500, 64],
-    an_szuflady: [735, 76], zmywarka: [800, 76], an_zlew: [880, 76], an_wiszaca: [760, 115], blat: [0, 0],
-    stol_jad: [755, 240], krz_jad: [690, 222], sofa: [200, 486], stolik: [375, 508], fotel: [588, 490], monitor: [44, 300], laptop: [44, 330],
+    szafa: [70, 20], scianka: [134, 172], biurko: [84, 322], ladowarka: [72, 214], krz_biuro: [140, 255], stol_pracy: [222, 270], krz_pracy: [290, 214],
+    druk_duza: [255, 98], druk_mala: [76, 512], podstawa: [76, 466], stol_wysoki: [690, 88], tonery: [655, 74], akcesoria: [495, 64], mikrofala: [746, 98], czajnik: [802, 98],
+    an_szuflady: [735, 76], zmywarka: [825, 76], an_zlew: [880, 76], an_wiszaca: [760, 121], blat: [850, 121],
+    stol_jad: [755, 240], krz_jad: [690, 222], sofa: [185, 486], stolik: [577, 508], fotel: [642, 494], monitor: [44, 300], laptop: [44, 330],
   };
   return map[it.k] || [it.x + it.w + 10, it.y];
 }
@@ -801,8 +818,8 @@ function drawElev(key) {
   txt(elev, W.len, -22, W.right, "wtxt", { "text-anchor": "end" });
   txt(elev, W.len / 2, -22, W.title, "lbl", { "text-anchor": "middle" });
   const notes = {
-    N: "Stół wysoki do kompletowania: blat na 95 cm (praca na stojąco), pod nim szafka na tonery i papier oraz niszczarka. Szafki wiszące aneksu: dół 150 cm, góra 250 cm. Za dużą drukarką zostawić 8 cm na wentylację i przewody.",
-    W: "Ścianka akustyczna 170 cm między szafami a biurkiem 1, widoczna tu z boku; mocowana do ściany, druga podpora na końcu. Dwa stanowiska komputerowe, obok mniejsza A3 na podstawie (20 cm odstępu od biurka na wentylację). Szafka ładująca: dół 140 cm, nad biurkiem 1. Szafy skrytkowe 3 × 11 skrytek każda. *Wysokość sali przyjęta, do pomiaru.",
+    N: "Stół wysoki do kompletowania: dwa biurka TROTTEN z regulacją elektryczną, ustawione na ok. 95 cm (praca na stojąco), pod nimi zamykana szafka na tonery i papier. Na blacie aneksu mikrofalówka i czajnik. Szafki wiszące aneksu: dół 150 cm, góra 250 cm. Za dużą drukarką zostawić 8 cm na wentylację i przewody.",
+    W: "Ścianka akustyczna 180 cm między szafami a biurkiem 1, widoczna tu z boku. Dwa stanowiska komputerowe, obok mniejsza A3 na zamykanej szafce TROTTEN 75 cm (20 cm odstępu od biurka na wentylację). Szafka ładująca: dół 140 cm, nad biurkiem 1. Szafy skrytkowe 3 × 11 skrytek każda. *Wysokość sali przyjęta, do pomiaru.",
     S: "Parapet przyjęty na 90 cm, nadproże 260 cm. Sofy i fotel (80 cm) nie zasłaniają okien, ale stoją przed grzejnikami: zostawić min. 15 cm odstępu od ściany na obieg ciepła.",
     E: "Ściana prawie wolna. Krzesła jadalni stoją 85 cm od krawędzi stołu. Jeśli zapadnie decyzja o lodówce, to najbliższe sensowne miejsce jest tutaj przy aneksie, kosztem krzesła szczytowego.",
   };
@@ -821,29 +838,32 @@ document.getElementById("chk-table").innerHTML =
   `<tr><td>Szerokość drzwi w świetle</td><td>Droga ewakuacyjna</td><td class="num">?</td><td class="num">90 cm</td><td><span class="pill mute">Do pomiaru</span></td></tr></tbody>`;
 
 function costTable() {
-  let rows = "", sumKnown = 0, sumEst = 0, sumOutside = 0, missing = [];
+  let rows = "", sum = 0, sumIkea = 0;
+  const IKEA_ROWS = [];
   for (const [z, zname] of Object.entries(ZONES)) {
     const items = C.filter((c) => c.z === z);
     if (!items.length) continue;
-    rows += `<tr class="zone-row"><td colspan="8">${esc(zname)}</td></tr>`;
+    rows += `<tr class="zone-row"><td colspan="7">${esc(zname)}</td></tr>`;
     items.forEach((c) => {
-      const val = c.price ? c.price * c.qty : null;
-      if (val != null) { if (c.outside) sumOutside += val; else if (c.estimate) sumEst += val; else sumKnown += val; }
-      else if (!c.outside) missing.push(c.name);
-      rows += `<tr><td class="mono">${CAT[c.k].n}</td><td>${esc(c.name)}</td><td>${esc(c.dims)}</td><td class="mono">${c.sku ? esc(c.sku) : "–"}</td><td class="num">${c.qty}</td><td class="num">${c.price ? fmt(c.price) : "–"}</td><td class="num">${val != null ? fmt(val) : "brak ceny"}</td><td><span class="pill ${c.status[0]}">${esc(c.status[1])}</span></td></tr>`;
+      const val = c.price && !c.outside ? c.price * c.qty : null;
+      if (val != null) { sum += val; if (c.shop === IKEA) sumIkea += val; }
+      const link = c.url ? `<a href="${esc(c.url)}" target="_blank" rel="noopener">${esc(c.name)}</a>` : esc(c.name);
+      const alt = (c.alt || []).map((a) => `<div class="alt">Zamiennik: <a href="${esc(a.url)}" target="_blank" rel="noopener">${esc(a.name)}</a> · ${fmt(a.price)}</div>`).join("");
+      const meta = [c.sku && `nr ${esc(c.sku)}`, c.shop && esc(c.shop), c.src && esc(c.src)].filter(Boolean).join(" · ");
+      rows += `<tr${c.outside ? ' class="out"' : ""}><td class="mono">${CAT[c.k].n}</td><td class="item-cell">${link}<div class="meta">${meta}</div>${alt}</td><td>${esc(c.dims)}</td><td class="num">${c.qty}</td><td class="num">${c.price && !c.outside ? fmt(c.price) : "–"}</td><td class="num">${val != null ? fmt(val) : "–"}</td><td><span class="pill ${c.status[0]}">${esc(c.status[1])}</span></td></tr>`;
     });
   }
-  rows += `<tr class="zone-row"><td colspan="8">Usługi i instalacje</td></tr>
-    <tr><td class="mono">–</td><td>Dostawa i montaż (IKEA dla Firm i dostawcy szaf)</td><td>–</td><td class="mono">–</td><td class="num">1</td><td class="num">–</td><td class="num">brak ceny</td><td><span class="pill mute">Do oferty</span></td></tr>
-    <tr><td class="mono">–</td><td>Instalacje: gniazda, RJ45, woda i odpływ</td><td>wg sekcji F</td><td class="mono">–</td><td class="num">1</td><td class="num">–</td><td class="num">brak ceny</td><td><span class="pill mute">Po inwentaryzacji</span></td></tr>`;
-  missing.push("Dostawa i montaż", "Instalacje");
-  document.getElementById("list-table").innerHTML = `<thead><tr><th>Nr</th><th>Pozycja</th><th>Wymiary / wariant</th><th>Nr kat.</th><th class="num">Ilość</th><th class="num">Cena jedn. brutto</th><th class="num">Wartość</th><th>Status</th></tr></thead><tbody>${rows}
-    <tr class="total"><td></td><td colspan="5">Meble z ceną historyczną + szacunek aneksu</td><td class="num">${fmt(sumKnown + sumEst)}</td><td></td></tr></tbody>`;
+  rows += `<tr class="zone-row"><td colspan="7">Usługi (do oferty)</td></tr>
+    <tr><td class="mono">–</td><td class="item-cell">Dostawa i montaż mebli IKEA (IKEA dla Firm), montaż aneksu z podłączeniem wody i zmywarki<div class="meta">wycena przez IKEA dla Firm lub lokalnego montażystę</div></td><td>–</td><td class="num">1</td><td class="num">–</td><td class="num">–</td><td><span class="pill warn">Poprosić o ofertę</span></td></tr>
+    <tr><td class="mono">–</td><td class="item-cell">Dostawa szaf skrytkowych i ścianki<div class="meta">Kaufland: darmowa dostawa; Thomann wg koszyka</div></td><td>–</td><td class="num">–</td><td class="num">–</td><td class="num">–</td><td><span class="pill mute">Sprawdzić w koszyku</span></td></tr>`;
+  document.getElementById("list-table").innerHTML = `<thead><tr><th>Nr</th><th>Produkt i sklep</th><th>Wymiary / wariant</th><th class="num">Ilość</th><th class="num">Cena brutto</th><th class="num">Wartość</th><th>Status</th></tr></thead><tbody>${rows}
+    <tr class="total"><td></td><td colspan="4">Razem meble i aneks (brutto, bez dostawy i montażu)</td><td class="num">${fmt(sum)}</td><td></td></tr></tbody>`;
+  const kitchen = C.filter((c) => c.z === "kitchen" && c.price).reduce((s, c) => s + c.price * c.qty, 0);
   document.getElementById("cost-sum").innerHTML = `
-    <div><dt>Meble z ceną historyczną</dt><dd>${fmt(sumKnown)}<small>IKEA i szafka ładująca, ceny do ponownego sprawdzenia</small></dd></div>
-    <div><dt>Szacunek (blat, zlew, bateria)</dt><dd>${fmt(sumEst)}<small>wartość orientacyjna z rozmowy</small></dd></div>
-    <div><dt>Pozycje bez ceny</dt><dd>${missing.length}<small>m.in. szafy skrytkowe, stoły, krzesła robocze, sofy, fotel, montaż</small></dd></div>
-    <div><dt>Sprzęt poza budżetem mebli</dt><dd>${fmt(sumOutside)}<small>tylko monitor dotykowy; drukarki bez wyceny, laptopy już są</small></dd></div>`;
+    <div><dt>Razem do zapłaty</dt><dd>${fmt(sum)}<small>meble i aneks, brutto, bez dostawy i montażu</small></dd></div>
+    <div><dt>W tym IKEA</dt><dd>${fmt(sumIkea)}<small>jedno zamówienie, można poprosić IKEA dla Firm o fakturę i montaż</small></dd></div>
+    <div><dt>W tym inne sklepy</dt><dd>${fmt(sum - sumIkea)}<small>szafy skrytkowe (Kaufland), ścianka (Thomann), czajnik (Morele)</small></dd></div>
+    <div><dt>W tym aneks kuchenny</dt><dd>${fmt(kitchen)}<small>szafki, blat, zlew, bateria, zmywarka, LED, mikrofalówka, czajnik</small></dd></div>`;
 }
 costTable();
 
@@ -964,7 +984,9 @@ I.forEach((it) => {
   if (it.k === "monitor") color = 0x23292b;
   if (it.k === "laptop") color = 0x8a9398;
   if (it.k === "akcesoria") color = 0x4e5a5f;
-  if (it.k === "tonery") color = 0x6f7d84;
+  if (it.k === "tonery" || it.k === "podstawa") color = 0xf1f0ec;
+  if (it.k === "mikrofala") color = 0xf4f4f2;
+  if (it.k === "czajnik") color = 0xaeb5b8;
   if (it.k === "bror_regal") {
     const g = furniture;
     [0, it.w - 3].forEach((dx) => [0, it.d - 3].forEach((dy) => box(it.x + dx, it.y + dy, 0, 3, 3, it.h, mat(COL.leg), g, it, false)));
