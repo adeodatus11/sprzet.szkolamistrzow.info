@@ -34,6 +34,7 @@
   --z-dining: #e7cb9b;
   --z-lounge: #93b09f;
   --z-tech: #7f8f96;
+  --z-acoustic: #6f8a7e;
   --chair: #ffffff;
   --glass: #6aa7c4;
   --zone: rgba(23, 105, 95, 0.08);
@@ -46,7 +47,7 @@
     --paper: #151b1a; --sheet: #1d2524; --ink: #e8ece9; --muted: #a2b0ad; --line: #34403e; --line-soft: #283231;
     --accent: #5cc2b3; --accent-soft: #1d3633; --warn: #e7b765; --warn-soft: #3a2e17; --bad: #ef8c7c; --bad-soft: #3d221d;
     --wall: #cfd8d5; --floor: #222b2a; --grid: #2d3836;
-    --z-storage: #5d6b73; --z-work: #4f6e5d; --z-print: #4c6280; --z-kitchen: #7a6a4b; --z-dining: #8a7046; --z-lounge: #4f6e5d; --z-tech: #73848b;
+    --z-storage: #5d6b73; --z-work: #4f6e5d; --z-print: #4c6280; --z-kitchen: #7a6a4b; --z-dining: #8a7046; --z-lounge: #4f6e5d; --z-tech: #73848b; --z-acoustic: #87a596;
     --chair: #2c3634; --glass: #6aa7c4; --zone: rgba(92, 194, 179, 0.10);
     color-scheme: dark;
   }
@@ -55,7 +56,7 @@
   --paper: #151b1a; --sheet: #1d2524; --ink: #e8ece9; --muted: #a2b0ad; --line: #34403e; --line-soft: #283231;
   --accent: #5cc2b3; --accent-soft: #1d3633; --warn: #e7b765; --warn-soft: #3a2e17; --bad: #ef8c7c; --bad-soft: #3d221d;
   --wall: #cfd8d5; --floor: #222b2a; --grid: #2d3836;
-  --z-storage: #5d6b73; --z-work: #4f6e5d; --z-print: #4c6280; --z-kitchen: #7a6a4b; --z-dining: #8a7046; --z-lounge: #4f6e5d; --z-tech: #73848b;
+  --z-storage: #5d6b73; --z-work: #4f6e5d; --z-print: #4c6280; --z-kitchen: #7a6a4b; --z-dining: #8a7046; --z-lounge: #4f6e5d; --z-tech: #73848b; --z-acoustic: #87a596;
   --chair: #2c3634; --glass: #6aa7c4; --zone: rgba(92, 194, 179, 0.10);
   color-scheme: dark;
 }
@@ -124,7 +125,7 @@ svg text { font-family: var(--font-text); fill: var(--ink); }
 .it { stroke: var(--wall); stroke-width: 1.4; }
 .it.storage { fill: var(--z-storage); } .it.work { fill: var(--z-work); } .it.print { fill: var(--z-print); }
 .it.kitchen { fill: var(--z-kitchen); } .it.dining { fill: var(--z-dining); } .it.lounge { fill: var(--z-lounge); }
-.it.tech { fill: var(--z-tech); } .it.chair { fill: var(--chair); } .it.above { fill: none; stroke-dasharray: 7 5; }
+.it.tech { fill: var(--z-tech); } .it.acoustic { fill: var(--z-acoustic); } .it.chair { fill: var(--chair); } .it.above { fill: none; stroke-dasharray: 7 5; }
 .it.ontop { stroke-width: 1; fill-opacity: 0.85; }
 .it.rad { fill: var(--line); stroke-width: 1; }
 g.item { cursor: pointer; }
@@ -322,6 +323,7 @@ tr.total td { font-weight: 700; border-top: 2px solid var(--ink); }
     <div class="card">
       <h3>Decyzje</h3>
       <ol>
+        <li>Ścianka akustyczna: wysokość (170 cm zasłania głowę siedzącego i stojącego niskiej osoby), długość, materiał trudnozapalny, mocowanie do ściany (w szczelinie 15 cm nie zmieszczą się stopy).</li>
         <li>Model wysokiego stołu do kompletowania (stały 95 cm czy z regulacją wysokości).</li>
         <li>Strona sprzętu planuje 4 laptopy KPO dla sali 16: rzut zakłada 2 na biurkach, 1 przy stole roboczym i 1 w szafce ładującej.</li>
         <li>Model dużej drukarki A3 z finiszerem i jej rzeczywisty gabaryt z modułami (rezerwa na rzucie: 190 × 70 cm plus 110 cm obsługi).</li>
@@ -341,6 +343,7 @@ tr.total td { font-weight: 700; border-top: 2px solid var(--ink); }
         <li>Mniejsza A3 przeniesiona na podstawę przy biurkach; zostają 2 stanowiska komputerowe zamiast 3.</li>
         <li>W strefie druku przy wejściu zamiast mniejszej A3, ławy i regału na papier stoi wysoki stół 240 × 80 cm do kompletowania dokumentów; pod nim szafka na tonery i papier oraz niszczarka.</li>
         <li>Bez osobnego regału na papier.</li>
+        <li>Ścianka akustyczna 140 × 170 cm między szafami skrytkowymi a biurkami: oddziela hałas przy szafkach od stanowisk komputerowych.</li>
       </ul>
     </div>
   </div>
@@ -375,6 +378,7 @@ const C = [
   { k: "biurko", z: "work", name: "IKEA MITTZON biurko", dims: "120 × 60 cm", sku: "695.258.59", price: 699, qty: 2, status: ["ok", "2 stanowiska komputerowe"] },
   { k: "krz_biuro", z: "work", name: "IKEA FLINTAN krzesło biurowe", dims: "beż", sku: "704.922.02", price: 249, qty: 2, status: ["mute", "Propozycja"] },
   { k: "ladowarka", z: "work", name: "Szafka ładująca wisząca, Manhattan 181204", dims: "10 laptopów, 52,6 × 51 × 52,5 cm", sku: "181204", price: 1259.74, qty: 1, status: ["ok", "Jedna zaakceptowana, model do weryfikacji"] },
+  { k: "scianka", z: "work", sw: "acoustic", name: "Ścianka akustyczna (bariera dźwiękochłonna)", dims: "140 × 170 × 6 cm", qty: 1, status: ["mute", "Nowa pozycja, model do wyboru"], note: "Panel PET lub filc, pochłanianie dźwięku obustronne, materiał trudnozapalny" },
   { k: "stol_pracy", z: "work", name: "IKEA MITTZON stół konferencyjny", dims: "140 × 108 cm, łączone 280 × 108", qty: 2, status: ["mute", "Propozycja, cena do ustalenia"] },
   { k: "krz_pracy", z: "work", name: "Krzesło robocze ergonomiczne", dims: "ok. 50 × 52 cm", qty: 8, status: ["mute", "Model do wyboru"] },
   { k: "zasilanie", z: "work", name: "Moduły zasilania (biurka i stół)", dims: "230 V, ew. USB-C", qty: 5, status: ["mute", "Do wyceny"], noDraw: true },
@@ -405,6 +409,7 @@ const I = [];
 const add = (k, o) => I.push({ k, z: 0, ...o });
 add("szafa", { x: 0, y: 0, w: 45, d: 90, h: 185, kind: "lockers", face: "E", label: "33" });
 add("szafa", { x: 0, y: 90, w: 45, d: 90, h: 185, kind: "lockers", face: "E", label: "33" });
+add("scianka", { x: 0, y: 184, w: 140, d: 6, h: 170, kind: "panel" });
 [195, 315].forEach((y, i) => add("biurko", { x: 0, y, w: 60, d: 120, h: 75, kind: "table", label: `Biurko ${i + 1}` }));
 add("ladowarka", { x: 0, y: 228.7, w: 51, d: 52.6, h: 52.5, z: 140, kind: "box", above: true, label: "Ładowarka" });
 add("monitor", { x: 6, y: 226, w: 20, d: 62, h: 42, z: 75, kind: "box", ontop: true });
@@ -465,6 +470,7 @@ const CHECKS = [
   { a: [775, 495], b: [775, 600], need: 75, name: "Krawędź stołu jadalni ↔ ściana z oknami", why: "Krzesło szczytowe" },
   { a: [400, 438], b: [400, 495], need: 75, name: "Krzesła stołu roboczego (odsunięte) ↔ front sofy", why: "Miejsce na nogi siedzących na sofie", soft: 55 },
   { a: [70, 497], b: [250, 497], need: 100, name: "Front mniejszej A3 ↔ sofa", why: "Obsługa drukarki przy biurkach, wymiana tonera" },
+  { a: [140, 190], b: [241, 211], need: 90, name: "Koniec ścianki akustycznej ↔ krzesło stołu roboczego", why: "Wejście do stanowisk komputerowych od strony drzwi" },
   { a: [45, 140], b: [125, 140], need: 70, name: "Strefa przed szafami skrytkowymi", why: "Otwieranie drzwiczek skrytek", fixedOk: true },
   { a: [60, 560], b: [60, 600], hide: true },
 ];
@@ -551,7 +557,7 @@ function drawPlan() {
   [...I].filter((it) => !it.hidePlan).sort((a, b) => order(a) - order(b)).forEach((it) => {
     const c = CAT[it.k];
     const gi = el("g", { class: "item", "data-c": it.k, tabindex: "-1" }, items);
-    const cls = `it ${it.kind === "chair" ? "chair" : c.z}${it.above ? " above" : ""}${it.ontop ? " ontop" : ""}`;
+    const cls = `it ${it.kind === "chair" ? "chair" : c.sw || c.z}${it.above ? " above" : ""}${it.ontop ? " ontop" : ""}`;
     if (it.kind === "chair") {
       el("rect", { x: it.x + 3, y: it.y + 3, width: it.w - 6, height: it.d - 6, rx: 6, class: cls }, gi);
       const b = { N: [it.x + 4, it.y + it.d - 9, it.w - 8, 6], S: [it.x + 4, it.y + 3, it.w - 8, 6], E: [it.x + 3, it.y + 4, 6, it.d - 8], W: [it.x + it.w - 9, it.y + 4, 6, it.d - 8] }[it.face];
@@ -633,7 +639,7 @@ function drawPlan() {
 }
 function badgePos(it) {
   const map = {
-    szafa: [70, 20], biurko: [84, 322], ladowarka: [72, 214], krz_biuro: [140, 255], stol_pracy: [222, 270], krz_pracy: [290, 214],
+    szafa: [70, 20], scianka: [154, 172], biurko: [84, 322], ladowarka: [72, 214], krz_biuro: [140, 255], stol_pracy: [222, 270], krz_pracy: [290, 214],
     druk_duza: [255, 98], druk_mala: [84, 512], podstawa: [84, 466], stol_wysoki: [690, 98], tonery: [660, 64], akcesoria: [500, 64],
     an_szuflady: [735, 76], zmywarka: [800, 76], an_zlew: [880, 76], an_wiszaca: [760, 115], blat: [0, 0],
     stol_jad: [755, 240], krz_jad: [690, 222], sofa: [262, 480], stolik: [486, 508], fotel: [615, 500], monitor: [44, 300], laptop: [44, 330],
@@ -686,7 +692,7 @@ function bindPlanItems() {
 }
 document.getElementById("legend").innerHTML = C.filter((c) => !c.noDraw && I.some((i) => i.k === c.k && !i.hidePlan)).map((c) => {
   const n = CAT[c.k].n; const placed = I.filter((i) => i.k === c.k).length;
-  return `<button type="button" data-c="${c.k}"><span class="n">${n}</span><span class="sw" style="background: var(--z-${c.z})"></span><span class="t">${esc(c.name)} <small>· ${placed} szt. · ${esc(c.dims)}</small></span></button>`;
+  return `<button type="button" data-c="${c.k}"><span class="n">${n}</span><span class="sw" style="background: var(--z-${c.sw || c.z})"></span><span class="t">${esc(c.name)} <small>· ${placed} szt. · ${esc(c.dims)}</small></span></button>`;
 }).join("");
 document.querySelectorAll("#legend button").forEach((b) => b.addEventListener("click", () => highlight(b.dataset.c)));
 drawPlan();
@@ -735,7 +741,7 @@ function drawElev(key) {
     const [u0, u1] = W.u(it);
     const w = u1 - u0;
     const gi = el("g", { class: "item" }, elev);
-    const cls = `it ${c.z}`;
+    const cls = `it ${c.sw || c.z}`;
     if (it.kind === "table") {
       el("rect", { x: u0, y: Y(it.z + it.h), width: w, height: 4, class: cls }, gi);
       el("rect", { x: u0 + 3, y: Y(it.z + it.h - 4), width: 5, height: it.h - 4, class: "it tech" }, gi);
@@ -795,7 +801,7 @@ function drawElev(key) {
   txt(elev, W.len / 2, -22, W.title, "lbl", { "text-anchor": "middle" });
   const notes = {
     N: "Stół wysoki do kompletowania: blat na 95 cm (praca na stojąco), pod nim szafka na tonery i papier oraz niszczarka. Szafki wiszące aneksu: dół 150 cm, góra 250 cm. Za dużą drukarką zostawić 8 cm na wentylację i przewody.",
-    W: "Dwa stanowiska komputerowe, obok mniejsza A3 na podstawie (20 cm odstępu od biurka na wentylację). Szafka ładująca: dół 140 cm, nad biurkiem 1. Szafy skrytkowe 3 × 11 skrytek każda. *Wysokość sali przyjęta, do pomiaru.",
+    W: "Ścianka akustyczna 170 cm między szafami a biurkiem 1, widoczna tu z boku; mocowana do ściany, druga podpora na końcu. Dwa stanowiska komputerowe, obok mniejsza A3 na podstawie (20 cm odstępu od biurka na wentylację). Szafka ładująca: dół 140 cm, nad biurkiem 1. Szafy skrytkowe 3 × 11 skrytek każda. *Wysokość sali przyjęta, do pomiaru.",
     S: "Parapet przyjęty na 90 cm, nadproże 260 cm. Sofa (80 cm) nie zasłania okien, ale stoi przed grzejnikiem okna środkowego: zostawić min. 10 cm odstępu.",
     E: "Ściana prawie wolna. Krzesła jadalni stoją 85 cm od krawędzi stołu. Jeśli zapadnie decyzja o lodówce, to najbliższe sensowne miejsce jest tutaj przy aneksie, kosztem krzesła szczytowego.",
   };
@@ -950,6 +956,7 @@ I.forEach((it) => {
     return;
   }
   let color = zc;
+  if (it.k === "scianka") color = 0x6f8a7e;
   if (it.k === "zmywarka") color = 0xe8eaea;
   if (it.k === "blat") color = COL.wood;
   if (it.k === "druk_duza" || it.k === "druk_mala") color = 0xe7e9ea;
