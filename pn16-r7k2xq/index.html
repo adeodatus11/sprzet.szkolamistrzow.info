@@ -260,7 +260,7 @@ tr.total td { font-weight: 700; border-top: 2px solid var(--ink); }
     </div>
     <div class="drawing"><svg id="plan" role="img" aria-label="Rzut sali 16 z rozmieszczeniem mebli"></svg></div>
     <div class="legend" id="legend"></div>
-    <div class="palette"><span><i style="background:#efe7d8"></i>Ściany: ciepła biel / jasny beż</span><span><i style="background:#c9a273"></i>Dąb: blaty stołów i biurek, fronty szaf skrytkowych</span><span><i style="background:#d8c19b"></i>Jesion: stół do kompletowania</span><span><i style="background:#d8ccb3"></i>Beż HAVSTORP: aneks kuchenny</span><span><i style="background:#cfae80"></i>Jasny dąb: blat kuchenny</span><span><i style="background:#5d6061"></i>Ciemna szarość: 2 sofy EKTORP 3-osobowe Hakebo</span><span><i style="background:#d6c4a3"></i>Średni szary: 20 krzeseł LÄKTARE (biała rama, siedzisko z brzozy); beż: ścianki MITTZON</span><span><i style="background:#f1f0eb"></i>Czerń: nogi stołów i biurek; biel: stelaże krzeseł, korpusy szaf, szafki TROTTEN</span></div>
+    <div class="palette"><span><i style="background:#efe7d8"></i>Ściany: ciepła biel / jasny beż</span><span><i style="background:#c9a273"></i>Dąb: blaty stołów i biurek, fronty szaf skrytkowych</span><span><i style="background:#d8c19b"></i>Jesion: stół do kompletowania</span><span><i style="background:#cfbc98"></i>Aneks: biały korpus, fronty Havstorp beżowe</span><span><i style="background:#cfae80"></i>Jasny dąb: blat kuchenny</span><span><i style="background:#5d6061"></i>Ciemna szarość: 2 sofy EKTORP 3-osobowe Hakebo</span><span><i style="background:#d6c4a3"></i>Średni szary: 20 krzeseł LÄKTARE (biała rama, siedzisko z brzozy); beż: ścianki MITTZON</span><span><i style="background:#f1f0eb"></i>Czerń: nogi stołów i biurek; biel: stelaże krzeseł, korpusy szaf, szafki TROTTEN</span></div>
 
     <div class="titleblock"><span>Rzut · skala na ekranie dopasowana · 1 kratka = 50 cm</span><span>Pomieszczenie 900 × 600 cm, wysokość przyjęta 300 cm</span><span>Północ umowna: ściana z wejściem</span></div>
   </div>
@@ -433,13 +433,13 @@ const C = [
   { k: "laptop", z: "tech", name: "Laptop KPO (tryb incognito)", dims: "już w szkole", qty: 4, status: ["ok", "Przydzielone do sali 16"], outside: true },
 ];
 /* rzeczywiste kolory produktów (2D i 3D) */
-const OAK = "#c9a273", ASH = "#d8c19b", WHITE_FRAME = "#f1f0eb", HAV = "#d8ccb3";
+const OAK = "#c9a273", ASH = "#d8c19b", WHITE_FRAME = "#f1f0eb", HAV = "#cfbc98";
 const PAL = {
   szafa: { col: "#f1f0eb", front: "#c79e6c" }, scianka: { col: "#cdc3b0" },
   biurko: { col: OAK, frame: "#2a2a2a" }, stol_pracy: { col: OAK, frame: "#2a2a2a" }, stol_jad: { col: OAK, frame: "#2a2a2a" },
   stol_wysoki: { col: ASH, frame: WHITE_FRAME }, krz_biuro: { col: "#8f9294" }, krz_pracy: { col: "#8f9294" }, krz_jad: { col: "#8f9294" },
-  tonery: { col: "#f1f0eb" }, podstawa: { col: "#c9c9c5" }, an_szuflady: { col: HAV }, an_polki: { col: HAV }, an_zlew: { col: HAV },
-  zmywarka: { col: "#f3f3f1" }, an_wiszaca: { col: HAV }, blat: { col: "#cfae80" }, lodowka: { col: "#f4f4f2" }, mikrofala: { col: "#f4f4f2" }, czajnik: { col: "#b3b8ba" },
+  tonery: { col: "#f1f0eb" }, podstawa: { col: "#c9c9c5" }, an_szuflady: { col: HAV, body: WHITE_FRAME }, an_polki: { col: HAV, body: WHITE_FRAME }, an_zlew: { col: HAV, body: WHITE_FRAME },
+  zmywarka: { col: "#f3f3f1" }, an_wiszaca: { col: HAV, body: WHITE_FRAME }, blat: { col: "#cfae80" }, lodowka: { col: "#f4f4f2" }, mikrofala: { col: "#f4f4f2" }, czajnik: { col: "#b3b8ba" },
   sofa3: { col: "#5d6061" }, sofa2: { col: "#8e9192" }, fotel: { col: "#dccfb7", frame: "#b98f5e" }, stolik: { col: "#c29a68" }, pojemniki: { col: "#f4f4f2" },
   druk_duza: { col: "#e3e4e2" }, finiszer: { col: "#e3e4e2" }, druk_mala: { col: "#dfe1e0" }, akcesoria: { col: "#4e5a5f" },
   cmd_monitor: { col: "#25292b" }, cmd_pc: { col: "#25292b" }, laptop: { col: "#8a9398" },
@@ -1046,8 +1046,9 @@ I.forEach((it) => {
     for (let z = 5; z < it.h - 30; z += 38) box(it.x + 6, it.y + 8, z, 30, 22, 12, mat(0xffffff), g, it); // ryzy papieru
     return;
   }
-  if (pal) color = hex(pal.col);
+  if (pal) color = hex(pal.body || pal.col);
   const m = box(it.x, it.y, it.z, it.w, it.d, it.h, mat(color), furniture, it);
+  if (pal && pal.body) box(it.x + 0.5, it.y + it.d, it.z, it.w - 1, 1.6, it.h, mat(hex(pal.col)), furniture, it);
   if (it.kind === "lockers" && pal) box(it.x + it.w, it.y + 1, 1, 1, it.d - 2, it.h - 2, mat(hex(pal.front)), furniture, it, false);
   if (it.kind === "lockers") {
     const pts = [];
