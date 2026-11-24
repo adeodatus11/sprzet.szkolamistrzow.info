@@ -303,14 +303,14 @@ tr.total td { font-weight: 700; border-top: 2px solid var(--ink); }
 
 <section id="zestawienie" aria-labelledby="h-list">
   <h2 id="h-list"><span class="num">E</span>Zakupy: meble i aneks kuchenny</h2>
-  <p class="sec-lead">Konkretne produkty z linkami do sklepów i cenami brutto sprawdzonymi 24.11.2026 (odczyt ze stron sklepów). Zakup obejmuje meble i cały aneks kuchenny bez lodówki. Sprzętu IT (drukarki, szafka ładująca, monitor, niszczarka) nie kupujemy w tym zakupie; jest na końcu listy, bez sumy. Dostępności w IKEA Wrocław Bielany nie da się sprawdzić automatycznie: przed zamówieniem trzeba ją potwierdzić dla całych ilości.</p>
+  <p class="sec-lead">Konkretne produkty z linkami do sklepów i cenami brutto sprawdzonymi 24.11.2026 (odczyt ze stron sklepów). Zakup obejmuje meble i cały aneks kuchenny bez lodówki. Z IT kupujemy tylko centrum dowodzenia (ekran dotykowy, minikomputer, uchwyt, klawiatura); pozostały sprzęt IT (drukarki, szafka ładująca, niszczarka) jest na końcu listy, bez sumy. Dostępności w IKEA Wrocław Bielany nie da się sprawdzić automatycznie: przed zamówieniem trzeba ją potwierdzić dla całych ilości.</p>
   <div class="check-box">
     <h3>Sprawdzenie dostępności, 24.11.2026</h3>
     <ul>
       <li>IKEA: wszystkie pozycje z listy (33 produkty razem z zamiennikami) są w aktualnej ofercie, żadna nie jest wycofana ani oznaczona jako wyprzedana. Sklep internetowy pokazuje wysoki stan magazynowy każdej z nich.</li>
       <li>IKEA Wrocław Bielany: stanów konkretnego sklepu nie dało się odczytać automatycznie. Przed zamówieniem otwórz link produktu, wybierz sklep Wrocław i sprawdź całe ilości (np. 10 × FLINTAN, 10 × TEODORES) albo zamów przez IKEA dla Firm z dostawą.</li>
       <li>Szafy skrytkowe OLIVER (Kupmeble): na magazynie, wysyłka w 48 h. Zamieniłem nimi szafy z Kauflandu, których dostępności nie da się sprawdzić.</li>
-      <li>Czajnik (Morele): na stanie.</li>
+      <li>Czajnik i centrum dowodzenia (Morele): monitor, minikomputer, uchwyt i klawiatura na stanie.</li>
       <li>Podstawa pod Xeroxa (agapo.pl): dostępna, wysyłka w 3 dni; wykonywana pod podany model. Zamienniki: Szkolmeb (cena na zapytanie), Kamila Meble Rd1 (861 zł, na wymiar).</li>
       <li>Jeden fotel z wcześniejszej wersji (EKENÄSET w tańszym wariancie za 699 zł) zniknął z oferty IKEA; w zestawieniu jest wariant w sprzedaży (799 zł).</li>
     </ul>
@@ -346,7 +346,8 @@ tr.total td { font-weight: 700; border-top: 2px solid var(--ink); }
         <li>Stoły: 4 × MITTZON bez regulacji (moduły łączone w jeden stół) czy stół roboczy z elektryczną regulacją na zamówienie (ok. 3–7 tys. zł; wtedy nie połączy się z jadalnią na jednej wysokości bez ustawienia go na 75 cm).</li>
         <li>Lodówka: czy szkoła ma lodówkę szer. 60 cm, czy trzeba ją kupić osobno; zawiasy po stronie aneksu.</li>
         <li>Strona sprzętu planuje 4 laptopy KPO dla sali 16: rzut zakłada 2 na biurkach, 1 przy stole roboczym i 1 w szafce ładującej.</li>
-        <li>Model dużej drukarki A3 z finiszerem i jej rzeczywisty gabaryt z modułami (rezerwa na rzucie: 190 × 70 cm plus 110 cm obsługi).</li>
+        <li>Duża drukarka: rzut przyjmuje bizhub C450i z kasetą PC-x16 i finiszerem FS-539SD (razem 116 × 69 cm, z tacami i tacą boczną ok. 160 cm szerokości). Potwierdzić z Copytec konfigurację i miejsce na kable (4 cm od ściany).</li>
+        <li>Centrum dowodzenia: monitor 27″ QHD (2 275 zł) czy tańszy Full HD (1 793 zł); 32″ dotykowy obecnie bez dostępnej oferty.</li>
         <li>Podstawa KSW pod Xeroxa (agapo.pl): przy zamówieniu podać model VersaLink B7130 i liczbę kaset, zapytać o wysokość (najlepiej ok. 45 cm, żeby skaner był na ok. 120 cm).</li>
         <li>Bateria: SALLSJÖN (349 zł) czy najtańsza LAGAN (119 zł).</li>
         <li>Kolor pokryć KLIPPAN (pokrycie zdejmowane, można dokupić zapasowe).</li>
@@ -380,6 +381,7 @@ const ZONES = {
   kitchen: "Aneks kuchenny (lodówka poza zakupem)",
   dining: "Jadalnia",
   lounge: "Wypoczynek",
+  cmd: "Centrum dowodzenia (ekran dotykowy na ścianie przy wejściu)",
   tech: "Sprzęt IT – nie kupujemy w tym zakupie",
 };
 const C = [
@@ -390,7 +392,8 @@ const C = [
   { k: "ladowarka", z: "tech", name: "Szafka ładująca Manhattan 181204 (10 laptopów)", dims: "52,6 × 51 × 52,5 cm", qty: 1, shop: "Komputronik (chwilowo niedostępna, 1 539 zł)", url: "https://www.komputronik.pl/product/1027700/szafa-rack-manhattan-181204-szafa-ladujaca-na-10-laptopow-16-10-gniazd-ac-230v.html", status: ["mute", "Sprzęt IT, nie w tym zakupie"], outside: true },
   { k: "stol_pracy", z: "work", name: "IKEA MITTZON stół konferencyjny, biały (2 szt. łączone w jeden stół)", dims: "140 × 108 × 75 cm, razem 280 × 108 cm, 8 miejsc (4 + 4)", sku: "s19533381", price: 1098, qty: 2, shop: IKEA, url: ip("mittzon-stol-konferencyjny-bialy-s19533381"), status: ["ok", "Stół konferencyjny, bez regulacji"], alt: [{ name: "Stół konferencyjny z elektryczną regulacją, np. Ogi Drive 220 × 120 (Flatiron, Wrocław; cena z wyszukiwarki, na zapytanie)", price: 7000, url: "https://www.flatiron.pl/pl/product/stol-konferencyjny_BOD622_ogi-drive" }] },
   { k: "krz_pracy", z: "work", name: "IKEA FLINTAN krzesło biurowe, beżowy", dims: "obrotowe, na kółkach", sku: "704.922.02", price: 249, qty: 8, shop: IKEA, url: ip("flintan-krzeslo-biurowe-bezowy-70492202"), status: ["ok", "Przy stole roboczym"] },
-  { k: "druk_duza", z: "tech", name: "Drukarka A3 z finiszerem broszurującym", dims: "rezerwa 190 × 70 cm", qty: 1, status: ["mute", "Sprzęt IT, nie w tym zakupie"], outside: true },
+  { k: "druk_duza", z: "tech", name: "Konica Minolta bizhub C450i z kasetą PC-x16 (korpus)", dims: "61,5 × 68,8 × 120,7 cm; z otwartym podajnikiem dokumentów 156 cm; taca boczna wysuwa się o 32 cm w prawo", qty: 1, status: ["mute", "Sprzęt IT, nie w tym zakupie"], outside: true },
+  { k: "finiszer", z: "tech", name: "Finiszer broszurujący FS-539SD (z modułem RU-513 w korpusie)", dims: "54,3 × 68,1 × 102,3 cm, z wysuniętymi tacami 65,8 cm szer., 53 kg", qty: 1, status: ["mute", "Sprzęt IT, nie w tym zakupie"], outside: true },
   { k: "druk_mala", z: "tech", name: "Xerox VersaLink B7130 MFP (B7101V_D), posiadana, przy komputerach", dims: "sama drukarka 59 × 67 × 77 cm, 54 kg; z podstawą Xerox ok. 62 × 67 × 112 cm", qty: 1, status: ["ok", "Jest w szkole"], outside: true },
   { k: "podstawa", z: "print", name: "Podstawa pod kserokopiarkę KSW, wykonana pod Xerox VersaLink B7130", dims: "pod wymiar drukarki (59 × 67 cm), płyta MDF laminowana, kółka, drzwiczki na papier i toner, ok. 20 kg", price: 467.4, qty: 1, shop: "agapo.pl (PC-NET, polski producent)", url: "https://agapo.pl/podstawa-stolik-pod-drukarke-kserokopiarke-urzadzenie-wielofunkcyjne-p-44382.html", avail: "dostępna, wysyłka w 3 dni, kurier 24,60 zł", status: ["ok", "Przy zamówieniu podać model: Xerox VersaLink B7130, 1 kaseta"], alt: [{ name: "Szkolmeb, szafka pod ksero 70 × 80 × 50 cm (meble szkolne)", url: "https://szkolmeb.pl/szafka-pod-ksero" }, { name: "Kamila Meble, szafka na drukarkę Rd1 z zamkiem (standardowo za wysoka, wykonują na wymiar)", price: 861, url: "https://kamilameble.pl/szafy-biurowe/1279-szafka-rd1.html" }] },
   { k: "stol_wysoki", z: "print", name: "IKEA TROTTEN biurko z regulacją wysokości, elektryczne, biały (stół do kompletowania)", dims: "120 × 70 cm, wys. 71–118 cm", sku: "s49621871", price: 999, qty: 1, shop: IKEA, url: ip("trotten-biurko-z-regulacja-wysokosci-elektryczny-bialy-s49621871"), status: ["ok", "Jeden stół obok strefy druku"] },
@@ -419,7 +422,10 @@ const C = [
   { k: "sofa", z: "lounge", name: "IKEA KLIPPAN sofa 2-osobowa, Vissle szary", dims: "180 × 88 cm, pokrycie zdejmowane, pranie 40°C", sku: "s79010614", price: 899, qty: 2, shop: IKEA, url: ip("klippan-sofa-2-osobowa-vissle-szary-s79010614"), status: ["ok", "W sprzedaży, na stanie"], alt: [{ name: "GLOSTAD 2-osobowa, 121 × 78 cm (mniejsza, pokrycie stałe)", price: 599, url: ip("glostad-sofa-2-osobowa-knisa-ciemnoszary-50489012") }] },
   { k: "stolik", z: "lounge", name: "IKEA GLADOM stolik z tacą, biały", dims: "Ø 45 × 53 cm", sku: "703.378.19", price: 49, qty: 1, shop: IKEA, url: ip("gladom-stolik-z-taca-bialy-70337819"), status: ["ok", "W sprzedaży, na stanie"] },
   { k: "fotel", z: "lounge", name: "IKEA EKENÄSET fotel, imitacja dębu/Kilanda jasnobeżowy", dims: "64 × 78 cm, rama z litego drewna", sku: "106.243.28", price: 799, qty: 1, shop: IKEA, url: ip("ekenaeset-fotel-imit-debu-kilanda-jasnobezowy-10624328"), status: ["ok", "W sprzedaży, na stanie"] },
-  { k: "monitor", z: "tech", name: "Monitor dotykowy 27″ iiyama T2755MSC-B1", dims: "do komputera do zastępstw", qty: 1, status: ["mute", "Na zakładce „Do zakupu”"], outside: true },
+  { k: "cmd_monitor", z: "cmd", sw: "tech", name: "Monitor dotykowy iiyama ProLite T2755QSC-B1, 27″ QHD", dims: "61 × 36 cm, 2560 × 1440, dotyk pojemnościowy, 5,8 kg, VESA", price: 2274.95, qty: 1, shop: "Morele.net (sprzedawca NET-S)", url: "https://www.morele.net/monitor-iiyama-prolite-t2755qsc-b1-13239211/", avail: "na stanie", status: ["ok", "Na stanie"], alt: [{ name: "iiyama ProLite T2755MSC-B1, 27″ Full HD dotykowy (z zakładki „Do zakupu”)", price: 1793.04, url: "https://www.morele.net/monitor-iiyama-prolite-t2755msc-b1-13179166/" }, { name: "32″: iiyama TW3226AS-B3P z Androidem (obecnie niedostępny)", price: 3070.99, url: "https://www.morele.net/monitor-iiyama-prolite-tw3226as-b3p-15543864/" }] },
+  { k: "cmd_pc", z: "cmd", sw: "tech", name: "Minikomputer Dell Pro Micro QCM1250, i5-14500T, 16 GB, 512 GB SSD, Windows 11 Pro (20PN3)", dims: "ok. 18 × 18 × 3,6 cm, montaż za monitorem (uchwyt VESA do mini PC – sprawdzić, czy jest w zestawie)", price: 4731.99, qty: 1, shop: "Morele.net (sprzedawca SuperTech)", url: "https://www.morele.net/komputer-dell-pro-micro-qcm1250-i5-14500t-16gb-512gb-ssd-windows-11-pro-czarny-20pn3-15447555/", avail: "na stanie", status: ["ok", "Na stanie, gwarancja 24 mies."], alt: [{ name: "Lenovo ThinkCentre M70q Gen 5, i5-13400T, 16 GB, 512 GB, Windows 11 Pro (obecnie niedostępny)", price: 4417.95, url: "https://www.morele.net/komputer-lenovo-thinkcentre-m70q-gen-5-intel-core-i5-i5-13400t-16-gb-ddr5-sdram-512-gb-ssd-windows-11-pro-mini-pc-czarny-15662053/" }] },
+  { k: "cmd_mount", z: "cmd", sw: "tech", name: "Uchwyt ścienny do monitora Maclean MC-332, 17–32″", dims: "VESA 75/100, do 9 kg", price: 97.47, qty: 1, shop: "Morele.net", url: "https://www.morele.net/maclean-uchwyt-scienny-na-monitor-17-32-mc-332-14202017/", avail: "na stanie", status: ["ok", "Na stanie"], noDraw: true },
+  { k: "cmd_kb", z: "cmd", sw: "tech", name: "Klawiatura i mysz bezprzewodowe Logitech MK270", dims: "do obsługi administracyjnej; na co dzień ekran dotykowy", price: 95, qty: 1, shop: "Morele.net", url: "https://www.morele.net/klawiatura-mysz-logitech-mk270-920-004508-575947/", avail: "na stanie", status: ["ok", "Na stanie"], noDraw: true },
   { k: "laptop", z: "tech", name: "Laptop KPO (tryb incognito)", dims: "już w szkole", qty: 4, status: ["ok", "Przydzielone do sali 16"], outside: true },
 ];
 const CAT = Object.fromEntries(C.map((c, i) => [c.k, { ...c, n: i + 1 }]));
@@ -433,11 +439,13 @@ add("scianka", { x: 0, y: 202.5, w: 85, d: 5, h: 205, kind: "panel" });
 add("scianka", { x: 0, y: 492.5, w: 85, d: 5, h: 205, kind: "panel" });
 [230, 350].forEach((y, i) => add("biurko", { x: 0, y, w: 60, d: 120, h: 75, kind: "table", label: `Biurko ${i + 1}` }));
 add("ladowarka", { x: 0, y: 263.7, w: 51, d: 52.6, h: 52.5, z: 140, kind: "box", above: true, label: "Ładowarka" });
-add("monitor", { x: 6, y: 259, w: 20, d: 62, h: 42, z: 75, kind: "box", ontop: true });
 [[30, 303], [20, 397]].forEach(([x, y]) => add("laptop", { x, y, w: 24, d: 32, h: 2, z: 75, kind: "box", ontop: true }));
 add("laptop", { x: 376, y: 300, w: 32, d: 24, h: 2, z: 75, kind: "box", ontop: true });
 [290, 410].forEach((y) => add("krz_biuro", { cx: 100, cy: y, w: 50, d: 50, face: "W", kind: "chair", h: 95 }));
-add("druk_duza", { x: 245, y: 8, w: 190, d: 70, h: 120, kind: "box", label: "A3 + finiszer" });
+add("finiszer", { x: 265, y: 4, w: 54.3, d: 68.1, h: 102.3, kind: "box", label: "FS-539SD" });
+add("druk_duza", { x: 319.3, y: 4, w: 61.5, d: 68.8, h: 120.7, kind: "box", label: "C450i" });
+add("cmd_monitor", { x: 55, y: 3, w: 61, d: 6, h: 36, z: 112, kind: "box", above: true, label: "Ekran" });
+add("cmd_pc", { x: 76.5, y: 0, w: 18, d: 3, h: 18, z: 121, kind: "box", above: true });
 add("podstawa", { x: 0, y: 527, w: 67, d: 62, h: 45, kind: "box" });
 add("druk_mala", { x: 0, y: 528.5, w: 67, d: 59, h: 77, z: 45, kind: "box", label: "B7130" });
 add("stol_wysoki", { x: 465, y: 0, w: 120, d: 70, h: 95, kind: "table", label: "Stół wysoki" });
@@ -468,9 +476,11 @@ I.forEach((it) => { if (it.cx != null) { it.x = it.cx - it.w / 2; it.y = it.cy -
 
 /* instalacje proponowane */
 const INST = [
-  { t: "p230", x: 270, y: 0, z: 30, txt: "Duża A3: gniazdo dedykowane 230 V" },
-  { t: "p230", x: 420, y: 0, z: 30, txt: "Duża A3 / finiszer: gniazdo podwójne" },
-  { t: "rj", x: 340, y: 0, z: 30, txt: "Duża A3: RJ45" },
+  { t: "p230", x: 350, y: 0, z: 30, txt: "bizhub C450i: gniazdo dedykowane 230 V" },
+  { t: "p230", x: 290, y: 0, z: 30, txt: "Finiszer FS-539SD: gniazdo (jeśli wymaga osobnego zasilania wg instalatora)" },
+  { t: "p230", x: 70, y: 0, z: 150, txt: "Centrum dowodzenia: gniazdo za monitorem (monitor i mini PC)" },
+  { t: "rj", x: 100, y: 0, z: 150, txt: "Centrum dowodzenia: RJ45 za monitorem" },
+  { t: "rj", x: 365, y: 0, z: 30, txt: "bizhub C450i: RJ45" },
   { t: "p230", x: 500, y: 0, z: 110, txt: "Stół wysoki: gniazdo podwójne nad blatem (bindownica, zszywacz elektryczny, skaner)" },
   { t: "p230", x: 480, y: 0, z: 30, txt: "Stół wysoki: gniazdo pod blatem (niszczarka)" },
   { t: "p230", x: 630, y: 0, z: 30, txt: "Lodówka: gniazdo za lodówką" },
@@ -489,7 +499,7 @@ const INST = [
 /* kontrola przejść: odcinek pomiaru na rzucie + wymagane minimum */
 const CHECKS = [
   { a: [135, 340], b: [240, 340], need: 90, name: "Przejście od wejścia między krzesłami biurek a stołem roboczym", why: "Główny ciąg komunikacyjny w głąb sali" },
-  { a: [300, 78], b: [300, 192], need: 120, name: "Strefa obsługi przed dużą drukarką (do odsuniętych krzeseł stołu)", why: "Obsługa, otwieranie modułów, kolejka przy wydruku", soft: 100 },
+  { a: [350, 73], b: [350, 192], need: 120, name: "Strefa obsługi przed bizhubem C450i (wysuwanie kaset ok. 62 cm + osoba)", why: "Obsługa, otwieranie modułów, kolejka przy wydruku", soft: 100 },
   { a: [520, 190], b: [520, 300], hide: true },
   { a: [520, 300], b: [665, 300], need: 90, name: "Stół roboczy ↔ krzesła jadalni", why: "Przejście do aneksu i jadalni" },
   { a: [775, 60], b: [775, 163], need: 100, name: "Front aneksu ↔ krzesło szczytowe jadalni", why: "Praca przy zlewie i otwarta zmywarka" },
@@ -555,7 +565,8 @@ function drawPlan() {
   // strefy obsługi
   const zones = g("zones layer-zones");
   [
-    [245, 80, 355, 110, "Obsługa druku i stołu"],
+    [253, 73, 347, 119, "Obsługa druku i stołu"],
+    [45, 10, 86, 80, "Przy ekranie"],
     [67, 527, 100, 62, "Obsługa A3"],
     [45, 0, 80, 180, "Dostęp do skrytek"],
     [600, 65, 300, 95, "Lodówka i aneks"],
@@ -618,7 +629,7 @@ function drawPlan() {
   const dims = g("dim layer-dims");
   dimH(dims, 0, ROOM.w, -70, "900");
   dimV(dims, 0, ROOM.d, -70, "600");
-  chainH(dims, [0, DOOR.x0, DOOR.x1, 245, 435, 465, 585, 600, 660, 900], -45);
+  chainH(dims, [0, DOOR.x0, DOOR.x1, 265, 319, 381, 465, 585, 600, 660, 900], -45);
   chainV(dims, [0, 180, 230, 350, 470, 520, 600], -40);
   chainH(dims, [0, 112, 275, 362, 526, 618, 780, 900], ROOM.d + 62);
   chainV(dims, [0, 60, 215, 495, 600], ROOM.w + 40);
@@ -666,10 +677,10 @@ function drawPlan() {
 }
 function badgePos(it) {
   const map = {
-    szafa: [70, 20], scianka: [100, 205], biurko: [84, 357], ladowarka: [72, 250], krz_biuro: [140, 290], stol_pracy: [232, 272], krz_pracy: [300, 214],
-    druk_duza: [255, 98], druk_mala: [88, 582], podstawa: [88, 542], stol_wysoki: [575, 88], tonery: [545, 74], akcesoria: [482, 64], lodowka: [630, 98], czajnik: [705, 110], mikrofala: [750, 110],
+    szafa: [62, 160], cmd_monitor: [86, 22], cmd_pc: [112, 44], scianka: [100, 205], biurko: [84, 357], ladowarka: [72, 250], krz_biuro: [140, 290], stol_pracy: [232, 272], krz_pracy: [300, 214],
+    druk_duza: [350, 92], finiszer: [292, 92], druk_mala: [88, 582], podstawa: [88, 542], stol_wysoki: [575, 88], tonery: [545, 74], akcesoria: [482, 64], lodowka: [630, 98], czajnik: [705, 110], mikrofala: [750, 110],
     an_szuflady: [690, 76], an_polki: [750, 76], zmywarka: [810, 76], an_zlew: [880, 76], an_wiszaca: [780, 132], blat: [850, 132],
-    stol_jad: [735, 240], krz_jad: [668, 222], sofa: [185, 486], stolik: [577, 508], fotel: [642, 494], monitor: [44, 335], laptop: [44, 365],
+    stol_jad: [735, 240], krz_jad: [668, 222], sofa: [185, 486], stolik: [577, 508], fotel: [642, 494], laptop: [44, 365],
   };
   return map[it.k] || [it.x + it.w + 10, it.y];
 }
@@ -867,12 +878,13 @@ function costTable() {
     <tr><td class="mono">–</td><td class="item-cell">Dostawa i montaż mebli IKEA (IKEA dla Firm), montaż aneksu z podłączeniem wody i zmywarki<div class="meta">wycena przez IKEA dla Firm lub lokalnego montażystę</div></td><td>–</td><td class="num">1</td><td class="num">–</td><td class="num">–</td><td><span class="pill warn">Poprosić o ofertę</span></td></tr>
     <tr><td class="mono">–</td><td class="item-cell">Dostawa szaf skrytkowych i czajnika<div class="meta">Kupmeble i Morele: koszt wg koszyka</div></td><td>–</td><td class="num">–</td><td class="num">–</td><td class="num">–</td><td><span class="pill mute">Sprawdzić w koszyku</span></td></tr>`;
   document.getElementById("list-table").innerHTML = `<thead><tr><th>Nr</th><th>Produkt i sklep</th><th>Wymiary / wariant</th><th class="num">Ilość</th><th class="num">Cena brutto</th><th class="num">Wartość</th><th>Status</th></tr></thead><tbody>${rows}
-    <tr class="total"><td></td><td colspan="4">Razem meble i aneks (brutto, bez dostawy i montażu)</td><td class="num">${fmt(sum)}</td><td></td></tr></tbody>`;
+    <tr class="total"><td></td><td colspan="4">Razem do zapłaty (brutto, bez dostawy i montażu)</td><td class="num">${fmt(sum)}</td><td></td></tr></tbody>`;
   const kitchen = C.filter((c) => c.z === "kitchen" && c.price).reduce((s, c) => s + c.price * c.qty, 0);
   document.getElementById("cost-sum").innerHTML = `
-    <div><dt>Razem do zapłaty</dt><dd>${fmt(sum)}<small>meble i aneks, brutto, bez dostawy i montażu</small></dd></div>
+    <div><dt>Razem do zapłaty</dt><dd>${fmt(sum)}<small>meble, aneks i centrum dowodzenia, brutto, bez dostawy i montażu</small></dd></div>
     <div><dt>W tym IKEA</dt><dd>${fmt(sumIkea)}<small>jedno zamówienie, można poprosić IKEA dla Firm o fakturę i montaż</small></dd></div>
-    <div><dt>W tym inne sklepy</dt><dd>${fmt(sum - sumIkea)}<small>szafy skrytkowe (Kupmeble), czajnik (Morele), podstawa pod Xeroxa (agapo.pl)</small></dd></div>
+    <div><dt>W tym inne sklepy</dt><dd>${fmt(sum - sumIkea)}<small>szafy skrytkowe (Kupmeble), centrum dowodzenia i czajnik (Morele), podstawa pod Xeroxa (agapo.pl)</small></dd></div>
+    <div><dt>W tym centrum dowodzenia</dt><dd>${fmt(C.filter((c) => c.z === "cmd").reduce((s, c) => s + c.price * c.qty, 0))}<small>ekran dotykowy 27″, minikomputer, uchwyt, klawiatura z myszą</small></dd></div>
     <div><dt>W tym aneks kuchenny</dt><dd>${fmt(kitchen)}<small>4 szafki dolne i 4 wiszące, blat 240, zlew, bateria, zmywarka, LED, mikrofalówka, czajnik</small></dd></div>`;
 }
 costTable();
@@ -990,8 +1002,8 @@ I.forEach((it) => {
   if (it.k === "scianka") color = 0x6f8a7e;
   if (it.k === "zmywarka") color = 0xe8eaea;
   if (it.k === "blat") color = COL.wood;
-  if (it.k === "druk_duza" || it.k === "druk_mala") color = 0xe7e9ea;
-  if (it.k === "monitor") color = 0x23292b;
+  if (it.k === "druk_duza" || it.k === "druk_mala" || it.k === "finiszer") color = 0xe7e9ea;
+  if (it.k === "cmd_monitor" || it.k === "cmd_pc") color = 0x23292b;
   if (it.k === "laptop") color = 0x8a9398;
   if (it.k === "akcesoria") color = 0x4e5a5f;
   if (it.k === "tonery" || it.k === "podstawa") color = 0xf1f0ec;
@@ -1014,8 +1026,7 @@ I.forEach((it) => {
     m.parent.add(new THREE.LineSegments(new THREE.BufferGeometry().setFromPoints(pts), new THREE.LineBasicMaterial({ color: 0x2f3b3a })));
   }
   if (it.k === "scianka") { m.position.y += 0.08; [it.x + 2, it.x + it.w - 6].forEach((fx) => { box(fx, it.y + it.d / 2 - 25, 4, 4, 50, 4, mat(0xf2f2f0), furniture, it); box(fx, it.y + it.d / 2 - 2, 8, 4, 4, it.h - 8, mat(0xf2f2f0), furniture, it, false); }); }
-  if (it.k === "druk_duza") { box(it.x + 10, it.y + 8, it.h, 70, 50, 18, mat(0xd6d9db), furniture, it); box(it.x + it.w - 48, it.y + 10, 60, 40, 45, 6, mat(0xd6d9db), furniture, it); }
-  if (it.k === "monitor") { box(it.x + 8, it.y + 26, 75, 8, 10, 10, mat(0x23292b), furniture, it, false); m.position.y += 0.08; }
+  if (it.k === "druk_duza") box(it.x + 3, it.y + 6, it.h, it.w - 6, 52, 12, mat(0xd6d9db), furniture, it);
   if (it.k === "an_zlew") { const sink = box(it.x + 10, it.y + 12, 89, 42, 36, 1, mat(0xb8c0c3, { metalness: 0.6, roughness: 0.3 }), furniture, it, false); box(it.x + 30, it.y + 4, 90, 3, 3, 26, mat(0x9aa3a6, { metalness: 0.7, roughness: 0.3 }), furniture, it, false); }
   if (it.k === "an_wiszaca") box(it.x, it.y + it.d, it.z - 1, it.w, 1, 1, mat(0xfff3cf, { emissive: 0xffe9b0, emissiveIntensity: 0.6 }), furniture, null, false);
 });
