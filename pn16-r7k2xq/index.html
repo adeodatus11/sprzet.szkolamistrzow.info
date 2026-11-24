@@ -346,7 +346,7 @@ tr.total td { font-weight: 700; border-top: 2px solid var(--ink); }
     <div class="card">
       <h3>Decyzje</h3>
       <ol>
-        <li>Ścianki MITTZON stoją na kółkach z podstawą 50 cm: ustalić, czy obie zostają przy biurkach, czy jedna ma być przestawiana (np. do wydzielenia kącika wypoczynku).</li>
+        <li>Ścianki MITTZON na kółkach (podstawa 50 cm): jedna między szafami skrytkowymi a biurkami, druga prostopadle do ściany z wejściem, między stołem do kompletowania a lodówką, oddziela strefę druku od aneksu.</li>
         <li>Stoły: 8 × MITTZON 140 × 68 (dąb, czarne nogi, jednolity blat) w dwóch blokach 280 × 136; przy stole roboczym ciasno przed sofami (ok. 49 cm). Alternatywa: blok z 3 stołów 140 × 68 w jednym rzędzie (420 × 68) zwalnia miejsce, ale jest wąski.</li>
         <li>Lodówka: czy szkoła ma lodówkę szer. 60 cm, czy trzeba ją kupić osobno; zawiasy po stronie aneksu.</li>
         <li>Strona sprzętu planuje 4 laptopy KPO dla sali 16: rzut zakłada 2 na biurkach, a pozostałe ładują się w zamykanej szafce TROTTEN pod stołem do kompletowania (przedłużacz i ładowarki w środku). Sprawdzić, czy laptopy ładują się przez USB-C (wtedy ładowarki UGREEN 65 W), czy mają własne zasilacze.</li>
@@ -425,7 +425,7 @@ const C = [
   { k: "stol_jad", z: "dining", name: "IKEA MITTZON stół konferencyjny, okleina dębowa / czarny, 140 × 68 cm, jednolity blat", dims: "140 × 68 × 75 cm, ten sam model co stół roboczy; 4 szt. zestawione w blok 280 × 136 cm, 10 miejsc", sku: "s39513952", price: 649, qty: 4, shop: IKEA, url: ip("mittzon-stol-konferencyjny-okl-deb-czarny-s39513952"), status: ["ok", "W sprzedaży, na stanie"] },
   { k: "krz_jad", z: "dining", name: "IKEA LÄKTARE krzesło konferencyjne, średnioszary / biały", dims: "55 × 50 × 84 cm, podłokietniki, siedzisko z okleiną brzozową, pokrycie Gunnared do prania, sztaplowane (do 5 szt.), EN 16139", sku: "s49503250", price: 299, qty: 10, shop: IKEA, url: ip("laektare-krzeslo-konferencyjne-srednioszary-bialy-s49503250"), status: ["ok", "W jadalni, w sprzedaży, na stanie"] },
   { k: "sofa3", z: "lounge", name: "IKEA EKTORP sofa 3-osobowa, Hakebo ciemnoszary", dims: "218 × 88 × 88 cm, pokrycie zdejmowane, pranie w pralce", sku: "s39508998", price: 1999, qty: 2, shop: IKEA, url: ip("ektorp-sofa-3-osobowa-hakebo-ciemnoszary-s39508998"), status: ["ok", "W sprzedaży, na stanie"] },
-  { k: "cmd_monitor", z: "cmd", sw: "tech", name: "Monitor dotykowy iiyama ProLite T2755MSC-B1, 27″ Full HD", dims: "61 × 36 cm, montaż w poziomie, 1920 × 1080, dotyk pojemnościowy 10-punktowy, 5,8 kg, VESA 100 × 100", price: 1793.04, qty: 1, shop: "Morele.net", url: "https://www.morele.net/monitor-iiyama-prolite-t2755msc-b1-13179166/", avail: "na stanie, sprzedaje Morele.net", status: ["ok", "Na stanie"], alt: [{ name: "iiyama ProLite T2755QSC-B1, 27″ QHD dotykowy", price: 2274.95, url: "https://www.morele.net/monitor-iiyama-prolite-t2755qsc-b1-13239211/" }] },
+  { k: "cmd_monitor", z: "cmd", sw: "tech", name: "Monitor dotykowy iiyama ProLite T2755MSC-B1, 27″ Full HD", dims: "36 × 61 cm, montaż w pionie (uchwyt z funkcją pivot), 1920 × 1080, dotyk pojemnościowy 10-punktowy, 5,8 kg, VESA 100 × 100", price: 1793.04, qty: 1, shop: "Morele.net", url: "https://www.morele.net/monitor-iiyama-prolite-t2755msc-b1-13179166/", avail: "na stanie, sprzedaje Morele.net", status: ["ok", "Na stanie"], alt: [{ name: "iiyama ProLite T2755QSC-B1, 27″ QHD dotykowy", price: 2274.95, url: "https://www.morele.net/monitor-iiyama-prolite-t2755qsc-b1-13239211/" }] },
   { k: "cmd_pc", z: "cmd", name: "Minikomputer Qoobe Mini PC N100, 12 GB RAM, 512 GB SSD, Windows 11 Pro (QE-IN100)", dims: "mały i cichy, wystarczy do przeglądarki; montaż za monitorem na uchwycie VESA Maclean MC-115 B", price: 1839, qty: 1, shop: "Morele.net", url: "https://www.morele.net/komputer-qoobe-mini-pc-n100-12gb-512gb-w11-pro-qe-in100-12gb-512gb-600575926/", avail: "na stanie, sprzedaje Morele.net", status: ["warn", "Na stanie; potwierdzić Wi-Fi (karta produktu go nie podaje)"], alt: [{ name: "Beelink Mini S12 Pro, N100, 16 GB, 500 GB, Windows 11 Pro, Wi-Fi 6 (sprzedawca TeKaPi)", price: 2789, url: "https://www.morele.net/beelink-mini-s12-pro-mini-pc-lake-n100-16-gb-ddr4-ram-500-gb-15183822/" }] },
   { k: "cmd_mount", z: "cmd", sw: "tech", name: "Uchwyt ścienny regulowany do monitora Maclean MC-332, VESA 75/100", dims: "17–32″, do 9 kg; pochylenie ±90°, obrót 180°, pivot, regulacja wysokości, maskowanie przewodów", price: 97.47, qty: 1, shop: "Morele.net", url: "https://www.morele.net/maclean-uchwyt-scienny-na-monitor-17-32-mc-332-14202017/", avail: "na stanie", status: ["ok", "Na stanie"], noDraw: true },
   { k: "cmd_vesa", z: "cmd", sw: "tech", name: "Uchwyt VESA na minikomputer Maclean MC-115 B", dims: "VESA 50/75/100, obejma 17–70 mm, do 5 kg; montaż między monitorem a uchwytem ściennym", price: 31.4, qty: 1, shop: "Morele.net", url: "https://www.morele.net/uchwyt-do-komputera-maclean-uchwyt-do-mini-komputerow-maclean-zakres-17-70mm-kompatybilny-z-vesa-max-obciazenie-5kg-czarny-mc-115-b-15476917/", avail: "na stanie", status: ["ok", "Na stanie"], noDraw: true },
@@ -453,15 +453,15 @@ const add = (k, o) => I.push({ k, z: 0, ...o });
 add("szafa", { x: 0, y: 0, w: 45, d: 90, h: 185, kind: "lockers", face: "E", label: "33" });
 add("szafa", { x: 0, y: 90, w: 45, d: 90, h: 185, kind: "lockers", face: "E", label: "33" });
 add("scianka", { x: 0, y: 202.5, w: 85, d: 5, h: 205, kind: "panel" });
-add("scianka", { x: 0, y: 492.5, w: 85, d: 5, h: 205, kind: "panel" });
+add("scianka", { x: 590, y: 78, w: 5, d: 85, h: 205, kind: "panel" });
 [230, 350].forEach((y, i) => add("biurko", { x: 0, y, w: 60, d: 120, h: 75, kind: "table", label: `Biurko ${i + 1}` }));
 [[30, 303], [20, 397]].forEach(([x, y]) => add("laptop", { x, y, w: 24, d: 32, h: 2, z: 75, kind: "box", ontop: true }));
 add("laptop", { x: 376, y: 300, w: 32, d: 24, h: 2, z: 75, kind: "box", ontop: true });
 [290, 410].forEach((y) => add("krz_biuro", { cx: 100, cy: y, w: 50, d: 55, face: "W", kind: "chair", h: 84 }));
 add("finiszer", { x: 315, y: 4, w: 54.3, d: 68.1, h: 102.3, kind: "box", label: "FS-539SD" });
 add("druk_duza", { x: 369.3, y: 4, w: 61.5, d: 68.8, h: 120.7, kind: "box", label: "C450i" });
-add("cmd_monitor", { x: 243, y: 3, w: 61, d: 6, h: 36, z: 112, kind: "box", above: true, label: "Ekran" });
-add("cmd_pc", { x: 264.5, y: 0, w: 18, d: 3, h: 18, z: 121, kind: "box", above: true });
+add("cmd_monitor", { x: 255, y: 3, w: 36, d: 6, h: 61, z: 100, kind: "box", above: true, label: "Ekran" });
+add("cmd_pc", { x: 264, y: 0, w: 18, d: 3, h: 18, z: 120, kind: "box", above: true });
 add("podstawa", { x: 0, y: 527, w: 67, d: 62, h: 45, kind: "box" });
 add("druk_mala", { x: 0, y: 528.5, w: 67, d: 59, h: 77, z: 45, kind: "box", label: "B7130" });
 add("stol_wysoki", { x: 465, y: 0, w: 120, d: 70, h: 95, kind: "table", label: "Stół wysoki" });
@@ -584,7 +584,7 @@ function drawPlan() {
   const zones = g("zones layer-zones");
   [
     [303, 73, 297, 119, "Obsługa druku i stołu"],
-    [236, 10, 75, 63, "Ekran"],
+    [240, 10, 66, 63, "Ekran"],
     [67, 527, 100, 62, "Obsługa A3"],
     [45, 0, 80, 180, "Dostęp do skrytek"],
     [600, 65, 300, 95, "Lodówka i aneks"],
@@ -624,7 +624,8 @@ function drawPlan() {
       el("rect", { x: it.x + 18, y: it.y + 6, width: it.w - 36, height: it.d - 26, rx: 5, class: cls, "fill-opacity": "0.55" }, gi);
     } else {
       el("rect", { x: it.x, y: it.y, width: it.w, height: it.d, class: cls }, gi);
-      if (it.kind === "panel") [it.x + 2, it.x + it.w - 6].forEach((fx) => el("rect", { x: fx, y: it.y + it.d / 2 - 25, width: 4, height: 50, class: cls }, gi));
+      if (it.kind === "panel" && it.w >= it.d) [it.x + 2, it.x + it.w - 6].forEach((fx) => el("rect", { x: fx, y: it.y + it.d / 2 - 25, width: 4, height: 50, class: cls }, gi));
+      if (it.kind === "panel" && it.w < it.d) [it.y + 2, it.y + it.d - 6].forEach((fy) => el("rect", { x: it.x + it.w / 2 - 25, y: fy, width: 50, height: 4, class: cls }, gi));
       if (it.kind === "lockers") for (let i = 1; i < 3; i++) el("line", { x1: it.x + 6, y1: it.y + (it.d * i) / 3, x2: it.x + it.w, y2: it.y + (it.d * i) / 3, class: "it", "stroke-width": 0.8 }, gi);
       if (it.k === "an_zlew") el("rect", { x: it.x + 10, y: it.y + 10, width: 42, height: 36, rx: 6, class: "it", fill: "none" }, gi);
     }
@@ -652,7 +653,7 @@ function drawPlan() {
   const dims = g("dim layer-dims");
   dimH(dims, 0, ROOM.w, -70, "900");
   dimV(dims, 0, ROOM.d, -70, "600");
-  chainH(dims, [0, DOOR.x0, DOOR.x1, 243, 304, 315, 369, 431, 465, 585, 600, 660, 900], -45);
+  chainH(dims, [0, DOOR.x0, DOOR.x1, 255, 291, 315, 369, 431, 465, 585, 600, 660, 900], -45);
   chainV(dims, [0, 180, 230, 350, 470, 520, 600], -40);
   chainH(dims, [0, 112, 275, 362, 526, 618, 780, 900], ROOM.d + 62);
   chainV(dims, [0, 60, 215, 495, 600], ROOM.w + 40);
@@ -866,8 +867,8 @@ function drawElev(key) {
   txt(elev, W.len, -22, W.right, "wtxt", { "text-anchor": "end" });
   txt(elev, W.len / 2, -22, W.title, "lbl", { "text-anchor": "middle" });
   const notes = {
-    N: "Tuż przy drzwiach ekran dotykowy 27″ zawieszony w poziomie na uchwycie ściennym (dół 112 cm, góra 148 cm), minikomputer za ekranem. Obok bizhub C450i z finiszerem FS-539SD; po prawej 34 cm zapasu na tacę boczną. Stół do kompletowania TROTTEN 120 × 70 z elektryczną regulacją (ok. 95 cm), pod nim szafka na tonery i papier. Lodówka 60 cm oddziela strefę druku od aneksu 240 cm. Na blacie: czajnik, mikrofalówka; szafki wiszące 4 × 60, dół 150 cm, góra 250 cm.",
-    W: "Dwie ścianki MITTZON na kółkach (205 cm), widoczne z boku: między szafami a biurkiem 1 i między biurkiem 2 a Xeroxem B7130 na podstawie KSW ok. 45 cm (razem ok. 122 cm). Szafy skrytkowe 3 × 11 skrytek każda. *Wysokość sali przyjęta, do pomiaru.",
+    N: "Tuż przy drzwiach ekran dotykowy 27″ zawieszony w pionie na uchwycie ściennym (dół 100 cm, góra 161 cm), minikomputer za ekranem. Obok bizhub C450i z finiszerem FS-539SD; po prawej 34 cm zapasu na tacę boczną. Stół do kompletowania TROTTEN 120 × 70 z elektryczną regulacją (ok. 95 cm), pod nim szafka na tonery i papier. Lodówka 60 cm oddziela strefę druku od aneksu 240 cm. Na blacie: czajnik, mikrofalówka; szafki wiszące 4 × 60, dół 150 cm, góra 250 cm.",
+    W: "Ścianka MITTZON na kółkach (205 cm) między szafami a biurkiem 1, widoczna z boku; druga ścianka stoi przy stole do kompletowania i oddziela strefę druku od aneksu. Obok biurek Xerox B7130 na podstawie KSW ok. 45 cm (razem ok. 122 cm). Szafy skrytkowe 3 × 11 skrytek każda. *Wysokość sali przyjęta, do pomiaru.",
     S: "Parapet przyjęty na 90 cm, nadproże 260 cm. Sofy EKTORP (88 cm, poniżej parapetu) nie zasłaniają okien, ale stoją przed grzejnikami: zostawić min. 15 cm odstępu od ściany na obieg ciepła.",
     E: "Ściana prawie wolna. Krzesła jadalni stoją 85 cm od krawędzi stołu. Jeśli zapadnie decyzja o lodówce, to najbliższe sensowne miejsce jest tutaj przy aneksie, kosztem krzesła szczytowego.",
   };
@@ -1057,7 +1058,12 @@ I.forEach((it) => {
     for (let r = 1; r < 11; r++) { const zz = (it.h * r) / 11; pts.push(P(fx, it.y, zz), P(fx, it.y + it.d, zz)); }
     m.parent.add(new THREE.LineSegments(new THREE.BufferGeometry().setFromPoints(pts), new THREE.LineBasicMaterial({ color: 0x2f3b3a })));
   }
-  if (it.k === "scianka") { m.position.y += 0.08; [it.x + 2, it.x + it.w - 6].forEach((fx) => { box(fx, it.y + it.d / 2 - 25, 4, 4, 50, 4, mat(0xf2f2f0), furniture, it); box(fx, it.y + it.d / 2 - 2, 8, 4, 4, it.h - 8, mat(0xf2f2f0), furniture, it, false); }); }
+  if (it.k === "scianka") {
+    m.position.y += 0.08;
+    const wh = mat(0xf2f2f0);
+    if (it.w >= it.d) [it.x + 2, it.x + it.w - 6].forEach((fx) => { box(fx, it.y + it.d / 2 - 25, 4, 4, 50, 4, wh, furniture, it); box(fx, it.y + it.d / 2 - 2, 8, 4, 4, it.h - 8, wh, furniture, it, false); });
+    else [it.y + 2, it.y + it.d - 6].forEach((fy) => { box(it.x + it.w / 2 - 25, fy, 4, 50, 4, 4, wh, furniture, it); box(it.x + it.w / 2 - 2, fy, 8, 4, 4, it.h - 8, wh, furniture, it, false); });
+  }
   if (it.k === "druk_duza") box(it.x + 3, it.y + 6, it.h, it.w - 6, 52, 12, mat(0xd6d9db), furniture, it);
   if (it.k === "an_zlew") { const sink = box(it.x + 10, it.y + 12, 89, 42, 36, 1, mat(0xb8c0c3, { metalness: 0.6, roughness: 0.3 }), furniture, it, false); box(it.x + 30, it.y + 4, 90, 3, 3, 26, mat(0x9aa3a6, { metalness: 0.7, roughness: 0.3 }), furniture, it, false); }
   if (it.k === "an_wiszaca") box(it.x, it.y + it.d, it.z - 1, it.w, 1, 1, mat(0xfff3cf, { emissive: 0xffe9b0, emissiveIntensity: 0.6 }), furniture, null, false);
