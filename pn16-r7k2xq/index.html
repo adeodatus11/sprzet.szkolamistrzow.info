@@ -213,6 +213,7 @@ tr.total td { font-weight: 700; border-top: 2px solid var(--ink); }
 .prose { max-width: 72ch; }
 .foot { padding-block: 32px 48px; color: var(--muted); font-size: 13px; }
 .mono { font-family: var(--font-mono); }
+  .wl-lab { font-size: 13px; color: var(--muted, #6b6b6b); margin-left: 4px; }
 </style>
 </head>
 <body>
@@ -283,7 +284,7 @@ tr.total td { font-weight: 700; border-top: 2px solid var(--ink); }
 
 <section id="model" aria-labelledby="h-3d">
   <h2 id="h-3d"><span class="num">C</span>Model 3D</h2>
-  <p class="sec-lead">Przeciągnij, żeby obracać, kółko myszy lub dwa palce przybliżają, prawy przycisk lub Shift + przeciąganie przesuwa widok. Ściany zwrócone do kamery chowają się same. Kliknięcie mebla pokazuje jego nazwę i wymiary. Faktury drewna, tkanin i podłogi są poglądowe.</p>
+  <p class="sec-lead">Przeciągnij, żeby obracać, kółko myszy lub dwa palce przybliżają, prawy przycisk lub Shift + przeciąganie przesuwa widok. Ściany zwrócone do kamery chowają się same (tryb Auto); „Niskie” przycina wszystkie ściany na ok. 1 m, „Bez ścian” pokazuje samo wnętrze. Kliknięcie mebla pokazuje jego nazwę i wymiary. Faktury drewna, tkanin i podłogi są poglądowe.</p>
   <div class="sheet">
     <div class="toolbar" role="group" aria-label="Widoki modelu">
       <button class="btn" data-view="iso" aria-pressed="true">Aksonometria</button>
@@ -294,7 +295,10 @@ tr.total td { font-weight: 700; border-top: 2px solid var(--ink); }
       <button class="btn" data-view="print" aria-pressed="false">Druk i aneks</button>
       <button class="btn" data-view="top" aria-pressed="false">Z góry</button>
       <span class="sp"></span>
-      <label><input type="checkbox" id="v-walls" checked /> Ściany</label>
+      <span class="wl-lab">Ściany:</span>
+      <button class="btn" data-walls="auto" aria-pressed="true" title="Ściany zasłaniające widok chowają się same">Auto</button>
+      <button class="btn" data-walls="low" aria-pressed="false" title="Ściany przycięte na wysokości ok. 1 m, bez przeszkód przy obracaniu">Niskie</button>
+      <button class="btn" data-walls="none" aria-pressed="false">Bez ścian</button>
     </div>
     <div class="viewer" id="viewer">
       <div class="v-msg" id="v-msg">Ładowanie modelu…</div>
@@ -311,7 +315,7 @@ tr.total td { font-weight: 700; border-top: 2px solid var(--ink); }
 
 <section id="zestawienie" aria-labelledby="h-list">
   <h2 id="h-list"><span class="num">E</span>Zakupy: meble i aneks kuchenny</h2>
-  <p class="sec-lead">Konkretne produkty z linkami do sklepów i cenami brutto sprawdzonymi 24.11.2026 (odczyt ze stron sklepów). Zakup obejmuje meble i cały aneks kuchenny bez lodówki. Z IT kupujemy tylko centrum dowodzenia (ekran dotykowy, minikomputer, uchwyt, klawiatura) oraz ładowarki do laptopów; pozostały sprzęt IT (drukarki, niszczarka) jest na końcu listy, bez sumy. Dostępności w IKEA Wrocław Bielany nie da się sprawdzić automatycznie: przed zamówieniem trzeba ją potwierdzić dla całych ilości.</p>
+  <p class="sec-lead">Konkretne produkty z linkami do sklepów i cenami brutto sprawdzonymi 24.11.2026 (odczyt ze stron sklepów). Zakup obejmuje meble, tablice na ścianach i cały aneks kuchenny bez lodówki. Z IT kupujemy tylko centrum dowodzenia (ekran dotykowy, minikomputer, uchwyt, klawiatura) oraz ładowarki do laptopów; pozostały sprzęt IT (drukarki, niszczarka) jest na końcu listy, bez sumy. Dostępności w IKEA Wrocław Bielany nie da się sprawdzić automatycznie: przed zamówieniem trzeba ją potwierdzić dla całych ilości.</p>
   <div class="check-box">
     <h3>Sprawdzenie dostępności, 24.11.2026</h3>
     <ul>
@@ -319,6 +323,7 @@ tr.total td { font-weight: 700; border-top: 2px solid var(--ink); }
       <li>IKEA Wrocław Bielany: stanów konkretnego sklepu nie dało się odczytać automatycznie. Przed zamówieniem otwórz link produktu, wybierz sklep Wrocław i sprawdź całe ilości (np. 22 × LÄKTARE) albo zamów przez IKEA dla Firm z dostawą.</li>
       <li>Szafy skrytkowe OLIVER (Kupmeble): na magazynie, wysyłka w 48 h. Zamieniłem nimi szafy z Kauflandu, których dostępności nie da się sprawdzić.</li>
       <li>Czajnik i centrum dowodzenia (Morele): monitor, minikomputer, uchwyt i klawiatura na stanie.</li>
+      <li>Tablice ALLboards (Castorama, sprzedawca zewnętrzny, tylko online): strona sklepu nie pokazuje jednoznacznie stanu, więc przed zamówieniem dodaj je do koszyka i sprawdź termin dostawy. Ceny z 24.11.2026.</li>
       <li>Podstawa pod Xeroxa (agapo.pl): dostępna, wysyłka w 3 dni; wykonywana pod podany model. Zamienniki: Szkolmeb (cena na zapytanie), Kamila Meble Rd1 (861 zł, na wymiar).</li>
           </ul>
   </div>
@@ -390,7 +395,7 @@ const ZONES = {
   dining: "Jadalnia",
   lounge: "Wypoczynek",
   cmd: "Centrum dowodzenia (ekran dotykowy na ścianie przy drzwiach, obok bizhuba)",
-  deco: "Ściany, tablice i zieleń (poza zakupem)",
+  deco: "Tablice na ścianach (ściany i zieleń poza zakupem)",
   tech: "Sprzęt IT – nie kupujemy w tym zakupie",
 };
 const C = [
@@ -437,12 +442,13 @@ const C = [
   { k: "cmd_mount", z: "cmd", sw: "tech", name: "Uchwyt ścienny regulowany do monitora Maclean MC-332, VESA 75/100", dims: "17–32″, do 9 kg; pochylenie ±90°, obrót 180°, pivot, regulacja wysokości, maskowanie przewodów", price: 97.47, qty: 1, shop: "Morele.net", url: "https://www.morele.net/maclean-uchwyt-scienny-na-monitor-17-32-mc-332-14202017/", avail: "na stanie", status: ["ok", "Na stanie"], noDraw: true },
   { k: "cmd_vesa", z: "cmd", sw: "tech", name: "Uchwyt VESA na minikomputer Maclean MC-115 B", dims: "VESA 50/75/100, obejma 17–70 mm, do 5 kg; montaż między monitorem a uchwytem ściennym", price: 31.4, qty: 1, shop: "Morele.net", url: "https://www.morele.net/uchwyt-do-komputera-maclean-uchwyt-do-mini-komputerow-maclean-zakres-17-70mm-kompatybilny-z-vesa-max-obciazenie-5kg-czarny-mc-115-b-15476917/", avail: "na stanie", status: ["ok", "Na stanie"], noDraw: true },
   { k: "cmd_kb", z: "cmd", sw: "tech", name: "Klawiatura i mysz bezprzewodowe Logitech MK270 (zapasowe)", dims: "tylko do konfiguracji i aktualizacji; na co dzień obsługa dotykiem", price: 95, qty: 1, shop: "Morele.net", url: "https://www.morele.net/klawiatura-mysz-logitech-mk270-920-004508-575947/", avail: "na stanie", status: ["ok", "Na stanie"], noDraw: true },
-  { k: "klucze", z: "storage", name: "Tablica na klucze do sal lekcyjnych, przy szafach skrytkowych", dims: "ok. 70 × 50 cm, haczyki na ok. 50–60 kluczy, z opisem sal", qty: 1, status: ["mute", "Do wyboru (np. zamykana szafka na klucze)"], alt: [{ name: "Korbi szafka na klucze 100 szt., 30 × 24 × 8 cm (obecnie niedostępna)", price: 106, url: "https://www.morele.net/korbi-skrzynka-szafka-na-klucze-kasetka-100szt-szara-14114361/" }] },
-  { k: "tablica_biurka", z: "deco", name: "Tablica magnetyczna nad biurkami, z kartkami", dims: "ok. 200 × 100 cm, dół 110 cm", qty: 1, status: ["mute", "Poza zakupem"], outside: true },
-  { k: "tablica_druk", z: "deco", name: "Tablica magnetyczna nad strefą druku i stołem do kompletowania", dims: "ok. 200 × 100 cm, dół 165 cm (nad otwartym podajnikiem bizhuba)", qty: 1, status: ["mute", "Poza zakupem"], outside: true },
+  { k: "klucze", z: "storage", name: "Tablica na klucze do sal lekcyjnych, przy szafach skrytkowych", dims: "ok. 70 × 50 cm, korek z haczykami na ok. 50–60 kluczy, z opisem sal", qty: 1, status: ["mute", "Poza zakupem"], outside: true },
+  { k: "tablica_biurka", z: "deco", name: "ALLboards tablica suchościeralna magnetyczna 200 × 100 cm, rama drewniana naturalna (nad biurkami)", dims: "200 × 100 cm, dół 110 cm", sku: "5902622411279", price: 402.95, qty: 1, shop: "Castorama (sprzedawca ALLboards)", url: "https://www.castorama.pl/departments/tablica-sucho-cieralna-magnetyczna-allboards-200x100-cm-rama-drewniana-naturalna-1-szt-/5902622411279_CAPL.prd", status: ["warn", "Tylko online, dostępność potwierdzić w koszyku"], alt: [{ name: "Ta sama tablica w ramie aluminiowej Premium Expo", price: 302.99, url: "https://www.castorama.pl/departments/tablica-sucho-cieralna-magnetyczna-200x100-cm-allboards-rama-aluminiowa-premium-expo-1-szt-/5902622410869_CAPL.prd" }] },
+  { k: "tablica_druk", z: "deco", name: "ALLboards tablica suchościeralna magnetyczna 200 × 100 cm, rama drewniana naturalna (nad strefą druku)", dims: "200 × 100 cm, dół 165 cm (nad otwartym podajnikiem bizhuba)", sku: "5902622411279", price: 402.95, qty: 1, shop: "Castorama (sprzedawca ALLboards)", url: "https://www.castorama.pl/departments/tablica-sucho-cieralna-magnetyczna-allboards-200x100-cm-rama-drewniana-naturalna-1-szt-/5902622411279_CAPL.prd", status: ["warn", "Tylko online, dostępność potwierdzić w koszyku"] },
   { k: "rzutnik", z: "deco", name: "Białe pole na ścianie pod obraz z rzutnika (bez ekranu)", dims: "ok. 260 × 146 cm (16:9, ok. 118″), dół ok. 190 cm, góra ok. 336 cm, matowa biała farba, środek na osi stołu", qty: 1, status: ["mute", "Malowanie"], outside: true },
   { k: "zielen_sciana", z: "deco", name: "Wąskie pasy roślin zwisających po obu bokach pola rzutnika", dims: "2 listwy ok. 40 × 150 cm z doniczkami u góry, długie zwisające pędy (np. epipremnum, bluszcz, scindapsus)", qty: 2, status: ["mute", "Poza zakupem"], outside: true },
-  { k: "ogloszenia", z: "deco", name: "Małe tablice ogłoszeń korkowe w drewnianej ramie: na dwóch filarach między oknami i na filarze w narożniku przy krzesłach", dims: "2 × ok. 60 × 45 cm (dół 145 cm) i 1 × ok. 80 × 60 cm (dół 125 cm, nad krzesłami)", qty: 3, status: ["mute", "Poza zakupem"], outside: true },
+  { k: "ogloszenia", z: "deco", name: "ALLboards tablica korkowa 60 × 40 cm, rama drewniana naturalna (na filarach między oknami)", dims: "60 × 40 cm, dół 145 cm", sku: "5902622411194", price: 27.49, qty: 2, shop: "Castorama (sprzedawca ALLboards)", url: "https://www.castorama.pl/departments/tablica-korkowa-60x40-cm-allboards-rama-drewniana-naturalna-1-szt-/5902622411194_CAPL.prd", status: ["warn", "Tylko online, dostępność potwierdzić w koszyku"] },
+  { k: "ogl_rog", z: "deco", name: "ALLboards tablica korkowa 80 × 60 cm, rama drewniana naturalna (filar w narożniku przy krzesłach)", dims: "80 × 60 cm, dół 125 cm, nad krzesłami", sku: "5902622416694", price: 40.99, qty: 1, shop: "Castorama (sprzedawca ALLboards)", url: "https://www.castorama.pl/departments/tablica-korkowa-allboards-80x60-cm-rama-drewniana-naturalna-1-szt-/5902622416694_CAPL.prd", status: ["warn", "Tylko online, dostępność potwierdzić w koszyku"] },
   { k: "zielen_szafy", z: "deco", name: "Doniczki na szafach skrytkowych", dims: "3 doniczki ok. 24 cm, niskie rośliny bez zwisających pędów (drzwiczki skrytek otwierają się swobodnie)", qty: 3, status: ["mute", "Poza zakupem"], outside: true },
   { k: "zielen_okna", z: "deco", name: "Zieleń w oknach i na filarach: doniczki na parapetach (wnęki 40 cm) i wiszące wysoko na filarach między oknami", dims: "3 parapety, 2 filary (doniczki od ok. 235 cm, pod nimi tablice ogłoszeń)", qty: 1, status: ["mute", "Poza zakupem"], outside: true },
   { k: "laptop", z: "tech", name: "Laptop KPO (tryb incognito)", dims: "już w szkole", qty: 4, status: ["ok", "Przydzielone do sali 16"], outside: true },
@@ -450,7 +456,7 @@ const C = [
 /* rzeczywiste kolory produktów (2D i 3D) */
 const OAK = "#c9a273", ASH = "#d8c19b", WHITE_FRAME = "#f1f0eb", HAV = "#cfbc98";
 const PAL = {
-  ogloszenia: { col: "#b88a55" }, zielen_szafy: { col: "#6f9a5b" },
+  ogloszenia: { col: "#b88a55" }, ogl_rog: { col: "#b88a55" }, zielen_szafy: { col: "#6f9a5b" },
   krz_zapas: { col: "#8f9294" },
   szafa: { col: "#f1f0eb", front: "#c79e6c" }, scianka: { col: "#cdc3b0" },
   biurko: { col: OAK, frame: "#2a2a2a" }, stol_pracy: { col: OAK, frame: "#2a2a2a" }, stol_jad: { col: OAK, frame: "#2a2a2a" },
@@ -518,8 +524,8 @@ add("zielen_sciana", { x: 892, y: 137, w: 8, d: 40, h: 150, z: 200, kind: "plant
 add("zielen_sciana", { x: 892, y: 453, w: 8, d: 40, h: 150, z: 200, kind: "plants", above: true });
 WINDOWS.forEach(([a, b]) => [0.25, 0.5, 0.75].forEach((f) => add("zielen_okna", { x: a + (b - a) * f - 9, y: 612, w: 18, d: 18, h: 35, z: SILL, kind: "pot" })));
 [[275, 362], [526, 618]].forEach(([a, b]) => add("zielen_okna", { x: (a + b) / 2 - 12, y: 588, w: 24, d: 12, h: 40, z: 235, kind: "pot", above: true }));
-[[275, 362], [526, 618]].forEach(([a, b]) => add("ogloszenia", { x: (a + b) / 2 - 30, y: 597, w: 60, d: 3, h: 45, z: 145, kind: "board", above: true }));
-add("ogloszenia", { x: 800, y: 597, w: 80, d: 3, h: 60, z: 125, kind: "board", above: true });
+[[275, 362], [526, 618]].forEach(([a, b]) => add("ogloszenia", { x: (a + b) / 2 - 30, y: 597, w: 60, d: 3, h: 40, z: 145, kind: "board", above: true }));
+add("ogl_rog", { x: 800, y: 597, w: 80, d: 3, h: 60, z: 125, kind: "board", above: true });
 [[8, 18], [10, 78], [8, 138]].forEach(([x, y], i) => add("zielen_szafy", { x, y, w: 24, d: 24, h: 40, z: 185, kind: "pot", above: true }));
 I.forEach((it) => { if (it.cx != null) { it.x = it.cx - it.w / 2; it.y = it.cy - it.d / 2; } });
 
@@ -737,7 +743,7 @@ function drawPlan() {
 }
 function badgePos(it) {
   const map = {
-    szafa: [70, 150], przegroda: [84, 340], klucze: [92, 22], tablica_biurka: [24, 248], tablica_druk: [452, 26], rzutnik: [872, 315], zielen_sciana: [872, 157], zielen_okna: [196, 632], ogloszenia: [318, 572], zielen_szafy: [22, 60], cmd_monitor: [256, 26], cmd_pc: [284, 50], scianka: [100, 205], biurko: [84, 357], krz_biuro: [140, 290], stol_pracy: [232, 262], krz_pracy: [300, 196], pojemniki: [290, 336],
+    szafa: [70, 150], przegroda: [84, 340], klucze: [92, 22], tablica_biurka: [24, 248], tablica_druk: [452, 26], rzutnik: [872, 315], zielen_sciana: [872, 157], zielen_okna: [196, 632], ogloszenia: [318, 572], ogl_rog: [840, 572], zielen_szafy: [22, 60], cmd_monitor: [256, 26], cmd_pc: [284, 50], scianka: [100, 205], biurko: [84, 357], krz_biuro: [140, 290], stol_pracy: [232, 262], krz_pracy: [300, 196], pojemniki: [290, 336],
     druk_duza: [400, 92], finiszer: [342, 92], druk_mala: [88, 582], podstawa: [88, 542], stol_wysoki: [575, 88], tonery: [545, 74], akcesoria: [482, 64], lodowka: [630, 98], czajnik: [705, 110], mikrofala: [750, 110],
     an_szuflady: [690, 76], an_polki: [750, 76], zmywarka: [810, 76], an_zlew: [880, 76], an_wiszaca: [780, 132], blat: [850, 132],
     stol_jad: [700, 196], krz_jad: [648, 182], krz_zapas: [845, 530], sofa3: [185, 486], sofa2: [412, 486], stolik: [577, 508], fotel: [642, 494], laptop: [44, 365],
@@ -866,12 +872,12 @@ function drawElev(key) {
       if ((it.kind === "table" || it.kind === "round") && i > 0) { n.style.fill = pal.frame || "#e9e8e3"; return; }
       n.style.fill = it.kind === "lockers" && key === "W" ? pal.front : pal.col;
     });
-    if (it.kind === "board" && it.k !== "rzutnik") gi.querySelectorAll("rect.it").forEach((n) => { n.style.stroke = it.k === "klucze" ? "#8a6a43" : "#9aa0a2"; n.style.strokeWidth = 2; });
-    if (it.kind === "board" && it.k !== "rzutnik" && it.k !== "klucze" && it.k !== "ogloszenia") {
+    if (it.kind === "board" && it.k !== "rzutnik") gi.querySelectorAll("rect.it").forEach((n) => { n.style.stroke = it.k === "klucze" ? "#9aa0a2" : "#b08a5c"; n.style.strokeWidth = 2; });
+    if (it.kind === "board" && it.k !== "rzutnik" && it.k !== "klucze" && !/^ogl/.test(it.k)) {
       const cols = Math.max(2, Math.floor((w - 10) / 32));
       for (let i = 0; i < cols; i++) for (let r = 0; r < 2; r++) if ((i + r) % 3 !== 2) el("rect", { x: u0 + 8 + i * 32, y: Y(it.z + it.h - 10 - r * 45), width: 21, height: 30, fill: ["#fff6c8", "#e8f1fb", "#ffffff", "#fde3e0"][(i + r) % 4], stroke: "#b9b2a3", "stroke-width": 0.6 }, gi);
     }
-    if (it.k === "ogloszenia") for (let i = 0; i < Math.floor((w - 8) / 16); i++) el("rect", { x: u0 + 5 + i * 16, y: Y(it.z + it.h - 6 - (i % 2) * 8), width: 12, height: 16 + (i % 3) * 3, fill: ["#ffffff", "#fff3b5", "#e2edfb", "#fde0db"][i % 4], stroke: "#a58660", "stroke-width": 0.5 }, gi);
+    if (/^ogl/.test(it.k)) for (let i = 0; i < Math.floor((w - 8) / 16); i++) el("rect", { x: u0 + 5 + i * 16, y: Y(it.z + it.h - 6 - (i % 2) * 8), width: 12, height: 16 + (i % 3) * 3, fill: ["#ffffff", "#fff3b5", "#e2edfb", "#fde0db"][i % 4], stroke: "#a58660", "stroke-width": 0.5 }, gi);
     if (it.k === "klucze") for (let i = 0; i < 6; i++) for (let r = 0; r < 3; r++) el("circle", { cx: u0 + 8 + i * 11, cy: Y(it.z + it.h - 10 - r * 14), r: 1.6, fill: "#6b5a3f" }, gi);
     if (it.k === "rzutnik") { const n = gi.querySelector("rect.it"); if (n) { n.style.strokeDasharray = "6 4"; } txt(gi, u0 + w / 2, Y(it.z + it.h / 2) + 4, "biała ściana pod obraz z rzutnika", "lbl sm", { "text-anchor": "middle" }); }
     if (it.kind === "plants") {
@@ -963,9 +969,9 @@ function costTable() {
     <tr class="total"><td></td><td colspan="4">Razem do zapłaty (brutto, bez dostawy i montażu)</td><td class="num">${fmt(sum)}</td><td></td></tr></tbody>`;
   const kitchen = C.filter((c) => c.z === "kitchen" && c.price).reduce((s, c) => s + c.price * c.qty, 0);
   document.getElementById("cost-sum").innerHTML = `
-    <div><dt>Razem do zapłaty</dt><dd>${fmt(sum)}<small>meble, aneks i centrum dowodzenia, brutto, bez dostawy i montażu</small></dd></div>
+    <div><dt>Razem do zapłaty</dt><dd>${fmt(sum)}<small>meble, aneks, tablice i centrum dowodzenia, brutto, bez dostawy i montażu</small></dd></div>
     <div><dt>W tym IKEA</dt><dd>${fmt(sumIkea)}<small>jedno zamówienie, można poprosić IKEA dla Firm o fakturę i montaż</small></dd></div>
-    <div><dt>W tym inne sklepy</dt><dd>${fmt(sum - sumIkea)}<small>szafy skrytkowe (Kupmeble), centrum dowodzenia i czajnik (Morele), podstawa pod Xeroxa (agapo.pl)</small></dd></div>
+    <div><dt>W tym inne sklepy</dt><dd>${fmt(sum - sumIkea)}<small>szafy skrytkowe (Kupmeble), centrum dowodzenia i czajnik (Morele), podstawa pod Xeroxa (agapo.pl), tablice magnetyczne i korkowe (Castorama)</small></dd></div>
     <div><dt>W tym centrum dowodzenia</dt><dd>${fmt(C.filter((c) => c.z === "cmd").reduce((s, c) => s + c.price * c.qty, 0))}<small>ekran dotykowy 27″ Full HD, minikomputer N100 do przeglądarki, regulowany uchwyt ścienny VESA, uchwyt VESA na minikomputer, zapasowa klawiatura z myszą</small></dd></div>
     <div><dt>W tym aneks kuchenny</dt><dd>${fmt(kitchen)}<small>4 szafki dolne i 4 wiszące, blat 240, zlew, bateria, zmywarka wolnostojąca, LED, mikrofalówka, czajnik</small></dd></div>`;
 }
@@ -1454,7 +1460,7 @@ I.forEach((it) => {
   if (it.k === "scianka" || it.k === "przegroda") material = fabricMat(pal ? hex(pal.col) : 0xcdc3b0);
   if (it.k === "blat") material = woodMat("worktop", false, { roughness: 0.4 });
   if (it.k === "rzutnik") material = mat(0xffffff, { roughness: 1 });
-  if (it.kind === "board" && it.k !== "rzutnik" && it.k !== "klucze") material = it.k === "ogloszenia" ? mat(0xb88a55, { map: TEX.cork }) : mat(0xfafaf8, { roughness: 0.25 });
+  if (it.kind === "board" && it.k !== "rzutnik" && it.k !== "klucze") material = /^ogl/.test(it.k) ? mat(0xb88a55, { map: TEX.cork }) : mat(0xfafaf8, { roughness: 0.25 });
   if (it.k === "druk_duza" || it.k === "druk_mala" || it.k === "finiszer" || it.k === "lodowka" || it.k === "zmywarka" || it.k === "mikrofala") material = mat(color, it.k === "lodowka" ? { roughness: 0.35, metalness: 0.45 } : { roughness: 0.4 });
   const m = it.k === "blat" ? rbox(it.x, it.y, it.z, it.w, it.d, it.h, 0.8, 0.4, material, it) : (pal && pal.body && !it.z) ? box(it.x, it.y, 8, it.w, it.d - 0.2, it.h - 8, material, furniture, it) : box(it.x, it.y, it.z, it.w, it.d, it.h, material, furniture, it);
   if (it.kind === "board" && it.k !== "rzutnik") {
@@ -1462,10 +1468,10 @@ I.forEach((it) => {
     const along = it.w > it.d, len = along ? it.w : it.d;
     const south = along && it.y > ROOM.d / 2;
     const put = (u, zz, uw, hh, depth, mm) => along ? box(it.x + u, south ? it.y - depth : it.y + it.d, zz, uw, depth, hh, mm, furniture, null, false) : box(it.x + it.w, it.y + u, zz, depth, uw, hh, mm, furniture, null, false);
-    const alu = it.k === "ogloszenia" ? woodMat("oak", false, { roughness: 0.5 }) : mat(0xc9cdcf, { metalness: 0.7, roughness: 0.3 });
+    const alu = it.k !== "klucze" ? woodMat("oak", false, { roughness: 0.5 }) : mat(0xc9cdcf, { metalness: 0.7, roughness: 0.3 });
     put(-2.5, it.z - 2.5, len + 5, 3, 2.2, alu); put(-2.5, it.z + it.h - 0.5, len + 5, 3, 2.2, alu);
     put(-2.5, it.z - 2.5, 3, it.h + 5, 2.2, alu); put(len - 0.5, it.z - 2.5, 3, it.h + 5, 2.2, alu);
-    if (it.k === "ogloszenia") {
+    if (/^ogl/.test(it.k)) {
       put(0.5, it.z + 0.5, len - 1, it.h - 1, 0.6, mat(0xffffff, { map: TEX.cork, roughness: 0.95 }));
       const papers = [0xffffff, 0xfff3b5, 0xe2edfb, 0xfde0db, 0xe3f2dd], pins = [0xd9473a, 0x3b78d4, 0xe7b031, 0x47a865];
       for (let k = 0; k < Math.floor((len - 6) / 17); k++) for (let r = 0; r < Math.floor((it.h - 6) / 24); r++) {
@@ -1553,7 +1559,16 @@ I.forEach((it) => {
 
 });
 // rzeczy zawieszone na ścianie z oknami i ścianie przy jadalni chowają się razem z tą ścianą
-furniture.children.slice().forEach((m) => { const q = m.position; const k = q.z > 2.86 && q.y > 1.2 ? "S" : q.x > 4.42 && q.y > 1.4 ? "E" : null; if (k) walls[k].add(m); });
+furniture.children.slice().forEach((m) => { const q = m.position; const k = q.z > 2.86 && q.y > 1.2 ? "S" : q.x > 4.3 && q.y > 1.4 ? "E" : q.z < -2.9 && q.y > 0.95 ? "N" : q.x < -4.45 && q.y > 1.0 ? "W" : null; if (k) walls[k].add(m); });
+// ściany przycięte (tryb „Niskie”): bez okien i drzwi powyżej ok. 1 m, z ciemniejszym wierzchem przekroju
+const lowWalls = new THREE.Group(); scene.add(lowWalls);
+{
+  const lw = mat(0xe3d4ba, { map: TEX.plaster, roughness: 0.95 }), cap = mat(0x9c8b70, { roughness: 0.9 }), LH = 105;
+  const slab = (x, y, w, d, h) => { const m = box(x, y, 0, w, d, h, lw, lowWalls, null, false); m.castShadow = false; box(x, y, h, w, d, 0.8, cap, lowWalls, null, false); };
+  slab(-T, -T, DOOR.x0 + T, T, LH); slab(DOOR.x1, -T, ROOM.w - DOOR.x1 + T, T, LH);
+  slab(-T, ROOM.d, ROOM.w + 2 * T, SOUTH_T, SILL - 3);
+  slab(-T, 0, T, ROOM.d, LH); slab(ROOM.w, 0, T, ROOM.d, LH);
+}
 
 /* orbita */
 const target = new THREE.Vector3(0, 0.6, 0);
@@ -1592,8 +1607,11 @@ document.querySelectorAll("[data-view]").forEach((b) => b.addEventListener("clic
   document.querySelectorAll("[data-view]").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
   setView(b.dataset.view);
 }));
-const showWalls = document.getElementById("v-walls");
-showWalls.addEventListener("change", req);
+let wallMode = "auto";
+document.querySelectorAll("[data-walls]").forEach((b) => b.addEventListener("click", () => {
+  document.querySelectorAll("[data-walls]").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+  wallMode = b.dataset.walls; req();
+}));
 
 const canvas = renderer.domElement;
 const ptrs = new Map(); let lastPinch = null, moved = 0;
@@ -1651,15 +1669,17 @@ function updateCamera() {
   const inside = Math.abs(camPos.x) < 4.5 && Math.abs(camPos.z) < 3 && camPos.y < 4.5;
   const normals = { N: [0, -1], S: [0, 1], W: [-1, 0], E: [1, 0] };
   for (const [k, n] of Object.entries(normals)) {
-    const out = camPos.x * n[0] + camPos.z * n[1] > (n[0] ? 4.5 : 3);
-    const fade = !inside && out && sph.phi > 0.25;
+    // ściana znika, gdy kamera jest za nią, w jej grubości albo tuż przy niej (25 cm), żeby nigdy nie zasłaniała widoku
+    const out = camPos.x * n[0] + camPos.z * n[1] > (n[0] ? 4.5 : 3) - 0.25;
+    const fade = out;
     wallMat[k].opacity = fade ? 0.1 : 1;
     wallMat[k].depthWrite = !fade;
-    walls[k].visible = showWalls.checked;
+    walls[k].visible = wallMode === "auto";
     walls[k].children.forEach((m) => { if (m.material !== wallMat[k]) m.visible = !fade; });
   }
-  leaf.visible = showWalls.checked;
-  ceiling.visible = inside && showWalls.checked;
+  leaf.visible = wallMode === "auto";
+  ceiling.visible = inside && wallMode === "auto";
+  lowWalls.visible = wallMode === "low";
 }
 let needs = true;
 function req() { needs = true; }
