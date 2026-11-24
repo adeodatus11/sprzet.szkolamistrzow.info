@@ -146,7 +146,20 @@ g.item.dim .it, g.item.dim text { opacity: 0.25; }
 .chk.bad line, .chk.bad path { stroke: var(--bad); } .chk.bad text { fill: var(--bad); }
 .chk text { font-family: var(--font-mono); font-size: 12px; font-weight: 500; paint-order: stroke; stroke: var(--floor); stroke-width: 4px; }
 .inst circle, .inst rect { stroke: var(--wall); stroke-width: 1; }
-.inst .p230 { fill: #e0a43a; } .inst .rj { fill: #4f7fbf; } .inst .h2o { fill: #3f9fcf; } .inst .box { fill: #b07acc; }
+.inst .p230 { fill: #e0a43a; } .inst .rj { fill: #4f7fbf; } .inst .h2o { fill: #3f9fcf; } .inst .box { fill: #b07acc; } .inst .tel { fill: #3f9a5b; } .inst .hdmi { fill: #8a4fc4; } .inst .ap { fill: #2c5fb3; }
+.inst .code { font-size: 11px; font-weight: 600; fill: var(--ink); paint-order: stroke; stroke: var(--sheet, #fff); stroke-width: 3px; }
+#iplan .room { fill: var(--floor); stroke: var(--wall); stroke-width: 6; }
+#iplan .furn rect { fill: none; stroke: var(--line); stroke-width: 1; }
+#iplan .furn text { font-size: 9px; fill: var(--muted); }
+#iplan .rt { fill: none; stroke-width: 2.2; stroke-linejoin: round; }
+#iplan .rt.e { stroke: #e0a43a; } #iplan .rt.d { stroke: #4f7fbf; } #iplan .rt.t { stroke: #3f9a5b; } #iplan .rt.h { stroke: #8a4fc4; }
+#iplan .rt.lv-c { stroke-dasharray: 2 5; stroke-linecap: round; } #iplan .rt.lv-f { stroke-dasharray: 12 6; }
+#iplan .tag { font-size: 9.5px; font-family: var(--font-mono); fill: var(--muted); }
+#iplan .wl { font-size: 11px; font-family: var(--font-mono); fill: var(--muted); }
+.ilegend { display: flex; flex-wrap: wrap; gap: 8px 18px; padding: 10px 14px; font-size: 13px; color: var(--muted); border-top: 1px solid var(--line-soft); }
+.ilegend span { display: inline-flex; align-items: center; gap: 6px; }
+.ilegend svg { flex: none; }
+.spec-notes li { margin-bottom: 6px; }
 .inst text { font-size: 10px; font-family: var(--font-mono); }
 .door { stroke: var(--wall); stroke-width: 1.4; fill: none; }
 .glass { stroke: var(--glass); stroke-width: 3; }
@@ -254,6 +267,7 @@ tr.total td { font-weight: 700; border-top: 2px solid var(--ink); }
       <label><input type="checkbox" id="l-dims" checked /> Wymiary</label>
       <label><input type="checkbox" id="l-chk" checked /> Kontrola przejść</label>
       <label><input type="checkbox" id="l-zones" /> Strefy obsługi</label>
+      <label><input type="checkbox" id="l-furn" checked /> Meble</label>
       <label><input type="checkbox" id="l-inst" /> Instalacje</label>
       <label><input type="checkbox" id="l-num" checked /> Numery</label>
       <span class="sp"></span>
@@ -332,9 +346,34 @@ tr.total td { font-weight: 700; border-top: 2px solid var(--ink); }
 </section>
 
 <section id="instalacje" aria-labelledby="h-inst">
-  <h2 id="h-inst"><span class="num">F</span>Instalacje do przygotowania</h2>
-  <p class="sec-lead">Punkty zaproponowane pod ten układ (warstwa „Instalacje” na rzucie). Zakres trzeba potwierdzić po inwentaryzacji istniejących gniazd, wody i odpływu.</p>
+  <h2 id="h-inst"><span class="num">F</span>Instalacje: rzut i specyfikacja dla wykonawcy</h2>
+  <p class="sec-lead">Rzut punktów instalacyjnych z kodami (E: 230 V, D: sieć RJ45, T: telefon, H: HDMI, A: access point, P: puszka podłogowa, W: woda) i orientacyjnymi trasami przewodów. Każdy kod ma w tabeli miejsce, sposób montażu, wysokość osi od gotowej posadzki i opis tego, co ma się znaleźć w punkcie. Meble można wyłączyć, żeby został czysty rzut instalacji.</p>
+  <div class="sheet">
+    <div class="toolbar" role="group" aria-label="Warstwy rzutu instalacji">
+      <label><input type="checkbox" id="i-furn" checked /> Meble jako podkład</label>
+      <label><input type="checkbox" id="i-routes" checked /> Trasy przewodów</label>
+      <label><input type="checkbox" id="i-tags" checked /> Wysokości przy punktach</label>
+      <span class="sp"></span>
+      <span class="note">Rysunek przewija się w poziomie na telefonie</span>
+    </div>
+    <div class="drawing"><svg id="iplan" role="img" aria-label="Rzut instalacji sali 16 z kodami punktów"></svg></div>
+    <div class="ilegend" id="ilegend"></div>
+    <div class="titleblock"><span>Rzut instalacji · wymiary w cm · siatka 50 cm</span><span>Wysokości: oś punktu od gotowej posadzki</span><span>Trasy orientacyjne, do potwierdzenia na budowie</span></div>
+  </div>
+  <dl class="cost-sum" id="inst-sum"></dl>
   <div class="tbl-wrap"><table id="inst-table"></table></div>
+  <div class="check-box spec-notes">
+    <h3>Wytyczne dla wykonawcy</h3>
+    <ul>
+      <li>Położenie punktów w poziomie wg rzutu (siatka 50 cm, tolerancja ±5 cm), wysokość osi wg tabeli. Przed montażem sprawdzić ustawienie mebli: gniazda nad blatami nie mogą wypaść za szafkami ani za tablicami.</li>
+      <li>230 V (E): przewody YDYżo 3 × 2,5 mm² w ścianie lub w korytach, gniazda z uziemieniem. Osobne obwody 16 A z wyłącznikiem różnicowoprądowym 30 mA dla: bizhuba (E1), lodówki (E6), aneksu (E7–E8), zmywarki (E9). Pozostałe gniazda w dwóch obwodach: strona biurek (E10–E12) i strona druku (E2–E5, E13). Ostateczny podział obwodów i zabezpieczeń ustala elektryk z uprawnieniami.</li>
+      <li>Sieć (D, A): skrętka U/UTP kat. 6 z każdego gniazda do szafy lub punktu dystrybucyjnego szkoły, każdy przewód opisany kodem z rzutu, pomiar torów po montażu. Obie drukarki (D2, D4) muszą mieć przewodowy internet. Access point (A1) zasilany przez PoE z przełącznika.</li>
+      <li>Telefon (T1): gniazdo nad blatem stołu przy bizhubie, połączone z linią lub centralą telefoniczną szkoły. Jeśli telefon będzie VoIP, wystarczy przewód kat. 6 jak w punktach D.</li>
+      <li>HDMI (P1 → H1): przewód HDMI 2.0 aktywny światłowodowy (AOC) ok. 15 m w rurze osłonowej Ø 32 mm. Trasa: puszka podłogowa P1 pod środkiem stołu roboczego, kanał w posadzce do ściany z wejściem (przerwa między bizhubem a stołem do kompletowania), pion w ścianie, pod sufitem do puszki H1 przy rzutniku. Jeśli kucie posadzki nie jest możliwe: bezprzewodowy zestaw HDMI albo przewód w listwie przypodłogowej.</li>
+      <li>Rzutnik: uchwyt sufitowy z wysięgnikiem (regulacja ok. 60–90 cm), nośność stropu do sprawdzenia. Stanowisko w linii lodówki, ok. 270 cm od ściany z obrazem (260 × 146 cm, od 190 do 336 cm), więc rzutnik musi mieć współczynnik projekcji ok. 1,0–1,1 albo zoom, który to obejmuje.</li>
+      <li>Woda (W1): istniejące podejścia do sprawdzenia przy inwentaryzacji; zlew w narożniku aneksu, zawór do zmywarki.</li>
+    </ul>
+  </div>
 </section>
 
 <section id="ustalenia" aria-labelledby="h-todo">
@@ -446,12 +485,16 @@ const C = [
   { k: "ogloszenia", z: "deco", name: "ALLboards tablica korkowa 60 × 40 cm, rama drewniana naturalna (na filarach między oknami)", dims: "60 × 40 cm, dół 145 cm", sku: "5902622411194", price: 27.49, qty: 2, shop: "Castorama (sprzedawca ALLboards)", url: "https://www.castorama.pl/departments/tablica-korkowa-60x40-cm-allboards-rama-drewniana-naturalna-1-szt-/5902622411194_CAPL.prd", status: ["warn", "Tylko online, dostępność potwierdzić w koszyku"] },
   { k: "ogl_rog", z: "deco", name: "ALLboards tablica korkowa 80 × 60 cm, rama drewniana naturalna (filar w narożniku przy krzesłach)", dims: "80 × 60 cm, dół 125 cm, nad krzesłami", sku: "5902622416694", price: 40.99, qty: 1, shop: "Castorama (sprzedawca ALLboards)", url: "https://www.castorama.pl/departments/tablica-korkowa-allboards-80x60-cm-rama-drewniana-naturalna-1-szt-/5902622416694_CAPL.prd", status: ["warn", "Tylko online, dostępność potwierdzić w koszyku"] },
   { k: "zielen_szafy", z: "deco", name: "Doniczki na szafach skrytkowych", dims: "3 doniczki ok. 24 cm, niskie rośliny bez zwisających pędów (drzwiczki skrytek otwierają się swobodnie)", qty: 3, status: ["mute", "Poza zakupem"], outside: true },
+  { k: "projektor", z: "tech", name: "Rzutnik pod sufitem na uchwycie z wysięgnikiem (sprzęt szkoły)", dims: "w linii lodówki, ok. 270 cm od ściany z obrazem, obiektyw na ok. 358 cm; obraz 260 × 146 cm wymaga współczynnika projekcji ok. 1,0–1,1", qty: 1, status: ["mute", "Poza zakupem"], outside: true },
+  { k: "telefon", z: "tech", name: "Telefon stacjonarny na stole do kompletowania, przy bizhubie", dims: "gniazdo T1 nad blatem", qty: 1, status: ["mute", "Poza zakupem"], outside: true },
+  { k: "ap", z: "tech", name: "Access point Wi-Fi na ścianie nad tablicą ogłoszeń w narożniku", dims: "zasilanie PoE z gniazda A1, ok. 230 cm od posadzki", qty: 1, status: ["mute", "Poza zakupem (sieć szkoły)"], outside: true },
   { k: "zielen_okna", z: "deco", name: "Zieleń w oknach i na filarach: doniczki na parapetach (wnęki 40 cm) i wiszące wysoko na filarach między oknami", dims: "3 parapety, 2 filary (doniczki od ok. 235 cm, pod nimi tablice ogłoszeń)", qty: 1, status: ["mute", "Poza zakupem"], outside: true },
   { k: "laptop", z: "tech", name: "Laptop KPO (tryb incognito)", dims: "już w szkole", qty: 4, status: ["ok", "Przydzielone do sali 16"], outside: true },
 ];
 /* rzeczywiste kolory produktów (2D i 3D) */
 const OAK = "#c9a273", ASH = "#d8c19b", WHITE_FRAME = "#f1f0eb", HAV = "#cfbc98";
 const PAL = {
+  projektor: { col: "#f2f2f0" }, telefon: { col: "#2a2d2f" }, ap: { col: "#f4f4f2" },
   ogloszenia: { col: "#b88a55" }, ogl_rog: { col: "#b88a55" }, zielen_szafy: { col: "#6f9a5b" },
   krz_zapas: { col: "#8f9294" },
   szafa: { col: "#f1f0eb", front: "#c79e6c" }, scianka: { col: "#cdc3b0" },
@@ -520,29 +563,53 @@ add("zielen_sciana", { x: 892, y: 453, w: 8, d: 40, h: 150, z: 200, kind: "plant
 WINDOWS.forEach(([a, b]) => [0.25, 0.5, 0.75].forEach((f) => add("zielen_okna", { x: a + (b - a) * f - 9, y: 612, w: 18, d: 18, h: 35, z: SILL, kind: "pot" })));
 [[275, 362], [526, 618]].forEach(([a, b]) => add("zielen_okna", { x: (a + b) / 2 - 12, y: 588, w: 24, d: 12, h: 40, z: 235, kind: "pot", above: true }));
 [[275, 362], [526, 618]].forEach(([a, b]) => add("ogloszenia", { x: (a + b) / 2 - 30, y: 597, w: 60, d: 3, h: 40, z: 145, kind: "board", above: true }));
+add("projektor", { x: 614, y: 302, w: 32, d: 26, h: 11, z: 352, kind: "dev", above: true });
+add("telefon", { x: 532, y: 6, w: 20, d: 18, h: 7, z: 95, kind: "dev", ontop: true });
+add("ap", { x: 828, y: 596, w: 24, d: 4, h: 24, z: 218, kind: "dev", above: true });
 add("ogl_rog", { x: 800, y: 597, w: 80, d: 3, h: 60, z: 125, kind: "board", above: true });
 [[8, 18], [10, 78], [8, 138]].forEach(([x, y], i) => add("zielen_szafy", { x, y, w: 24, d: 24, h: 40, z: 185, kind: "pot", above: true }));
 I.forEach((it) => { if (it.cx != null) { it.x = it.cx - it.w / 2; it.y = it.cy - it.d / 2; } });
 
 /* instalacje proponowane */
 const INST = [
-  { t: "p230", x: 400, y: 0, z: 30, txt: "bizhub C450i: gniazdo dedykowane 230 V" },
-  { t: "p230", x: 340, y: 0, z: 30, txt: "Finiszer FS-539SD: gniazdo (jeśli wymaga osobnego zasilania wg instalatora)" },
-  { t: "p230", x: 258, y: 0, z: 150, txt: "Centrum dowodzenia: gniazdo za monitorem (monitor i mini PC)" },
-  { t: "rj", x: 288, y: 0, z: 150, txt: "Centrum dowodzenia: RJ45 za monitorem" },
-  { t: "rj", x: 415, y: 0, z: 30, txt: "bizhub C450i: RJ45" },
-  { t: "p230", x: 500, y: 0, z: 110, txt: "Stół wysoki: gniazdo podwójne nad blatem (bindownica, zszywacz elektryczny, skaner)" },
-  { t: "p230", x: 480, y: 0, z: 30, txt: "Stół wysoki: gniazdo podwójne pod blatem (zasilacze laptopów w szafce, niszczarka)" },
-  { t: "p230", x: 630, y: 0, z: 30, txt: "Lodówka: gniazdo za lodówką" },
-  { t: "rj", x: 560, y: 0, z: 110, txt: "Stół wysoki: RJ45 (skaner) i rezerwa" },
-  { t: "p230", x: 680, y: 0, z: 110, txt: "Aneks: gniazdo podwójne nad blatem (czajnik i rezerwa)" },
-  { t: "p230", x: 750, y: 0, z: 110, txt: "Aneks: gniazdo nad blatem (mikrofalówka)" },
-  { t: "p230", x: 810, y: 0, z: 30, txt: "Zmywarka: gniazdo w szafce obok" },
-  { t: "h2o", x: 880, y: 0, z: 50, txt: "Woda i odpływ pod zlewem (narożnik)" },
-  { t: "p230", x: 0, y: 335, z: 85, txt: "Biurko 1: gniazdo podwójne nad blatem" },
-  { t: "p230", x: 0, y: 455, z: 85, txt: "Biurko 2: gniazdo podwójne nad blatem" },
-  { t: "p230", x: 0, y: 535, z: 30, txt: "Mniejsza A3 przy biurkach: gniazdo podwójne" },
-  { t: "rj", x: 0, y: 585, z: 30, txt: "Mniejsza A3 przy biurkach: RJ45" },
+  // E: 230 V, D: RJ45 kat. 6, T: telefon, H: HDMI, A: access point, P: puszka podłogowa, W: woda; z: oś punktu od posadzki (cm)
+  { t: "p230", x: 400, y: 0, z: 30, txt: "bizhub C450i", spec: "Gniazdo pojedyncze 230 V z uziemieniem, osobny obwód 16 A" },
+  { t: "p230", x: 340, y: 0, z: 30, txt: "Finiszer FS-539SD", spec: "Gniazdo pojedyncze 230 V z uziemieniem (jeśli finiszer ma osobne zasilanie, wg serwisu Copytec)" },
+  { t: "p230", x: 258, y: 0, z: 150, txt: "Centrum dowodzenia, za ekranem dotykowym", spec: "Gniazdo podwójne 230 V w puszce głębokiej (ekran + minikomputer), ukryte za ekranem" },
+  { t: "p230", x: 500, y: 0, z: 110, txt: "Stół do kompletowania TROTTEN, nad blatem", spec: "Gniazdo podwójne 230 V (bindownica, zszywacz, skaner)" },
+  { t: "p230", x: 480, y: 0, z: 30, txt: "Stół do kompletowania, pod blatem", spec: "Gniazdo podwójne 230 V (zasilacze laptopów w szafce, niszczarka)" },
+  { t: "p230", x: 630, y: 0, z: 30, txt: "Lodówka, za lodówką", spec: "Gniazdo pojedyncze 230 V, osobny obwód" },
+  { t: "p230", x: 680, y: 0, z: 110, txt: "Aneks, nad blatem (czajnik)", spec: "Gniazdo podwójne 230 V, obwód kuchenny 16 A" },
+  { t: "p230", x: 750, y: 0, z: 110, txt: "Aneks, nad blatem (mikrofalówka)", spec: "Gniazdo pojedyncze 230 V, obwód kuchenny" },
+  { t: "p230", x: 810, y: 0, z: 30, txt: "Zmywarka, w szafce obok", spec: "Gniazdo pojedyncze 230 V, osobny obwód 16 A" },
+  { t: "p230", x: 0, y: 335, z: 85, txt: "Biurko 1, nad blatem", spec: "Gniazdo podwójne 230 V (laptop, lampka)" },
+  { t: "p230", x: 0, y: 455, z: 85, txt: "Biurko 2, nad blatem", spec: "Gniazdo podwójne 230 V (laptop, lampka)" },
+  { t: "p230", x: 0, y: 535, z: 30, txt: "Xerox B7130 przy biurkach", spec: "Gniazdo podwójne 230 V z uziemieniem" },
+  { t: "p230", x: 630, y: 315, z: 450, ceil: true, txt: "Rzutnik pod sufitem", spec: "Gniazdo 230 V w puszce sufitowej przy uchwycie rzutnika" },
+  { t: "rj", x: 288, y: 0, z: 150, txt: "Centrum dowodzenia, za ekranem", spec: "Gniazdo RJ45 kat. 6 pojedyncze (minikomputer, rezerwa dla Wi-Fi)" },
+  { t: "rj", x: 415, y: 0, z: 30, txt: "bizhub C450i (internet do drukarki)", spec: "Gniazdo RJ45 kat. 6 podwójne: drukarka + rezerwa" },
+  { t: "rj", x: 565, y: 0, z: 110, txt: "Stół do kompletowania, nad blatem", spec: "Gniazdo RJ45 kat. 6 podwójne (skaner, rezerwa)" },
+  { t: "rj", x: 0, y: 585, z: 30, txt: "Xerox B7130 (internet do drukarki)", spec: "Gniazdo RJ45 kat. 6 podwójne: drukarka + rezerwa" },
+  { t: "tel", x: 540, y: 0, z: 110, txt: "Telefon stacjonarny na stole przy bizhubie", spec: "Gniazdo telefoniczne RJ45 (lub RJ11 wg centrali szkoły) nad blatem; przy telefonie VoIP przewód kat. 6 jak punkty D" },
+  { t: "ap", x: 840, y: 600, z: 230, txt: "Access point Wi-Fi nad tablicą ogłoszeń w narożniku", spec: "Przewód U/UTP kat. 6 z gniazdem RJ45 w puszce natynkowej za AP; zasilanie przez PoE (bez gniazda 230 V)" },
+  { t: "box", x: 380, y: 320, z: 0, floor: true, txt: "Stół roboczy, pod środkiem blatu", spec: "Puszka podłogowa z modułem HDMI (laptop → rzutnik); rezerwa: RJ45 kat. 6 i gniazdo 230 V" },
+  { t: "hdmi", x: 645, y: 315, z: 450, ceil: true, txt: "Rzutnik pod sufitem", spec: "Wyjście przewodu HDMI (z puszki P1) w puszce sufitowej przy rzutniku" },
+  { t: "h2o", x: 880, y: 0, z: 50, txt: "Zlew w narożniku aneksu", spec: "Woda zimna i ciepła (zawory pod zlewem), odpływ Ø50, zawór do zmywarki" },
+];
+const INST_PREFIX = { p230: "E", rj: "D", tel: "T", hdmi: "H", ap: "A", box: "P", h2o: "W" };
+{ const cnt = {}; INST.forEach((q) => { cnt[q.t] = (cnt[q.t] || 0) + 1; q.code = INST_PREFIX[q.t] + cnt[q.t]; }); }
+const instWall = (q) => q.ceil ? "sufit" : q.floor ? "posadzka" : q.y === 0 ? "N" : q.x === 0 ? "W" : q.y >= 600 ? "S" : q.x >= 900 ? "E" : null;
+// trasy orientacyjne: e – 230 V, d – sieć, t – telefon, h – HDMI; lv: s – w ścianie / listwie, c – pod sufitem, f – w posadzce
+const ROUTES = [
+  { t: "e", lv: "s", pts: [[124, 4], [4, 4], [4, 540]] },
+  { t: "e", lv: "s", pts: [[236, 4], [896, 4]] },
+  { t: "e", lv: "c", pts: [[596, 4], [630, 315]] },
+  { t: "d", lv: "s", pts: [[124, 10], [10, 10], [10, 585]] },
+  { t: "d", lv: "s", pts: [[236, 10], [565, 10]] },
+  { t: "d", lv: "c", pts: [[236, 10], [236, 22], [886, 22], [886, 592], [840, 592]] },
+  { t: "t", lv: "s", pts: [[236, 15], [540, 15]] },
+  { t: "h", lv: "f", pts: [[380, 320], [448, 320], [448, 16]] },
+  { t: "h", lv: "c", pts: [[448, 16], [645, 315]] },
 ];
 
 /* kontrola przejść: odcinek pomiaru na rzucie + wymagane minimum */
@@ -592,6 +659,14 @@ document.getElementById("facts").innerHTML = [
   ["Zakup mebli i aneksu", `${Math.round(known).toLocaleString("pl-PL")} zł <small>brutto, bez dostawy</small>`],
 ].map(([a, b]) => `<div><dt>${a}</dt><dd>${b}</dd></div>`).join("");
 
+/* symbol punktu instalacyjnego: koło (230 V, RJ45, woda), romb (telefon), kwadrat (puszka, HDMI), sześciokąt (AP) */
+function instSymbol(parent, p, x, y, r) {
+  if (p.t === "box" || p.t === "hdmi") return el("rect", { x: x - r, y: y - r, width: 2 * r, height: 2 * r, class: p.t }, parent);
+  if (p.t === "tel") return el("path", { d: `M ${x} ${y - r * 1.25} L ${x + r * 1.25} ${y} L ${x} ${y + r * 1.25} L ${x - r * 1.25} ${y} Z`, class: p.t }, parent);
+  if (p.t === "ap") return el("path", { d: [0, 1, 2, 3, 4, 5].map((k) => { const a = Math.PI / 6 + k * Math.PI / 3; return `${k ? "L" : "M"} ${(x + Math.cos(a) * r * 1.2).toFixed(1)} ${(y + Math.sin(a) * r * 1.2).toFixed(1)}`; }).join(" ") + " Z", class: p.t }, parent);
+  return el("circle", { cx: x, cy: y, r, class: p.t }, parent);
+}
+
 /* ---------- RZUT 2D ---------- */
 const plan = document.getElementById("plan");
 function drawPlan() {
@@ -639,7 +714,7 @@ function drawPlan() {
   RADIATORS.forEach((r) => el("rect", { x: r.x, y: r.y, width: r.w, height: r.d, class: "it rad" }, plan));
 
   // meble: najpierw stojące, potem leżące na blatach, na końcu wiszące
-  const items = g("items");
+  const items = g("items layer-furn");
   const order = (it) => (it.above ? 2 : it.ontop ? 1 : 0);
   const seenBadge = new Set();
   [...I].filter((it) => !it.hidePlan).sort((a, b) => order(a) - order(b)).forEach((it) => {
@@ -680,7 +755,7 @@ function drawPlan() {
     if (!seenBadge.has(it.k)) {
       seenBadge.add(it.k);
       const pos = badgePos(it);
-      const bg = el("g", { class: "badge layer-num" }, plan);
+      const bg = el("g", { class: "badge layer-num layer-furn" }, plan);
       el("circle", { cx: pos[0], cy: pos[1], r: 10 }, bg);
       txt(bg, pos[0], pos[1] + 4, String(c.n), "", { "text-anchor": "middle" });
     }
@@ -713,14 +788,16 @@ function drawPlan() {
   // instalacje
   const ins = g("inst layer-inst");
   INST.forEach((p) => {
-    const px = p.x === 0 ? 6 : p.x, py = p.y === 0 ? 6 : p.y;
-    if (p.t === "box") el("rect", { x: px - 7, y: py - 7, width: 14, height: 14, class: p.t }, ins);
-    else el("circle", { cx: px, cy: py, r: 6, class: p.t }, ins);
+    const px = p.x === 0 ? 6 : p.x >= 900 ? 894 : p.x, py = p.y === 0 ? 6 : p.y >= 600 ? 594 : p.y;
+    instSymbol(ins, p, px, py, 6);
+    const nIdx = INST.filter((q) => q.y === 0 && !q.ceil && !q.floor).sort((a, b) => a.x - b.x).indexOf(p);
+    const ox = p.x === 0 ? 10 : p.ceil ? (p.t === "p230" ? -10 : 10) : 0, oy = p.y === 0 ? (nIdx % 2 ? 32 : 20) : p.ceil ? 4 : -10;
+    txt(ins, px + ox, py + oy, p.code, "code", { "text-anchor": p.x === 0 ? "start" : p.ceil ? (p.t === "p230" ? "end" : "start") : "middle" });
   });
   const lg = el("g", { class: "inst layer-inst" }, plan);
-  [["p230", "230 V"], ["rj", "RJ45"], ["h2o", "woda"]].forEach(([t, s], i) => {
-    const x = 560 + i * 92, y = ROOM.d + SOUTH_T + 88;
-    if (t === "box") el("rect", { x: x - 6, y: y - 6, width: 12, height: 12, class: t }, lg); else el("circle", { cx: x, cy: y, r: 6, class: t }, lg);
+  [["p230", "E 230 V"], ["rj", "D RJ45"], ["tel", "T telefon"], ["hdmi", "H HDMI"], ["ap", "A Wi-Fi"], ["box", "P puszka"], ["h2o", "W woda"]].forEach(([t, s], i) => {
+    const x = 330 + i * 92, y = ROOM.d + SOUTH_T + 88;
+    instSymbol(lg, { t }, x, y, 6);
     txt(lg, x + 10, y + 4, s, "");
   });
 
@@ -738,7 +815,7 @@ function drawPlan() {
 }
 function badgePos(it) {
   const map = {
-    szafa: [70, 150], przegroda: [84, 340], klucze: [92, 22], tablica_biurka: [24, 248], tablica_druk: [452, 26], rzutnik: [872, 315], zielen_sciana: [872, 157], zielen_okna: [196, 632], ogloszenia: [318, 572], ogl_rog: [840, 572], zielen_szafy: [22, 60], cmd_monitor: [256, 26], cmd_pc: [284, 50], scianka: [100, 205], biurko: [84, 357], krz_biuro: [140, 290], stol_pracy: [232, 262], krz_pracy: [300, 196],
+    szafa: [70, 150], przegroda: [84, 340], klucze: [92, 22], tablica_biurka: [24, 248], tablica_druk: [452, 26], rzutnik: [872, 315], zielen_sciana: [872, 157], zielen_okna: [196, 632], ogloszenia: [318, 572], ogl_rog: [840, 572], projektor: [630, 286], telefon: [560, 40], ap: [812, 585], zielen_szafy: [22, 60], cmd_monitor: [256, 26], cmd_pc: [284, 50], scianka: [100, 205], biurko: [84, 357], krz_biuro: [140, 290], stol_pracy: [232, 262], krz_pracy: [300, 196],
     druk_duza: [400, 92], finiszer: [342, 92], druk_mala: [88, 582], podstawa: [88, 542], stol_wysoki: [575, 88], tonery: [545, 74], akcesoria: [482, 64], lodowka: [630, 98], czajnik: [705, 110], mikrofala: [750, 110],
     an_szuflady: [690, 76], an_polki: [750, 76], zmywarka: [810, 76], an_zlew: [880, 76], an_wiszaca: [780, 132], blat: [850, 132],
     stol_jad: [700, 196], krz_jad: [648, 182], krz_zapas: [845, 530], sofa3: [185, 486], sofa2: [412, 486], stolik: [577, 508], fotel: [642, 494], laptop: [44, 365],
@@ -768,12 +845,14 @@ function chainV(g, ys, x) {
   ys.forEach((y) => { el("line", { x1: x - 3.5, y1: y + 3.5, x2: x + 3.5, y2: y - 3.5, class: "tick" }, g); el("line", { x1: x - 5, y1: y, x2: x + 5, y2: y }, g); });
   for (let i = 0; i < ys.length - 1; i++) { const h = ys[i + 1] - ys[i]; const cy = (ys[i] + ys[i + 1]) / 2; if (h >= 14) txt(g, x - 6, cy, String(h), "", { "text-anchor": "middle", transform: `rotate(-90 ${x - 6} ${cy})`, style: h < 30 ? "font-size:9px" : null }); }
 }
-const LAYERS = { grid: "l-grid", dims: "l-dims", chk: "l-chk", zones: "l-zones", inst: "l-inst", num: "l-num" };
+const LAYERS = { grid: "l-grid", dims: "l-dims", chk: "l-chk", zones: "l-zones", inst: "l-inst", num: "l-num", furn: "l-furn" };
+const LSTATE = {};
 function applyLayers() {
   for (const [name, id] of Object.entries(LAYERS)) {
     const on = document.getElementById(id).checked;
-    plan.querySelectorAll(".layer-" + name).forEach((n) => n.style.display = on ? "" : "none");
+    LSTATE[name] = on;
   }
+  plan.querySelectorAll('[class*="layer-"]').forEach((n) => { const off = [...n.classList].some((c) => c.startsWith("layer-") && LSTATE[c.slice(6)] === false); n.style.display = off ? "none" : ""; });
 }
 Object.values(LAYERS).forEach((id) => document.getElementById(id).addEventListener("change", applyLayers));
 
@@ -889,11 +968,11 @@ function drawElev(key) {
     if (it.kind === "table" && w > 60) txt(gi, u0 + w / 2, Y(it.z + it.h) - 6, it.label || c.name.replace("IKEA ", ""), "lbl sm", { "text-anchor": "middle" });
   });
   // instalacje na ścianie
-  const wallOf = (p) => (p.y === 0 && p.t !== "box" ? "N" : p.x === 0 ? "W" : null);
-  INST.filter((p) => wallOf(p) === key).forEach((p) => {
-    const u = key === "N" ? p.x : 600 - p.y;
+  INST.filter((p) => instWall(p) === key).forEach((p, idx) => {
+    const u = key === "N" ? p.x : key === "W" ? 600 - p.y : key === "S" ? 900 - p.x : p.y;
     const gi = el("g", { class: "inst" }, elev);
-    el("circle", { cx: u, cy: Y(p.z), r: 5, class: p.t }, gi);
+    instSymbol(gi, p, u, Y(p.z), 5);
+    txt(gi, u, Y(p.z) - 9 - (idx % 2) * 11, p.code, "code", { "text-anchor": "middle" });
   });
   // wymiary: długość, wysokości charakterystyczne
   const d = el("g", { class: "dim" }, elev);
@@ -972,9 +1051,80 @@ function costTable() {
 }
 costTable();
 
-const INST_LABEL = { p230: "Gniazdo 230 V", rj: "Gniazdo RJ45", h2o: "Woda / odpływ", box: "Puszka podłogowa" };
-document.getElementById("inst-table").innerHTML = `<thead><tr><th>Rodzaj</th><th>Miejsce i przeznaczenie</th><th class="num">Wysokość</th></tr></thead><tbody>` +
-  INST.map((p) => `<tr><td><span class="pill ${p.t === "rj" ? "ok" : p.t === "box" ? "warn" : "mute"}">${INST_LABEL[p.t]}</span></td><td>${esc(p.txt)}</td><td class="num">${p.z ? p.z + " cm" : "podłoga"}</td></tr>`).join("") + `</tbody>`;
+const INST_LABEL = { p230: "230 V", rj: "RJ45 kat. 6", tel: "Telefon", hdmi: "HDMI", ap: "Access point (PoE)", box: "Puszka podłogowa", h2o: "Woda / odpływ" };
+const WALL_NAME = { N: "ściana z wejściem", W: "ściana z szafami", S: "ściana z oknami", E: "ściana przy jadalni", sufit: "sufit", posadzka: "posadzka" };
+const INST_PILL = { p230: "warn", rj: "ok", tel: "ok", hdmi: "mute", ap: "ok", box: "mute", h2o: "mute" };
+document.getElementById("inst-table").innerHTML = `<thead><tr><th>Kod</th><th>Rodzaj</th><th>Miejsce</th><th>Montaż</th><th class="num">Wysokość osi</th><th>Co ma być w punkcie</th></tr></thead><tbody>` +
+  INST.map((p) => `<tr><td class="mono"><b>${p.code}</b></td><td><span class="pill ${INST_PILL[p.t]}">${INST_LABEL[p.t]}</span></td><td>${esc(p.txt)}</td><td>${WALL_NAME[instWall(p)]}</td><td class="num">${p.ceil ? "sufit" : p.floor ? "posadzka" : p.z + " cm"}</td><td>${esc(p.spec)}</td></tr>`).join("") + "</tbody>";
+{
+  const n = (t) => INST.filter((q) => q.t === t).length;
+  document.getElementById("inst-sum").innerHTML = [
+    ["Gniazda 230 V", n("p230"), "w tym 1 w suficie przy rzutniku"],
+    ["Gniazda RJ45 kat. 6", n("rj"), "obie drukarki, centrum dowodzenia, stół do kompletowania"],
+    ["Access point Wi-Fi", n("ap"), "nad tablicą w narożniku, zasilanie PoE"],
+    ["Telefon stacjonarny", n("tel"), "gniazdo przy stole obok bizhuba"],
+    ["HDMI stół → rzutnik", 1, "puszka podłogowa P1 i wyjście H1 w suficie"],
+  ].map(([a, b, c]) => `<div><dt>${a}</dt><dd>${b}<small>${c}</small></dd></div>`).join("");
+}
+const iplan = document.getElementById("iplan");
+function drawInstPlan() {
+  iplan.innerHTML = "";
+  iplan.setAttribute("viewBox", "-90 -96 1080 806");
+  const G = (cls) => el("g", { class: cls }, iplan);
+  const grid = G("grid");
+  for (let x = 50; x < 900; x += 50) el("line", { x1: x, y1: 0, x2: x, y2: 600 }, grid);
+  for (let y = 50; y < 600; y += 50) el("line", { x1: 0, y1: y, x2: 900, y2: y }, grid);
+  el("rect", { x: 0, y: 0, width: 900, height: 600, class: "room", fill: "none" }, iplan).style.fillOpacity = 0.35;
+  // drzwi i okna
+  el("line", { x1: DOOR.x0, y1: 0, x2: DOOR.x1, y2: 0, stroke: "var(--floor)", "stroke-width": 8 }, iplan);
+  WINDOWS.forEach(([a, b]) => el("line", { x1: a, y1: 600, x2: b, y2: 600, class: "glass" }, iplan));
+  txt(iplan, (DOOR.x0 + DOOR.x1) / 2, -14, "wejście", "wl", { "text-anchor": "middle" });
+  txt(iplan, 20, -84, "ściana z wejściem (punkty opisane nad ścianą)", "wl", { "text-anchor": "start" });
+  txt(iplan, 450, 650, "ściana z oknami", "wl", { "text-anchor": "middle" });
+  txt(iplan, -54, 300, "ściana z szafami", "wl", { "text-anchor": "middle", transform: "rotate(-90 -54 300)" });
+  txt(iplan, 954, 300, "ściana przy jadalni", "wl", { "text-anchor": "middle", transform: "rotate(90 954 300)" });
+  // meble jako podkład
+  const furn = G("furn ilayer-furn");
+  I.filter((it) => !it.hidePlan && !it.ontop).forEach((it) => {
+    const r = el("rect", { x: it.x, y: it.y, width: it.w, height: it.d, rx: it.kind === "chair" || it.kind === "stack" ? 5 : 1 }, furn);
+    if (it.above) r.setAttribute("stroke-dasharray", "4 3");
+  });
+  [["Stół roboczy", 300, 290], ["Jadalnia", 756, 320], ["Sofy", 400, 545], ["Aneks", 780, 36], ["bizhub", 400, 40], ["Xerox", 33, 560]].forEach(([s2, x, y]) => txt(furn, x, y, s2, "", { "text-anchor": "middle" }));
+  // trasy
+  const rts = G("ilayer-routes");
+  ROUTES.forEach((r) => el("polyline", { points: r.pts.map((q) => q.join(",")).join(" "), class: `rt ${r.t} lv-${r.lv}` }, rts));
+  el("rect", { x: 128, y: 26, width: 104, height: 30, rx: 3, fill: "var(--sheet)", stroke: "var(--line)" }, rts);
+  txt(rts, 180, 38, "wejście przewodów", "tag", { "text-anchor": "middle" });
+  txt(rts, 180, 50, "z korytarza", "tag", { "text-anchor": "middle" });
+  // punkty
+  const ins = G("inst");
+  const nOrder = INST.filter((q) => instWall(q) === "N").sort((a, b) => a.x - b.x);
+  INST.forEach((p) => {
+    const w = instWall(p);
+    const px = p.x === 0 ? 0 : p.x >= 900 ? 900 : p.x, py = p.y === 0 ? 0 : p.y >= 600 ? 600 : p.y;
+    instSymbol(ins, p, px, py, 7);
+    let lx = px, ly = py - 12, anchor = "middle", tx = px, ty = py + 20;
+    if (w === "N") { const k = nOrder.indexOf(p) % 3; ly = -16 - k * 21; ty = ly + 10; el("line", { x1: px, y1: -7, x2: px, y2: ly + 3, stroke: "var(--line)" }, ins); }
+    if (w === "W") { lx = -12; ly = py + 4; anchor = "end"; tx = -12; ty = py + 15; }
+    if (w === "S") { ly = 624; ty = 636; }
+    if (w === "sufit" || w === "posadzka") { const left = p.t === "p230"; lx = left ? px - 11 : px + 11; ly = py - 4; anchor = left ? "end" : "start"; tx = lx; ty = py + 8; }
+    txt(ins, lx, ly, p.code, "code", { "text-anchor": anchor });
+    txt(ins, tx, ty, p.ceil ? "sufit" : p.floor ? "posadzka" : `h ${p.z}`, "tag ilayer-tags", { "text-anchor": anchor });
+  });
+  applyInstLayers();
+}
+const ILAYERS = { furn: "i-furn", routes: "i-routes", tags: "i-tags" };
+function applyInstLayers() { for (const [k, id] of Object.entries(ILAYERS)) { const on = document.getElementById(id).checked; iplan.querySelectorAll(".ilayer-" + k).forEach((n) => (n.style.display = on ? "" : "none")); } }
+Object.values(ILAYERS).forEach((id) => document.getElementById(id).addEventListener("change", applyInstLayers));
+drawInstPlan();
+{
+  const sw = (fn) => { const sv = el("svg", { width: 22, height: 16, viewBox: "-11 -8 22 16" }); fn(sv); return sv.outerHTML; };
+  const pts = [["p230", "E: gniazdo 230 V"], ["rj", "D: gniazdo RJ45 kat. 6"], ["tel", "T: gniazdo telefoniczne"], ["hdmi", "H: HDMI"], ["box", "P: puszka podłogowa"], ["ap", "A: access point (PoE)"], ["h2o", "W: woda"]];
+  const lines = [["e", "s", "trasa 230 V w ścianie"], ["d", "s", "trasa sieci w ścianie"], ["t", "s", "trasa telefonu"], ["h", "f", "HDMI w posadzce"], ["d", "c", "trasa pod sufitem"]];
+  document.getElementById("ilegend").innerHTML =
+    pts.map(([t, s2]) => `<span>${sw((sv) => { const g2 = el("g", { class: "inst" }, sv); instSymbol(g2, { t }, 0, 0, 5); })}${s2}</span>`).join("") +
+    lines.map(([t, lv, s2]) => `<span><svg width="30" height="10" viewBox="0 0 30 10"><line x1="1" y1="5" x2="29" y2="5" class="rt ${t} lv-${lv}" style="fill:none;stroke-width:2.2;stroke:${{ e: "#e0a43a", d: "#4f7fbf", t: "#3f9a5b", h: "#8a4fc4" }[t]};${lv === "c" ? "stroke-dasharray:2 5" : lv === "f" ? "stroke-dasharray:12 6" : ""}"/></svg>${s2}</span>`).join("");
+}
 
 /* ---------- MODEL 3D ---------- */
 const host = document.getElementById("viewer");
@@ -1306,6 +1456,33 @@ I.forEach((it) => {
   const X = it.x, Y = it.y, W = it.w, D = it.d, Z = it.z || 0, H = it.h, FY = it.y + it.d, FX = it.x + it.w;
   const fN = (x0, z0, w0, h0, dep, mm) => box(X + x0, FY, z0, w0, dep, h0, mm, furniture, null, false); // detal na froncie (ściana z wejściem)
   const fW = (y0, z0, w0, h0, dep, mm) => box(FX, Y + y0, z0, dep, w0, h0, mm, furniture, null, false); // detal na froncie (ściana z szafami)
+  if (it.k === "projektor") {
+    // rzutnik na uchwycie sufitowym z wysięgnikiem, obiektyw w stronę ściany przy jadalni
+    rbox(X + W / 2 - 8, Y + D / 2 - 8, ROOM.h - 2, 16, 16, 2, 2, 0.5, DEV.dk, it);
+    const pole = new THREE.Mesh(new THREE.CylinderGeometry(0.018, 0.018, (ROOM.h - Z - H - 2) * S, 12), DEV.dk);
+    pole.position.copy(P(X + W / 2, Y + D / 2, (ROOM.h - 2 + Z + H) / 2)); pole.castShadow = true; furniture.add(pole);
+    rbox(X + W / 2 - 7, Y + D / 2 - 7, Z + H, 14, 14, 1.5, 1, 0.4, DEV.dk, null);
+    rbox(X, Y, Z, W, D, H, 2.5, 1.5, mat(0xf2f2f0, { roughness: 0.4 }), it);
+    const lens = new THREE.Mesh(new THREE.CylinderGeometry(0.038, 0.042, 0.03, 24), DEV.black); lens.rotation.z = Math.PI / 2; lens.position.copy(P(X + W + 1, Y + D / 2 - 5, Z + H / 2)); furniture.add(lens);
+    const glass = new THREE.Mesh(new THREE.CircleGeometry(0.03, 24), mat(0x2b4a6b, { roughness: 0.05, metalness: 0.5 })); glass.rotation.y = Math.PI / 2; glass.position.copy(P(X + W + 2.6, Y + D / 2 - 5, Z + H / 2)); furniture.add(glass);
+    for (let k = 0; k < 5; k++) box(X + 4, Y + 4 + k * 3.5, Z + H, 10, 1.2, 0.3, DEV.dk, furniture, null, false);
+    return;
+  }
+  if (it.k === "telefon") {
+    // telefon stacjonarny: podstawa z klawiaturą i wyświetlaczem, słuchawka
+    rbox(X, Y, Z, W, D, 4.5, 2, 1.2, DEV.black, it);
+    rbox(X + 1, Y + 1.5, Z + 4.5, 5.5, D - 3, 3.2, 2, 1.4, mat(0x2a2d2f, { roughness: 0.35 }), it);
+    box(X + 9, Y + D - 7, Z + 4.5, 9, 5, 0.3, mat(0x9fb3a8, { roughness: 0.2 }), furniture, null, false);
+    for (let r = 0; r < 4; r++) for (let c = 0; c < 3; c++) box(X + 9 + c * 3.2, Y + 2 + r * 2.5, Z + 4.5, 2.2, 1.6, 0.5, mat(0x5a5f62), furniture, null, false);
+    return;
+  }
+  if (it.k === "ap") {
+    // access point na ścianie: biały dysk z diodą
+    const disc = new THREE.Mesh(new THREE.CylinderGeometry(0.11, 0.115, 0.035, 40), mat(0xf6f6f4, { roughness: 0.35 }));
+    disc.rotation.x = Math.PI / 2; disc.position.copy(P(X + W / 2, Y + 2, Z + H / 2)); disc.castShadow = true; disc.userData.owner = it; pickables.push(disc); furniture.add(disc);
+    const led = new THREE.Mesh(new THREE.CircleGeometry(0.008, 16), mat(0x3b8cff, { emissive: 0x3b8cff, emissiveIntensity: 1.5 })); led.rotation.y = Math.PI; led.position.copy(P(X + W / 2, Y + 0.1, Z + H / 2)); furniture.add(led);
+    return;
+  }
   if (it.k === "druk_duza") {
     // Konica Minolta bizhub C450i z kasetą PC i wewnętrzną tacą wydruku
     rbox(X + 3, Y + 3, 0, W - 6, D - 6, 5, 1, 0, DEV.dk, it);
