@@ -1,0 +1,1104 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Pokój nauczycielski, sala 16</title>
+<meta name="claude:viewport-fit-sides" content="cover" />
+<meta name="robots" content="noindex, nofollow, noarchive" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" />
+<style>
+/* Układ: arkusz rysunkowy – rysunki na pełną szerokość, tekst w kolumnie ~70 znaków, paski narzędzi nad rysunkami. */
+:root {
+  --paper: #f5f2eb;
+  --sheet: #ffffff;
+  --ink: #1c2321;
+  --muted: #566360;
+  --line: #dcd6ca;
+  --line-soft: #ebe6dc;
+  --accent: #17695f;
+  --accent-soft: #e2efec;
+  --warn: #8a5a0c;
+  --warn-soft: #f8e8cf;
+  --bad: #a03a2d;
+  --bad-soft: #f7e1dd;
+  --wall: #2f3b3a;
+  --floor: #f3efe6;
+  --grid: #e6e0d4;
+  --z-storage: #a9b4bb;
+  --z-work: #b8cfc1;
+  --z-print: #b8c9dd;
+  --z-kitchen: #d9c7a5;
+  --z-dining: #e7cb9b;
+  --z-lounge: #93b09f;
+  --z-tech: #7f8f96;
+  --chair: #ffffff;
+  --glass: #6aa7c4;
+  --zone: rgba(23, 105, 95, 0.08);
+  --font-text: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --radius: 10px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #151b1a; --sheet: #1d2524; --ink: #e8ece9; --muted: #a2b0ad; --line: #34403e; --line-soft: #283231;
+    --accent: #5cc2b3; --accent-soft: #1d3633; --warn: #e7b765; --warn-soft: #3a2e17; --bad: #ef8c7c; --bad-soft: #3d221d;
+    --wall: #cfd8d5; --floor: #222b2a; --grid: #2d3836;
+    --z-storage: #5d6b73; --z-work: #4f6e5d; --z-print: #4c6280; --z-kitchen: #7a6a4b; --z-dining: #8a7046; --z-lounge: #4f6e5d; --z-tech: #73848b;
+    --chair: #2c3634; --glass: #6aa7c4; --zone: rgba(92, 194, 179, 0.10);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #151b1a; --sheet: #1d2524; --ink: #e8ece9; --muted: #a2b0ad; --line: #34403e; --line-soft: #283231;
+  --accent: #5cc2b3; --accent-soft: #1d3633; --warn: #e7b765; --warn-soft: #3a2e17; --bad: #ef8c7c; --bad-soft: #3d221d;
+  --wall: #cfd8d5; --floor: #222b2a; --grid: #2d3836;
+  --z-storage: #5d6b73; --z-work: #4f6e5d; --z-print: #4c6280; --z-kitchen: #7a6a4b; --z-dining: #8a7046; --z-lounge: #4f6e5d; --z-tech: #73848b;
+  --chair: #2c3634; --glass: #6aa7c4; --zone: rgba(92, 194, 179, 0.10);
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; overflow-x: hidden; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  margin: 0; background: var(--paper); color: var(--ink);
+  font-family: var(--font-text); font-size: 16px; line-height: 1.55;
+  overflow-x: hidden;
+}
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--sheet); }
+.wrap {
+  max-width: 1180px; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+a { color: var(--accent); }
+button:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+/* nagłówek */
+.head { background: var(--sheet); border-bottom: 1px solid var(--line); }
+.head .wrap { padding-block: 28px 22px; display: grid; gap: 14px; }
+.eyebrow { font-family: var(--font-mono); font-size: 12.5px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); display: flex; flex-wrap: wrap; gap: 6px 14px; }
+.eyebrow .tag { color: var(--warn); background: var(--warn-soft); padding: 1px 8px; border-radius: 4px; }
+h1 { margin: 0; font-size: clamp(28px, 4.4vw, 42px); line-height: 1.1; letter-spacing: -0.015em; text-wrap: balance; }
+.lead { margin: 0; max-width: 70ch; color: var(--muted); }
+.facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 0; border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; margin-top: 6px; }
+.facts div { padding: 10px 14px; border-right: 1px solid var(--line-soft); min-width: 0; }
+.facts dt { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
+.facts dd { margin: 2px 0 0; font-weight: 600; font-size: 20px; font-variant-numeric: tabular-nums; }
+.facts dd small { font-weight: 400; font-size: 13px; color: var(--muted); }
+
+/* nawigacja sekcji */
+.toc { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: color-mix(in srgb, var(--paper) 92%, transparent); backdrop-filter: blur(6px); border-bottom: 1px solid var(--line); }
+.toc .wrap { display: flex; gap: 4px; overflow-x: auto; padding-block: 8px; scrollbar-width: thin; }
+.toc a { flex: none; text-decoration: none; color: var(--ink); font-size: 14px; padding: 6px 11px; border-radius: 6px; }
+.toc a:hover { background: var(--accent-soft); color: var(--accent); }
+
+section { padding-block: 40px 8px; scroll-margin-top: 56px; }
+h2 { font-size: 24px; margin: 0 0 6px; letter-spacing: -0.01em; text-wrap: balance; }
+h2 .num { font-family: var(--font-mono); font-weight: 400; color: var(--muted); font-size: 15px; margin-right: 8px; }
+h3 { font-size: 17px; margin: 22px 0 8px; }
+.sec-lead { margin: 0 0 16px; color: var(--muted); max-width: 72ch; }
+
+/* arkusz rysunku */
+.sheet { background: var(--sheet); border: 1px solid var(--line); border-radius: var(--radius); }
+.toolbar { display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: center; padding: 10px 14px; border-bottom: 1px solid var(--line-soft); font-size: 14px; }
+.toolbar label { display: inline-flex; gap: 6px; align-items: center; cursor: pointer; user-select: none; }
+.toolbar input { accent-color: var(--accent); width: 16px; height: 16px; margin: 0; }
+.toolbar .sp { flex: 1; }
+.toolbar .note { color: var(--muted); font-size: 13px; }
+.btn { font: inherit; font-size: 14px; border: 1px solid var(--line); background: var(--sheet); color: var(--ink); padding: 6px 12px; border-radius: 6px; cursor: pointer; }
+.btn:hover { border-color: var(--accent); color: var(--accent); }
+.btn[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--sheet); }
+.drawing { overflow-x: auto; padding: 8px; }
+.drawing svg { display: block; width: 100%; min-width: 720px; height: auto; }
+.titleblock { display: flex; flex-wrap: wrap; gap: 4px 22px; padding: 9px 14px; border-top: 1px solid var(--line-soft); font-family: var(--font-mono); font-size: 12px; color: var(--muted); }
+
+/* style SVG */
+svg text { font-family: var(--font-text); fill: var(--ink); }
+.s-wall { fill: var(--wall); }
+.s-floor { fill: var(--floor); }
+.s-grid { stroke: var(--grid); stroke-width: 1; }
+.s-grid.major { stroke-width: 1.6; }
+.it { stroke: var(--wall); stroke-width: 1.4; }
+.it.storage { fill: var(--z-storage); } .it.work { fill: var(--z-work); } .it.print { fill: var(--z-print); }
+.it.kitchen { fill: var(--z-kitchen); } .it.dining { fill: var(--z-dining); } .it.lounge { fill: var(--z-lounge); }
+.it.tech { fill: var(--z-tech); } .it.chair { fill: var(--chair); } .it.above { fill: none; stroke-dasharray: 7 5; }
+.it.ontop { stroke-width: 1; fill-opacity: 0.85; }
+.it.rad { fill: var(--line); stroke-width: 1; }
+g.item { cursor: pointer; }
+g.item.hl .it { stroke: var(--accent); stroke-width: 3.2; }
+g.item.dim .it, g.item.dim text { opacity: 0.25; }
+.lbl { font-size: 13px; font-weight: 500; pointer-events: none; }
+.lbl.sm { font-size: 10.5px; }
+.badge circle { fill: var(--ink); }
+.badge text { fill: var(--sheet); font-family: var(--font-mono); font-size: 11px; font-weight: 500; }
+.zone rect { fill: var(--zone); stroke: var(--accent); stroke-width: 1.2; stroke-dasharray: 5 4; }
+.zone text { fill: var(--accent); font-size: 11.5px; font-weight: 600; }
+.dim line, .dim path { stroke: var(--ink); stroke-width: 1; fill: none; }
+.dim text { font-family: var(--font-mono); font-size: 12px; }
+.dim .tick { stroke-width: 1.4; }
+.chk line { stroke-width: 1.6; }
+.chk.ok line, .chk.ok path { stroke: var(--accent); } .chk.ok text { fill: var(--accent); }
+.chk.warn line, .chk.warn path { stroke: var(--warn); } .chk.warn text { fill: var(--warn); }
+.chk.bad line, .chk.bad path { stroke: var(--bad); } .chk.bad text { fill: var(--bad); }
+.chk text { font-family: var(--font-mono); font-size: 12px; font-weight: 500; paint-order: stroke; stroke: var(--floor); stroke-width: 4px; }
+.inst circle, .inst rect { stroke: var(--wall); stroke-width: 1; }
+.inst .p230 { fill: #e0a43a; } .inst .rj { fill: #4f7fbf; } .inst .h2o { fill: #3f9fcf; } .inst .box { fill: #b07acc; }
+.inst text { font-size: 10px; font-family: var(--font-mono); }
+.door { stroke: var(--wall); stroke-width: 1.4; fill: none; }
+.glass { stroke: var(--glass); stroke-width: 3; }
+.wtxt { font-size: 12px; font-family: var(--font-mono); fill: var(--muted); }
+.north text { font-family: var(--font-mono); font-size: 12px; }
+
+/* legenda obok rzutu */
+.legend { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 2px 18px; padding: 12px 14px; border-top: 1px solid var(--line-soft); }
+.legend button { all: unset; display: grid; grid-template-columns: 26px 14px 1fr; gap: 8px; align-items: center; padding: 4px 6px; border-radius: 6px; cursor: pointer; font-size: 14px; }
+.legend button:hover, .legend button.on { background: var(--accent-soft); }
+.legend button:focus-visible { outline: 2px solid var(--accent); }
+.legend .n { font-family: var(--font-mono); font-size: 12px; color: var(--muted); text-align: right; }
+.legend .sw { width: 14px; height: 14px; border-radius: 3px; border: 1px solid var(--wall); }
+.legend .t { min-width: 0; }
+.legend .t small { color: var(--muted); }
+
+/* elewacje */
+.elev-grid { display: grid; gap: 16px; }
+.elev-tabs { display: flex; flex-wrap: wrap; gap: 6px; }
+
+/* 3D */
+.viewer { position: relative; height: clamp(360px, 62vh, 640px); background: var(--floor); border-radius: 0 0 var(--radius) var(--radius); overflow: hidden; touch-action: none; }
+.viewer canvas { display: block; width: 100%; height: 100%; cursor: grab; }
+.viewer canvas:active { cursor: grabbing; }
+.pick { position: absolute; left: 12px; bottom: 12px; right: 12px; pointer-events: none; display: flex; }
+.pick span { background: var(--sheet); border: 1px solid var(--line); border-radius: 6px; padding: 6px 10px; font-size: 14px; max-width: 100%; box-shadow: 0 2px 10px rgba(0,0,0,.08); }
+.v-msg { position: absolute; inset: 0; display: grid; place-items: center; color: var(--muted); padding: 20px; text-align: center; }
+
+/* tabele */
+.tbl-wrap { overflow-x: auto; background: var(--sheet); border: 1px solid var(--line); border-radius: var(--radius); }
+table { border-collapse: collapse; width: 100%; font-size: 14px; }
+th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line-soft); vertical-align: top; }
+th { font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); font-weight: 600; background: var(--sheet); position: sticky; top: 0; }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+td.mono { font-family: var(--font-mono); font-size: 12.5px; white-space: nowrap; }
+tr.zone-row td { background: var(--paper); font-weight: 600; font-size: 13px; letter-spacing: 0.02em; }
+tr.total td { font-weight: 700; border-top: 2px solid var(--ink); }
+.pill { display: inline-block; font-size: 12px; padding: 1px 8px; border-radius: 999px; white-space: nowrap; }
+.pill.ok { background: var(--accent-soft); color: var(--accent); }
+.pill.warn { background: var(--warn-soft); color: var(--warn); }
+.pill.bad { background: var(--bad-soft); color: var(--bad); }
+.pill.mute { background: var(--line-soft); color: var(--muted); }
+.cost-sum { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-bottom: 14px; }
+.cost-sum div { background: var(--sheet); border: 1px solid var(--line); border-radius: var(--radius); padding: 12px 14px; }
+.cost-sum dt { font-size: 13px; color: var(--muted); }
+.cost-sum dd { margin: 4px 0 0; font-size: 22px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.cost-sum dd small { display: block; font-size: 13px; font-weight: 400; color: var(--muted); }
+
+.cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+.card { background: var(--sheet); border: 1px solid var(--line); border-radius: var(--radius); padding: 14px 16px; min-width: 0; }
+.card h3 { margin-top: 0; }
+.card ol, .card ul { margin: 0; padding-left: 20px; display: grid; gap: 6px; }
+.prose { max-width: 72ch; }
+.foot { padding-block: 32px 48px; color: var(--muted); font-size: 13px; }
+.mono { font-family: var(--font-mono); }
+</style>
+</head>
+<body>
+
+<header class="head">
+  <div class="wrap">
+    <div class="eyebrow">
+      <span>ZSZ nr 5 · I piętro · sala 16</span>
+      <span>Koncepcja 08 · 24.11.2026</span>
+      <span class="tag">Strona robocza, niepodlinkowana</span>
+    </div>
+    <h1>Pokój nauczycielski, sala 16: plan wyposażenia</h1>
+    <p class="lead">Rzut w skali, elewacje ścian i model 3D na podstawie koncepcji 07 z pakietu przekazania. Wymiary mebli są rzeczywiste lub nominalne z kart produktów, wymiary sali (9 × 6 m) podane przez użytkownika. Położenie drzwi, okien, grzejników i instalacji jest orientacyjne do czasu pomiaru.</p>
+    <dl class="facts" id="facts"></dl>
+  </div>
+</header>
+
+<nav class="toc" aria-label="Sekcje planu">
+  <div class="wrap">
+    <a href="#rzut">Rzut 2D</a>
+    <a href="#elewacje">Elewacje</a>
+    <a href="#model">Model 3D</a>
+    <a href="#przejscia">Przejścia</a>
+    <a href="#zestawienie">Zestawienie i koszt</a>
+    <a href="#instalacje">Instalacje</a>
+    <a href="#ustalenia">Do ustalenia</a>
+  </div>
+</nav>
+
+<main class="wrap">
+
+<section id="rzut" aria-labelledby="h-rzut">
+  <h2 id="h-rzut"><span class="num">A</span>Rzut 2D w skali</h2>
+  <p class="sec-lead">Siatka co 50 cm, wymiary w centymetrach. Linia przerywana oznacza elementy wiszące nad podłogą (szafki aneksu, szafka ładująca). Kliknij mebel na rzucie albo w legendzie, żeby podświetlić wszystkie jego sztuki.</p>
+  <div class="sheet">
+    <div class="toolbar" role="group" aria-label="Warstwy rzutu">
+      <label><input type="checkbox" id="l-grid" checked /> Siatka 50 cm</label>
+      <label><input type="checkbox" id="l-dims" checked /> Wymiary</label>
+      <label><input type="checkbox" id="l-chk" checked /> Kontrola przejść</label>
+      <label><input type="checkbox" id="l-zones" /> Strefy obsługi</label>
+      <label><input type="checkbox" id="l-inst" /> Instalacje</label>
+      <label><input type="checkbox" id="l-num" checked /> Numery</label>
+      <span class="sp"></span>
+      <span class="note">Rysunek przewija się w poziomie na telefonie</span>
+    </div>
+    <div class="drawing"><svg id="plan" role="img" aria-label="Rzut sali 16 z rozmieszczeniem mebli"></svg></div>
+    <div class="legend" id="legend"></div>
+    <div class="titleblock"><span>Rzut · skala na ekranie dopasowana · 1 kratka = 50 cm</span><span>Pomieszczenie 900 × 600 cm, wysokość przyjęta 300 cm</span><span>Północ umowna: ściana z wejściem</span></div>
+  </div>
+</section>
+
+<section id="elewacje" aria-labelledby="h-elew">
+  <h2 id="h-elew"><span class="num">B</span>Elewacje ścian (widok od środka sali)</h2>
+  <p class="sec-lead">Każdą ścianę narysowano tak, jak widzi ją osoba stojąca na środku pokoju i patrząca na nią. Pokazane są meble stojące przy ścianie i elementy na niej zawieszone, z wysokościami montażu.</p>
+  <div class="sheet">
+    <div class="toolbar elev-tabs" role="group" aria-label="Wybór ściany">
+      <button class="btn" data-wall="N" aria-pressed="true">Ściana z wejściem (9 m)</button>
+      <button class="btn" data-wall="W" aria-pressed="false">Szafki i biurka (6 m)</button>
+      <button class="btn" data-wall="S" aria-pressed="false">Okna (9 m)</button>
+      <button class="btn" data-wall="E" aria-pressed="false">Ściana przy jadalni (6 m)</button>
+    </div>
+    <div class="drawing"><svg id="elev" role="img" aria-label="Elewacja wybranej ściany"></svg></div>
+    <div class="titleblock" id="elev-note"></div>
+  </div>
+</section>
+
+<section id="model" aria-labelledby="h-3d">
+  <h2 id="h-3d"><span class="num">C</span>Model 3D</h2>
+  <p class="sec-lead">Przeciągnij, żeby obracać, kółko myszy lub dwa palce przybliżają, prawy przycisk lub Shift + przeciąganie przesuwa widok. Ściany zwrócone do kamery chowają się same. Kliknięcie mebla pokazuje jego nazwę i wymiary.</p>
+  <div class="sheet">
+    <div class="toolbar" role="group" aria-label="Widoki modelu">
+      <button class="btn" data-view="iso" aria-pressed="true">Aksonometria</button>
+      <button class="btn" data-view="door" aria-pressed="false">Od wejścia</button>
+      <button class="btn" data-view="window" aria-pressed="false">Od okien</button>
+      <button class="btn" data-view="top" aria-pressed="false">Z góry</button>
+      <span class="sp"></span>
+      <label><input type="checkbox" id="v-walls" checked /> Ściany</label>
+    </div>
+    <div class="viewer" id="viewer">
+      <div class="v-msg" id="v-msg">Ładowanie modelu…</div>
+      <div class="pick" aria-live="polite"><span id="pick" hidden></span></div>
+    </div>
+  </div>
+</section>
+
+<section id="przejscia" aria-labelledby="h-chk">
+  <h2 id="h-chk"><span class="num">D</span>Kontrola przejść i stref obsługi</h2>
+  <p class="sec-lead">Odległości policzone z rzutu. Wartości wymagane to typowe minima projektowe dla mebli biurowych i jadalnianych; drogę ewakuacyjną musi ostatecznie potwierdzić osoba odpowiedzialna za BHP i ppoż.</p>
+  <div class="tbl-wrap"><table id="chk-table"></table></div>
+</section>
+
+<section id="zestawienie" aria-labelledby="h-list">
+  <h2 id="h-list"><span class="num">E</span>Zestawienie wyposażenia i kosztorys roboczy</h2>
+  <p class="sec-lead">Ceny pochodzą z wcześniejszej rozmowy (lista zakupowa z pakietu) i nie zostały ponownie sprawdzone. Pozycje bez ceny nie są liczone jako zero, tylko wykazane osobno. Drukarki, laptopy i monitor dotykowy są poza budżetem mebli.</p>
+  <dl class="cost-sum" id="cost-sum"></dl>
+  <div class="tbl-wrap"><table id="list-table"></table></div>
+</section>
+
+<section id="instalacje" aria-labelledby="h-inst">
+  <h2 id="h-inst"><span class="num">F</span>Instalacje do przygotowania</h2>
+  <p class="sec-lead">Punkty zaproponowane pod ten układ (warstwa „Instalacje” na rzucie). Zakres trzeba potwierdzić po inwentaryzacji istniejących gniazd, wody i odpływu.</p>
+  <div class="tbl-wrap"><table id="inst-table"></table></div>
+</section>
+
+<section id="ustalenia" aria-labelledby="h-todo">
+  <h2 id="h-todo"><span class="num">G</span>Do ustalenia przed zakupem</h2>
+  <div class="cols">
+    <div class="card">
+      <h3>Pomiary w sali</h3>
+      <ol>
+        <li>Potwierdzić wymiary 900 × 600 cm i wysokość sali.</li>
+        <li>Zmierzyć drzwi: położenie, szerokość w świetle, kierunek otwierania (rzut zakłada skrzydło 90 cm otwierane do środka, zawiasy od strony szaf).</li>
+        <li>Policzyć okna (szkic pokazuje 4, rzut architektoniczny 3) i zmierzyć ich położenie, wysokość parapetu i grzejniki.</li>
+        <li>Zlokalizować podejście wody i odpływ w narożniku (aneks zakłada zlew w samym rogu).</li>
+        <li>Sprawdzić nośność ściany pod szafkę ładującą i szafki wiszące aneksu.</li>
+        <li>Spisać istniejące gniazda 230 V i RJ45.</li>
+      </ol>
+    </div>
+    <div class="card">
+      <h3>Decyzje</h3>
+      <ol>
+        <li>Dwa czy trzy biurka. Strona sprzętu planuje 4 laptopy KPO dla sali 16: rzut zakłada 3 na biurkach i 1 przy stole roboczym.</li>
+        <li>Model dużej drukarki A3 z finiszerem i jej rzeczywisty gabaryt z modułami (rezerwa na rzucie: 190 × 70 cm plus 110 cm obsługi).</li>
+        <li>Model mniejszej A3 i jej masa (dobór podstawy).</li>
+        <li>Lodówka: tak czy nie. Na rzucie nie ma na nią miejsca w aneksie; możliwe miejsce to ściana przy jadalni obok aneksu.</li>
+        <li>Sofa 3-osobowa czy 2-osobowa: przed sofą zostaje tylko 57 cm (patrz kontrola przejść).</li>
+        <li>Zasilanie stołu roboczego: puszka podłogowa albo przewód z sufitu.</li>
+      </ol>
+    </div>
+    <div class="card">
+      <h3>Zmiany względem koncepcji 07</h3>
+      <ul>
+        <li>Stół roboczy przesunięty niżej (krawędź 260 cm od ściany z wejściem), żeby krzesła nie wchodziły w strefę obsługi drukarek.</li>
+        <li>Jadalnia odsunięta od prawej ściany na 85 cm od krawędzi stołu, żeby dało się odsunąć krzesła.</li>
+        <li>Stolik kawowy zamieniony na okrągły stolik boczny Ø 50 cm między sofą a fotelem; przed sofą nie ma miejsca na zwykły stolik.</li>
+        <li>Na biurku 1 przewidziano monitor dotykowy 27″ do komputera do zastępstw (pozycja z zakładki „Do zakupu”).</li>
+        <li>Szafka na tonery i niszczarka pod ławą BROR w strefie druku.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<p class="foot">Źródła: pakiet „pokój nauczycielski ZSZ5” z 24.11.2026 (karta projektu, historia decyzji, lista zakupowa, rzuty 01–09, szkic użytkownika, rzut architektoniczny sali 16) oraz dane sali 16 z tej strony. Rysunek koncepcyjny, nie projekt wykonawczy.</p>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(() => {
+"use strict";
+const SVGNS = "http://www.w3.org/2000/svg";
+const ROOM = { w: 900, d: 600, h: 300 };
+const DOOR = { x0: 131, x1: 228, h: 210, hinge: 131, leaf: 90 };
+const WINDOWS = [[112, 275], [362, 526], [618, 780]];
+const SILL = 90, HEAD = 260;
+const RADIATORS = WINDOWS.map(([a, b]) => ({ x: (a + b) / 2 - 60, y: 588, w: 120, d: 10, h: 60, z: 15 }));
+
+/* katalog: jedna pozycja = jeden wiersz zestawienia */
+const ZONES = {
+  storage: "Szafki osobiste",
+  work: "Praca indywidualna i wspólna",
+  print: "Strefa druku",
+  kitchen: "Aneks",
+  dining: "Jadalnia",
+  lounge: "Wypoczynek",
+  tech: "Sprzęt (poza budżetem mebli)",
+};
+const C = [
+  { k: "szafa", z: "storage", name: "Szafa metalowa 33 skrytki", dims: "90 × 45 × 185 cm", qty: 2, status: ["ok", "Zaakceptowane, model do ustalenia"], note: "Razem 66 skrytek, układ 3 × 11" },
+  { k: "biurko", z: "work", name: "IKEA MITTZON biurko", dims: "120 × 60 cm", sku: "695.258.59", price: 699, qty: 3, status: ["warn", "Do potwierdzenia: 2 czy 3"] },
+  { k: "krz_biuro", z: "work", name: "IKEA FLINTAN krzesło biurowe", dims: "beż", sku: "704.922.02", price: 249, qty: 3, status: ["mute", "Propozycja"] },
+  { k: "ladowarka", z: "work", name: "Szafka ładująca wisząca, Manhattan 181204", dims: "10 laptopów, 52,6 × 51 × 52,5 cm", sku: "181204", price: 1259.74, qty: 1, status: ["ok", "Jedna zaakceptowana, model do weryfikacji"] },
+  { k: "stol_pracy", z: "work", name: "IKEA MITTZON stół konferencyjny", dims: "140 × 108 cm, łączone 280 × 108", qty: 2, status: ["mute", "Propozycja, cena do ustalenia"] },
+  { k: "krz_pracy", z: "work", name: "Krzesło robocze ergonomiczne", dims: "ok. 50 × 52 cm", qty: 8, status: ["mute", "Model do wyboru"] },
+  { k: "zasilanie", z: "work", name: "Moduły zasilania (biurka i stół)", dims: "230 V, ew. USB-C", qty: 5, status: ["mute", "Do wyceny"], noDraw: true },
+  { k: "druk_duza", z: "tech", name: "Drukarka A3 z finiszerem broszurującym", dims: "rezerwa 190 × 70 cm + 110 obsługi", qty: 1, status: ["ok", "Zaakceptowana, model do ustalenia"], outside: true },
+  { k: "druk_mala", z: "tech", name: "Drukarka A3 mniejsza", dims: "ok. 60 × 58 cm", qty: 1, status: ["ok", "Zaakceptowana, model do ustalenia"], outside: true },
+  { k: "podstawa", z: "print", name: "Podstawa pod mniejszą A3", dims: "85 × 70 × 60 cm", qty: 1, status: ["mute", "Dobrać do masy drukarki"] },
+  { k: "bror_lawa", z: "print", name: "IKEA BROR ława robocza", dims: "110 × 55 cm", sku: "303.332.86", qty: 1, status: ["mute", "Blat do kompletowania, cena do sprawdzenia"] },
+  { k: "bror_regal", z: "print", name: "IKEA BROR regał na papier", dims: "65 × 55 × 190 cm", sku: "296.194.02", qty: 1, status: ["warn", "Sprawdzić nośność"] },
+  { k: "tonery", z: "print", name: "Szafka zamykana na tonery", dims: "60 × 40 × 65 cm", qty: 1, status: ["mute", "Do wyboru"] },
+  { k: "akcesoria", z: "print", name: "Niszczarka, bindownica, zszywacz, dziurkacz, skaner", dims: "zestaw", qty: 1, status: ["mute", "Ustalić, co już jest"] },
+  { k: "an_szuflady", z: "kitchen", name: "IKEA METOD/MAXIMERA szafka z 3 szufladami", dims: "60 cm", sku: "094.267.01", price: 835, qty: 1, status: ["mute", "Cena historyczna"] },
+  { k: "zmywarka", z: "kitchen", name: "IKEA RENGÖRA zmywarka do zabudowy", dims: "60 cm", sku: "404.755.72", price: 1599, qty: 1, status: ["warn", "Gwarancja przy użyciu szkolnym do sprawdzenia"] },
+  { k: "an_zlew", z: "kitchen", name: "IKEA METOD szafka pod zlew", dims: "60 cm", sku: "494.551.31", price: 340, qty: 1, status: ["mute", "Cena historyczna"] },
+  { k: "blat", z: "kitchen", name: "Blat, zlew, bateria, front, akcesoria", dims: "180 cm", price: 1500, qty: 1, status: ["warn", "Tylko szacunek"], estimate: true },
+  { k: "an_wiszaca", z: "kitchen", name: "IKEA METOD szafka ścienna HAVSTORP", dims: "60 × 100 cm", sku: "894.613.28", price: 405, qty: 3, status: ["mute", "Cena historyczna"] },
+  { k: "led", z: "kitchen", name: "Oświetlenie LED podszafkowe", dims: "180 cm", qty: 1, status: ["mute", "Sprawdzić, czy w akcesoriach"], noDraw: true },
+  { k: "stol_jad", z: "dining", name: "Stół modułowy jadalni", dims: "140 × 80 cm, łączone 280 × 80", qty: 2, status: ["mute", "Model i seria do ustalenia"] },
+  { k: "krz_jad", z: "dining", name: "IKEA TEODORES krzesło sztaplowane", dims: "46 × 50 cm", sku: "903.509.37", price: 129, qty: 10, status: ["mute", "Cena historyczna, normy do sprawdzenia"] },
+  { k: "sofa", z: "lounge", name: "IKEA LILLESÄTER sofa 3-osobowa", dims: "201 × 90 cm", sku: "406.190.71", price: 2499, qty: 1, status: ["warn", "Tapicerka do sprawdzenia; mało miejsca przed sofą"] },
+  { k: "stolik", z: "lounge", name: "Stolik boczny okrągły", dims: "Ø 50 cm", qty: 1, status: ["mute", "Do wyboru"] },
+  { k: "fotel", z: "lounge", name: "Fotel", dims: "ok. 80 × 80 cm", qty: 1, status: ["mute", "Do wyboru"] },
+  { k: "monitor", z: "tech", name: "Monitor dotykowy 27″ iiyama T2755MSC-B1", dims: "do komputera do zastępstw", price: 1840, qty: 1, status: ["mute", "Pozycja z zakładki „Do zakupu”"], outside: true },
+  { k: "laptop", z: "tech", name: "Laptop KPO (tryb incognito)", dims: "już w szkole", qty: 4, status: ["ok", "Przydzielone do sali 16"], outside: true },
+];
+const CAT = Object.fromEntries(C.map((c, i) => [c.k, { ...c, n: i + 1 }]));
+
+/* rozmieszczenie: x od lewej ściany, y od ściany z wejściem, z = wysokość dołu, wszystko w cm */
+const I = [];
+const add = (k, o) => I.push({ k, z: 0, ...o });
+add("szafa", { x: 0, y: 0, w: 45, d: 90, h: 185, kind: "lockers", face: "E", label: "33" });
+add("szafa", { x: 0, y: 90, w: 45, d: 90, h: 185, kind: "lockers", face: "E", label: "33" });
+[195, 315, 435].forEach((y, i) => add("biurko", { x: 0, y, w: 60, d: 120, h: 75, kind: "table", label: `Biurko ${i + 1}` }));
+add("ladowarka", { x: 0, y: 228.7, w: 51, d: 52.6, h: 52.5, z: 140, kind: "box", above: true, label: "Ładowarka" });
+add("monitor", { x: 6, y: 226, w: 20, d: 62, h: 42, z: 75, kind: "box", ontop: true });
+[[30, 268], [20, 362], [20, 482]].forEach(([x, y]) => add("laptop", { x, y, w: 24, d: 32, h: 2, z: 75, kind: "box", ontop: true }));
+add("laptop", { x: 356, y: 330, w: 32, d: 24, h: 2, z: 75, kind: "box", ontop: true });
+[255, 375, 495].forEach((y) => add("krz_biuro", { cx: 100, cy: y, w: 50, d: 50, face: "W", kind: "chair", h: 95 }));
+add("druk_duza", { x: 245, y: 8, w: 190, d: 70, h: 120, kind: "box", label: "A3 + finiszer" });
+add("podstawa", { x: 450, y: 8, w: 85, d: 70, h: 60, kind: "box" });
+add("druk_mala", { x: 462, y: 14, w: 60, d: 58, h: 45, z: 60, kind: "box", label: "A3" });
+add("bror_lawa", { x: 545, y: 0, w: 110, d: 55, h: 90, kind: "table", label: "Ława" });
+add("tonery", { x: 590, y: 8, w: 60, d: 40, h: 65, kind: "box" });
+add("akcesoria", { x: 550, y: 10, w: 35, d: 35, h: 60, kind: "box" });
+add("bror_regal", { x: 655, y: 0, w: 65, d: 55, h: 190, kind: "shelf", label: "Papier" });
+add("an_szuflady", { x: 720, y: 0, w: 60, d: 60, h: 86, kind: "box", label: "Szuf." });
+add("zmywarka", { x: 780, y: 0, w: 60, d: 60, h: 86, kind: "box", label: "ZM" });
+add("an_zlew", { x: 840, y: 0, w: 60, d: 60, h: 86, kind: "box", label: "Zlew" });
+add("blat", { x: 720, y: 0, w: 180, d: 63, h: 4, z: 86, kind: "box", hidePlan: true });
+[720, 780, 840].forEach((x) => add("an_wiszaca", { x, y: 0, w: 60, d: 37, h: 100, z: 150, kind: "box", above: true }));
+add("stol_pracy", { x: 230, y: 260, w: 140, d: 108, h: 75, kind: "table", label: "Stół roboczy · 8" });
+add("stol_pracy", { x: 370, y: 260, w: 140, d: 108, h: 75, kind: "table" });
+[265, 335, 405, 475].forEach((x) => { add("krz_pracy", { cx: x, cy: 235, w: 48, d: 48, face: "S", kind: "chair", h: 92 }); add("krz_pracy", { cx: x, cy: 393, w: 48, d: 48, face: "N", kind: "chair", h: 92 }); });
+add("stol_jad", { x: 735, y: 215, w: 80, d: 140, h: 75, kind: "table", label: "Jadalnia · 10" });
+add("stol_jad", { x: 735, y: 355, w: 80, d: 140, h: 75, kind: "table" });
+[250, 320, 390, 460].forEach((y) => { add("krz_jad", { cx: 708, cy: y, w: 46, d: 46, face: "E", kind: "chair", h: 80 }); add("krz_jad", { cx: 842, cy: y, w: 46, d: 46, face: "W", kind: "chair", h: 80 }); });
+add("krz_jad", { cx: 775, cy: 187, w: 46, d: 46, face: "S", kind: "chair", h: 80 });
+add("krz_jad", { cx: 775, cy: 523, w: 46, d: 46, face: "N", kind: "chair", h: 80 });
+add("sofa", { x: 250, y: 495, w: 201, d: 90, h: 80, face: "N", kind: "sofa", label: "Sofa 3" });
+add("stolik", { x: 461, y: 520, w: 50, d: 50, h: 50, kind: "round" });
+add("fotel", { x: 521, y: 505, w: 80, d: 80, h: 80, face: "N", kind: "sofa", label: "Fotel" });
+I.forEach((it) => { if (it.cx != null) { it.x = it.cx - it.w / 2; it.y = it.cy - it.d / 2; } });
+
+/* instalacje proponowane */
+const INST = [
+  { t: "p230", x: 270, y: 0, z: 30, txt: "Duża A3: gniazdo dedykowane 230 V" },
+  { t: "p230", x: 420, y: 0, z: 30, txt: "Duża A3 / finiszer: gniazdo podwójne" },
+  { t: "rj", x: 340, y: 0, z: 30, txt: "Duża A3: RJ45" },
+  { t: "p230", x: 492, y: 0, z: 30, txt: "Mniejsza A3: gniazdo podwójne" },
+  { t: "rj", x: 515, y: 0, z: 30, txt: "Mniejsza A3: RJ45" },
+  { t: "p230", x: 600, y: 0, z: 105, txt: "Ława: gniazdo nad blatem (niszczarka, bindownica, skaner)" },
+  { t: "rj", x: 630, y: 0, z: 105, txt: "Ława: RJ45 (skaner) i rezerwa" },
+  { t: "p230", x: 750, y: 0, z: 110, txt: "Aneks: gniazdo nad blatem (czajnik)" },
+  { t: "p230", x: 810, y: 0, z: 30, txt: "Zmywarka: gniazdo w szafce obok" },
+  { t: "h2o", x: 880, y: 0, z: 50, txt: "Woda i odpływ pod zlewem (narożnik)" },
+  { t: "p230", x: 0, y: 210, z: 210, txt: "Szafka ładująca: gniazdo nad szafką, przewód w kanale" },
+  { t: "p230", x: 0, y: 300, z: 85, txt: "Biurko 1: gniazdo podwójne nad blatem" },
+  { t: "p230", x: 0, y: 420, z: 85, txt: "Biurko 2: gniazdo podwójne nad blatem" },
+  { t: "p230", x: 0, y: 540, z: 85, txt: "Biurko 3: gniazdo podwójne nad blatem" },
+  { t: "box", x: 370, y: 314, z: 0, txt: "Stół roboczy: puszka podłogowa albo przewód z sufitu (do decyzji)" },
+];
+
+/* kontrola przejść: odcinek pomiaru na rzucie + wymagane minimum */
+const CHECKS = [
+  { a: [135, 340], b: [230, 340], need: 90, name: "Przejście od wejścia między krzesłami biurek a stołem roboczym", why: "Główny ciąg komunikacyjny w głąb sali" },
+  { a: [300, 78], b: [300, 188], need: 120, name: "Strefa obsługi przed dużą drukarką (do odsuniętych krzeseł stołu)", why: "Obsługa, otwieranie modułów, kolejka przy wydruku", soft: 100 },
+  { a: [520, 190], b: [520, 300], hide: true },
+  { a: [510, 300], b: [685, 300], need: 90, name: "Stół roboczy ↔ krzesła jadalni", why: "Przejście do aneksu i jadalni" },
+  { a: [775, 60], b: [775, 163], need: 100, name: "Front aneksu ↔ krzesło szczytowe jadalni", why: "Praca przy zlewie i otwarta zmywarka" },
+  { a: [815, 430], b: [900, 430], need: 75, name: "Krawędź stołu jadalni ↔ prawa ściana", why: "Odsunięcie krzeseł, bez przejścia za nimi" },
+  { a: [775, 495], b: [775, 600], need: 75, name: "Krawędź stołu jadalni ↔ ściana z oknami", why: "Krzesło szczytowe" },
+  { a: [400, 438], b: [400, 495], need: 75, name: "Krzesła stołu roboczego (odsunięte) ↔ front sofy", why: "Miejsce na nogi siedzących na sofie", soft: 55 },
+  { a: [45, 140], b: [125, 140], need: 70, name: "Strefa przed szafami skrytkowymi", why: "Otwieranie drzwiczek skrytek", fixedOk: true },
+  { a: [60, 560], b: [60, 600], hide: true },
+];
+CHECKS.forEach((c) => {
+  if (c.hide) return;
+  c.val = Math.round(Math.hypot(c.b[0] - c.a[0], c.b[1] - c.a[1]));
+  c.st = c.val >= c.need ? "ok" : (c.soft && c.val >= c.soft ? "warn" : "bad");
+  if (c.fixedOk) c.st = "ok";
+});
+const VISIBLE_CHECKS = CHECKS.filter((c) => !c.hide);
+
+/* ---------- pomocnicze ---------- */
+const el = (tag, attrs = {}, parent) => {
+  const n = document.createElementNS(SVGNS, tag);
+  for (const [k, v] of Object.entries(attrs)) if (v != null) n.setAttribute(k, v);
+  if (parent) parent.appendChild(n);
+  return n;
+};
+const txt = (parent, x, y, s, cls, extra = {}) => { const t = el("text", { x, y, class: cls, ...extra }, parent); t.textContent = s; return t; };
+const fmt = (v) => v.toLocaleString("pl-PL", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " zł";
+const esc = (s) => String(s).replace(/[&<>"]/g, (m) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[m]);
+
+/* ---------- liczby w nagłówku ---------- */
+const seats = I.filter((i) => i.kind === "chair").length + 3 + 1;
+const known = C.filter((c) => c.price && !c.outside).reduce((s, c) => s + c.price * c.qty, 0);
+const unknownCount = C.filter((c) => !c.price && !c.outside).length;
+document.getElementById("facts").innerHTML = [
+  ["Powierzchnia", "54 m² <small>900 × 600 cm</small>"],
+  ["Miejsca siedzące", `${seats} <small>nominalnie</small>`],
+  ["Skrytki", "66 <small>2 szafy × 33</small>"],
+  ["Drukarki A3", "2 <small>+ ława i regał</small>"],
+  ["Aneks", "180 cm <small>zlew, zmywarka</small>"],
+  ["Meble z ceną", `${Math.round(known).toLocaleString("pl-PL")} zł <small>+ ${unknownCount} bez ceny</small>`],
+].map(([a, b]) => `<div><dt>${a}</dt><dd>${b}</dd></div>`).join("");
+
+/* ---------- RZUT 2D ---------- */
+const plan = document.getElementById("plan");
+function drawPlan() {
+  plan.innerHTML = "";
+  plan.setAttribute("viewBox", "-95 -120 1090 840");
+  const g = (cls) => el("g", { class: cls }, plan);
+  // ściany
+  el("rect", { x: -15, y: -15, width: ROOM.w + 30, height: ROOM.d + 30, class: "s-wall" }, plan);
+  el("rect", { x: 0, y: 0, width: ROOM.w, height: ROOM.d, class: "s-floor" }, plan);
+  // otwór drzwiowy i okna
+  el("rect", { x: DOOR.x0, y: -16, width: DOOR.x1 - DOOR.x0, height: 17, class: "s-floor" }, plan);
+  WINDOWS.forEach(([a, b]) => {
+    el("rect", { x: a, y: ROOM.d - 1, width: b - a, height: 17, class: "s-floor" }, plan);
+    el("line", { x1: a, y1: ROOM.d + 4, x2: b, y2: ROOM.d + 4, class: "glass" }, plan);
+    el("line", { x1: a, y1: ROOM.d + 10, x2: b, y2: ROOM.d + 10, class: "glass" }, plan);
+  });
+  // siatka
+  const grid = g("grid layer-grid");
+  for (let x = 50; x < ROOM.w; x += 50) el("line", { x1: x, y1: 0, x2: x, y2: ROOM.d, class: "s-grid" + (x % 100 ? "" : " major") }, grid);
+  for (let y = 50; y < ROOM.d; y += 50) el("line", { x1: 0, y1: y, x2: ROOM.w, y2: y, class: "s-grid" + (y % 100 ? "" : " major") }, grid);
+  // strefy obsługi
+  const zones = g("zones layer-zones");
+  [
+    [245, 78, 410, 112, "Obsługa druku"],
+    [45, 0, 80, 180, "Dostęp do skrytek"],
+    [720, 60, 180, 100, "Praca przy aneksie"],
+    [135, 180, 95, 315, "Przejście"],
+    [510, 190, 175, 300, "Przejście"],
+  ].forEach(([x, y, w, h, s]) => {
+    const z = el("g", { class: "zone" }, zones);
+    el("rect", { x, y, width: w, height: h }, z);
+    txt(z, x + 6, y + 16, s, "");
+  });
+  // drzwi
+  const door = g("doorg");
+  el("line", { x1: DOOR.hinge, y1: 0, x2: DOOR.hinge, y2: DOOR.leaf, class: "door" }, door);
+  el("path", { d: `M ${DOOR.hinge + DOOR.leaf} 0 A ${DOOR.leaf} ${DOOR.leaf} 0 0 1 ${DOOR.hinge} ${DOOR.leaf}`, class: "door", "stroke-dasharray": "4 4" }, door);
+  txt(plan, (DOOR.x0 + DOOR.x1) / 2, -30, "WEJŚCIE", "wtxt", { "text-anchor": "middle" });
+  txt(plan, ROOM.w - 4, -30, "WODA ▾", "wtxt", { "text-anchor": "end" });
+  txt(plan, ROOM.w / 2, ROOM.d + 40, "OKNA (3 wg rzutu architektonicznego, szkic pokazuje 4)", "wtxt", { "text-anchor": "middle" });
+  // grzejniki
+  RADIATORS.forEach((r) => el("rect", { x: r.x, y: r.y, width: r.w, height: r.d, class: "it rad" }, plan));
+
+  // meble: najpierw stojące, potem leżące na blatach, na końcu wiszące
+  const items = g("items");
+  const order = (it) => (it.above ? 2 : it.ontop ? 1 : 0);
+  const seenBadge = new Set();
+  [...I].filter((it) => !it.hidePlan).sort((a, b) => order(a) - order(b)).forEach((it) => {
+    const c = CAT[it.k];
+    const gi = el("g", { class: "item", "data-c": it.k, tabindex: "-1" }, items);
+    const cls = `it ${it.kind === "chair" ? "chair" : c.z}${it.above ? " above" : ""}${it.ontop ? " ontop" : ""}`;
+    if (it.kind === "chair") {
+      el("rect", { x: it.x + 3, y: it.y + 3, width: it.w - 6, height: it.d - 6, rx: 6, class: cls }, gi);
+      const b = { N: [it.x + 4, it.y + it.d - 9, it.w - 8, 6], S: [it.x + 4, it.y + 3, it.w - 8, 6], E: [it.x + 3, it.y + 4, 6, it.d - 8], W: [it.x + it.w - 9, it.y + 4, 6, it.d - 8] }[it.face];
+      el("rect", { x: b[0], y: b[1], width: b[2], height: b[3], rx: 2, class: "it " + c.z }, gi);
+    } else if (it.kind === "round") {
+      el("circle", { cx: it.x + it.w / 2, cy: it.y + it.d / 2, r: it.w / 2, class: cls }, gi);
+    } else if (it.kind === "sofa") {
+      el("rect", { x: it.x, y: it.y, width: it.w, height: it.d, rx: 8, class: cls }, gi);
+      el("rect", { x: it.x + 18, y: it.y + 6, width: it.w - 36, height: it.d - 26, rx: 5, class: cls, "fill-opacity": "0.55" }, gi);
+    } else {
+      el("rect", { x: it.x, y: it.y, width: it.w, height: it.d, class: cls }, gi);
+      if (it.kind === "lockers") for (let i = 1; i < 3; i++) el("line", { x1: it.x + 6, y1: it.y + (it.d * i) / 3, x2: it.x + it.w, y2: it.y + (it.d * i) / 3, class: "it", "stroke-width": 0.8 }, gi);
+      if (it.k === "an_zlew") el("rect", { x: it.x + 10, y: it.y + 10, width: 42, height: 36, rx: 6, class: "it", fill: "none" }, gi);
+    }
+    if (it.label && !it.above) {
+      const vertical = it.d > it.w * 1.4 && it.w < 70;
+      const cx = it.x + it.w / 2, cy = it.y + it.d / 2;
+      const small = it.w < 70 || it.d < 45;
+      txt(gi, cx, cy + 4, it.label, "lbl" + (small ? " sm" : ""), { "text-anchor": "middle", transform: vertical ? `rotate(-90 ${cx} ${cy + 4})` : null });
+    }
+    if (!seenBadge.has(it.k)) {
+      seenBadge.add(it.k);
+      const pos = badgePos(it);
+      const bg = el("g", { class: "badge layer-num" }, plan);
+      el("circle", { cx: pos[0], cy: pos[1], r: 10 }, bg);
+      txt(bg, pos[0], pos[1] + 4, String(c.n), "", { "text-anchor": "middle" });
+    }
+  });
+
+  // wymiary
+  const dims = g("dim layer-dims");
+  dimH(dims, 0, ROOM.w, -70, "900");
+  dimV(dims, 0, ROOM.d, -70, "600");
+  chainH(dims, [0, DOOR.x0, DOOR.x1, 245, 435, 450, 535, 545, 655, 720, 900], -45);
+  chainV(dims, [0, 180, 195, 315, 435, 555, 600], -40);
+  chainH(dims, [0, 112, 275, 362, 526, 618, 780, 900], ROOM.d + 62);
+  chainV(dims, [0, 60, 215, 495, 600], ROOM.w + 40);
+  // wymiary mebli w środku
+  dimH(dims, 230, 510, 255 - 12, "280", true);
+  dimV(dims, 260, 368, 520, "108", true);
+  dimV(dims, 215, 495, 730, "280", true);
+
+  // kontrola przejść
+  const chk = g("layer-chk");
+  VISIBLE_CHECKS.forEach((c, i) => {
+    const cg = el("g", { class: "chk " + c.st }, chk);
+    el("line", { x1: c.a[0], y1: c.a[1], x2: c.b[0], y2: c.b[1] }, cg);
+    [c.a, c.b].forEach(([x, y]) => el("circle", { cx: x, cy: y, r: 2.6, fill: "currentColor", class: "", style: "fill: var(--" + (c.st === "ok" ? "accent" : c.st === "warn" ? "warn" : "bad") + ")" }, cg));
+    const horiz = Math.abs(c.b[0] - c.a[0]) > Math.abs(c.b[1] - c.a[1]);
+    const mx = (c.a[0] + c.b[0]) / 2, my = (c.a[1] + c.b[1]) / 2;
+    txt(cg, horiz ? mx : mx + 6, horiz ? my - 6 : my + 4, `${c.val}`, "", { "text-anchor": horiz ? "middle" : "start" });
+  });
+
+  // instalacje
+  const ins = g("inst layer-inst");
+  INST.forEach((p) => {
+    const px = p.x === 0 ? 6 : p.x, py = p.y === 0 ? 6 : p.y;
+    if (p.t === "box") el("rect", { x: px - 7, y: py - 7, width: 14, height: 14, class: p.t }, ins);
+    else el("circle", { cx: px, cy: py, r: 6, class: p.t }, ins);
+  });
+  const lg = el("g", { class: "inst layer-inst" }, plan);
+  [["p230", "230 V"], ["rj", "RJ45"], ["h2o", "woda"], ["box", "puszka podł."]].forEach(([t, s], i) => {
+    const x = 560 + i * 92, y = ROOM.d + 98;
+    if (t === "box") el("rect", { x: x - 6, y: y - 6, width: 12, height: 12, class: t }, lg); else el("circle", { cx: x, cy: y, r: 6, class: t }, lg);
+    txt(lg, x + 10, y + 4, s, "");
+  });
+
+  // strzałka północy umownej
+  const nn = el("g", { class: "north", transform: "translate(965 -95)" }, plan);
+  el("path", { d: "M0 22 L8 0 L16 22 L8 17 Z", fill: "var(--ink)" }, nn);
+  txt(nn, 8, 38, "N*", "", { "text-anchor": "middle" });
+  // podziałka
+  const sc = el("g", { class: "dim", transform: `translate(0 ${ROOM.d + 98})` }, plan);
+  for (let i = 0; i < 4; i++) el("rect", { x: i * 50, y: -5, width: 50, height: 8, fill: i % 2 ? "var(--sheet)" : "var(--ink)", stroke: "var(--ink)", "stroke-width": 1 }, sc);
+  txt(sc, 0, 20, "0", ""); txt(sc, 100, 20, "1 m", "", { "text-anchor": "middle" }); txt(sc, 200, 20, "2 m", "", { "text-anchor": "middle" });
+
+  applyLayers();
+  bindPlanItems();
+}
+function badgePos(it) {
+  const map = {
+    szafa: [70, 20], biurko: [84, 322], ladowarka: [72, 214], krz_biuro: [140, 255], stol_pracy: [222, 270], krz_pracy: [290, 214],
+    druk_duza: [255, 98], druk_mala: [522, 98], podstawa: [462, 98], bror_lawa: [584, 72], bror_regal: [688, 72], tonery: [632, 72], akcesoria: [560, 72],
+    an_szuflady: [735, 76], zmywarka: [800, 76], an_zlew: [880, 76], an_wiszaca: [760, 115], blat: [0, 0],
+    stol_jad: [755, 240], krz_jad: [690, 222], sofa: [262, 480], stolik: [486, 508], fotel: [615, 500], monitor: [44, 300], laptop: [44, 330],
+  };
+  return map[it.k] || [it.x + it.w + 10, it.y];
+}
+function dimH(g, x0, x1, y, label, inner) {
+  el("line", { x1: x0, y1: y, x2: x1, y2: y }, g);
+  [x0, x1].forEach((x) => el("line", { x1: x - 4, y1: y + 4, x2: x + 4, y2: y - 4, class: "tick" }, g));
+  if (!inner) [x0, x1].forEach((x) => el("line", { x1: x, y1: y - 6, x2: x, y2: y + 6 }, g));
+  txt(g, (x0 + x1) / 2, y - 5, label, "", { "text-anchor": "middle" });
+}
+function dimV(g, y0, y1, x, label, inner) {
+  el("line", { x1: x, y1: y0, x2: x, y2: y1 }, g);
+  [y0, y1].forEach((y) => el("line", { x1: x - 4, y1: y + 4, x2: x + 4, y2: y - 4, class: "tick" }, g));
+  if (!inner) [y0, y1].forEach((y) => el("line", { x1: x - 6, y1: y, x2: x + 6, y2: y }, g));
+  const cx = x - 6, cy = (y0 + y1) / 2;
+  txt(g, cx, cy, label, "", { "text-anchor": "middle", transform: `rotate(-90 ${cx} ${cy})` });
+}
+function chainH(g, xs, y) {
+  el("line", { x1: xs[0], y1: y, x2: xs[xs.length - 1], y2: y }, g);
+  xs.forEach((x) => { el("line", { x1: x - 3.5, y1: y + 3.5, x2: x + 3.5, y2: y - 3.5, class: "tick" }, g); el("line", { x1: x, y1: y - 5, x2: x, y2: y + 5 }, g); });
+  for (let i = 0; i < xs.length - 1; i++) { const w = xs[i + 1] - xs[i]; if (w >= 14) txt(g, (xs[i] + xs[i + 1]) / 2, y - 5, String(w), "", { "text-anchor": "middle", style: w < 30 ? "font-size:9px" : null }); }
+}
+function chainV(g, ys, x) {
+  el("line", { x1: x, y1: ys[0], x2: x, y2: ys[ys.length - 1] }, g);
+  ys.forEach((y) => { el("line", { x1: x - 3.5, y1: y + 3.5, x2: x + 3.5, y2: y - 3.5, class: "tick" }, g); el("line", { x1: x - 5, y1: y, x2: x + 5, y2: y }, g); });
+  for (let i = 0; i < ys.length - 1; i++) { const h = ys[i + 1] - ys[i]; const cy = (ys[i] + ys[i + 1]) / 2; if (h >= 14) txt(g, x - 6, cy, String(h), "", { "text-anchor": "middle", transform: `rotate(-90 ${x - 6} ${cy})`, style: h < 30 ? "font-size:9px" : null }); }
+}
+const LAYERS = { grid: "l-grid", dims: "l-dims", chk: "l-chk", zones: "l-zones", inst: "l-inst", num: "l-num" };
+function applyLayers() {
+  for (const [name, id] of Object.entries(LAYERS)) {
+    const on = document.getElementById(id).checked;
+    plan.querySelectorAll(".layer-" + name).forEach((n) => n.style.display = on ? "" : "none");
+  }
+}
+Object.values(LAYERS).forEach((id) => document.getElementById(id).addEventListener("change", applyLayers));
+
+let selected = null;
+function highlight(k) {
+  selected = selected === k ? null : k;
+  plan.querySelectorAll("g.item").forEach((n) => {
+    n.classList.toggle("hl", selected && n.dataset.c === selected);
+    n.classList.toggle("dim", !!selected && n.dataset.c !== selected);
+  });
+  document.querySelectorAll("#legend button").forEach((b) => b.classList.toggle("on", b.dataset.c === selected));
+}
+function bindPlanItems() {
+  plan.querySelectorAll("g.item").forEach((n) => n.addEventListener("click", () => highlight(n.dataset.c)));
+}
+document.getElementById("legend").innerHTML = C.filter((c) => !c.noDraw && I.some((i) => i.k === c.k && !i.hidePlan)).map((c) => {
+  const n = CAT[c.k].n; const placed = I.filter((i) => i.k === c.k).length;
+  return `<button type="button" data-c="${c.k}"><span class="n">${n}</span><span class="sw" style="background: var(--z-${c.z})"></span><span class="t">${esc(c.name)} <small>· ${placed} szt. · ${esc(c.dims)}</small></span></button>`;
+}).join("");
+document.querySelectorAll("#legend button").forEach((b) => b.addEventListener("click", () => highlight(b.dataset.c)));
+drawPlan();
+
+/* ---------- ELEWACJE ---------- */
+const WALLS = {
+  N: { len: 900, title: "Ściana z wejściem i strefą druku, 900 cm", left: "← ściana z szafami", right: "ściana przy jadalni →",
+       near: (it) => it.y <= 15, u: (it) => [it.x, it.x + it.w], dist: (it) => it.y },
+  S: { len: 900, title: "Ściana z oknami, 900 cm", left: "← ściana przy jadalni", right: "ściana z szafami →",
+       near: (it) => it.y + it.d >= 580, u: (it) => [900 - it.x - it.w, 900 - it.x], dist: (it) => 600 - it.y - it.d },
+  W: { len: 600, title: "Ściana z szafami skrytkowymi i biurkami, 600 cm", left: "← ściana z oknami", right: "ściana z wejściem →",
+       near: (it) => it.x <= 15, u: (it) => [600 - it.y - it.d, 600 - it.y], dist: (it) => it.x },
+  E: { len: 600, title: "Ściana przy jadalni, 600 cm", left: "← ściana z wejściem", right: "ściana z oknami →",
+       near: (it) => it.x + it.w >= 885, u: (it) => [it.y, it.y + it.d], dist: (it) => 900 - it.x - it.w },
+};
+const elev = document.getElementById("elev");
+function drawElev(key) {
+  const W = WALLS[key];
+  elev.innerHTML = "";
+  const pad = 70, H = ROOM.h;
+  elev.setAttribute("viewBox", `${-pad} ${-50} ${W.len + pad * 2} ${H + 130}`);
+  const Y = (z) => H - z; // z od podłogi
+  el("rect", { x: 0, y: 0, width: W.len, height: H, class: "s-floor" }, elev);
+  const grid = el("g", {}, elev);
+  for (let u = 50; u < W.len; u += 50) el("line", { x1: u, y1: 0, x2: u, y2: H, class: "s-grid" }, grid);
+  for (let z = 50; z < H; z += 50) el("line", { x1: 0, y1: Y(z), x2: W.len, y2: Y(z), class: "s-grid" }, grid);
+  // otwory
+  if (key === "N") {
+    el("rect", { x: DOOR.x0, y: Y(DOOR.h), width: DOOR.x1 - DOOR.x0, height: DOOR.h, fill: "var(--sheet)", stroke: "var(--wall)", "stroke-width": 1.5 }, elev);
+    el("line", { x1: DOOR.x0 + 6, y1: Y(DOOR.h) + 6, x2: DOOR.x0 + 6, y2: H, class: "door" }, elev);
+    txt(elev, (DOOR.x0 + DOOR.x1) / 2, Y(DOOR.h / 2), "drzwi", "lbl sm", { "text-anchor": "middle" });
+  }
+  if (key === "S") {
+    WINDOWS.forEach(([a, b]) => {
+      const u0 = 900 - b, u1 = 900 - a;
+      el("rect", { x: u0, y: Y(HEAD), width: u1 - u0, height: HEAD - SILL, fill: "var(--sheet)", stroke: "var(--glass)", "stroke-width": 2 }, elev);
+      el("line", { x1: (u0 + u1) / 2, y1: Y(HEAD), x2: (u0 + u1) / 2, y2: Y(SILL), stroke: "var(--glass)", "stroke-width": 1.5 }, elev);
+    });
+    RADIATORS.forEach((r) => { const u0 = 900 - r.x - r.w; el("rect", { x: u0, y: Y(r.z + r.h), width: r.w, height: r.h, class: "it rad" }, elev); for (let i = 10; i < r.w; i += 10) el("line", { x1: u0 + i, y1: Y(r.z + r.h) + 4, x2: u0 + i, y2: Y(r.z) - 4, stroke: "var(--muted)", "stroke-width": 0.8 }, elev); });
+  }
+  // meble przy ścianie – od najdalszego od ściany do najbliższego... rysujemy najpierw te przy ścianie
+  const list = I.filter((it) => W.near(it) && it.kind !== "chair").sort((a, b) => W.dist(a) - W.dist(b));
+  const facing = { N: "S", S: "N", W: "E", E: "W" }[key]; // ściana widziana od przodu mebla
+  list.forEach((it) => {
+    const c = CAT[it.k];
+    const [u0, u1] = W.u(it);
+    const w = u1 - u0;
+    const gi = el("g", { class: "item" }, elev);
+    const cls = `it ${c.z}`;
+    if (it.kind === "table") {
+      el("rect", { x: u0, y: Y(it.z + it.h), width: w, height: 4, class: cls }, gi);
+      el("rect", { x: u0 + 3, y: Y(it.z + it.h - 4), width: 5, height: it.h - 4, class: "it tech" }, gi);
+      el("rect", { x: u1 - 8, y: Y(it.z + it.h - 4), width: 5, height: it.h - 4, class: "it tech" }, gi);
+    } else if (it.kind === "sofa") {
+      el("rect", { x: u0, y: Y(it.h), width: w, height: it.h - 8, rx: 6, class: cls }, gi);
+      el("rect", { x: u0 + 15, y: Y(45), width: w - 30, height: 20, rx: 4, class: cls, "fill-opacity": 0.6 }, gi);
+    } else if (it.kind === "round") {
+      el("rect", { x: u0, y: Y(it.h), width: w, height: 4, class: cls }, gi);
+      el("rect", { x: u0 + w / 2 - 3, y: Y(it.h - 4), width: 6, height: it.h - 4, class: "it tech" }, gi);
+    } else {
+      el("rect", { x: u0, y: Y(it.z + it.h), width: w, height: it.h, class: cls }, gi);
+      if (it.kind === "lockers" && key === "W") {
+        for (let i = 1; i < 3; i++) el("line", { x1: u0 + (w * i) / 3, y1: Y(it.h), x2: u0 + (w * i) / 3, y2: H, stroke: "var(--wall)", "stroke-width": 1 }, gi);
+        for (let r = 1; r < 11; r++) el("line", { x1: u0, y1: Y((it.h * r) / 11), x2: u1, y2: Y((it.h * r) / 11), stroke: "var(--wall)", "stroke-width": 0.8 }, gi);
+      }
+      if (it.k === "an_wiszaca" && key === "N") el("line", { x1: u0 + w / 2, y1: Y(it.z + it.h), x2: u0 + w / 2, y2: Y(it.z), stroke: "var(--wall)", "stroke-width": 1 }, gi);
+      if (it.k === "an_szuflady" && key === "N") [30, 58].forEach((z) => el("line", { x1: u0, y1: Y(z), x2: u1, y2: Y(z), stroke: "var(--wall)", "stroke-width": 1 }, gi));
+      if (it.k === "an_zlew" && key === "N") { el("path", { d: `M ${u0 + 30} ${Y(90)} v -24 h 12`, stroke: "var(--z-tech)", "stroke-width": 3, fill: "none" }, gi); }
+      if (it.kind === "shelf") for (let z = 38; z < it.h; z += 38) el("line", { x1: u0, y1: Y(z), x2: u1, y2: Y(z), stroke: "var(--wall)", "stroke-width": 1 }, gi);
+    }
+    const lab = it.label && w > 34 && it.h > 30 ? it.label : null;
+    if (lab && it.kind !== "table") txt(gi, u0 + w / 2, Y(it.z + it.h / 2) + 4, lab, "lbl sm", { "text-anchor": "middle" });
+    if (it.kind === "table" && w > 60) txt(gi, u0 + w / 2, Y(it.z + it.h) - 6, it.label || c.name.replace("IKEA ", ""), "lbl sm", { "text-anchor": "middle" });
+  });
+  // instalacje na ścianie
+  const wallOf = (p) => (p.y === 0 && p.t !== "box" ? "N" : p.x === 0 ? "W" : null);
+  INST.filter((p) => wallOf(p) === key).forEach((p) => {
+    const u = key === "N" ? p.x : 600 - p.y;
+    const gi = el("g", { class: "inst" }, elev);
+    el("circle", { cx: u, cy: Y(p.z), r: 5, class: p.t }, gi);
+  });
+  // wymiary: długość, wysokości charakterystyczne
+  const d = el("g", { class: "dim" }, elev);
+  dimH(d, 0, W.len, H + 40, String(W.len));
+  dimV(d, 0, H, -40, "300*");
+  const levels = new Set([H]);
+  list.forEach((it) => { levels.add(Math.round(it.z + it.h)); if (it.z > 0) levels.add(Math.round(it.z)); });
+  if (key === "S") { levels.add(SILL); levels.add(HEAD); }
+  if (key === "N") levels.add(DOOR.h);
+  const lv = [...levels].filter((z) => z > 0 && z < H).sort((a, b) => a - b).filter((z, i, a) => i === 0 || z - a[i - 1] >= 8);
+  const zx = W.len + 22;
+  el("line", { x1: zx, y1: Y(0), x2: zx, y2: Y(H) }, d);
+  lv.forEach((z) => { el("line", { x1: zx - 5, y1: Y(z), x2: zx + 5, y2: Y(z) }, d); txt(d, zx + 8, Y(z) + 4, String(z), "", { style: "font-size:10.5px" }); });
+  // chain along floor of items
+  const xs = new Set([0, W.len]);
+  list.filter((it) => it.z === 0 && it.kind !== "round").forEach((it) => W.u(it).forEach((u) => xs.add(Math.round(u))));
+  if (key === "N") { xs.add(DOOR.x0); xs.add(DOOR.x1); }
+  if (key === "S") WINDOWS.forEach(([a, b]) => { xs.add(900 - a); xs.add(900 - b); });
+  chainH(d, [...xs].sort((a, b) => a - b), H + 18);
+  // podłoga
+  el("line", { x1: -20, y1: H, x2: W.len + 20, y2: H, stroke: "var(--wall)", "stroke-width": 3 }, elev);
+  el("line", { x1: 0, y1: 0, x2: 0, y2: H, stroke: "var(--wall)", "stroke-width": 3 }, elev);
+  el("line", { x1: W.len, y1: 0, x2: W.len, y2: H, stroke: "var(--wall)", "stroke-width": 3 }, elev);
+  txt(elev, 0, -22, W.left, "wtxt");
+  txt(elev, W.len, -22, W.right, "wtxt", { "text-anchor": "end" });
+  txt(elev, W.len / 2, -22, W.title, "lbl", { "text-anchor": "middle" });
+  const notes = {
+    N: "Szafki wiszące aneksu: dół 150 cm, góra 250 cm. Blat 90 cm. Gniazda dla drukarek na wysokości 30 cm, za maszynami zostawić 8 cm na wentylację i przewody.",
+    W: "Szafka ładująca: dół 140 cm, nad biurkiem 1, poza strefą głowy siedzącego. Szafy skrytkowe 3 × 11 skrytek każda. Biurka 75 cm. *Wysokość sali przyjęta, do pomiaru.",
+    S: "Parapet przyjęty na 90 cm, nadproże 260 cm. Sofa (80 cm) nie zasłania okien, ale stoi przed grzejnikiem okna środkowego: zostawić min. 10 cm odstępu.",
+    E: "Ściana prawie wolna. Krzesła jadalni stoją 85 cm od krawędzi stołu. Jeśli zapadnie decyzja o lodówce, to najbliższe sensowne miejsce jest tutaj przy aneksie, kosztem krzesła szczytowego.",
+  };
+  document.getElementById("elev-note").innerHTML = `<span>${esc(notes[key])}</span>`;
+}
+document.querySelectorAll("[data-wall]").forEach((b) => b.addEventListener("click", () => {
+  document.querySelectorAll("[data-wall]").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+  drawElev(b.dataset.wall);
+}));
+drawElev("N");
+
+/* ---------- TABELE ---------- */
+document.getElementById("chk-table").innerHTML =
+  `<thead><tr><th>Miejsce</th><th>Po co</th><th class="num">Jest</th><th class="num">Wymagane</th><th>Ocena</th></tr></thead><tbody>` +
+  VISIBLE_CHECKS.map((c) => `<tr><td>${esc(c.name)}</td><td>${esc(c.why)}</td><td class="num">${c.val} cm</td><td class="num">${c.need} cm</td><td><span class="pill ${c.st}">${c.st === "ok" ? "Wystarcza" : c.st === "warn" ? "Ciasno" : "Za mało"}</span></td></tr>`).join("") +
+  `<tr><td>Szerokość drzwi w świetle</td><td>Droga ewakuacyjna</td><td class="num">?</td><td class="num">90 cm</td><td><span class="pill mute">Do pomiaru</span></td></tr></tbody>`;
+
+function costTable() {
+  let rows = "", sumKnown = 0, sumEst = 0, sumOutside = 0, missing = [];
+  for (const [z, zname] of Object.entries(ZONES)) {
+    const items = C.filter((c) => c.z === z);
+    if (!items.length) continue;
+    rows += `<tr class="zone-row"><td colspan="8">${esc(zname)}</td></tr>`;
+    items.forEach((c) => {
+      const val = c.price ? c.price * c.qty : null;
+      if (val != null) { if (c.outside) sumOutside += val; else if (c.estimate) sumEst += val; else sumKnown += val; }
+      else if (!c.outside) missing.push(c.name);
+      rows += `<tr><td class="mono">${CAT[c.k].n}</td><td>${esc(c.name)}</td><td>${esc(c.dims)}</td><td class="mono">${c.sku ? esc(c.sku) : "–"}</td><td class="num">${c.qty}</td><td class="num">${c.price ? fmt(c.price) : "–"}</td><td class="num">${val != null ? fmt(val) : "brak ceny"}</td><td><span class="pill ${c.status[0]}">${esc(c.status[1])}</span></td></tr>`;
+    });
+  }
+  rows += `<tr class="zone-row"><td colspan="8">Usługi i instalacje</td></tr>
+    <tr><td class="mono">–</td><td>Dostawa i montaż (IKEA dla Firm i dostawcy szaf)</td><td>–</td><td class="mono">–</td><td class="num">1</td><td class="num">–</td><td class="num">brak ceny</td><td><span class="pill mute">Do oferty</span></td></tr>
+    <tr><td class="mono">–</td><td>Instalacje: gniazda, RJ45, woda i odpływ</td><td>wg sekcji F</td><td class="mono">–</td><td class="num">1</td><td class="num">–</td><td class="num">brak ceny</td><td><span class="pill mute">Po inwentaryzacji</span></td></tr>`;
+  missing.push("Dostawa i montaż", "Instalacje");
+  document.getElementById("list-table").innerHTML = `<thead><tr><th>Nr</th><th>Pozycja</th><th>Wymiary / wariant</th><th>Nr kat.</th><th class="num">Ilość</th><th class="num">Cena jedn. brutto</th><th class="num">Wartość</th><th>Status</th></tr></thead><tbody>${rows}
+    <tr class="total"><td></td><td colspan="5">Meble z ceną historyczną + szacunek aneksu</td><td class="num">${fmt(sumKnown + sumEst)}</td><td></td></tr></tbody>`;
+  document.getElementById("cost-sum").innerHTML = `
+    <div><dt>Meble z ceną historyczną</dt><dd>${fmt(sumKnown)}<small>IKEA i szafka ładująca, ceny do ponownego sprawdzenia</small></dd></div>
+    <div><dt>Szacunek (blat, zlew, bateria)</dt><dd>${fmt(sumEst)}<small>wartość orientacyjna z rozmowy</small></dd></div>
+    <div><dt>Pozycje bez ceny</dt><dd>${missing.length}<small>m.in. szafy skrytkowe, stoły, krzesła robocze, fotel, montaż</small></dd></div>
+    <div><dt>Sprzęt poza budżetem mebli</dt><dd>${fmt(sumOutside)}<small>tylko monitor dotykowy; drukarki bez wyceny, laptopy już są</small></dd></div>`;
+}
+costTable();
+
+const INST_LABEL = { p230: "Gniazdo 230 V", rj: "Gniazdo RJ45", h2o: "Woda / odpływ", box: "Puszka podłogowa" };
+document.getElementById("inst-table").innerHTML = `<thead><tr><th>Rodzaj</th><th>Miejsce i przeznaczenie</th><th class="num">Wysokość</th></tr></thead><tbody>` +
+  INST.map((p) => `<tr><td><span class="pill ${p.t === "rj" ? "ok" : p.t === "box" ? "warn" : "mute"}">${INST_LABEL[p.t]}</span></td><td>${esc(p.txt)}</td><td class="num">${p.z ? p.z + " cm" : "podłoga"}</td></tr>`).join("") + `</tbody>`;
+
+/* ---------- MODEL 3D ---------- */
+const host = document.getElementById("viewer");
+const msg = document.getElementById("v-msg");
+if (!window.THREE) { msg.textContent = "Nie udało się wczytać biblioteki 3D. Rzut i elewacje powyżej działają bez niej."; return; }
+let renderer;
+try { renderer = new THREE.WebGLRenderer({ antialias: true }); }
+catch (e) { msg.textContent = "Ta przeglądarka nie obsługuje WebGL, więc model 3D się nie wyświetli."; return; }
+msg.remove();
+renderer.setPixelRatio(Math.min(2, window.devicePixelRatio || 1));
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+host.prepend(renderer.domElement);
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(45, 1, 0.05, 100);
+const S = 0.01;
+const P = (x, y, z) => new THREE.Vector3(x * S - 4.5, z * S, y * S - 3);
+
+scene.add(new THREE.HemisphereLight(0xffffff, 0xc9c2b5, 0.95));
+const sun = new THREE.DirectionalLight(0xffffff, 0.5);
+sun.position.set(2.5, 7, 9);
+sun.castShadow = true;
+sun.shadow.mapSize.set(2048, 2048);
+Object.assign(sun.shadow.camera, { left: -7, right: 7, top: 7, bottom: -7, near: 1, far: 30 });
+sun.shadow.bias = -0.0005;
+scene.add(sun);
+
+const COL = { storage: 0x9aa7ae, work: 0xa9c4b4, print: 0xb2c4da, kitchen: 0xdcd3c4, dining: 0xd8b98a, lounge: 0x7f9f8c, tech: 0x5f6d73, chair: 0xe9e4da, leg: 0x4a5553, wood: 0xcfb48a, white: 0xf4f2ee };
+const matCache = {};
+const mat = (hex, opts = {}) => { const key = hex + JSON.stringify(opts); return matCache[key] || (matCache[key] = new THREE.MeshStandardMaterial({ color: hex, roughness: 0.75, metalness: 0.05, ...opts })); };
+const edgeMat = new THREE.LineBasicMaterial({ color: 0x2f3b3a, transparent: true, opacity: 0.35 });
+const pickables = [];
+
+function box(x, y, z, w, d, h, material, parent, owner, edges = true) {
+  const m = new THREE.Mesh(new THREE.BoxGeometry(w * S, h * S, d * S), material);
+  m.position.copy(P(x + w / 2, y + d / 2, z + h / 2));
+  m.castShadow = true; m.receiveShadow = true;
+  if (edges) m.add(new THREE.LineSegments(new THREE.EdgesGeometry(m.geometry), edgeMat));
+  if (owner) { m.userData.owner = owner; pickables.push(m); }
+  parent.add(m);
+  return m;
+}
+const furniture = new THREE.Group(); scene.add(furniture);
+
+// podłoga
+const floor = new THREE.Mesh(new THREE.PlaneGeometry(9, 6), mat(0xd9c6a3, { roughness: 0.9 }));
+floor.rotation.x = -Math.PI / 2; floor.receiveShadow = true; scene.add(floor);
+const fl = []; for (let x = 50; x < 900; x += 50) fl.push(P(x, 0, 0.2), P(x, 600, 0.2)); for (let y = 50; y < 600; y += 50) fl.push(P(0, y, 0.2), P(900, y, 0.2));
+scene.add(new THREE.LineSegments(new THREE.BufferGeometry().setFromPoints(fl), new THREE.LineBasicMaterial({ color: 0x8c7a5c, transparent: true, opacity: 0.18 })));
+
+// ściany
+const T = 15;
+const wallMat = { N: mat(0xf1ede5, { transparent: true }), S: mat(0xf1ede5, { transparent: true }), W: mat(0xece7de, { transparent: true }), E: mat(0xece7de, { transparent: true }) };
+const walls = { N: new THREE.Group(), S: new THREE.Group(), W: new THREE.Group(), E: new THREE.Group() };
+Object.values(walls).forEach((g) => scene.add(g));
+const wb = (k, x, y, z, w, d, h) => { const m = box(x, y, z, w, d, h, wallMat[k], walls[k], null, false); m.castShadow = false; return m; };
+wb("N", -T, -T, 0, DOOR.x0 + T, T, ROOM.h); wb("N", DOOR.x1, -T, 0, ROOM.w - DOOR.x1 + T, T, ROOM.h); wb("N", DOOR.x0, -T, DOOR.h, DOOR.x1 - DOOR.x0, T, ROOM.h - DOOR.h);
+let sx = -T; WINDOWS.forEach(([a, b]) => { wb("S", sx, ROOM.d, 0, a - sx, T, ROOM.h); wb("S", a, ROOM.d, 0, b - a, T, SILL); wb("S", a, ROOM.d, HEAD, b - a, T, ROOM.h - HEAD); sx = b; }); wb("S", sx, ROOM.d, 0, ROOM.w + T - sx, T, ROOM.h);
+wb("W", -T, 0, 0, T, ROOM.d, ROOM.h); wb("E", ROOM.w, 0, 0, T, ROOM.d, ROOM.h);
+const glassMat = new THREE.MeshStandardMaterial({ color: 0x9cc7dc, transparent: true, opacity: 0.28, roughness: 0.1 });
+WINDOWS.forEach(([a, b]) => { const g = box(a, ROOM.d + 6, SILL, b - a, 3, HEAD - SILL, glassMat, walls.S, null, false); g.castShadow = false; box((a + b) / 2 - 2, ROOM.d + 4, SILL, 4, 6, HEAD - SILL, mat(0xffffff), walls.S, null, false); });
+// skrzydło drzwi otwarte
+const leaf = box(DOOR.hinge - 2, 0, 0, 4, DOOR.leaf, DOOR.h - 2, mat(0xb08d62), walls.N, null);
+// grzejniki
+RADIATORS.forEach((r) => box(r.x, r.y, r.z, r.w, r.d, r.h, mat(0xffffff), furniture, null));
+
+// meble
+function chair3d(it, color) {
+  const g = new THREE.Group(); furniture.add(g);
+  const { x, y, w, d } = it, seat = 46, th = 5;
+  const owner = it;
+  box(x + 3, y + 3, seat - th, w - 6, d - 6, th, mat(color), g, owner);
+  const back = { N: [x + 4, y + d - 8, w - 8, 5], S: [x + 4, y + 3, w - 8, 5], E: [x + 3, y + 4, 5, d - 8], W: [x + w - 8, y + 4, 5, d - 8] }[it.face];
+  box(back[0], back[1], seat, back[2], back[3], it.h - seat, mat(color), g, owner);
+  if (it.k === "krz_jad") [[5, 5], [w - 8, 5], [5, d - 8], [w - 8, d - 8]].forEach(([dx, dy]) => box(x + dx, y + dy, 0, 3, 3, seat - th, mat(COL.leg), g, null, false));
+  else { box(x + w / 2 - 2.5, y + d / 2 - 2.5, 6, 5, 5, seat - th - 6, mat(COL.leg), g, null, false); box(x + 4, y + d / 2 - 2, 0, w - 8, 4, 5, mat(COL.leg), g, null, false); box(x + w / 2 - 2, y + 4, 0, 4, d - 8, 5, mat(COL.leg), g, null, false); }
+}
+function table3d(it, topColor) {
+  const { x, y, w, d, h, z } = it;
+  box(x, y, z + h - 3, w, d, 3, mat(topColor), furniture, it);
+  const inset = 4, lw = 4;
+  [[inset, inset], [w - inset - lw, inset], [inset, d - inset - lw], [w - inset - lw, d - inset - lw]].forEach(([dx, dy]) => box(x + dx, y + dy, z, lw, lw, h - 3, mat(COL.leg), furniture, null, false));
+  if (it.k === "bror_lawa") box(x + 3, y + 3, 15, w - 6, d - 6, 2, mat(COL.leg), furniture, it);
+}
+I.forEach((it) => {
+  const c = CAT[it.k];
+  const zc = COL[c.z];
+  if (it.kind === "chair") return chair3d(it, it.k === "krz_jad" ? 0xc9a36e : it.k === "krz_biuro" ? 0xd6c9ae : 0x7d9187);
+  if (it.kind === "table") return table3d(it, c.z === "dining" ? 0xe0c79c : c.z === "print" ? 0xc8a77a : 0xe9e2d3);
+  if (it.kind === "sofa") {
+    const isSofa = it.k === "sofa";
+    const col = mat(isSofa ? 0x8ea595 : 0xb9a07e);
+    box(it.x, it.y, 10, it.w, it.d, 32, col, furniture, it);
+    box(it.x, it.y + it.d - 20, 42, it.w, 20, it.h - 42, col, furniture, it);
+    box(it.x, it.y, 42, 14, it.d - 20, 18, col, furniture, it);
+    box(it.x + it.w - 14, it.y, 42, 14, it.d - 20, 18, col, furniture, it);
+    [[4, 4], [it.w - 8, 4], [4, it.d - 8], [it.w - 8, it.d - 8]].forEach(([dx, dy]) => box(it.x + dx, it.y + dy, 0, 4, 4, 10, mat(COL.leg), furniture, null, false));
+    return;
+  }
+  if (it.kind === "round") {
+    const top = new THREE.Mesh(new THREE.CylinderGeometry(it.w / 2 * S, it.w / 2 * S, 0.03, 32), mat(COL.wood));
+    top.position.copy(P(it.x + it.w / 2, it.y + it.d / 2, it.h - 1.5)); top.castShadow = true; top.userData.owner = it; pickables.push(top); furniture.add(top);
+    const leg = new THREE.Mesh(new THREE.CylinderGeometry(0.02, 0.15, (it.h - 3) * S, 16), mat(COL.leg));
+    leg.position.copy(P(it.x + it.w / 2, it.y + it.d / 2, (it.h - 3) / 2)); leg.castShadow = true; furniture.add(leg);
+    return;
+  }
+  let color = zc;
+  if (it.k === "zmywarka") color = 0xe8eaea;
+  if (it.k === "blat") color = COL.wood;
+  if (it.k === "druk_duza" || it.k === "druk_mala") color = 0xe7e9ea;
+  if (it.k === "monitor") color = 0x23292b;
+  if (it.k === "laptop") color = 0x8a9398;
+  if (it.k === "akcesoria") color = 0x4e5a5f;
+  if (it.k === "tonery") color = 0x6f7d84;
+  if (it.k === "bror_regal") {
+    const g = furniture;
+    [0, it.w - 3].forEach((dx) => [0, it.d - 3].forEach((dy) => box(it.x + dx, it.y + dy, 0, 3, 3, it.h, mat(COL.leg), g, it, false)));
+    for (let z = 2; z < it.h; z += 38) box(it.x, it.y, z, it.w, it.d, 2, mat(0xc8a77a), g, it);
+    for (let z = 5; z < it.h - 30; z += 38) box(it.x + 6, it.y + 8, z, 30, 22, 12, mat(0xffffff), g, it); // ryzy papieru
+    return;
+  }
+  const m = box(it.x, it.y, it.z, it.w, it.d, it.h, mat(color), furniture, it);
+  if (it.kind === "lockers") {
+    const pts = [];
+    const fx = it.x + it.w + 0.3;
+    for (let i = 1; i < 3; i++) { const yy = it.y + (it.d * i) / 3; pts.push(P(fx, yy, 0), P(fx, yy, it.h)); }
+    for (let r = 1; r < 11; r++) { const zz = (it.h * r) / 11; pts.push(P(fx, it.y, zz), P(fx, it.y + it.d, zz)); }
+    m.parent.add(new THREE.LineSegments(new THREE.BufferGeometry().setFromPoints(pts), new THREE.LineBasicMaterial({ color: 0x2f3b3a })));
+  }
+  if (it.k === "druk_duza") { box(it.x + 10, it.y + 8, it.h, 70, 50, 18, mat(0xd6d9db), furniture, it); box(it.x + it.w - 48, it.y + 10, 60, 40, 45, 6, mat(0xd6d9db), furniture, it); }
+  if (it.k === "monitor") { box(it.x + 8, it.y + 26, 75, 8, 10, 10, mat(0x23292b), furniture, it, false); m.position.y += 0.08; }
+  if (it.k === "an_zlew") { const sink = box(it.x + 10, it.y + 12, 89, 42, 36, 1, mat(0xb8c0c3, { metalness: 0.6, roughness: 0.3 }), furniture, it, false); box(it.x + 30, it.y + 4, 90, 3, 3, 26, mat(0x9aa3a6, { metalness: 0.7, roughness: 0.3 }), furniture, it, false); }
+  if (it.k === "an_wiszaca") box(it.x, it.y + it.d, it.z - 1, it.w, 1, 1, mat(0xfff3cf, { emissive: 0xffe9b0, emissiveIntensity: 0.6 }), furniture, null, false);
+});
+
+/* orbita */
+const target = new THREE.Vector3(0, 0.6, 0);
+const sph = { r: 11, theta: 0.75, phi: 0.95 };
+const eyeView = (eye, tgt) => {
+  const e = P(...eye), t = P(...tgt), d = e.clone().sub(t), r = d.length();
+  return { t: [t.x, t.y, t.z], r, theta: Math.atan2(d.x, d.z), phi: Math.acos(d.y / r) };
+};
+const VIEWS = {
+  iso: { t: [0, 0.6, 0], r: 11.5, theta: 0.62, phi: 0.92 },
+  door: eyeView([185, 95, 165], [620, 450, 60]),
+  window: eyeView([470, 590, 160], [420, 120, 80]),
+  top: { t: [0, 0, 0], r: 12.5, theta: 0.0001, phi: 0.001 },
+};
+let anim = null;
+function setView(name, instant) {
+  const v = VIEWS[name];
+  const from = { t: target.clone(), r: sph.r, theta: sph.theta, phi: sph.phi };
+  const to = { t: new THREE.Vector3(...v.t), r: v.r, theta: v.theta, phi: v.phi };
+  let dt = to.theta - from.theta; while (dt > Math.PI) dt -= 2 * Math.PI; while (dt < -Math.PI) dt += 2 * Math.PI; to.theta = from.theta + dt;
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (instant || reduce) { target.copy(to.t); Object.assign(sph, { r: to.r, theta: to.theta, phi: to.phi }); req(); return; }
+  const t0 = performance.now(), dur = 700;
+  anim = (now) => {
+    const k = Math.min(1, (now - t0) / dur), e = k < 0.5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;
+    target.lerpVectors(from.t, to.t, e);
+    sph.r = from.r + (to.r - from.r) * e; sph.theta = from.theta + (to.theta - from.theta) * e; sph.phi = from.phi + (to.phi - from.phi) * e;
+    if (k >= 1) anim = null;
+  };
+  req();
+}
+document.querySelectorAll("[data-view]").forEach((b) => b.addEventListener("click", () => {
+  document.querySelectorAll("[data-view]").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+  setView(b.dataset.view);
+}));
+const showWalls = document.getElementById("v-walls");
+showWalls.addEventListener("change", req);
+
+const canvas = renderer.domElement;
+const ptrs = new Map(); let lastPinch = null, moved = 0;
+canvas.addEventListener("contextmenu", (e) => e.preventDefault());
+canvas.addEventListener("pointerdown", (e) => { canvas.setPointerCapture(e.pointerId); ptrs.set(e.pointerId, { x: e.clientX, y: e.clientY, b: e.button, shift: e.shiftKey }); moved = 0; anim = null; });
+canvas.addEventListener("pointermove", (e) => {
+  const p = ptrs.get(e.pointerId); if (!p) return;
+  const dx = e.clientX - p.x, dy = e.clientY - p.y; moved += Math.abs(dx) + Math.abs(dy);
+  if (ptrs.size === 2) {
+    const [a, b] = [...ptrs.values()]; p.x = e.clientX; p.y = e.clientY;
+    const dist = Math.hypot(a.x - b.x, a.y - b.y);
+    if (lastPinch) sph.r = Math.min(20, Math.max(1.2, sph.r * lastPinch / dist));
+    lastPinch = dist; req(); return;
+  }
+  p.x = e.clientX; p.y = e.clientY;
+  if (p.b === 2 || p.shift) {
+    const k = sph.r * 0.0016;
+    const right = new THREE.Vector3(Math.cos(sph.theta), 0, -Math.sin(sph.theta));
+    const fwd = new THREE.Vector3(Math.sin(sph.theta), 0, Math.cos(sph.theta));
+    target.addScaledVector(right, -dx * k).addScaledVector(fwd, -dy * k);
+    target.x = Math.max(-5, Math.min(5, target.x)); target.z = Math.max(-3.5, Math.min(3.5, target.z));
+  } else {
+    sph.theta -= dx * 0.006; sph.phi = Math.min(1.52, Math.max(0.001, sph.phi - dy * 0.006));
+  }
+  req();
+});
+const endPtr = (e) => {
+  const p = ptrs.get(e.pointerId); ptrs.delete(e.pointerId); if (ptrs.size < 2) lastPinch = null;
+  if (p && moved < 6 && e.type === "pointerup") pickAt(e);
+};
+canvas.addEventListener("pointerup", endPtr); canvas.addEventListener("pointercancel", endPtr);
+canvas.addEventListener("wheel", (e) => { e.preventDefault(); sph.r = Math.min(20, Math.max(0.6, sph.r * Math.exp(e.deltaY * 0.0012))); req(); }, { passive: false });
+
+const ray = new THREE.Raycaster(); const pickEl = document.getElementById("pick");
+let picked = null;
+function pickAt(e) {
+  const r = canvas.getBoundingClientRect();
+  ray.setFromCamera({ x: ((e.clientX - r.left) / r.width) * 2 - 1, y: -((e.clientY - r.top) / r.height) * 2 + 1 }, camera);
+  const hit = ray.intersectObjects(pickables, false)[0];
+  pickables.forEach((m) => { if (m.material.emissive && m.userData.hl) { m.material = m.userData.hl; m.userData.hl = null; } });
+  if (!hit) { pickEl.hidden = true; picked = null; req(); return; }
+  const it = hit.object.userData.owner, c = CAT[it.k];
+  pickables.filter((m) => m.userData.owner === it).forEach((m) => { m.userData.hl = m.material; m.material = m.material.clone(); m.material.emissive = new THREE.Color(0x17695f); m.material.emissiveIntensity = 0.35; });
+  pickEl.textContent = `${c.n}. ${c.name} · ${c.dims}${it.z ? ` · montaż od ${it.z} cm` : ""}`;
+  pickEl.hidden = false; req();
+}
+
+const camPos = new THREE.Vector3();
+function updateCamera() {
+  camPos.set(target.x + sph.r * Math.sin(sph.phi) * Math.sin(sph.theta), target.y + sph.r * Math.cos(sph.phi), target.z + sph.r * Math.sin(sph.phi) * Math.cos(sph.theta));
+  camera.position.copy(camPos);
+  camera.up.set(0, 1, 0);
+  if (sph.phi < 0.01) camera.up.set(-Math.sin(sph.theta), 0, -Math.cos(sph.theta));
+  camera.lookAt(target);
+  const inside = Math.abs(camPos.x) < 4.5 && Math.abs(camPos.z) < 3 && camPos.y < 3;
+  const normals = { N: [0, -1], S: [0, 1], W: [-1, 0], E: [1, 0] };
+  for (const [k, n] of Object.entries(normals)) {
+    const out = camPos.x * n[0] + camPos.z * n[1] > (n[0] ? 4.5 : 3);
+    const fade = !inside && out && sph.phi > 0.25;
+    wallMat[k].opacity = fade ? 0.1 : 1;
+    wallMat[k].depthWrite = !fade;
+    walls[k].visible = showWalls.checked;
+    walls[k].children.forEach((m) => { if (m.material !== wallMat[k]) m.visible = !fade; });
+  }
+  leaf.visible = showWalls.checked;
+}
+let needs = true;
+function req() { needs = true; }
+function resize() {
+  const w = host.clientWidth, h = host.clientHeight;
+  renderer.setSize(w, h, false);
+  camera.aspect = w / h; camera.updateProjectionMatrix(); req();
+}
+function bg() {
+  const v = getComputedStyle(document.documentElement).getPropertyValue("--floor").trim() || "#f3efe6";
+  scene.background = new THREE.Color(v); req();
+}
+new ResizeObserver(resize).observe(host);
+window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", bg);
+new MutationObserver(bg).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+bg(); setView("iso", true); resize();
+function loop(now) {
+  if (anim) { anim(now); needs = true; }
+  if (needs) { updateCamera(); renderer.render(scene, camera); needs = false; }
+  requestAnimationFrame(loop);
+}
+requestAnimationFrame(loop);
+})();
+</script>
+</body>
+</html>
