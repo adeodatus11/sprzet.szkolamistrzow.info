@@ -310,7 +310,7 @@ tr.total td { font-weight: 700; border-top: 2px solid var(--ink); }
       <li>IKEA: wszystkie pozycje z listy (33 produkty razem z zamiennikami) są w aktualnej ofercie, żadna nie jest wycofana ani oznaczona jako wyprzedana. Sklep internetowy pokazuje wysoki stan magazynowy każdej z nich.</li>
       <li>IKEA Wrocław Bielany: stanów konkretnego sklepu nie dało się odczytać automatycznie. Przed zamówieniem otwórz link produktu, wybierz sklep Wrocław i sprawdź całe ilości (np. 10 × FLINTAN, 10 × TEODORES) albo zamów przez IKEA dla Firm z dostawą.</li>
       <li>Szafy skrytkowe OLIVER (Kupmeble): na magazynie, wysyłka w 48 h. Zamieniłem nimi szafy z Kauflandu, których dostępności nie da się sprawdzić.</li>
-      <li>Ekspres De'Longhi i czajnik (Morele): na stanie.</li>
+      <li>Ekspres JURA W4 i czajnik (Morele): na stanie.</li>
       <li>Jeden fotel z wcześniejszej wersji (EKENÄSET w tańszym wariancie za 699 zł) zniknął z oferty IKEA; w zestawieniu jest wariant w sprzedaży (799 zł).</li>
     </ul>
   </div>
@@ -427,7 +427,7 @@ const C = [
   { k: "led_kabel", z: "kitchen", name: "IKEA VÅGDAL przewód połączeniowy, biały", dims: "3,5 m", sku: "704.636.00", price: 15, qty: 2, shop: IKEA, url: ip("vagdal-przewod-polaczeniowy-bialy-70463600"), status: ["ok", "W sprzedaży, na stanie"], noDraw: true },
   { k: "mikrofala", z: "kitchen", name: "IKEA TILLREDA kuchenka mikrofalowa wolnostojąca, biały", dims: "20 l, 700 W", sku: "504.867.92", price: 249, qty: 1, shop: IKEA, url: ip("tillreda-kuchenka-mikrofalowa-bialy-50486792"), status: ["ok", "W sprzedaży, na stanie"] },
   { k: "czajnik", z: "kitchen", name: "Czajnik elektryczny Lafe Steelo EK02, stal", dims: "1,7 l, 2200 W", price: 84, qty: 1, shop: "Morele.net (sprzedawca zewnętrzny)", url: "https://www.morele.net/czajnik-lafe-elektryczny-1-7-l-steelo-ek02-600730490/", avail: "na stanie", status: ["ok", "Na stanie"] },
-  { k: "ekspres", z: "kitchen", name: "Ekspres automatyczny De'Longhi Magnifica S ECAM 21.117.B", dims: "23,8 × 43 × 35,1 cm, młynek, spieniacz mleka", price: 1198, qty: 1, shop: "Morele.net", url: "https://www.morele.net/ekspres-cisnieniowy-delonghi-magnifica-s-ecam-21-117-b-659441/", avail: "na stanie, sprzedaje Morele.net", status: ["ok", "Na stanie"], alt: [{ name: "De'Longhi Magnifica S ECAM 22.112.B", price: 1219, url: "https://www.morele.net/ekspres-cisnieniowy-delonghi-magnifica-s-ecam-22-110-b-358158/" }] },
+  { k: "ekspres", z: "kitchen", name: "Ekspres automatyczny na ziarno JURA W4 (EA) Dark Inox, do biura", dims: "29,5 × 44,6 × 44,3 cm, do 50 kaw dziennie, woda 3 l, ziarno 500 g, kawa i gorąca woda", price: 6599, qty: 1, shop: "Morele.net (sprzedawca kawawbiurze)", url: "https://www.morele.net/ekspres-cisnieniowy-jura-w4-ea-dark-inox-15365193/", avail: "na stanie", status: ["ok", "Na stanie, bez spieniacza mleka"], alt: [{ name: "JURA W8 (EB) Dark Inox: to samo plus napoje mleczne (cappuccino, latte)", price: 7799, url: "https://www.morele.net/ekspres-cisnieniowy-jura-w8-dark-inox-eb-600731472/" }] },
   { k: "lodowka", z: "kitchen", name: "Lodówka wolnostojąca, szer. 60 cm", dims: "60 × 65 × ok. 185 cm, zawiasy po stronie aneksu", qty: 1, status: ["mute", "Nie kupujemy w tym zakupie"], outside: true },
   { k: "stol_jad", z: "dining", name: "IKEA TROTTEN biurko jako stół jadalny, biały", dims: "140 × 80 × 75 cm, łączone 280 × 80", sku: "s59429556", price: 499, qty: 2, shop: IKEA, url: ip("trotten-biurko-bialy-s59429556"), status: ["ok", "Testowany do użytku biurowego"], alt: [{ name: "MITTZON biurko 140 × 80 (ta sama seria co stół roboczy)", price: 949, url: ip("mittzon-biurko-bialy-s59528113") }] },
   { k: "krz_jad", z: "dining", name: "IKEA TEODORES krzesło, biały, sztaplowane", dims: "46 × 50 cm", sku: "903.509.37", price: 129, qty: 10, shop: IKEA, url: ip("teodores-krzeslo-bialy-90350937"), status: ["ok", "W sprzedaży, na stanie"] },
@@ -464,7 +464,7 @@ add("an_polki", { x: 720, y: 0, w: 60, d: 60, h: 86, kind: "box", label: "Półk
 add("zmywarka", { x: 780, y: 0, w: 60, d: 60, h: 86, kind: "box", label: "ZM" });
 add("an_zlew", { x: 840, y: 0, w: 60, d: 60, h: 86, kind: "box", label: "Zlew" });
 add("blat", { x: 660, y: 0, w: 240, d: 63, h: 4, z: 86, kind: "box", hidePlan: true });
-add("ekspres", { x: 666, y: 4, w: 24, d: 43, h: 35, z: 90, kind: "box", ontop: true });
+add("ekspres", { x: 664, y: 4, w: 30, d: 45, h: 44, z: 90, kind: "box", ontop: true });
 add("czajnik", { x: 698, y: 10, w: 22, d: 16, h: 25, z: 90, kind: "box", ontop: true });
 add("mikrofala", { x: 728, y: 4, w: 45, d: 34, h: 26, z: 90, kind: "box", ontop: true });
 [660, 720, 780, 840].forEach((x) => add("an_wiszaca", { x, y: 0, w: 60, d: 37, h: 100, z: 150, kind: "box", above: true }));
