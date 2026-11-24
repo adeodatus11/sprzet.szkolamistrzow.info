@@ -162,6 +162,9 @@ g.item.dim .it, g.item.dim text { opacity: 0.25; }
 .legend .sw { width: 14px; height: 14px; border-radius: 3px; border: 1px solid var(--wall); }
 .legend .t { min-width: 0; }
 .legend .t small { color: var(--muted); }
+.palette { display: flex; flex-wrap: wrap; gap: 6px 18px; padding: 10px 14px; border-top: 1px solid var(--line-soft); font-size: 13px; color: var(--muted); }
+.palette span { display: inline-flex; align-items: center; gap: 7px; }
+.palette i { width: 16px; height: 16px; border-radius: 3px; border: 1px solid var(--line); display: inline-block; }
 
 /* elewacje */
 .elev-grid { display: grid; gap: 16px; }
@@ -243,7 +246,7 @@ tr.total td { font-weight: 700; border-top: 2px solid var(--ink); }
 
 <section id="rzut" aria-labelledby="h-rzut">
   <h2 id="h-rzut"><span class="num">A</span>Rzut 2D w skali</h2>
-  <p class="sec-lead">Siatka co 50 cm, wymiary w centymetrach. Linia przerywana oznacza elementy wiszące nad podłogą (szafki aneksu, ekran dotykowy przy drzwiach). Kliknij mebel na rzucie albo w legendzie, żeby podświetlić wszystkie jego sztuki.</p>
+  <p class="sec-lead">Meble pokazane w rzeczywistych kolorach wybranych produktów (styl klasyczny, drewno, jasne ściany). Siatka co 50 cm, wymiary w centymetrach. Linia przerywana oznacza elementy wiszące nad podłogą (szafki aneksu, ekran dotykowy przy drzwiach). Kliknij mebel na rzucie albo w legendzie, żeby podświetlić wszystkie jego sztuki.</p>
   <div class="sheet">
     <div class="toolbar" role="group" aria-label="Warstwy rzutu">
       <label><input type="checkbox" id="l-grid" checked /> Siatka 50 cm</label>
@@ -257,6 +260,8 @@ tr.total td { font-weight: 700; border-top: 2px solid var(--ink); }
     </div>
     <div class="drawing"><svg id="plan" role="img" aria-label="Rzut sali 16 z rozmieszczeniem mebli"></svg></div>
     <div class="legend" id="legend"></div>
+    <div class="palette"><span><i style="background:#efe7d8"></i>Ściany: ciepła biel / jasny beż</span><span><i style="background:#c9a273"></i>Dąb: blaty stołów i biurek, fronty szaf skrytkowych, stolik, rama fotela</span><span><i style="background:#d8c19b"></i>Jesion: stół do kompletowania</span><span><i style="background:#d8ccb3"></i>Beż HAVSTORP: aneks kuchenny</span><span><i style="background:#cfae80"></i>Jasny dąb: blat kuchenny</span><span><i style="background:#9aa98f"></i>Szałwiowa zieleń: sofy KLIPPAN</span><span><i style="background:#d6c4a3"></i>Beż: krzesła FLINTAN, ścianki MITTZON, fotel</span><span><i style="background:#f1f0eb"></i>Biel: stelaże stołów, korpusy szaf, krzesła jadalni, szafki TROTTEN</span></div>
+
     <div class="titleblock"><span>Rzut · skala na ekranie dopasowana · 1 kratka = 50 cm</span><span>Pomieszczenie 900 × 600 cm, wysokość przyjęta 300 cm</span><span>Północ umowna: ściana z wejściem</span></div>
   </div>
 </section>
@@ -307,7 +312,7 @@ tr.total td { font-weight: 700; border-top: 2px solid var(--ink); }
   <div class="check-box">
     <h3>Sprawdzenie dostępności, 24.11.2026</h3>
     <ul>
-      <li>IKEA: wszystkie pozycje z listy (33 produkty razem z zamiennikami) są w aktualnej ofercie, żadna nie jest wycofana ani oznaczona jako wyprzedana. Sklep internetowy pokazuje wysoki stan magazynowy każdej z nich.</li>
+      <li>IKEA: wszystkie pozycje z listy (34 produkty razem z zamiennikami) są w aktualnej ofercie, żadna nie jest wycofana ani oznaczona jako wyprzedana. Sklep internetowy pokazuje wysoki stan magazynowy każdej z nich.</li>
       <li>IKEA Wrocław Bielany: stanów konkretnego sklepu nie dało się odczytać automatycznie. Przed zamówieniem otwórz link produktu, wybierz sklep Wrocław i sprawdź całe ilości (np. 10 × FLINTAN, 10 × TEODORES) albo zamów przez IKEA dla Firm z dostawą.</li>
       <li>Szafy skrytkowe OLIVER (Kupmeble): na magazynie, wysyłka w 48 h. Zamieniłem nimi szafy z Kauflandu, których dostępności nie da się sprawdzić.</li>
       <li>Czajnik i centrum dowodzenia (Morele): monitor, minikomputer, uchwyt i klawiatura na stanie.</li>
@@ -384,18 +389,18 @@ const ZONES = {
   tech: "Sprzęt IT – nie kupujemy w tym zakupie",
 };
 const C = [
-  { k: "szafa", z: "storage", name: "JAN NOWAK OLIVER, metalowa szafa depozytowa 33 skrytki, szara", dims: "90 × 45 × 185 cm, skrytka 13 × 22 × 42 cm, zamek w każdej skrytce, wentylowane fronty", sku: "EAN 5902560338065", price: 1299, qty: 2, shop: "Kupmeble.pl", url: "https://kupmeble.pl/produkt/metalowa-szafa-depozytowa-oliver-90x45x185-cm-szara", avail: "na magazynie, wysyłka w 48 h", status: ["ok", "Na magazynie, gwarancja 10 lat"], note: "Razem 66 skrytek", alt: [{ name: "Szafa skrytkowa 3B11A, 33 skrytki (Kaufland, Domator24; dostępności nie da się odczytać)", price: 1699.99, url: "https://www.kaufland.pl/product/535305251/" }] },
+  { k: "szafa", z: "storage", name: "JAN NOWAK OLIVER Eco Design, szafa depozytowa 33 skrytki, biały korpus / fronty dąb sonoma", dims: "90 × 45 × 185 cm, skrytka 13 × 22 × 42 cm, zamek w każdej skrytce", price: 1699, qty: 2, shop: "Kupmeble.pl", url: "https://kupmeble.pl/produkt/metalowa-szafa-depozytowa-eco-design-oliver-90x45x185-cm-bialy-dab-sonoma", avail: "na magazynie, wysyłka 48 h", status: ["ok", "Na magazynie, gwarancja 10 lat"], note: "Razem 66 skrytek", alt: [{ name: "OLIVER szara (RAL 7035)", price: 1299, url: "https://kupmeble.pl/produkt/metalowa-szafa-depozytowa-oliver-90x45x185-cm-szara" }, { name: "OLIVER Eco Design antracyt / orzech", price: 1449, url: "https://kupmeble.pl/produkt/metalowa-szafa-depozytowa-eco-design-oliver-90x45x185-cm-antracyt-orzech" }] },
   { k: "scianka", z: "storage", sw: "acoustic", name: "IKEA MITTZON rama z kółkami i ekranem akustycznym, Gunnared beżowy/biały", dims: "85 × 205 cm, podstawa 50 cm, ekran 5 cm, pokrycie zdejmowane do prania", sku: "s39514683", price: 699, qty: 2, shop: IKEA, url: ip("mittzon-rama-z-kolkami-ekran-akust-gunnared-bezowy-bialy-s39514683"), status: ["ok", "Na kółkach, można przestawiać"], alt: [{ name: "MITTZON rama z kółkami, ekran akustyczny i tablica suchościeralna (s09536177)", price: 999, url: ip("mittzon-rama-z-kolk-ekr-akust-tabl-gunnared-bezowy-bialy-s09536177") }] },
-  { k: "biurko", z: "work", name: "IKEA MITTZON biurko, biały", dims: "120 × 60 cm, regulacja 65–85 cm", sku: "s89525844", price: 699, qty: 2, shop: IKEA, url: ip("mittzon-biurko-bialy-s89525844"), status: ["ok", "2 stanowiska komputerowe"], alt: [{ name: "MITTZON okleina dębowa/czarny (s69525859)", price: 699, url: ip("mittzon-biurko-okl-deb-czarny-s69525859") }] },
+  { k: "biurko", z: "work", name: "IKEA MITTZON biurko, okleina dębowa / biały", dims: "120 × 60 cm, regulacja 65–85 cm", sku: "s09525862", price: 699, qty: 2, shop: IKEA, url: ip("mittzon-biurko-okl-deb-bialy-s09525862"), status: ["ok", "2 stanowiska komputerowe"], alt: [{ name: "MITTZON okleina dębowa/czarny (s69525859)", price: 699, url: ip("mittzon-biurko-okl-deb-czarny-s69525859") }] },
   { k: "krz_biuro", z: "work", name: "IKEA FLINTAN krzesło biurowe, beżowy", dims: "obrotowe, na kółkach", sku: "704.922.02", price: 249, qty: 2, shop: IKEA, url: ip("flintan-krzeslo-biurowe-bezowy-70492202"), status: ["ok", "Przy biurkach"] },
-  { k: "stol_pracy", z: "work", name: "IKEA MITTZON stół konferencyjny, biały (2 szt. łączone w jeden stół)", dims: "140 × 108 × 75 cm, razem 280 × 108 cm, 8 miejsc (4 + 4)", sku: "s19533381", price: 1098, qty: 2, shop: IKEA, url: ip("mittzon-stol-konferencyjny-bialy-s19533381"), status: ["ok", "Stół konferencyjny, bez regulacji"], alt: [{ name: "Stół konferencyjny z elektryczną regulacją, np. Ogi Drive 220 × 120 (Flatiron, Wrocław; cena z wyszukiwarki, na zapytanie)", price: 7000, url: "https://www.flatiron.pl/pl/product/stol-konferencyjny_BOD622_ogi-drive" }] },
+  { k: "stol_pracy", z: "work", name: "IKEA MITTZON stół konferencyjny, okleina dębowa / biały (2 szt. łączone w jeden stół)", dims: "140 × 108 × 75 cm, razem 280 × 108 cm, 8 miejsc (4 + 4)", sku: "s79533420", price: 1098, qty: 2, shop: IKEA, url: ip("mittzon-stol-konferencyjny-okl-deb-bialy-s79533420"), status: ["ok", "Stół konferencyjny, bez regulacji"], alt: [{ name: "Stół konferencyjny z elektryczną regulacją, np. Ogi Drive 220 × 120 (Flatiron, Wrocław; cena z wyszukiwarki, na zapytanie)", price: 7000, url: "https://www.flatiron.pl/pl/product/stol-konferencyjny_BOD622_ogi-drive" }] },
   { k: "krz_pracy", z: "work", name: "IKEA FLINTAN krzesło biurowe, beżowy", dims: "obrotowe, na kółkach", sku: "704.922.02", price: 249, qty: 8, shop: IKEA, url: ip("flintan-krzeslo-biurowe-bezowy-70492202"), status: ["ok", "Przy stole roboczym"] },
   { k: "pojemniki", z: "work", name: "IKEA DRÖNJÖNS pojemnik na długopisy, biały (w środkowym module stołu roboczego)", dims: "10 × 10 × 11 cm; po 2 na każdy z 2 stołów", sku: "004.948.79", price: 3.99, qty: 4, shop: IKEA, url: ip("droenjoens-pojemnik-na-dlugopisy-bialy-00494879"), status: ["ok", "W sprzedaży, na stanie"] },
   { k: "druk_duza", z: "tech", name: "Konica Minolta bizhub C450i z kasetą PC-x16 (korpus)", dims: "61,5 × 68,8 × 120,7 cm; z otwartym podajnikiem dokumentów 156 cm; taca boczna wysuwa się o 32 cm w prawo", qty: 1, status: ["mute", "Sprzęt IT, nie w tym zakupie"], outside: true },
   { k: "finiszer", z: "tech", name: "Finiszer broszurujący FS-539SD (z modułem RU-513 w korpusie)", dims: "54,3 × 68,1 × 102,3 cm, z wysuniętymi tacami 65,8 cm szer., 53 kg", qty: 1, status: ["mute", "Sprzęt IT, nie w tym zakupie"], outside: true },
   { k: "druk_mala", z: "tech", name: "Xerox VersaLink B7130 MFP (B7101V_D), posiadana, przy komputerach", dims: "sama drukarka 59 × 67 × 77 cm, 54 kg; z podstawą Xerox ok. 62 × 67 × 112 cm", qty: 1, status: ["ok", "Jest w szkole"], outside: true },
   { k: "podstawa", z: "print", name: "Podstawa pod kserokopiarkę KSW, wykonana pod Xerox VersaLink B7130", dims: "pod wymiar drukarki (59 × 67 cm), płyta MDF laminowana, kółka, drzwiczki na papier i toner, ok. 20 kg", price: 467.4, qty: 1, shop: "agapo.pl (PC-NET, polski producent)", url: "https://agapo.pl/podstawa-stolik-pod-drukarke-kserokopiarke-urzadzenie-wielofunkcyjne-p-44382.html", avail: "dostępna, wysyłka w 3 dni, kurier 24,60 zł", status: ["ok", "Przy zamówieniu podać model: Xerox VersaLink B7130, 1 kaseta"], alt: [{ name: "Szkolmeb, szafka pod ksero 70 × 80 × 50 cm (meble szkolne)", url: "https://szkolmeb.pl/szafka-pod-ksero" }, { name: "Kamila Meble, szafka na drukarkę Rd1 z zamkiem (standardowo za wysoka, wykonują na wymiar)", price: 861, url: "https://kamilameble.pl/szafy-biurowe/1279-szafka-rd1.html" }] },
-  { k: "stol_wysoki", z: "print", name: "IKEA TROTTEN biurko z regulacją wysokości, elektryczne, biały (stół do kompletowania)", dims: "120 × 70 cm, wys. 71–118 cm", sku: "s49621871", price: 999, qty: 1, shop: IKEA, url: ip("trotten-biurko-z-regulacja-wysokosci-elektryczny-bialy-s49621871"), status: ["ok", "Jeden stół obok strefy druku"] },
+  { k: "stol_wysoki", z: "print", name: "IKEA TROTTEN biurko z regulacją wysokości, elektryczne, imitacja jesionu / biały (stół do kompletowania)", dims: "120 × 70 cm, wys. 71–118 cm", sku: "s39621881", price: 999, qty: 1, shop: IKEA, url: ip("trotten-biurko-z-regulacja-wysokosci-elektryczny-imitacja-jesionu-bialy-s39621881"), status: ["ok", "Jeden stół obok strefy druku"] },
   { k: "tonery", z: "print", name: "IKEA TROTTEN szafka z drzwiami przesuwnymi, biały (laptopy z ładowarkami, papier, tonery)", dims: "80 × 55 × 75 cm, zamek; górna półka: laptopy i ładowarki, dolna: papier i tonery; otwór w tylnej ściance na przewód", sku: "404.747.61", price: 599, qty: 1, shop: IKEA, url: ip("trotten-szafka-z-drzwiami-przesuwnymi-bialy-40474761"), status: ["ok", "Pod stołem do kompletowania, obok bizhuba"] },
   { k: "przedluzacz", z: "print", name: "IKEA KOPPLA przedłużacz 4 gniazdka i 2 porty USB, biały", dims: "przewód 3 m, w szafce TROTTEN", sku: "003.147.41", price: 79, qty: 1, shop: IKEA, url: ip("koppla-przedluzacz-4-gniazdka-2-porty-usb-bialy-00314741"), status: ["ok", "W sprzedaży, na stanie"], noDraw: true },
   { k: "ladowarki", z: "print", name: "Ładowarka USB-C 65 W GaN UGREEN X615 (do laptopów KPO zostających w szafce)", dims: "1 × USB-A, 2 × USB-C, Power Delivery", price: 214.26, qty: 4, shop: "Morele.net", url: "https://www.morele.net/ladowarka-ugreen-ugreen-65w-gan-fast-charger-with-retractable-cable-15610306/", avail: "na stanie", status: ["warn", "Tylko jeśli laptopy ładują się przez USB-C; inaczej oryginalne zasilacze"], noDraw: true },
@@ -408,7 +413,7 @@ const C = [
   { k: "an_zlew", z: "kitchen", name: "IKEA METOD szafka pod zlew, biały/Havstorp beżowy", dims: "60 × 60 cm", sku: "s49455131", price: 340, qty: 1, shop: IKEA, url: ip("metod-szafka-pod-zlew-bialy-havstorp-bezowy-s49455131"), status: ["ok", "W sprzedaży, na stanie"] },
   { k: "zlew", z: "kitchen", name: "IKEA LÅNGUDDEN zlew wpuszczany, 1 komora, stal nierdzewna", dims: "46 × 46 cm", sku: "s59157391", price: 289, qty: 1, shop: IKEA, url: ip("langudden-zlew-wpuszczany-1-komorowy-stal-nierdz-s59157391"), status: ["ok", "W sprzedaży, na stanie"], noDraw: true, alt: [{ name: "VRESJÖN 54 × 44 cm, stal", price: 1079, url: ip("vresjoen-zlew-wpuszczany-1-komora-stal-nierdz-s99425721") }] },
   { k: "bateria", z: "kitchen", name: "IKEA SALLSJÖN bateria kuchenna z uchwytem z boku, stalowy", dims: "jednouchwytowa", sku: "706.009.04", price: 349, qty: 1, shop: IKEA, url: ip("sallsjoen-bateria-kuchenna-z-uchwytem-z-boku-stalowy-70600904"), status: ["ok", "W sprzedaży, na stanie"], noDraw: true, alt: [{ name: "LAGAN, chrom (najtańsza)", price: 119, url: ip("lagan-bateria-kuchenna-chrom-10085027") }] },
-  { k: "blat", z: "kitchen", name: "IKEA EKBACKEN blat, imitacja sklejki/laminat", dims: "246 × 63,5 × 2,8 cm, docinany na 240", sku: "806.090.46", price: 299, qty: 1, shop: IKEA, url: ip("ekbacken-blat-imitacja-sklejki-laminat-80609046"), status: ["ok", "W sprzedaży, na stanie"] },
+  { k: "blat", z: "kitchen", name: "IKEA EKBACKEN blat, efekt jasnego dębu / laminat", dims: "246 × 63,5 × 2,8 cm, docinany na 240", sku: "506.338.11", price: 299, qty: 1, shop: IKEA, url: ip("ekbacken-blat-efekt-jasnego-debu-laminat-50633811"), status: ["ok", "W sprzedaży, na stanie"] },
   { k: "an_wiszaca", z: "kitchen", name: "IKEA METOD szafka ścienna z półkami, 2 drzwi, biały/Havstorp beżowy", dims: "60 × 100 cm", sku: "s89461328", price: 405, qty: 4, shop: IKEA, url: ip("metod-szafka-scienna-z-polkami-2-drzwi-bialy-havstorp-bezowy-s89461328"), status: ["ok", "W sprzedaży, na stanie"] },
   { k: "cokol", z: "kitchen", name: "IKEA HAVSTORP cokół, beżowy", dims: "220 × 8 cm, 2 szt. na 240 cm", sku: "404.752.56", price: 95, qty: 2, shop: IKEA, url: ip("havstorp-cokol-bezowy-40475256"), status: ["ok", "W sprzedaży, na stanie"], noDraw: true },
   { k: "panel_m", z: "kitchen", name: "IKEA HAVSTORP panel maskujący, beżowy (bok szafki z szufladami)", dims: "39 × 86 cm", sku: "504.752.51", price: 110, qty: 1, shop: IKEA, url: ip("havstorp-panel-maskujacy-bezowy-50475251"), status: ["ok", "W sprzedaży, na stanie"], noDraw: true },
@@ -418,10 +423,10 @@ const C = [
   { k: "mikrofala", z: "kitchen", name: "IKEA TILLREDA kuchenka mikrofalowa wolnostojąca, biały", dims: "20 l, 700 W", sku: "504.867.92", price: 249, qty: 1, shop: IKEA, url: ip("tillreda-kuchenka-mikrofalowa-bialy-50486792"), status: ["ok", "W sprzedaży, na stanie"] },
   { k: "czajnik", z: "kitchen", name: "Czajnik elektryczny Lafe Steelo EK02, stal", dims: "1,7 l, 2200 W", price: 84, qty: 1, shop: "Morele.net (sprzedawca zewnętrzny)", url: "https://www.morele.net/czajnik-lafe-elektryczny-1-7-l-steelo-ek02-600730490/", avail: "na stanie", status: ["ok", "Na stanie"] },
   { k: "lodowka", z: "kitchen", name: "Lodówka wolnostojąca, szer. 60 cm", dims: "60 × 65 × ok. 185 cm, zawiasy po stronie aneksu", qty: 1, status: ["mute", "Nie kupujemy w tym zakupie"], outside: true },
-  { k: "stol_jad", z: "dining", name: "IKEA MITTZON stół konferencyjny, biały (ten sam model co stół roboczy)", dims: "140 × 108 × 75 cm, 2 szt. = 280 × 108, 10 miejsc", sku: "s19533381", price: 1098, qty: 2, shop: IKEA, url: ip("mittzon-stol-konferencyjny-bialy-s19533381"), status: ["ok", "Stół modułowy, łączy się z roboczym"] },
+  { k: "stol_jad", z: "dining", name: "IKEA MITTZON stół konferencyjny, okleina dębowa / biały (ten sam model co stół roboczy)", dims: "140 × 108 × 75 cm, 2 szt. = 280 × 108, 10 miejsc", sku: "s79533420", price: 1098, qty: 2, shop: IKEA, url: ip("mittzon-stol-konferencyjny-okl-deb-bialy-s79533420"), status: ["ok", "Stół modułowy, łączy się z roboczym"] },
   { k: "krz_jad", z: "dining", name: "IKEA TEODORES krzesło, biały, sztaplowane", dims: "46 × 50 cm", sku: "903.509.37", price: 129, qty: 10, shop: IKEA, url: ip("teodores-krzeslo-bialy-90350937"), status: ["ok", "W sprzedaży, na stanie"] },
-  { k: "sofa", z: "lounge", name: "IKEA KLIPPAN sofa 2-osobowa, Vissle szary", dims: "180 × 88 cm, pokrycie zdejmowane, pranie 40°C", sku: "s79010614", price: 899, qty: 2, shop: IKEA, url: ip("klippan-sofa-2-osobowa-vissle-szary-s79010614"), status: ["ok", "W sprzedaży, na stanie"], alt: [{ name: "GLOSTAD 2-osobowa, 121 × 78 cm (mniejsza, pokrycie stałe)", price: 599, url: ip("glostad-sofa-2-osobowa-knisa-ciemnoszary-50489012") }] },
-  { k: "stolik", z: "lounge", name: "IKEA GLADOM stolik z tacą, biały", dims: "Ø 45 × 53 cm", sku: "703.378.19", price: 49, qty: 1, shop: IKEA, url: ip("gladom-stolik-z-taca-bialy-70337819"), status: ["ok", "W sprzedaży, na stanie"] },
+  { k: "sofa", z: "lounge", name: "IKEA KLIPPAN sofa 2-osobowa, Vissle zielony (szałwiowa zieleń)", dims: "180 × 88 cm, pokrycie zdejmowane, pranie 40°C", sku: "s79561663", price: 899, qty: 2, shop: IKEA, url: ip("klippan-sofa-2-osobowa-vissle-zielony-s79561663"), status: ["ok", "W sprzedaży, na stanie"], alt: [{ name: "GLOSTAD 2-osobowa, 121 × 78 cm (mniejsza, pokrycie stałe)", price: 599, url: ip("glostad-sofa-2-osobowa-knisa-ciemnoszary-50489012") }] },
+  { k: "stolik", z: "lounge", name: "IKEA VALNÄS stolik, okleina dębowa", dims: "Ø 53 × 55 cm", sku: "806.280.35", price: 399, qty: 1, shop: IKEA, url: ip("valnaes-stolik-okl-deb-80628035"), status: ["ok", "W sprzedaży, na stanie"], alt: [{ name: "GLADOM stolik z tacą, biały, Ø 45 cm", price: 49, url: ip("gladom-stolik-z-taca-bialy-70337819") }] },
   { k: "fotel", z: "lounge", name: "IKEA EKENÄSET fotel, imitacja dębu/Kilanda jasnobeżowy", dims: "64 × 78 cm, rama z litego drewna", sku: "106.243.28", price: 799, qty: 1, shop: IKEA, url: ip("ekenaeset-fotel-imit-debu-kilanda-jasnobezowy-10624328"), status: ["ok", "W sprzedaży, na stanie"] },
   { k: "cmd_monitor", z: "cmd", sw: "tech", name: "Monitor dotykowy iiyama ProLite T2755MSC-B1, 27″ Full HD", dims: "61 × 36 cm, 1920 × 1080, dotyk pojemnościowy 10-punktowy, 5,8 kg, VESA 100 × 100", price: 1793.04, qty: 1, shop: "Morele.net", url: "https://www.morele.net/monitor-iiyama-prolite-t2755msc-b1-13179166/", avail: "na stanie, sprzedaje Morele.net", status: ["ok", "Na stanie"], alt: [{ name: "iiyama ProLite T2755QSC-B1, 27″ QHD dotykowy", price: 2274.95, url: "https://www.morele.net/monitor-iiyama-prolite-t2755qsc-b1-13239211/" }] },
   { k: "cmd_pc", z: "cmd", sw: "tech", name: "Minikomputer Dell Pro Micro QCM1250, i5-14500T, 16 GB, 512 GB SSD, Windows 11 Pro (20PN3)", dims: "ok. 18 × 18 × 3,6 cm, montaż za monitorem na uchwycie VESA Maclean MC-115 B", price: 4731.99, qty: 1, shop: "Morele.net (sprzedawca SuperTech)", url: "https://www.morele.net/komputer-dell-pro-micro-qcm1250-i5-14500t-16gb-512gb-ssd-windows-11-pro-czarny-20pn3-15447555/", avail: "na stanie", status: ["ok", "Na stanie, gwarancja 24 mies."], alt: [{ name: "Lenovo ThinkCentre M70q Gen 5, i5-13400T, 16 GB, 512 GB, Windows 11 Pro (obecnie niedostępny)", price: 4417.95, url: "https://www.morele.net/komputer-lenovo-thinkcentre-m70q-gen-5-intel-core-i5-i5-13400t-16-gb-ddr5-sdram-512-gb-ssd-windows-11-pro-mini-pc-czarny-15662053/" }] },
@@ -430,6 +435,19 @@ const C = [
   { k: "cmd_kb", z: "cmd", sw: "tech", name: "Klawiatura i mysz bezprzewodowe Logitech MK270 (zapasowe)", dims: "tylko do konfiguracji i aktualizacji; na co dzień obsługa dotykiem", price: 95, qty: 1, shop: "Morele.net", url: "https://www.morele.net/klawiatura-mysz-logitech-mk270-920-004508-575947/", avail: "na stanie", status: ["ok", "Na stanie"], noDraw: true },
   { k: "laptop", z: "tech", name: "Laptop KPO (tryb incognito)", dims: "już w szkole", qty: 4, status: ["ok", "Przydzielone do sali 16"], outside: true },
 ];
+/* rzeczywiste kolory produktów (2D i 3D) */
+const OAK = "#c9a273", ASH = "#d8c19b", WHITE_FRAME = "#f1f0eb", HAV = "#d8ccb3";
+const PAL = {
+  szafa: { col: "#f1f0eb", front: "#c79e6c" }, scianka: { col: "#cdc3b0" },
+  biurko: { col: OAK, frame: WHITE_FRAME }, stol_pracy: { col: OAK, frame: WHITE_FRAME }, stol_jad: { col: OAK, frame: WHITE_FRAME },
+  stol_wysoki: { col: ASH, frame: WHITE_FRAME }, krz_biuro: { col: "#d6c4a3" }, krz_pracy: { col: "#d6c4a3" }, krz_jad: { col: "#f2f1ed" },
+  tonery: { col: "#f1f0eb" }, podstawa: { col: "#c9c9c5" }, an_szuflady: { col: HAV }, an_polki: { col: HAV }, an_zlew: { col: HAV },
+  zmywarka: { col: HAV }, an_wiszaca: { col: HAV }, blat: { col: "#cfae80" }, lodowka: { col: "#f4f4f2" }, mikrofala: { col: "#f4f4f2" }, czajnik: { col: "#b3b8ba" },
+  sofa: { col: "#9aa98f" }, fotel: { col: "#dccfb7", frame: "#b98f5e" }, stolik: { col: "#c29a68" }, pojemniki: { col: "#f4f4f2" },
+  druk_duza: { col: "#e3e4e2" }, finiszer: { col: "#e3e4e2" }, druk_mala: { col: "#dfe1e0" }, akcesoria: { col: "#4e5a5f" },
+  cmd_monitor: { col: "#25292b" }, cmd_pc: { col: "#25292b" }, laptop: { col: "#8a9398" },
+};
+const hex = (c) => parseInt(c.slice(1), 16);
 const CAT = Object.fromEntries(C.map((c, i) => [c.k, { ...c, n: i + 1 }]));
 
 /* rozmieszczenie: x od lewej ściany, y od ściany z wejściem, z = wysokość dołu, wszystko w cm */
@@ -472,7 +490,7 @@ add("krz_jad", { cx: 769, cy: 187, w: 46, d: 46, face: "S", kind: "chair", h: 80
 add("krz_jad", { cx: 769, cy: 523, w: 46, d: 46, face: "N", kind: "chair", h: 80 });
 add("sofa", { x: 175, y: 497, w: 180, d: 88, h: 66, face: "N", kind: "sofa", label: "Sofa 2" });
 add("sofa", { x: 365, y: 497, w: 180, d: 88, h: 66, face: "N", kind: "sofa", label: "Sofa 2" });
-add("stolik", { x: 555, y: 520, w: 45, d: 45, h: 53, kind: "round" });
+add("stolik", { x: 553.5, y: 518, w: 53, d: 53, h: 55, kind: "round" });
 add("fotel", { x: 610, y: 507, w: 64, d: 78, h: 76, face: "N", kind: "sofa", label: "Fotel" });
 I.forEach((it) => { if (it.cx != null) { it.x = it.cx - it.w / 2; it.y = it.cy - it.d / 2; } });
 
@@ -611,6 +629,11 @@ function drawPlan() {
       if (it.kind === "lockers") for (let i = 1; i < 3; i++) el("line", { x1: it.x + 6, y1: it.y + (it.d * i) / 3, x2: it.x + it.w, y2: it.y + (it.d * i) / 3, class: "it", "stroke-width": 0.8 }, gi);
       if (it.k === "an_zlew") el("rect", { x: it.x + 10, y: it.y + 10, width: 42, height: 36, rx: 6, class: "it", fill: "none" }, gi);
     }
+    const pal = PAL[it.k];
+    if (pal) gi.querySelectorAll("rect.it, circle.it").forEach((n, idx) => {
+      if (n.classList.contains("above")) { n.style.stroke = "var(--wall)"; return; }
+      n.style.fill = it.kind === "chair" && idx === 1 ? "#8c7f6c" : it.kind === "lockers" ? pal.front : pal.col;
+    });
     if (it.label && !it.above) {
       const vertical = it.d > it.w * 1.4 && it.w < 70;
       const cx = it.x + it.w / 2, cy = it.y + it.d / 2;
@@ -731,7 +754,7 @@ function bindPlanItems() {
 }
 document.getElementById("legend").innerHTML = C.filter((c) => !c.noDraw && I.some((i) => i.k === c.k && !i.hidePlan)).map((c) => {
   const n = CAT[c.k].n; const placed = I.filter((i) => i.k === c.k).length;
-  return `<button type="button" data-c="${c.k}"><span class="n">${n}</span><span class="sw" style="background: var(--z-${c.sw || c.z})"></span><span class="t">${esc(c.name)} <small>· ${placed} szt. · ${esc(c.dims)}</small></span></button>`;
+  return `<button type="button" data-c="${c.k}"><span class="n">${n}</span><span class="sw" style="background: ${PAL[c.k] ? (PAL[c.k].front || PAL[c.k].col) : `var(--z-${c.sw || c.z})`}"></span><span class="t">${esc(c.name)} <small>· ${placed} szt. · ${esc(c.dims)}</small></span></button>`;
 }).join("");
 document.querySelectorAll("#legend button").forEach((b) => b.addEventListener("click", () => highlight(b.dataset.c)));
 drawPlan();
@@ -802,6 +825,11 @@ function drawElev(key) {
       if (it.k === "an_zlew" && key === "N") { el("path", { d: `M ${u0 + 30} ${Y(90)} v -24 h 12`, stroke: "var(--z-tech)", "stroke-width": 3, fill: "none" }, gi); }
       if (it.kind === "shelf") for (let z = 38; z < it.h; z += 38) el("line", { x1: u0, y1: Y(z), x2: u1, y2: Y(z), stroke: "var(--wall)", "stroke-width": 1 }, gi);
     }
+    const pal = PAL[it.k];
+    if (pal) gi.querySelectorAll("rect.it").forEach((n, i) => {
+      if ((it.kind === "table" || it.kind === "round") && i > 0) { n.style.fill = pal.frame || "#e9e8e3"; return; }
+      n.style.fill = it.kind === "lockers" && key === "W" ? pal.front : pal.col;
+    });
     const lab = it.label && w > 34 && it.h > 30 ? it.label : null;
     if (lab && it.kind !== "table") txt(gi, u0 + w / 2, Y(it.z + it.h / 2) + 4, lab, "lbl sm", { "text-anchor": "middle" });
     if (it.kind === "table" && w > 60) txt(gi, u0 + w / 2, Y(it.z + it.h) - 6, it.label || c.name.replace("IKEA ", ""), "lbl sm", { "text-anchor": "middle" });
@@ -945,7 +973,7 @@ scene.add(new THREE.LineSegments(new THREE.BufferGeometry().setFromPoints(fl), n
 
 // ściany
 const T = 15;
-const wallMat = { N: mat(0xf1ede5, { transparent: true }), S: mat(0xf1ede5, { transparent: true }), W: mat(0xece7de, { transparent: true }), E: mat(0xece7de, { transparent: true }) };
+const wallMat = { N: mat(0xf1eadc, { transparent: true }), S: mat(0xf1eadc, { transparent: true }), W: mat(0xede5d5, { transparent: true }), E: mat(0xede5d5, { transparent: true }) };
 const walls = { N: new THREE.Group(), S: new THREE.Group(), W: new THREE.Group(), E: new THREE.Group() };
 Object.values(walls).forEach((g) => scene.add(g));
 const wb = (k, x, y, z, w, d, h) => { const m = box(x, y, z, w, d, h, wallMat[k], walls[k], null, false); m.castShadow = false; return m; };
@@ -970,32 +998,34 @@ function chair3d(it, color) {
   if (it.k === "krz_jad") [[5, 5], [w - 8, 5], [5, d - 8], [w - 8, d - 8]].forEach(([dx, dy]) => box(x + dx, y + dy, 0, 3, 3, seat - th, mat(COL.leg), g, null, false));
   else { box(x + w / 2 - 2.5, y + d / 2 - 2.5, 6, 5, 5, seat - th - 6, mat(COL.leg), g, null, false); box(x + 4, y + d / 2 - 2, 0, w - 8, 4, 5, mat(COL.leg), g, null, false); box(x + w / 2 - 2, y + 4, 0, 4, d - 8, 5, mat(COL.leg), g, null, false); }
 }
-function table3d(it, topColor) {
+function table3d(it, topColor, legColor = COL.leg) {
   const { x, y, w, d, h, z } = it;
   box(x, y, z + h - 3, w, d, 3, mat(topColor), furniture, it);
   const inset = 4, lw = 4;
-  [[inset, inset], [w - inset - lw, inset], [inset, d - inset - lw], [w - inset - lw, d - inset - lw]].forEach(([dx, dy]) => box(x + dx, y + dy, z, lw, lw, h - 3, mat(COL.leg), furniture, null, false));
+  [[inset, inset], [w - inset - lw, inset], [inset, d - inset - lw], [w - inset - lw, d - inset - lw]].forEach(([dx, dy]) => box(x + dx, y + dy, z, lw, lw, h - 3, mat(legColor), furniture, null, false));
   if (it.k === "bror_lawa") box(x + 3, y + 3, 15, w - 6, d - 6, 2, mat(COL.leg), furniture, it);
 }
 I.forEach((it) => {
   const c = CAT[it.k];
   const zc = COL[c.z];
-  if (it.kind === "chair") return chair3d(it, it.k === "krz_jad" ? 0xc9a36e : it.k === "krz_biuro" ? 0xd6c9ae : 0x7d9187);
-  if (it.kind === "table") return table3d(it, c.z === "print" ? 0xc8a77a : 0xe9e2d3);
+  const pal = PAL[it.k];
+  if (it.kind === "chair") return chair3d(it, pal ? hex(pal.col) : 0xd6c9ae);
+  if (it.kind === "table") return table3d(it, pal ? hex(pal.col) : 0xe9e2d3, pal && pal.frame ? hex(pal.frame) : COL.leg);
   if (it.kind === "sofa") {
     const isSofa = it.k === "sofa";
-    const col = mat(isSofa ? 0x8ea595 : 0xb9a07e);
+    const col = mat(pal ? hex(pal.col) : 0x8ea595);
+    const armCol = pal && pal.frame ? mat(hex(pal.frame)) : col;
     box(it.x, it.y, 10, it.w, it.d, 32, col, furniture, it);
     box(it.x, it.y + it.d - 20, 42, it.w, 20, it.h - 42, col, furniture, it);
-    box(it.x, it.y, 42, 14, it.d - 20, 18, col, furniture, it);
-    box(it.x + it.w - 14, it.y, 42, 14, it.d - 20, 18, col, furniture, it);
+    box(it.x, it.y, 42, 14, it.d - 20, 18, armCol, furniture, it);
+    box(it.x + it.w - 14, it.y, 42, 14, it.d - 20, 18, armCol, furniture, it);
     [[4, 4], [it.w - 8, 4], [4, it.d - 8], [it.w - 8, it.d - 8]].forEach(([dx, dy]) => box(it.x + dx, it.y + dy, 0, 4, 4, 10, mat(COL.leg), furniture, null, false));
     return;
   }
   if (it.kind === "round") {
-    const top = new THREE.Mesh(new THREE.CylinderGeometry(it.w / 2 * S, it.w / 2 * S, 0.03, 32), mat(COL.wood));
+    const top = new THREE.Mesh(new THREE.CylinderGeometry(it.w / 2 * S, it.w / 2 * S, 0.03, 32), mat(pal ? hex(pal.col) : COL.wood));
     top.position.copy(P(it.x + it.w / 2, it.y + it.d / 2, it.h - 1.5)); top.castShadow = true; top.userData.owner = it; pickables.push(top); furniture.add(top);
-    const leg = new THREE.Mesh(new THREE.CylinderGeometry(0.02, 0.15, (it.h - 3) * S, 16), mat(COL.leg));
+    const leg = new THREE.Mesh(new THREE.CylinderGeometry(0.02, 0.15, (it.h - 3) * S, 16), mat(pal ? hex(pal.col) : COL.leg));
     leg.position.copy(P(it.x + it.w / 2, it.y + it.d / 2, (it.h - 3) / 2)); leg.castShadow = true; furniture.add(leg);
     return;
   }
@@ -1018,10 +1048,12 @@ I.forEach((it) => {
     for (let z = 5; z < it.h - 30; z += 38) box(it.x + 6, it.y + 8, z, 30, 22, 12, mat(0xffffff), g, it); // ryzy papieru
     return;
   }
+  if (pal) color = hex(pal.col);
   const m = box(it.x, it.y, it.z, it.w, it.d, it.h, mat(color), furniture, it);
+  if (it.kind === "lockers" && pal) box(it.x + it.w, it.y + 1, 1, 1, it.d - 2, it.h - 2, mat(hex(pal.front)), furniture, it, false);
   if (it.kind === "lockers") {
     const pts = [];
-    const fx = it.x + it.w + 0.3;
+    const fx = it.x + it.w + 1.3;
     for (let i = 1; i < 3; i++) { const yy = it.y + (it.d * i) / 3; pts.push(P(fx, yy, 0), P(fx, yy, it.h)); }
     for (let r = 1; r < 11; r++) { const zz = (it.h * r) / 11; pts.push(P(fx, it.y, zz), P(fx, it.y + it.d, zz)); }
     m.parent.add(new THREE.LineSegments(new THREE.BufferGeometry().setFromPoints(pts), new THREE.LineBasicMaterial({ color: 0x2f3b3a })));
