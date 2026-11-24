@@ -329,7 +329,7 @@ tr.total td { font-weight: 700; border-top: 2px solid var(--ink); }
         <li>Model dużej drukarki A3 z finiszerem i jej rzeczywisty gabaryt z modułami (rezerwa na rzucie: 190 × 70 cm plus 110 cm obsługi).</li>
         <li>Model mniejszej A3 i jej masa (dobór podstawy przy biurkach), sposób podawania papieru z przodu.</li>
         <li>Lodówka: tak czy nie. Na rzucie nie ma na nią miejsca w aneksie; możliwe miejsce to ściana przy jadalni obok aneksu.</li>
-        <li>Sofa 3-osobowa czy 2-osobowa: przed sofą zostaje tylko 57 cm (patrz kontrola przejść).</li>
+        <li>Modele dwóch sof 2-osobowych i fotela: głębokość najlepiej do 85 cm, tapicerka zmywalna, odporna na ścieranie.</li>
         <li>Zasilanie stołu roboczego: puszka podłogowa albo przewód z sufitu.</li>
       </ol>
     </div>
@@ -338,7 +338,7 @@ tr.total td { font-weight: 700; border-top: 2px solid var(--ink); }
       <ul>
         <li>Stół roboczy przesunięty niżej (krawędź 260 cm od ściany z wejściem), żeby krzesła nie wchodziły w strefę obsługi drukarek.</li>
         <li>Jadalnia odsunięta od prawej ściany na 85 cm od krawędzi stołu, żeby dało się odsunąć krzesła.</li>
-        <li>Stolik kawowy zamieniony na okrągły stolik boczny Ø 50 cm między sofą a fotelem; przed sofą nie ma miejsca na zwykły stolik.</li>
+        <li>Zamiast sofy 3-osobowej dwie sofy 2-osobowe i fotel w rzędzie pod oknami, między sofami okrągły stolik Ø 50 cm; przed sofami nie ma miejsca na zwykły stolik kawowy.</li>
         <li>Na biurku 1 przewidziano monitor dotykowy 27″ do komputera do zastępstw (pozycja z zakładki „Do zakupu”).</li>
         <li>Mniejsza A3 przeniesiona na podstawę przy biurkach; zostają 2 stanowiska komputerowe zamiast 3.</li>
         <li>W strefie druku przy wejściu zamiast mniejszej A3, ławy i regału na papier stoi wysoki stół 240 × 80 cm do kompletowania dokumentów; pod nim szafka na tonery i papier oraz niszczarka.</li>
@@ -396,7 +396,7 @@ const C = [
   { k: "led", z: "kitchen", name: "Oświetlenie LED podszafkowe", dims: "180 cm", qty: 1, status: ["mute", "Sprawdzić, czy w akcesoriach"], noDraw: true },
   { k: "stol_jad", z: "dining", name: "Stół modułowy jadalni", dims: "140 × 80 cm, łączone 280 × 80", qty: 2, status: ["mute", "Model i seria do ustalenia"] },
   { k: "krz_jad", z: "dining", name: "IKEA TEODORES krzesło sztaplowane", dims: "46 × 50 cm", sku: "903.509.37", price: 129, qty: 10, status: ["mute", "Cena historyczna, normy do sprawdzenia"] },
-  { k: "sofa", z: "lounge", name: "IKEA LILLESÄTER sofa 3-osobowa", dims: "201 × 90 cm", sku: "406.190.71", price: 2499, qty: 1, status: ["warn", "Tapicerka do sprawdzenia; mało miejsca przed sofą"] },
+  { k: "sofa", z: "lounge", name: "Sofa 2-osobowa", dims: "ok. 150 × 85 cm", qty: 2, status: ["mute", "Model do wyboru, tapicerka zmywalna"] },
   { k: "stolik", z: "lounge", name: "Stolik boczny okrągły", dims: "Ø 50 cm", qty: 1, status: ["mute", "Do wyboru"] },
   { k: "fotel", z: "lounge", name: "Fotel", dims: "ok. 80 × 80 cm", qty: 1, status: ["mute", "Do wyboru"] },
   { k: "monitor", z: "tech", name: "Monitor dotykowy 27″ iiyama T2755MSC-B1", dims: "do komputera do zastępstw", price: 1840, qty: 1, status: ["mute", "Pozycja z zakładki „Do zakupu”"], outside: true },
@@ -435,9 +435,10 @@ add("stol_jad", { x: 735, y: 355, w: 80, d: 140, h: 75, kind: "table" });
 [250, 320, 390, 460].forEach((y) => { add("krz_jad", { cx: 708, cy: y, w: 46, d: 46, face: "E", kind: "chair", h: 80 }); add("krz_jad", { cx: 842, cy: y, w: 46, d: 46, face: "W", kind: "chair", h: 80 }); });
 add("krz_jad", { cx: 775, cy: 187, w: 46, d: 46, face: "S", kind: "chair", h: 80 });
 add("krz_jad", { cx: 775, cy: 523, w: 46, d: 46, face: "N", kind: "chair", h: 80 });
-add("sofa", { x: 250, y: 495, w: 201, d: 90, h: 80, face: "N", kind: "sofa", label: "Sofa 3" });
-add("stolik", { x: 461, y: 520, w: 50, d: 50, h: 50, kind: "round" });
-add("fotel", { x: 521, y: 505, w: 80, d: 80, h: 80, face: "N", kind: "sofa", label: "Fotel" });
+add("sofa", { x: 190, y: 500, w: 150, d: 85, h: 80, face: "N", kind: "sofa", label: "Sofa 2" });
+add("stolik", { x: 350, y: 520, w: 50, d: 50, h: 50, kind: "round" });
+add("sofa", { x: 410, y: 500, w: 150, d: 85, h: 80, face: "N", kind: "sofa", label: "Sofa 2" });
+add("fotel", { x: 575, y: 505, w: 80, d: 80, h: 80, face: "N", kind: "sofa", label: "Fotel" });
 I.forEach((it) => { if (it.cx != null) { it.x = it.cx - it.w / 2; it.y = it.cy - it.d / 2; } });
 
 /* instalacje proponowane */
@@ -468,8 +469,8 @@ const CHECKS = [
   { a: [775, 60], b: [775, 163], need: 100, name: "Front aneksu ↔ krzesło szczytowe jadalni", why: "Praca przy zlewie i otwarta zmywarka" },
   { a: [815, 430], b: [900, 430], need: 75, name: "Krawędź stołu jadalni ↔ prawa ściana", why: "Odsunięcie krzeseł, bez przejścia za nimi" },
   { a: [775, 495], b: [775, 600], need: 75, name: "Krawędź stołu jadalni ↔ ściana z oknami", why: "Krzesło szczytowe" },
-  { a: [400, 438], b: [400, 495], need: 75, name: "Krzesła stołu roboczego (odsunięte) ↔ front sofy", why: "Miejsce na nogi siedzących na sofie", soft: 55 },
-  { a: [70, 497], b: [250, 497], need: 100, name: "Front mniejszej A3 ↔ sofa", why: "Obsługa drukarki przy biurkach, wymiana tonera" },
+  { a: [480, 438], b: [480, 500], need: 75, name: "Krzesła stołu roboczego (odsunięte) ↔ front sof", why: "Miejsce na nogi siedzących na sofie", soft: 55 },
+  { a: [70, 497], b: [190, 497], need: 100, name: "Front mniejszej A3 ↔ sofa", why: "Obsługa drukarki przy biurkach, wymiana tonera" },
   { a: [140, 190], b: [241, 211], need: 90, name: "Koniec ścianki akustycznej ↔ krzesło stołu roboczego", why: "Wejście do stanowisk komputerowych od strony drzwi" },
   { a: [45, 140], b: [125, 140], need: 70, name: "Strefa przed szafami skrytkowymi", why: "Otwieranie drzwiczek skrytek", fixedOk: true },
   { a: [60, 560], b: [60, 600], hide: true },
@@ -494,7 +495,7 @@ const fmt = (v) => v.toLocaleString("pl-PL", { minimumFractionDigits: 2, maximum
 const esc = (s) => String(s).replace(/[&<>"]/g, (m) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[m]);
 
 /* ---------- liczby w nagłówku ---------- */
-const seats = I.filter((i) => i.kind === "chair").length + 3 + 1;
+const seats = I.filter((i) => i.kind === "chair").length + I.filter((i) => i.k === "sofa").length * 2 + I.filter((i) => i.k === "fotel").length;
 const known = C.filter((c) => c.price && !c.outside).reduce((s, c) => s + c.price * c.qty, 0);
 const unknownCount = C.filter((c) => !c.price && !c.outside).length;
 document.getElementById("facts").innerHTML = [
@@ -642,7 +643,7 @@ function badgePos(it) {
     szafa: [70, 20], scianka: [154, 172], biurko: [84, 322], ladowarka: [72, 214], krz_biuro: [140, 255], stol_pracy: [222, 270], krz_pracy: [290, 214],
     druk_duza: [255, 98], druk_mala: [84, 512], podstawa: [84, 466], stol_wysoki: [690, 98], tonery: [660, 64], akcesoria: [500, 64],
     an_szuflady: [735, 76], zmywarka: [800, 76], an_zlew: [880, 76], an_wiszaca: [760, 115], blat: [0, 0],
-    stol_jad: [755, 240], krz_jad: [690, 222], sofa: [262, 480], stolik: [486, 508], fotel: [615, 500], monitor: [44, 300], laptop: [44, 330],
+    stol_jad: [755, 240], krz_jad: [690, 222], sofa: [200, 486], stolik: [375, 508], fotel: [588, 490], monitor: [44, 300], laptop: [44, 330],
   };
   return map[it.k] || [it.x + it.w + 10, it.y];
 }
@@ -802,7 +803,7 @@ function drawElev(key) {
   const notes = {
     N: "Stół wysoki do kompletowania: blat na 95 cm (praca na stojąco), pod nim szafka na tonery i papier oraz niszczarka. Szafki wiszące aneksu: dół 150 cm, góra 250 cm. Za dużą drukarką zostawić 8 cm na wentylację i przewody.",
     W: "Ścianka akustyczna 170 cm między szafami a biurkiem 1, widoczna tu z boku; mocowana do ściany, druga podpora na końcu. Dwa stanowiska komputerowe, obok mniejsza A3 na podstawie (20 cm odstępu od biurka na wentylację). Szafka ładująca: dół 140 cm, nad biurkiem 1. Szafy skrytkowe 3 × 11 skrytek każda. *Wysokość sali przyjęta, do pomiaru.",
-    S: "Parapet przyjęty na 90 cm, nadproże 260 cm. Sofa (80 cm) nie zasłania okien, ale stoi przed grzejnikiem okna środkowego: zostawić min. 10 cm odstępu.",
+    S: "Parapet przyjęty na 90 cm, nadproże 260 cm. Sofy i fotel (80 cm) nie zasłaniają okien, ale stoją przed grzejnikami: zostawić min. 15 cm odstępu od ściany na obieg ciepła.",
     E: "Ściana prawie wolna. Krzesła jadalni stoją 85 cm od krawędzi stołu. Jeśli zapadnie decyzja o lodówce, to najbliższe sensowne miejsce jest tutaj przy aneksie, kosztem krzesła szczytowego.",
   };
   document.getElementById("elev-note").innerHTML = `<span>${esc(notes[key])}</span>`;
@@ -841,7 +842,7 @@ function costTable() {
   document.getElementById("cost-sum").innerHTML = `
     <div><dt>Meble z ceną historyczną</dt><dd>${fmt(sumKnown)}<small>IKEA i szafka ładująca, ceny do ponownego sprawdzenia</small></dd></div>
     <div><dt>Szacunek (blat, zlew, bateria)</dt><dd>${fmt(sumEst)}<small>wartość orientacyjna z rozmowy</small></dd></div>
-    <div><dt>Pozycje bez ceny</dt><dd>${missing.length}<small>m.in. szafy skrytkowe, stoły, krzesła robocze, fotel, montaż</small></dd></div>
+    <div><dt>Pozycje bez ceny</dt><dd>${missing.length}<small>m.in. szafy skrytkowe, stoły, krzesła robocze, sofy, fotel, montaż</small></dd></div>
     <div><dt>Sprzęt poza budżetem mebli</dt><dd>${fmt(sumOutside)}<small>tylko monitor dotykowy; drukarki bez wyceny, laptopy już są</small></dd></div>`;
 }
 costTable();
