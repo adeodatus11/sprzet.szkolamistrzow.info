@@ -342,7 +342,7 @@ tr.total td { font-weight: 700; border-top: 2px solid var(--ink); }
       <h3>Decyzje</h3>
       <ol>
         <li>Ścianki MITTZON stoją na kółkach z podstawą 50 cm: ustalić, czy obie zostają przy biurkach, czy jedna ma być przestawiana (np. do wydzielenia kącika wypoczynku).</li>
-        <li>Stół roboczy na środku: MITTZON bez regulacji (2 196 zł) czy stół konferencyjny z elektryczną regulacją na zamówienie (ok. 3–7 tys. zł, wymaga zapytania ofertowego).</li>
+        <li>Stoły: 4 × MITTZON bez regulacji (moduły łączone w jeden stół) czy stół roboczy z elektryczną regulacją na zamówienie (ok. 3–7 tys. zł; wtedy nie połączy się z jadalnią na jednej wysokości bez ustawienia go na 75 cm).</li>
         <li>Lodówka: czy szkoła ma lodówkę szer. 60 cm, czy trzeba ją kupić osobno; zawiasy po stronie aneksu.</li>
         <li>Strona sprzętu planuje 4 laptopy KPO dla sali 16: rzut zakłada 2 na biurkach, 1 przy stole roboczym i 1 w szafce ładującej.</li>
         <li>Model dużej drukarki A3 z finiszerem i jej rzeczywisty gabaryt z modułami (rezerwa na rzucie: 190 × 70 cm plus 110 cm obsługi).</li>
@@ -355,7 +355,7 @@ tr.total td { font-weight: 700; border-top: 2px solid var(--ink); }
     <div class="card">
       <h3>Zmiany względem koncepcji 07</h3>
       <ul>
-        <li>Stół roboczy z dwóch stołów konferencyjnych MITTZON 140 × 108 połączonych w jeden 280 × 108 cm, 8 miejsc; krawędź 262 cm od ściany z wejściem.</li>
+        <li>Wszystkie stoły to jeden model: 4 × IKEA MITTZON stół konferencyjny 140 × 108 × 75 cm. Na co dzień 2 tworzą stół roboczy (8 miejsc), 2 jadalnię (10 miejsc). W razie potrzeby można je zestawić w jeden stół 560 × 108 cm (ok. 18–20 osób) albo w blok 280 × 216 cm na zebranie.</li>
         <li>Jadalnia odsunięta od prawej ściany na 85 cm od krawędzi stołu, żeby dało się odsunąć krzesła.</li>
         <li>Zamiast sofy 3-osobowej dwie sofy KLIPPAN 2-osobowe i fotel EKENÄSET w rzędzie pod oknami, między nimi stolik GLADOM Ø 45 cm; przed sofami nie ma miejsca na zwykły stolik kawowy.</li>
         <li>Na biurku 1 przewidziano monitor dotykowy 27″ do komputera do zastępstw (pozycja z zakładki „Do zakupu”).</li>
@@ -429,7 +429,7 @@ const C = [
   { k: "czajnik", z: "kitchen", name: "Czajnik elektryczny Lafe Steelo EK02, stal", dims: "1,7 l, 2200 W", price: 84, qty: 1, shop: "Morele.net (sprzedawca zewnętrzny)", url: "https://www.morele.net/czajnik-lafe-elektryczny-1-7-l-steelo-ek02-600730490/", avail: "na stanie", status: ["ok", "Na stanie"] },
   { k: "ekspres", z: "kitchen", name: "Ekspres automatyczny na ziarno JURA W4 (EA) Dark Inox, do biura", dims: "29,5 × 44,6 × 44,3 cm, do 50 kaw dziennie, woda 3 l, ziarno 500 g, kawa i gorąca woda", price: 6599, qty: 1, shop: "Morele.net (sprzedawca kawawbiurze)", url: "https://www.morele.net/ekspres-cisnieniowy-jura-w4-ea-dark-inox-15365193/", avail: "na stanie", status: ["ok", "Na stanie, bez spieniacza mleka"], alt: [{ name: "JURA W8 (EB) Dark Inox: to samo plus napoje mleczne (cappuccino, latte)", price: 7799, url: "https://www.morele.net/ekspres-cisnieniowy-jura-w8-dark-inox-eb-600731472/" }] },
   { k: "lodowka", z: "kitchen", name: "Lodówka wolnostojąca, szer. 60 cm", dims: "60 × 65 × ok. 185 cm, zawiasy po stronie aneksu", qty: 1, status: ["mute", "Nie kupujemy w tym zakupie"], outside: true },
-  { k: "stol_jad", z: "dining", name: "IKEA TROTTEN biurko jako stół jadalny, biały", dims: "140 × 80 × 75 cm, łączone 280 × 80", sku: "s59429556", price: 499, qty: 2, shop: IKEA, url: ip("trotten-biurko-bialy-s59429556"), status: ["ok", "Testowany do użytku biurowego"], alt: [{ name: "MITTZON biurko 140 × 80 (ta sama seria co stół roboczy)", price: 949, url: ip("mittzon-biurko-bialy-s59528113") }] },
+  { k: "stol_jad", z: "dining", name: "IKEA MITTZON stół konferencyjny, biały (ten sam model co stół roboczy)", dims: "140 × 108 × 75 cm, 2 szt. = 280 × 108, 10 miejsc", sku: "s19533381", price: 1098, qty: 2, shop: IKEA, url: ip("mittzon-stol-konferencyjny-bialy-s19533381"), status: ["ok", "Stół modułowy, łączy się z roboczym"] },
   { k: "krz_jad", z: "dining", name: "IKEA TEODORES krzesło, biały, sztaplowane", dims: "46 × 50 cm", sku: "903.509.37", price: 129, qty: 10, shop: IKEA, url: ip("teodores-krzeslo-bialy-90350937"), status: ["ok", "W sprzedaży, na stanie"] },
   { k: "sofa", z: "lounge", name: "IKEA KLIPPAN sofa 2-osobowa, Vissle szary", dims: "180 × 88 cm, pokrycie zdejmowane, pranie 40°C", sku: "s79010614", price: 899, qty: 2, shop: IKEA, url: ip("klippan-sofa-2-osobowa-vissle-szary-s79010614"), status: ["ok", "W sprzedaży, na stanie"], alt: [{ name: "GLOSTAD 2-osobowa, 121 × 78 cm (mniejsza, pokrycie stałe)", price: 599, url: ip("glostad-sofa-2-osobowa-knisa-ciemnoszary-50489012") }] },
   { k: "stolik", z: "lounge", name: "IKEA GLADOM stolik z tacą, biały", dims: "Ø 45 × 53 cm", sku: "703.378.19", price: 49, qty: 1, shop: IKEA, url: ip("gladom-stolik-z-taca-bialy-70337819"), status: ["ok", "W sprzedaży, na stanie"] },
@@ -471,11 +471,11 @@ add("mikrofala", { x: 728, y: 4, w: 45, d: 34, h: 26, z: 90, kind: "box", ontop:
 add("stol_pracy", { x: 240, y: 262, w: 140, d: 108, h: 75, kind: "table", label: "Stół roboczy · 8" });
 add("stol_pracy", { x: 380, y: 262, w: 140, d: 108, h: 75, kind: "table" });
 [275, 345, 415, 485].forEach((x) => { add("krz_pracy", { cx: x, cy: 237, w: 48, d: 48, face: "S", kind: "chair", h: 92 }); add("krz_pracy", { cx: x, cy: 395, w: 48, d: 48, face: "N", kind: "chair", h: 92 }); });
-add("stol_jad", { x: 735, y: 215, w: 80, d: 140, h: 75, kind: "table", label: "Jadalnia · 10" });
-add("stol_jad", { x: 735, y: 355, w: 80, d: 140, h: 75, kind: "table" });
-[250, 320, 390, 460].forEach((y) => { add("krz_jad", { cx: 708, cy: y, w: 46, d: 46, face: "E", kind: "chair", h: 80 }); add("krz_jad", { cx: 842, cy: y, w: 46, d: 46, face: "W", kind: "chair", h: 80 }); });
-add("krz_jad", { cx: 775, cy: 187, w: 46, d: 46, face: "S", kind: "chair", h: 80 });
-add("krz_jad", { cx: 775, cy: 523, w: 46, d: 46, face: "N", kind: "chair", h: 80 });
+add("stol_jad", { x: 715, y: 215, w: 108, d: 140, h: 75, kind: "table", label: "Jadalnia · 10" });
+add("stol_jad", { x: 715, y: 355, w: 108, d: 140, h: 75, kind: "table" });
+[250, 320, 390, 460].forEach((y) => { add("krz_jad", { cx: 688, cy: y, w: 46, d: 46, face: "E", kind: "chair", h: 80 }); add("krz_jad", { cx: 846, cy: y, w: 46, d: 46, face: "W", kind: "chair", h: 80 }); });
+add("krz_jad", { cx: 769, cy: 187, w: 46, d: 46, face: "S", kind: "chair", h: 80 });
+add("krz_jad", { cx: 769, cy: 523, w: 46, d: 46, face: "N", kind: "chair", h: 80 });
 add("sofa", { x: 175, y: 497, w: 180, d: 88, h: 66, face: "N", kind: "sofa", label: "Sofa 2" });
 add("sofa", { x: 365, y: 497, w: 180, d: 88, h: 66, face: "N", kind: "sofa", label: "Sofa 2" });
 add("stolik", { x: 555, y: 520, w: 45, d: 45, h: 53, kind: "round" });
@@ -508,9 +508,9 @@ const CHECKS = [
   { a: [135, 340], b: [240, 340], need: 90, name: "Przejście od wejścia między krzesłami biurek a stołem roboczym", why: "Główny ciąg komunikacyjny w głąb sali" },
   { a: [300, 78], b: [300, 192], need: 120, name: "Strefa obsługi przed dużą drukarką (do odsuniętych krzeseł stołu)", why: "Obsługa, otwieranie modułów, kolejka przy wydruku", soft: 100 },
   { a: [520, 190], b: [520, 300], hide: true },
-  { a: [520, 300], b: [685, 300], need: 90, name: "Stół roboczy ↔ krzesła jadalni", why: "Przejście do aneksu i jadalni" },
+  { a: [520, 300], b: [665, 300], need: 90, name: "Stół roboczy ↔ krzesła jadalni", why: "Przejście do aneksu i jadalni" },
   { a: [775, 60], b: [775, 163], need: 100, name: "Front aneksu ↔ krzesło szczytowe jadalni", why: "Praca przy zlewie i otwarta zmywarka" },
-  { a: [815, 430], b: [900, 430], need: 75, name: "Krawędź stołu jadalni ↔ prawa ściana", why: "Odsunięcie krzeseł, bez przejścia za nimi" },
+  { a: [823, 430], b: [900, 430], need: 75, name: "Krawędź stołu jadalni ↔ prawa ściana", why: "Odsunięcie krzeseł, bez przejścia za nimi" },
   { a: [775, 495], b: [775, 600], need: 75, name: "Krawędź stołu jadalni ↔ ściana z oknami", why: "Krzesło szczytowe" },
   { a: [480, 440], b: [480, 497], need: 75, name: "Krzesła stołu roboczego (odsunięte) ↔ front sof", why: "Miejsce na nogi siedzących na sofie", soft: 55 },
   { a: [55, 560], b: [175, 560], need: 100, name: "Front szafki z mniejszą A3 ↔ sofa", why: "Obsługa drukarki przy biurkach, wymiana tonera" },
@@ -642,7 +642,7 @@ function drawPlan() {
   // wymiary mebli w środku
   dimH(dims, 240, 520, 262 - 52, "280", true);
   dimV(dims, 262, 370, 532, "108", true);
-  dimV(dims, 215, 495, 730, "280", true);
+  dimV(dims, 215, 495, 708, "280", true);
 
   // kontrola przejść
   const chk = g("layer-chk");
@@ -686,7 +686,7 @@ function badgePos(it) {
     szafa: [70, 20], scianka: [100, 205], biurko: [84, 357], ladowarka: [72, 250], krz_biuro: [140, 290], stol_pracy: [232, 272], krz_pracy: [300, 214],
     druk_duza: [255, 98], druk_mala: [76, 585], podstawa: [76, 540], stol_wysoki: [575, 88], tonery: [545, 74], akcesoria: [482, 64], lodowka: [630, 98], ekspres: [672, 110], czajnik: [705, 110], mikrofala: [750, 110],
     an_szuflady: [690, 76], an_polki: [750, 76], zmywarka: [810, 76], an_zlew: [880, 76], an_wiszaca: [780, 132], blat: [850, 132],
-    stol_jad: [755, 240], krz_jad: [690, 222], sofa: [185, 486], stolik: [577, 508], fotel: [642, 494], monitor: [44, 335], laptop: [44, 365],
+    stol_jad: [735, 240], krz_jad: [668, 222], sofa: [185, 486], stolik: [577, 508], fotel: [642, 494], monitor: [44, 335], laptop: [44, 365],
   };
   return map[it.k] || [it.x + it.w + 10, it.y];
 }
@@ -985,7 +985,7 @@ I.forEach((it) => {
   const c = CAT[it.k];
   const zc = COL[c.z];
   if (it.kind === "chair") return chair3d(it, it.k === "krz_jad" ? 0xc9a36e : it.k === "krz_biuro" ? 0xd6c9ae : 0x7d9187);
-  if (it.kind === "table") return table3d(it, c.z === "dining" ? 0xe0c79c : c.z === "print" ? 0xc8a77a : 0xe9e2d3);
+  if (it.kind === "table") return table3d(it, c.z === "print" ? 0xc8a77a : 0xe9e2d3);
   if (it.kind === "sofa") {
     const isSofa = it.k === "sofa";
     const col = mat(isSofa ? 0x8ea595 : 0xb9a07e);
