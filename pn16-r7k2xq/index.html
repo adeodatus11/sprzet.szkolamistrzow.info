@@ -350,7 +350,6 @@ tr.total td { font-weight: 700; border-top: 2px solid var(--ink); }
         <li>Podstawa KSW pod Xeroxa (agapo.pl): przy zamówieniu podać model VersaLink B7130 i liczbę kaset, zapytać o wysokość (najlepiej ok. 45 cm, żeby skaner był na ok. 120 cm).</li>
         <li>Bateria: SALLSJÖN (349 zł) czy najtańsza LAGAN (119 zł).</li>
         <li>Kolor pokryć KLIPPAN (pokrycie zdejmowane, można dokupić zapasowe).</li>
-        <li>Zasilanie stołu roboczego: puszka podłogowa albo przewód z sufitu.</li>
       </ol>
     </div>
     <div class="card">
@@ -501,7 +500,6 @@ const INST = [
   { t: "p230", x: 0, y: 455, z: 85, txt: "Biurko 2: gniazdo podwójne nad blatem" },
   { t: "p230", x: 0, y: 535, z: 30, txt: "Mniejsza A3 przy biurkach: gniazdo podwójne" },
   { t: "rj", x: 0, y: 585, z: 30, txt: "Mniejsza A3 przy biurkach: RJ45" },
-  { t: "box", x: 380, y: 316, z: 0, txt: "Stół roboczy (laptopy): puszka podłogowa albo przewód z sufitu (do decyzji)" },
 ];
 
 /* kontrola przejść: odcinek pomiaru na rzucie + wymagane minimum */
@@ -664,7 +662,7 @@ function drawPlan() {
     else el("circle", { cx: px, cy: py, r: 6, class: p.t }, ins);
   });
   const lg = el("g", { class: "inst layer-inst" }, plan);
-  [["p230", "230 V"], ["rj", "RJ45"], ["h2o", "woda"], ["box", "puszka podł."]].forEach(([t, s], i) => {
+  [["p230", "230 V"], ["rj", "RJ45"], ["h2o", "woda"]].forEach(([t, s], i) => {
     const x = 560 + i * 92, y = ROOM.d + 98;
     if (t === "box") el("rect", { x: x - 6, y: y - 6, width: 12, height: 12, class: t }, lg); else el("circle", { cx: x, cy: y, r: 6, class: t }, lg);
     txt(lg, x + 10, y + 4, s, "");
