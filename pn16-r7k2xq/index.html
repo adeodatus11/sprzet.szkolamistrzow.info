@@ -243,7 +243,7 @@ tr.total td { font-weight: 700; border-top: 2px solid var(--ink); }
 
 <section id="rzut" aria-labelledby="h-rzut">
   <h2 id="h-rzut"><span class="num">A</span>Rzut 2D w skali</h2>
-  <p class="sec-lead">Siatka co 50 cm, wymiary w centymetrach. Linia przerywana oznacza elementy wiszące nad podłogą (szafki aneksu, szafka ładująca). Kliknij mebel na rzucie albo w legendzie, żeby podświetlić wszystkie jego sztuki.</p>
+  <p class="sec-lead">Siatka co 50 cm, wymiary w centymetrach. Linia przerywana oznacza elementy wiszące nad podłogą (szafki aneksu, ekran dotykowy przy drzwiach). Kliknij mebel na rzucie albo w legendzie, żeby podświetlić wszystkie jego sztuki.</p>
   <div class="sheet">
     <div class="toolbar" role="group" aria-label="Warstwy rzutu">
       <label><input type="checkbox" id="l-grid" checked /> Siatka 50 cm</label>
@@ -303,7 +303,7 @@ tr.total td { font-weight: 700; border-top: 2px solid var(--ink); }
 
 <section id="zestawienie" aria-labelledby="h-list">
   <h2 id="h-list"><span class="num">E</span>Zakupy: meble i aneks kuchenny</h2>
-  <p class="sec-lead">Konkretne produkty z linkami do sklepów i cenami brutto sprawdzonymi 24.11.2026 (odczyt ze stron sklepów). Zakup obejmuje meble i cały aneks kuchenny bez lodówki. Z IT kupujemy tylko centrum dowodzenia (ekran dotykowy, minikomputer, uchwyt, klawiatura); pozostały sprzęt IT (drukarki, szafka ładująca, niszczarka) jest na końcu listy, bez sumy. Dostępności w IKEA Wrocław Bielany nie da się sprawdzić automatycznie: przed zamówieniem trzeba ją potwierdzić dla całych ilości.</p>
+  <p class="sec-lead">Konkretne produkty z linkami do sklepów i cenami brutto sprawdzonymi 24.11.2026 (odczyt ze stron sklepów). Zakup obejmuje meble i cały aneks kuchenny bez lodówki. Z IT kupujemy tylko centrum dowodzenia (ekran dotykowy, minikomputer, uchwyt, klawiatura) oraz ładowarki do laptopów; pozostały sprzęt IT (drukarki, niszczarka) jest na końcu listy, bez sumy. Dostępności w IKEA Wrocław Bielany nie da się sprawdzić automatycznie: przed zamówieniem trzeba ją potwierdzić dla całych ilości.</p>
   <div class="check-box">
     <h3>Sprawdzenie dostępności, 24.11.2026</h3>
     <ul>
@@ -335,7 +335,7 @@ tr.total td { font-weight: 700; border-top: 2px solid var(--ink); }
         <li>Zmierzyć drzwi: położenie, szerokość w świetle, kierunek otwierania (rzut zakłada skrzydło 90 cm otwierane do środka, zawiasy od strony szaf).</li>
         <li>Policzyć okna (szkic pokazuje 4, rzut architektoniczny 3) i zmierzyć ich położenie, wysokość parapetu i grzejniki.</li>
         <li>Zlokalizować podejście wody i odpływ w narożniku (aneks zakłada zlew w samym rogu).</li>
-        <li>Sprawdzić nośność ściany pod szafkę ładującą i szafki wiszące aneksu.</li>
+        <li>Sprawdzić nośność ściany pod ekran dotykowy przy drzwiach i szafki wiszące aneksu.</li>
         <li>Spisać istniejące gniazda 230 V i RJ45.</li>
       </ol>
     </div>
@@ -345,7 +345,7 @@ tr.total td { font-weight: 700; border-top: 2px solid var(--ink); }
         <li>Ścianki MITTZON stoją na kółkach z podstawą 50 cm: ustalić, czy obie zostają przy biurkach, czy jedna ma być przestawiana (np. do wydzielenia kącika wypoczynku).</li>
         <li>Stoły: 4 × MITTZON bez regulacji (moduły łączone w jeden stół) czy stół roboczy z elektryczną regulacją na zamówienie (ok. 3–7 tys. zł; wtedy nie połączy się z jadalnią na jednej wysokości bez ustawienia go na 75 cm).</li>
         <li>Lodówka: czy szkoła ma lodówkę szer. 60 cm, czy trzeba ją kupić osobno; zawiasy po stronie aneksu.</li>
-        <li>Strona sprzętu planuje 4 laptopy KPO dla sali 16: rzut zakłada 2 na biurkach, 1 przy stole roboczym i 1 w szafce ładującej.</li>
+        <li>Strona sprzętu planuje 4 laptopy KPO dla sali 16: rzut zakłada 2 na biurkach, a pozostałe ładują się w zamykanej szafce TROTTEN pod stołem do kompletowania (przedłużacz i ładowarki w środku). Sprawdzić, czy laptopy ładują się przez USB-C (wtedy ładowarki UGREEN 65 W), czy mają własne zasilacze.</li>
         <li>Duża drukarka: rzut przyjmuje bizhub C450i z kasetą PC-x16 i finiszerem FS-539SD (razem 116 × 69 cm, z tacami i tacą boczną ok. 160 cm szerokości). Potwierdzić z Copytec konfigurację i miejsce na kable (4 cm od ściany).</li>
         <li>Centrum dowodzenia: monitor 27″ QHD (2 275 zł) czy tańszy Full HD (1 793 zł); 32″ dotykowy obecnie bez dostępnej oferty.</li>
         <li>Podstawa KSW pod Xeroxa (agapo.pl): przy zamówieniu podać model VersaLink B7130 i liczbę kaset, zapytać o wysokość (najlepiej ok. 45 cm, żeby skaner był na ok. 120 cm).</li>
@@ -377,7 +377,7 @@ const ip = (slug) => "https://www.ikea.com/pl/pl/p/" + slug + "/";
 const ZONES = {
   storage: "Szafki osobiste i ścianka",
   work: "Stanowiska komputerowe i stół roboczy",
-  print: "Strefa druku (meble)",
+  print: "Strefa druku i ładowania laptopów",
   kitchen: "Aneks kuchenny (lodówka poza zakupem)",
   dining: "Jadalnia",
   lounge: "Wypoczynek",
@@ -389,7 +389,6 @@ const C = [
   { k: "scianka", z: "storage", sw: "acoustic", name: "IKEA MITTZON rama z kółkami i ekranem akustycznym, Gunnared beżowy/biały", dims: "85 × 205 cm, podstawa 50 cm, ekran 5 cm, pokrycie zdejmowane do prania", sku: "s39514683", price: 699, qty: 2, shop: IKEA, url: ip("mittzon-rama-z-kolkami-ekran-akust-gunnared-bezowy-bialy-s39514683"), status: ["ok", "Na kółkach, można przestawiać"], alt: [{ name: "MITTZON rama z kółkami, ekran akustyczny i tablica suchościeralna (s09536177)", price: 999, url: ip("mittzon-rama-z-kolk-ekr-akust-tabl-gunnared-bezowy-bialy-s09536177") }] },
   { k: "biurko", z: "work", name: "IKEA MITTZON biurko, biały", dims: "120 × 60 cm, regulacja 65–85 cm", sku: "s89525844", price: 699, qty: 2, shop: IKEA, url: ip("mittzon-biurko-bialy-s89525844"), status: ["ok", "2 stanowiska komputerowe"], alt: [{ name: "MITTZON okleina dębowa/czarny (s69525859)", price: 699, url: ip("mittzon-biurko-okl-deb-czarny-s69525859") }] },
   { k: "krz_biuro", z: "work", name: "IKEA FLINTAN krzesło biurowe, beżowy", dims: "obrotowe, na kółkach", sku: "704.922.02", price: 249, qty: 2, shop: IKEA, url: ip("flintan-krzeslo-biurowe-bezowy-70492202"), status: ["ok", "Przy biurkach"] },
-  { k: "ladowarka", z: "tech", name: "Szafka ładująca Manhattan 181204 (10 laptopów)", dims: "52,6 × 51 × 52,5 cm", qty: 1, shop: "Komputronik (chwilowo niedostępna, 1 539 zł)", url: "https://www.komputronik.pl/product/1027700/szafa-rack-manhattan-181204-szafa-ladujaca-na-10-laptopow-16-10-gniazd-ac-230v.html", status: ["mute", "Sprzęt IT, nie w tym zakupie"], outside: true },
   { k: "stol_pracy", z: "work", name: "IKEA MITTZON stół konferencyjny, biały (2 szt. łączone w jeden stół)", dims: "140 × 108 × 75 cm, razem 280 × 108 cm, 8 miejsc (4 + 4)", sku: "s19533381", price: 1098, qty: 2, shop: IKEA, url: ip("mittzon-stol-konferencyjny-bialy-s19533381"), status: ["ok", "Stół konferencyjny, bez regulacji"], alt: [{ name: "Stół konferencyjny z elektryczną regulacją, np. Ogi Drive 220 × 120 (Flatiron, Wrocław; cena z wyszukiwarki, na zapytanie)", price: 7000, url: "https://www.flatiron.pl/pl/product/stol-konferencyjny_BOD622_ogi-drive" }] },
   { k: "krz_pracy", z: "work", name: "IKEA FLINTAN krzesło biurowe, beżowy", dims: "obrotowe, na kółkach", sku: "704.922.02", price: 249, qty: 8, shop: IKEA, url: ip("flintan-krzeslo-biurowe-bezowy-70492202"), status: ["ok", "Przy stole roboczym"] },
   { k: "druk_duza", z: "tech", name: "Konica Minolta bizhub C450i z kasetą PC-x16 (korpus)", dims: "61,5 × 68,8 × 120,7 cm; z otwartym podajnikiem dokumentów 156 cm; taca boczna wysuwa się o 32 cm w prawo", qty: 1, status: ["mute", "Sprzęt IT, nie w tym zakupie"], outside: true },
@@ -397,7 +396,9 @@ const C = [
   { k: "druk_mala", z: "tech", name: "Xerox VersaLink B7130 MFP (B7101V_D), posiadana, przy komputerach", dims: "sama drukarka 59 × 67 × 77 cm, 54 kg; z podstawą Xerox ok. 62 × 67 × 112 cm", qty: 1, status: ["ok", "Jest w szkole"], outside: true },
   { k: "podstawa", z: "print", name: "Podstawa pod kserokopiarkę KSW, wykonana pod Xerox VersaLink B7130", dims: "pod wymiar drukarki (59 × 67 cm), płyta MDF laminowana, kółka, drzwiczki na papier i toner, ok. 20 kg", price: 467.4, qty: 1, shop: "agapo.pl (PC-NET, polski producent)", url: "https://agapo.pl/podstawa-stolik-pod-drukarke-kserokopiarke-urzadzenie-wielofunkcyjne-p-44382.html", avail: "dostępna, wysyłka w 3 dni, kurier 24,60 zł", status: ["ok", "Przy zamówieniu podać model: Xerox VersaLink B7130, 1 kaseta"], alt: [{ name: "Szkolmeb, szafka pod ksero 70 × 80 × 50 cm (meble szkolne)", url: "https://szkolmeb.pl/szafka-pod-ksero" }, { name: "Kamila Meble, szafka na drukarkę Rd1 z zamkiem (standardowo za wysoka, wykonują na wymiar)", price: 861, url: "https://kamilameble.pl/szafy-biurowe/1279-szafka-rd1.html" }] },
   { k: "stol_wysoki", z: "print", name: "IKEA TROTTEN biurko z regulacją wysokości, elektryczne, biały (stół do kompletowania)", dims: "120 × 70 cm, wys. 71–118 cm", sku: "s49621871", price: 999, qty: 1, shop: IKEA, url: ip("trotten-biurko-z-regulacja-wysokosci-elektryczny-bialy-s49621871"), status: ["ok", "Jeden stół obok strefy druku"] },
-  { k: "tonery", z: "print", name: "IKEA TROTTEN szafka z drzwiami przesuwnymi, biały (tonery i papier)", dims: "80 × 55 × 75 cm, zamek", sku: "404.747.61", price: 599, qty: 1, shop: IKEA, url: ip("trotten-szafka-z-drzwiami-przesuwnymi-bialy-40474761"), status: ["ok", "Pod stołem wysokim"] },
+  { k: "tonery", z: "print", name: "IKEA TROTTEN szafka z drzwiami przesuwnymi, biały (laptopy z ładowarkami, papier, tonery)", dims: "80 × 55 × 75 cm, zamek; górna półka: laptopy i ładowarki, dolna: papier i tonery; otwór w tylnej ściance na przewód", sku: "404.747.61", price: 599, qty: 1, shop: IKEA, url: ip("trotten-szafka-z-drzwiami-przesuwnymi-bialy-40474761"), status: ["ok", "Pod stołem do kompletowania, obok bizhuba"] },
+  { k: "przedluzacz", z: "print", name: "IKEA KOPPLA przedłużacz 4 gniazdka i 2 porty USB, biały", dims: "przewód 3 m, w szafce TROTTEN", sku: "003.147.41", price: 79, qty: 1, shop: IKEA, url: ip("koppla-przedluzacz-4-gniazdka-2-porty-usb-bialy-00314741"), status: ["ok", "W sprzedaży, na stanie"], noDraw: true },
+  { k: "ladowarki", z: "print", name: "Ładowarka USB-C 65 W GaN UGREEN X615 (do laptopów KPO zostających w szafce)", dims: "1 × USB-A, 2 × USB-C, Power Delivery", price: 214.26, qty: 4, shop: "Morele.net", url: "https://www.morele.net/ladowarka-ugreen-ugreen-65w-gan-fast-charger-with-retractable-cable-15610306/", avail: "na stanie", status: ["warn", "Tylko jeśli laptopy ładują się przez USB-C; inaczej oryginalne zasilacze"], noDraw: true },
   { k: "akcesoria", z: "tech", name: "Niszczarka, bindownica, zszywacz, skaner", dims: "zestaw", qty: 1, status: ["mute", "Sprzęt, nie w tym zakupie"], outside: true },
   { k: "an_szuflady", z: "kitchen", name: "IKEA METOD/MAXIMERA szafka z 3 szufladami, biały/Havstorp beżowy", dims: "60 × 60 cm", sku: "s09426701", price: 835, qty: 1, shop: IKEA, url: ip("metod-maximera-szafka-stojaca-z-3-szufladami-bialy-havstorp-bezowy-s09426701"), status: ["ok", "W sprzedaży, na stanie"] },
   { k: "an_polki", z: "kitchen", name: "IKEA METOD szafka stojąca z półkami, biały/Havstorp beżowy", dims: "60 × 60 cm, 1 drzwi, 2 półki", sku: "s89469862", price: 325, qty: 1, shop: IKEA, url: ip("metod-szafka-st-polki-bialy-havstorp-bezowy-s89469862"), status: ["ok", "W sprzedaży, na stanie"] },
@@ -438,7 +439,6 @@ add("szafa", { x: 0, y: 90, w: 45, d: 90, h: 185, kind: "lockers", face: "E", la
 add("scianka", { x: 0, y: 202.5, w: 85, d: 5, h: 205, kind: "panel" });
 add("scianka", { x: 0, y: 492.5, w: 85, d: 5, h: 205, kind: "panel" });
 [230, 350].forEach((y, i) => add("biurko", { x: 0, y, w: 60, d: 120, h: 75, kind: "table", label: `Biurko ${i + 1}` }));
-add("ladowarka", { x: 0, y: 263.7, w: 51, d: 52.6, h: 52.5, z: 140, kind: "box", above: true, label: "Ładowarka" });
 [[30, 303], [20, 397]].forEach(([x, y]) => add("laptop", { x, y, w: 24, d: 32, h: 2, z: 75, kind: "box", ontop: true }));
 add("laptop", { x: 376, y: 300, w: 32, d: 24, h: 2, z: 75, kind: "box", ontop: true });
 [290, 410].forEach((y) => add("krz_biuro", { cx: 100, cy: y, w: 50, d: 50, face: "W", kind: "chair", h: 95 }));
@@ -482,14 +482,13 @@ const INST = [
   { t: "rj", x: 288, y: 0, z: 150, txt: "Centrum dowodzenia: RJ45 za monitorem" },
   { t: "rj", x: 415, y: 0, z: 30, txt: "bizhub C450i: RJ45" },
   { t: "p230", x: 500, y: 0, z: 110, txt: "Stół wysoki: gniazdo podwójne nad blatem (bindownica, zszywacz elektryczny, skaner)" },
-  { t: "p230", x: 480, y: 0, z: 30, txt: "Stół wysoki: gniazdo pod blatem (niszczarka)" },
+  { t: "p230", x: 480, y: 0, z: 30, txt: "Stół wysoki: gniazdo podwójne pod blatem (przedłużacz z ładowarkami laptopów w szafce, niszczarka)" },
   { t: "p230", x: 630, y: 0, z: 30, txt: "Lodówka: gniazdo za lodówką" },
   { t: "rj", x: 560, y: 0, z: 110, txt: "Stół wysoki: RJ45 (skaner) i rezerwa" },
   { t: "p230", x: 680, y: 0, z: 110, txt: "Aneks: gniazdo podwójne nad blatem (czajnik i rezerwa)" },
   { t: "p230", x: 750, y: 0, z: 110, txt: "Aneks: gniazdo nad blatem (mikrofalówka)" },
   { t: "p230", x: 810, y: 0, z: 30, txt: "Zmywarka: gniazdo w szafce obok" },
   { t: "h2o", x: 880, y: 0, z: 50, txt: "Woda i odpływ pod zlewem (narożnik)" },
-  { t: "p230", x: 0, y: 245, z: 210, txt: "Szafka ładująca: gniazdo nad szafką, przewód w kanale" },
   { t: "p230", x: 0, y: 335, z: 85, txt: "Biurko 1: gniazdo podwójne nad blatem" },
   { t: "p230", x: 0, y: 455, z: 85, txt: "Biurko 2: gniazdo podwójne nad blatem" },
   { t: "p230", x: 0, y: 535, z: 30, txt: "Mniejsza A3 przy biurkach: gniazdo podwójne" },
@@ -677,7 +676,7 @@ function drawPlan() {
 }
 function badgePos(it) {
   const map = {
-    szafa: [70, 20], cmd_monitor: [256, 26], cmd_pc: [284, 50], scianka: [100, 205], biurko: [84, 357], ladowarka: [72, 250], krz_biuro: [140, 290], stol_pracy: [232, 272], krz_pracy: [300, 214],
+    szafa: [70, 20], cmd_monitor: [256, 26], cmd_pc: [284, 50], scianka: [100, 205], biurko: [84, 357], krz_biuro: [140, 290], stol_pracy: [232, 272], krz_pracy: [300, 214],
     druk_duza: [400, 92], finiszer: [342, 92], druk_mala: [88, 582], podstawa: [88, 542], stol_wysoki: [575, 88], tonery: [545, 74], akcesoria: [482, 64], lodowka: [630, 98], czajnik: [705, 110], mikrofala: [750, 110],
     an_szuflady: [690, 76], an_polki: [750, 76], zmywarka: [810, 76], an_zlew: [880, 76], an_wiszaca: [780, 132], blat: [850, 132],
     stol_jad: [735, 240], krz_jad: [668, 222], sofa: [185, 486], stolik: [577, 508], fotel: [642, 494], laptop: [44, 365],
@@ -839,7 +838,7 @@ function drawElev(key) {
   txt(elev, W.len / 2, -22, W.title, "lbl", { "text-anchor": "middle" });
   const notes = {
     N: "Tuż przy drzwiach ekran dotykowy 27″ na uchwycie ściennym (dół 112 cm, góra 148 cm), minikomputer za ekranem. Obok bizhub C450i z finiszerem FS-539SD; po prawej 34 cm zapasu na tacę boczną. Stół do kompletowania TROTTEN 120 × 70 z elektryczną regulacją (ok. 95 cm), pod nim szafka na tonery i papier. Lodówka 60 cm oddziela strefę druku od aneksu 240 cm. Na blacie: czajnik, mikrofalówka; szafki wiszące 4 × 60, dół 150 cm, góra 250 cm.",
-    W: "Dwie ścianki MITTZON na kółkach (205 cm), widoczne z boku: między szafami a biurkiem 1 i między biurkiem 2 a Xeroxem B7130 na podstawie KSW ok. 45 cm (razem ok. 122 cm). Szafka ładująca: dół 140 cm, nad biurkiem 1. Szafy skrytkowe 3 × 11 skrytek każda. *Wysokość sali przyjęta, do pomiaru.",
+    W: "Dwie ścianki MITTZON na kółkach (205 cm), widoczne z boku: między szafami a biurkiem 1 i między biurkiem 2 a Xeroxem B7130 na podstawie KSW ok. 45 cm (razem ok. 122 cm). Szafy skrytkowe 3 × 11 skrytek każda. *Wysokość sali przyjęta, do pomiaru.",
     S: "Parapet przyjęty na 90 cm, nadproże 260 cm. Sofy i fotel (80 cm) nie zasłaniają okien, ale stoją przed grzejnikami: zostawić min. 15 cm odstępu od ściany na obieg ciepła.",
     E: "Ściana prawie wolna. Krzesła jadalni stoją 85 cm od krawędzi stołu. Jeśli zapadnie decyzja o lodówce, to najbliższe sensowne miejsce jest tutaj przy aneksie, kosztem krzesła szczytowego.",
   };
