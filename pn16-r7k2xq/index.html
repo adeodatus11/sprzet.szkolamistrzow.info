@@ -260,7 +260,7 @@ tr.total td { font-weight: 700; border-top: 2px solid var(--ink); }
     </div>
     <div class="drawing"><svg id="plan" role="img" aria-label="Rzut sali 16 z rozmieszczeniem mebli"></svg></div>
     <div class="legend" id="legend"></div>
-    <div class="palette"><span><i style="background:#efe7d8"></i>Ściany: ciepła biel / jasny beż</span><span><i style="background:#c9a273"></i>Dąb: blaty stołów i biurek, fronty szaf skrytkowych</span><span><i style="background:#d8c19b"></i>Jesion: stół do kompletowania</span><span><i style="background:#d8ccb3"></i>Beż HAVSTORP: aneks kuchenny</span><span><i style="background:#cfae80"></i>Jasny dąb: blat kuchenny</span><span><i style="background:#5d6061"></i>Szarości: sofy EKTORP (ciemnoszara 3-os., średnioszara 2-os.)</span><span><i style="background:#d6c4a3"></i>Beż: krzesła FLINTAN, ścianki MITTZON</span><span><i style="background:#f1f0eb"></i>Biel: stelaże stołów, korpusy szaf, krzesła jadalni, szafki TROTTEN</span></div>
+    <div class="palette"><span><i style="background:#efe7d8"></i>Ściany: ciepła biel / jasny beż</span><span><i style="background:#c9a273"></i>Dąb: blaty stołów i biurek, fronty szaf skrytkowych</span><span><i style="background:#d8c19b"></i>Jesion: stół do kompletowania</span><span><i style="background:#d8ccb3"></i>Beż HAVSTORP: aneks kuchenny</span><span><i style="background:#cfae80"></i>Jasny dąb: blat kuchenny</span><span><i style="background:#5d6061"></i>Ciemna szarość: 2 sofy EKTORP 3-osobowe Hakebo</span><span><i style="background:#d6c4a3"></i>Beż: krzesła FLINTAN, ścianki MITTZON</span><span><i style="background:#f1f0eb"></i>Biel: stelaże stołów, korpusy szaf, krzesła jadalni, szafki TROTTEN</span></div>
 
     <div class="titleblock"><span>Rzut · skala na ekranie dopasowana · 1 kratka = 50 cm</span><span>Pomieszczenie 900 × 600 cm, wysokość przyjęta 300 cm</span><span>Północ umowna: ściana z wejściem</span></div>
   </div>
@@ -354,7 +354,7 @@ tr.total td { font-weight: 700; border-top: 2px solid var(--ink); }
         <li>Duża drukarka: rzut przyjmuje bizhub C450i z kasetą PC-x16 i finiszerem FS-539SD (razem 116 × 69 cm, z tacami i tacą boczną ok. 160 cm szerokości). Potwierdzić z Copytec konfigurację i miejsce na kable (4 cm od ściany).</li>
         <li>Podstawa KSW pod Xeroxa (agapo.pl): przy zamówieniu podać model VersaLink B7130 i liczbę kaset, zapytać o wysokość (najlepiej ok. 45 cm, żeby skaner był na ok. 120 cm).</li>
         <li>Bateria: SALLSJÖN (349 zł) czy najtańsza LAGAN (119 zł).</li>
-        <li>Sofy EKTORP mają różne pokrycia (3-os. Hakebo ciemnoszary, 2-os. Tallmyra średnioszary); jeśli mają być w jednym kolorze, 2-osobowa Hakebo ciemnoszary kosztuje 1 699 zł.</li>
+        <li>Sofy: 2 × EKTORP 3-osobowa Hakebo ciemnoszary; pokrycia zdejmowane, można dokupić zapasowe.</li>
       </ol>
     </div>
   </div>
@@ -424,8 +424,7 @@ const C = [
   { k: "lodowka", z: "kitchen", name: "Lodówka wolnostojąca, szer. 60 cm", dims: "60 × 65 × ok. 185 cm, zawiasy po stronie aneksu", qty: 1, status: ["mute", "Nie kupujemy w tym zakupie"], outside: true },
   { k: "stol_jad", z: "dining", name: "IKEA MITTZON stół konferencyjny, okleina dębowa / biały (ten sam model co stół roboczy)", dims: "140 × 108 × 75 cm, 2 szt. = 280 × 108, 10 miejsc", sku: "s79533420", price: 1098, qty: 2, shop: IKEA, url: ip("mittzon-stol-konferencyjny-okl-deb-bialy-s79533420"), status: ["ok", "Stół modułowy, łączy się z roboczym"] },
   { k: "krz_jad", z: "dining", name: "IKEA TEODORES krzesło, biały, sztaplowane", dims: "46 × 50 cm", sku: "903.509.37", price: 129, qty: 10, shop: IKEA, url: ip("teodores-krzeslo-bialy-90350937"), status: ["ok", "W sprzedaży, na stanie"] },
-  { k: "sofa3", z: "lounge", name: "IKEA EKTORP sofa 3-osobowa, Hakebo ciemnoszary", dims: "218 × 88 × 88 cm, pokrycie zdejmowane, pranie w pralce", sku: "s39508998", price: 1999, qty: 1, shop: IKEA, url: ip("ektorp-sofa-3-osobowa-hakebo-ciemnoszary-s39508998"), status: ["ok", "W sprzedaży, na stanie"] },
-  { k: "sofa2", z: "lounge", name: "IKEA EKTORP sofa 2-osobowa, Tallmyra średnioszary", dims: "179 × 88 × 88 cm, pokrycie zdejmowane, pranie w pralce", sku: "s19430528", price: 1999, qty: 1, shop: IKEA, url: ip("ektorp-sofa-2-osobowa-tallmyra-srednioszary-s19430528"), status: ["ok", "W sprzedaży, na stanie"], alt: [{ name: "EKTORP 2-osobowa, Hakebo ciemnoszary (jak sofa 3-osobowa, na stanie)", price: 1699, url: ip("ektorp-sofa-2-osobowa-hakebo-ciemnoszary-s09509013") }] },
+  { k: "sofa3", z: "lounge", name: "IKEA EKTORP sofa 3-osobowa, Hakebo ciemnoszary", dims: "218 × 88 × 88 cm, pokrycie zdejmowane, pranie w pralce", sku: "s39508998", price: 1999, qty: 2, shop: IKEA, url: ip("ektorp-sofa-3-osobowa-hakebo-ciemnoszary-s39508998"), status: ["ok", "W sprzedaży, na stanie"] },
   { k: "cmd_monitor", z: "cmd", sw: "tech", name: "Monitor dotykowy iiyama ProLite T2755MSC-B1, 27″ Full HD", dims: "61 × 36 cm, montaż w poziomie, 1920 × 1080, dotyk pojemnościowy 10-punktowy, 5,8 kg, VESA 100 × 100", price: 1793.04, qty: 1, shop: "Morele.net", url: "https://www.morele.net/monitor-iiyama-prolite-t2755msc-b1-13179166/", avail: "na stanie, sprzedaje Morele.net", status: ["ok", "Na stanie"], alt: [{ name: "iiyama ProLite T2755QSC-B1, 27″ QHD dotykowy", price: 2274.95, url: "https://www.morele.net/monitor-iiyama-prolite-t2755qsc-b1-13239211/" }] },
   { k: "cmd_pc", z: "cmd", name: "Minikomputer Qoobe Mini PC N100, 12 GB RAM, 512 GB SSD, Windows 11 Pro (QE-IN100)", dims: "mały i cichy, wystarczy do przeglądarki; montaż za monitorem na uchwycie VESA Maclean MC-115 B", price: 1839, qty: 1, shop: "Morele.net", url: "https://www.morele.net/komputer-qoobe-mini-pc-n100-12gb-512gb-w11-pro-qe-in100-12gb-512gb-600575926/", avail: "na stanie, sprzedaje Morele.net", status: ["warn", "Na stanie; potwierdzić Wi-Fi (karta produktu go nie podaje)"], alt: [{ name: "Beelink Mini S12 Pro, N100, 16 GB, 500 GB, Windows 11 Pro, Wi-Fi 6 (sprzedawca TeKaPi)", price: 2789, url: "https://www.morele.net/beelink-mini-s12-pro-mini-pc-lake-n100-16-gb-ddr4-ram-500-gb-15183822/" }] },
   { k: "cmd_mount", z: "cmd", sw: "tech", name: "Uchwyt ścienny regulowany do monitora Maclean MC-332, VESA 75/100", dims: "17–32″, do 9 kg; pochylenie ±90°, obrót 180°, pivot, regulacja wysokości, maskowanie przewodów", price: 97.47, qty: 1, shop: "Morele.net", url: "https://www.morele.net/maclean-uchwyt-scienny-na-monitor-17-32-mc-332-14202017/", avail: "na stanie", status: ["ok", "Na stanie"], noDraw: true },
@@ -487,7 +486,7 @@ add("stol_jad", { x: 715, y: 355, w: 108, d: 140, h: 75, kind: "table" });
 add("krz_jad", { cx: 769, cy: 187, w: 46, d: 46, face: "S", kind: "chair", h: 80 });
 add("krz_jad", { cx: 769, cy: 523, w: 46, d: 46, face: "N", kind: "chair", h: 80 });
 add("sofa3", { x: 172, y: 497, w: 218, d: 88, h: 88, face: "N", kind: "sofa", label: "Sofa 3", seats: 3 });
-add("sofa2", { x: 400, y: 497, w: 179, d: 88, h: 88, face: "N", kind: "sofa", label: "Sofa 2", seats: 2 });
+add("sofa3", { x: 400, y: 497, w: 218, d: 88, h: 88, face: "N", kind: "sofa", label: "Sofa 3", seats: 3 });
 I.forEach((it) => { if (it.cx != null) { it.x = it.cx - it.w / 2; it.y = it.cy - it.d / 2; } });
 
 /* instalacje proponowane */
