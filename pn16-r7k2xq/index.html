@@ -283,12 +283,14 @@ tr.total td { font-weight: 700; border-top: 2px solid var(--ink); }
 
 <section id="model" aria-labelledby="h-3d">
   <h2 id="h-3d"><span class="num">C</span>Model 3D</h2>
-  <p class="sec-lead">Przeciągnij, żeby obracać, kółko myszy lub dwa palce przybliżają, prawy przycisk lub Shift + przeciąganie przesuwa widok. Ściany zwrócone do kamery chowają się same. Kliknięcie mebla pokazuje jego nazwę i wymiary.</p>
+  <p class="sec-lead">Przeciągnij, żeby obracać, kółko myszy lub dwa palce przybliżają, prawy przycisk lub Shift + przeciąganie przesuwa widok. Ściany zwrócone do kamery chowają się same. Kliknięcie mebla pokazuje jego nazwę i wymiary. Faktury drewna, tkanin i podłogi są poglądowe. Lampy wiszące pokazuję tylko dla nastroju, nie ma ich w zakupach.</p>
   <div class="sheet">
     <div class="toolbar" role="group" aria-label="Widoki modelu">
       <button class="btn" data-view="iso" aria-pressed="true">Aksonometria</button>
       <button class="btn" data-view="door" aria-pressed="false">Od wejścia</button>
       <button class="btn" data-view="window" aria-pressed="false">Od okien</button>
+      <button class="btn" data-view="boards" aria-pressed="false">Tablice i klucze</button>
+      <button class="btn" data-view="dining" aria-pressed="false">Jadalnia</button>
       <button class="btn" data-view="top" aria-pressed="false">Z góry</button>
       <span class="sp"></span>
       <label><input type="checkbox" id="v-walls" checked /> Ściany</label>
@@ -312,7 +314,7 @@ tr.total td { font-weight: 700; border-top: 2px solid var(--ink); }
   <div class="check-box">
     <h3>Sprawdzenie dostępności, 24.11.2026</h3>
     <ul>
-      <li>IKEA: wszystkie pozycje z listy (27 produktów razem z zamiennikami) są w aktualnej ofercie, żadna nie jest wycofana ani oznaczona jako wyprzedana. Sklep internetowy pokazuje wysoki stan magazynowy każdej z nich.</li>
+      <li>IKEA: wszystkie pozycje z listy (28 produktów razem z zamiennikami) są w aktualnej ofercie, żadna nie jest wycofana ani oznaczona jako wyprzedana. Sklep internetowy pokazuje wysoki stan magazynowy każdej z nich.</li>
       <li>IKEA Wrocław Bielany: stanów konkretnego sklepu nie dało się odczytać automatycznie. Przed zamówieniem otwórz link produktu, wybierz sklep Wrocław i sprawdź całe ilości (np. 20 × LÄKTARE) albo zamów przez IKEA dla Firm z dostawą.</li>
       <li>Szafy skrytkowe OLIVER (Kupmeble): na magazynie, wysyłka w 48 h. Zamieniłem nimi szafy z Kauflandu, których dostępności nie da się sprawdzić.</li>
       <li>Czajnik i centrum dowodzenia (Morele): monitor, minikomputer, uchwyt i klawiatura na stanie.</li>
@@ -394,6 +396,7 @@ const C = [
   { k: "szafa", z: "storage", name: "JAN NOWAK OLIVER Eco Design, szafa depozytowa 33 skrytki, biały korpus / fronty dąb sonoma", dims: "90 × 45 × 185 cm, skrytka 13 × 22 × 42 cm, zamek w każdej skrytce", price: 1699, qty: 2, shop: "Kupmeble.pl", url: "https://kupmeble.pl/produkt/metalowa-szafa-depozytowa-eco-design-oliver-90x45x185-cm-bialy-dab-sonoma", avail: "na magazynie, wysyłka 48 h", status: ["ok", "Na magazynie, gwarancja 10 lat"], note: "Razem 66 skrytek", alt: [{ name: "OLIVER szara (RAL 7035)", price: 1299, url: "https://kupmeble.pl/produkt/metalowa-szafa-depozytowa-oliver-90x45x185-cm-szara" }, { name: "OLIVER Eco Design antracyt / orzech", price: 1449, url: "https://kupmeble.pl/produkt/metalowa-szafa-depozytowa-eco-design-oliver-90x45x185-cm-antracyt-orzech" }] },
   { k: "scianka", z: "storage", sw: "acoustic", name: "IKEA MITTZON rama z kółkami i ekranem akustycznym, Gunnared beżowy/biały", dims: "85 × 205 cm, podstawa 50 cm, ekran 5 cm, pokrycie zdejmowane do prania", sku: "s39514683", price: 699, qty: 2, shop: IKEA, url: ip("mittzon-rama-z-kolkami-ekran-akust-gunnared-bezowy-bialy-s39514683"), status: ["ok", "Na kółkach, można przestawiać"], alt: [{ name: "MITTZON rama z kółkami, ekran akustyczny i tablica suchościeralna (s09536177)", price: 999, url: ip("mittzon-rama-z-kolk-ekr-akust-tabl-gunnared-bezowy-bialy-s09536177") }] },
   { k: "biurko", z: "work", name: "IKEA MITTZON biurko, okleina dębowa / czarny", dims: "120 × 60 cm, wysokość ustawiana przy montażu 65–85 cm", sku: "s69525859", price: 699, qty: 2, shop: IKEA, url: ip("mittzon-biurko-okl-deb-czarny-s69525859"), status: ["ok", "2 stanowiska komputerowe"], alt: [{ name: "MITTZON z regulacją elektryczną 62–126 cm, dąb/czarny 120 × 60", price: 1699, url: ip("mittzon-biurko-z-regulacja-wysokosci-elektryczny-okl-deb-czarny-s49526609") }, { name: "Węższe: LINNMON / ADILS 100 × 60, imitacja dębu bejcowanego na biało / czarne nogi", price: 129, url: ip("linnmon-adils-biurko-imitacja-debu-bejcowanego-na-bialo-czarny-s99416340") }] },
+  { k: "przegroda", z: "work", name: "IKEA MITTZON ekran akustyczny na biurko, Gunnared beżowy (przegroda między biurkami)", dims: "70 × 72 cm, gr. 8 cm, mocowany do boku biurka wspornikiem L", sku: "105.282.23", price: 300, qty: 1, shop: IKEA, url: ip("mittzon-ekran-akustyczny-na-biurko-gunnared-bezowy-10528223"), status: ["ok", "W sprzedaży, na stanie"] },
   { k: "krz_biuro", z: "work", name: "IKEA LÄKTARE krzesło konferencyjne, średnioszary / biały", dims: "55 × 50 × 84 cm, podłokietniki, siedzisko z okleiną brzozową, pokrycie Gunnared do prania, sztaplowane (do 5 szt.), EN 16139", sku: "s49503250", price: 299, qty: 2, shop: IKEA, url: ip("laektare-krzeslo-konferencyjne-srednioszary-bialy-s49503250"), status: ["ok", "Przy biurkach"] },
   { k: "stol_pracy", z: "work", name: "IKEA MITTZON stół konferencyjny, okleina dębowa / czarny, 140 × 68 cm, jednolity blat", dims: "140 × 68 × 75 cm, bez modułu; 4 szt. zestawione w blok 280 × 136 cm, 8 miejsc", sku: "s39513952", price: 649, qty: 4, shop: IKEA, url: ip("mittzon-stol-konferencyjny-okl-deb-czarny-s39513952"), status: ["ok", "W sprzedaży, na stanie"], alt: [{ name: "MITTZON 140 × 108 okleina dębowa / czarny (2 blaty z modułem na środku)", price: 1098, url: ip("mittzon-stol-konferencyjny-okl-deb-czarny-s99533400") }] },
   { k: "krz_pracy", z: "work", name: "IKEA LÄKTARE krzesło konferencyjne, średnioszary / biały", dims: "55 × 50 × 84 cm, podłokietniki, siedzisko z okleiną brzozową, pokrycie Gunnared do prania, sztaplowane (do 5 szt.), EN 16139", sku: "s49503250", price: 299, qty: 8, shop: IKEA, url: ip("laektare-krzeslo-konferencyjne-srednioszary-bialy-s49503250"), status: ["ok", "Przy stole roboczym"] },
@@ -435,7 +438,7 @@ const C = [
   { k: "klucze", z: "storage", name: "Tablica na klucze do sal lekcyjnych, przy szafach skrytkowych", dims: "ok. 70 × 50 cm, haczyki na ok. 50–60 kluczy, z opisem sal", qty: 1, status: ["mute", "Do wyboru (np. zamykana szafka na klucze)"], alt: [{ name: "Korbi szafka na klucze 100 szt., 30 × 24 × 8 cm (obecnie niedostępna)", price: 106, url: "https://www.morele.net/korbi-skrzynka-szafka-na-klucze-kasetka-100szt-szara-14114361/" }] },
   { k: "tablica_biurka", z: "deco", name: "Tablica magnetyczna nad biurkami, z kartkami", dims: "ok. 200 × 100 cm, dół 110 cm", qty: 1, status: ["mute", "Poza zakupem"], outside: true },
   { k: "tablica_druk", z: "deco", name: "Tablica magnetyczna nad strefą druku i stołem do kompletowania", dims: "ok. 200 × 100 cm, dół 165 cm (nad otwartym podajnikiem bizhuba)", qty: 1, status: ["mute", "Poza zakupem"], outside: true },
-  { k: "rzutnik", z: "deco", name: "Białe pole na ścianie pod obraz z rzutnika (bez ekranu)", dims: "ok. 260 × 146 cm (16:9, ok. 118″), dół ok. 170 cm, matowa biała farba", qty: 1, status: ["mute", "Malowanie"], outside: true },
+  { k: "rzutnik", z: "deco", name: "Białe pole na ścianie pod obraz z rzutnika (bez ekranu)", dims: "ok. 260 × 146 cm (16:9, ok. 118″), dół ok. 255 cm, góra ok. 400 cm, matowa biała farba", qty: 1, status: ["mute", "Malowanie"], outside: true },
   { k: "zielen_sciana", z: "deco", name: "Ściana z wiszącymi doniczkami po obu stronach pola rzutnika", dims: "2 panele z listwami i doniczkami, ok. 150 × 160 i 85 × 160 cm", qty: 2, status: ["mute", "Poza zakupem"], outside: true },
   { k: "zielen_okna", z: "deco", name: "Zieleń w oknach i na filarach: doniczki na parapetach (wnęki 40 cm) i wiszące między oknami", dims: "3 parapety, 2 filary", qty: 1, status: ["mute", "Poza zakupem"], outside: true },
   { k: "laptop", z: "tech", name: "Laptop KPO (tryb incognito)", dims: "już w szkole", qty: 4, status: ["ok", "Przydzielone do sali 16"], outside: true },
@@ -450,7 +453,7 @@ const PAL = {
   zmywarka: { col: "#f3f3f1" }, an_wiszaca: { col: HAV, body: WHITE_FRAME }, blat: { col: "#cfae80" }, lodowka: { col: "#f4f4f2" }, mikrofala: { col: "#f4f4f2" }, czajnik: { col: "#b3b8ba" },
   sofa3: { col: "#5d6061" }, sofa2: { col: "#8e9192" }, fotel: { col: "#dccfb7", frame: "#b98f5e" }, stolik: { col: "#c29a68" }, pojemniki: { col: "#f4f4f2" },
   druk_duza: { col: "#e3e4e2" }, finiszer: { col: "#e3e4e2" }, druk_mala: { col: "#dfe1e0" }, akcesoria: { col: "#4e5a5f" },
-  tablica_biurka: { col: "#f7f7f4" }, tablica_druk: { col: "#f7f7f4" }, klucze: { col: "#c8a678" }, rzutnik: { col: "#fcfcfa" },
+  przegroda: { col: "#cdc3b0" }, tablica_biurka: { col: "#f7f7f4" }, tablica_druk: { col: "#f7f7f4" }, klucze: { col: "#c8a678" }, rzutnik: { col: "#fcfcfa" },
   zielen_sciana: { col: "#6f9a5b" }, zielen_okna: { col: "#6f9a5b" },
   cmd_monitor: { col: "#25292b" }, cmd_pc: { col: "#25292b" }, laptop: { col: "#8a9398" },
 };
@@ -501,11 +504,12 @@ add("krz_jad", { cx: 756, cy: 187, w: 55, d: 50, face: "S", kind: "chair", h: 84
 add("krz_jad", { cx: 756, cy: 523, w: 55, d: 50, face: "N", kind: "chair", h: 84 });
 add("sofa3", { x: 172, y: 497, w: 218, d: 88, h: 88, face: "N", kind: "sofa", label: "Sofa 3", seats: 3 });
 add("sofa3", { x: 400, y: 497, w: 218, d: 88, h: 88, face: "N", kind: "sofa", label: "Sofa 3", seats: 3 });
+add("przegroda", { x: 0, y: 346, w: 70, d: 8, h: 72, z: 52, kind: "divider" });
 add("klucze", { x: 55, y: 0, w: 70, d: 3, h: 50, z: 130, kind: "board", above: true });
 add("tablica_biurka", { x: 0, y: 250, w: 3, d: 200, h: 100, z: 110, kind: "board", above: true });
 add("tablica_druk", { x: 350, y: 0, w: 200, d: 3, h: 100, z: 165, kind: "board", above: true });
-add("rzutnik", { x: 899, y: 235, w: 1, d: 260, h: 146, z: 170, kind: "board", above: true });
-add("zielen_sciana", { x: 892, y: 75, w: 8, d: 150, h: 160, z: 80, kind: "plants", above: true });
+add("rzutnik", { x: 899, y: 270, w: 1, d: 260, h: 146, z: 255, kind: "board", above: true });
+add("zielen_sciana", { x: 892, y: 150, w: 8, d: 150, h: 160, z: 70, kind: "plants", above: true });
 add("zielen_sciana", { x: 892, y: 505, w: 8, d: 85, h: 160, z: 80, kind: "plants", above: true });
 WINDOWS.forEach(([a, b]) => [0.25, 0.5, 0.75].forEach((f) => add("zielen_okna", { x: a + (b - a) * f - 9, y: 612, w: 18, d: 18, h: 35, z: SILL, kind: "pot" })));
 [[275, 362], [526, 618]].forEach(([a, b]) => add("zielen_okna", { x: (a + b) / 2 - 12, y: 588, w: 24, d: 12, h: 40, z: 170, kind: "pot", above: true }));
@@ -721,7 +725,7 @@ function drawPlan() {
 }
 function badgePos(it) {
   const map = {
-    szafa: [70, 150], klucze: [92, 22], tablica_biurka: [24, 248], tablica_druk: [452, 26], rzutnik: [872, 360], zielen_sciana: [872, 150], zielen_okna: [196, 632], cmd_monitor: [256, 26], cmd_pc: [284, 50], scianka: [100, 205], biurko: [84, 357], krz_biuro: [140, 290], stol_pracy: [232, 262], krz_pracy: [300, 196], pojemniki: [290, 336],
+    szafa: [70, 150], przegroda: [84, 340], klucze: [92, 22], tablica_biurka: [24, 248], tablica_druk: [452, 26], rzutnik: [872, 400], zielen_sciana: [872, 225], zielen_okna: [196, 632], cmd_monitor: [256, 26], cmd_pc: [284, 50], scianka: [100, 205], biurko: [84, 357], krz_biuro: [140, 290], stol_pracy: [232, 262], krz_pracy: [300, 196], pojemniki: [290, 336],
     druk_duza: [400, 92], finiszer: [342, 92], druk_mala: [88, 582], podstawa: [88, 542], stol_wysoki: [575, 88], tonery: [545, 74], akcesoria: [482, 64], lodowka: [630, 98], czajnik: [705, 110], mikrofala: [750, 110],
     an_szuflady: [690, 76], an_polki: [750, 76], zmywarka: [810, 76], an_zlew: [880, 76], an_wiszaca: [780, 132], blat: [850, 132],
     stol_jad: [700, 236], krz_jad: [648, 222], sofa3: [185, 486], sofa2: [412, 486], stolik: [577, 508], fotel: [642, 494], laptop: [44, 365],
@@ -897,9 +901,9 @@ function drawElev(key) {
   txt(elev, W.len / 2, -22, W.title, "lbl", { "text-anchor": "middle" });
   const notes = {
     N: "Przy szafach skrytkowych tablica na klucze do sal (ok. 70 × 50 cm). Drzwi otwierają się na zewnątrz, w prawo. Nad bizhubem i stołem do kompletowania tablica magnetyczna ok. 200 × 100 cm (dół 165 cm). Tuż przy drzwiach ekran dotykowy 27″ zawieszony w pionie na uchwycie ściennym (dół 100 cm, góra 161 cm), minikomputer za ekranem. Obok bizhub C450i z finiszerem FS-539SD; po prawej 34 cm zapasu na tacę boczną. Stół do kompletowania TROTTEN 120 × 70 z elektryczną regulacją (ok. 95 cm), pod nim szafka na tonery i papier. Lodówka 60 cm oddziela strefę druku od aneksu 240 cm. Na blacie: czajnik, mikrofalówka; szafki wiszące 4 × 60, dół 150 cm, góra 250 cm.",
-    W: "Nad biurkami tablica magnetyczna ok. 200 × 100 cm z kartkami (dół 110 cm). Ścianka MITTZON na kółkach (205 cm) między szafami a biurkiem 1, widoczna z boku; druga ścianka jest wsunięta między stół do kompletowania a lodówkę i oddziela strefę druku od aneksu. Obok biurek Xerox B7130 na podstawie KSW ok. 45 cm (razem ok. 122 cm). Szafy skrytkowe 3 × 11 skrytek każda.",
+    W: "Nad biurkami tablica magnetyczna ok. 200 × 100 cm z kartkami (dół 110 cm). Między biurkami beżowy ekran akustyczny MITTZON 70 × 72 cm. Ścianka MITTZON na kółkach (205 cm) między szafami a biurkiem 1, widoczna z boku; druga ścianka jest wsunięta między stół do kompletowania a lodówkę i oddziela strefę druku od aneksu. Obok biurek Xerox B7130 na podstawie KSW ok. 45 cm (razem ok. 122 cm). Szafy skrytkowe 3 × 11 skrytek każda.",
     S: "Okna we wnękach: parapet na 90 cm, głębokość wnęki ok. 40 cm, na parapetach doniczki; na filarach między oknami wiszące doniczki. Sofy EKTORP (88 cm) poniżej parapetu, przed grzejnikami min. 15 cm odstępu.",
-    E: "Ściana za jadalnią: na środku wysoko białe pole pod obraz z rzutnika (ok. 260 × 146 cm, od 170 cm), po obu stronach panele z wiszącymi doniczkami. Ściany w ciepłym beżu, sala ok. 450 cm wysokości.",
+    E: "Ściana za jadalnią: wysoko białe pole pod obraz z rzutnika (ok. 260 × 146 cm, od 255 do 400 cm), pod nim i obok panele z wiszącymi doniczkami. Ściany w ciepłym beżu, sala ok. 450 cm wysokości.",
   };
   document.getElementById("elev-note").innerHTML = `<span>${esc(notes[key])}</span>`;
 }
@@ -962,25 +966,78 @@ msg.remove();
 renderer.setPixelRatio(Math.min(2, window.devicePixelRatio || 1));
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.outputEncoding = THREE.sRGBEncoding;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.1;
 host.prepend(renderer.domElement);
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(45, 1, 0.05, 100);
 const S = 0.01;
 const P = (x, y, z) => new THREE.Vector3(x * S - 4.5, z * S, y * S - 3);
+const lin = (h) => new THREE.Color(h).convertSRGBToLinear();
 
-scene.add(new THREE.HemisphereLight(0xffffff, 0xc9c2b5, 0.95));
-const sun = new THREE.DirectionalLight(0xffffff, 0.5);
-sun.position.set(2.5, 7, 9);
+scene.add(new THREE.HemisphereLight(0xfff4e2, 0xb8a27f, 0.78));
+scene.add(new THREE.AmbientLight(0xfff1dd, 0.16));
+const sun = new THREE.DirectionalLight(0xfff0d6, 1.25);
+sun.position.set(2.2, 6.5, 10);
 sun.castShadow = true;
-sun.shadow.mapSize.set(2048, 2048);
-Object.assign(sun.shadow.camera, { left: -7, right: 7, top: 7, bottom: -7, near: 1, far: 30 });
-sun.shadow.bias = -0.0005;
+sun.shadow.mapSize.set(4096, 4096);
+Object.assign(sun.shadow.camera, { left: -8, right: 8, top: 8, bottom: -8, near: 1, far: 30 });
+sun.shadow.bias = -0.0004;
 scene.add(sun);
 
-const COL = { storage: 0x9aa7ae, work: 0xa9c4b4, print: 0xb2c4da, kitchen: 0xdcd3c4, dining: 0xd8b98a, lounge: 0x7f9f8c, tech: 0x5f6d73, chair: 0xe9e4da, leg: 0x4a5553, wood: 0xcfb48a, white: 0xf4f2ee };
+const COL = { storage: 0x9aa7ae, work: 0xa9c4b4, print: 0xb2c4da, kitchen: 0xdcd3c4, dining: 0xd8b98a, lounge: 0x7f9f8c, tech: 0x5f6d73, chair: 0xe9e4da, leg: 0x2a2a2a, wood: 0xcfb48a, white: 0xf4f2ee };
 const matCache = {};
-const mat = (hex, opts = {}) => { const key = hex + JSON.stringify(opts); return matCache[key] || (matCache[key] = new THREE.MeshStandardMaterial({ color: hex, roughness: 0.75, metalness: 0.05, ...opts })); };
-const edgeMat = new THREE.LineBasicMaterial({ color: 0x2f3b3a, transparent: true, opacity: 0.35 });
+const mat = (h, opts = {}) => {
+  const key = h + "|" + Object.keys(opts).map((k) => k + ":" + (opts[k] && opts[k].uuid ? opts[k].uuid : opts[k])).join(",");
+  if (matCache[key]) return matCache[key];
+  const o = { ...opts }; if (typeof o.emissive === "number") o.emissive = lin(o.emissive);
+  return (matCache[key] = new THREE.MeshStandardMaterial({ color: lin(h), roughness: 0.75, metalness: 0.02, ...o }));
+};
+/* tekstury proceduralne (bez plików zewnętrznych) */
+let seed = 11; const rnd = () => { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; };
+function canvasTex(w, h, draw, rep) {
+  const c = document.createElement("canvas"); c.width = w; c.height = h; draw(c.getContext("2d"), w, h);
+  const t = new THREE.CanvasTexture(c); t.encoding = THREE.sRGBEncoding; t.wrapS = t.wrapT = THREE.RepeatWrapping;
+  if (rep) t.repeat.set(rep[0], rep[1]); t.anisotropy = Math.min(8, renderer.capabilities.getMaxAnisotropy()); return t;
+}
+const woodTex = (base) => canvasTex(512, 256, (g, w, h) => {
+  g.fillStyle = base; g.fillRect(0, 0, w, h);
+  for (let i = 0; i < 90; i++) {
+    const y0 = rnd() * h, a = 0.035 + rnd() * 0.08, f = 30 + rnd() * 60, amp = 1 + rnd() * 4;
+    g.strokeStyle = rnd() > 0.45 ? `rgba(95,62,30,${a})` : `rgba(255,238,210,${a})`; g.lineWidth = 0.5 + rnd() * 2.4;
+    g.beginPath(); for (let x = 0; x <= w; x += 8) g.lineTo(x, y0 + Math.sin(x / f + i) * amp); g.stroke();
+  }
+  for (let k = 0; k < 3; k++) { const cx = rnd() * w, cy = rnd() * h; g.strokeStyle = "rgba(95,62,30,0.12)"; for (let r = 2; r < 14; r += 3) { g.beginPath(); g.ellipse(cx, cy, r * 2.2, r * 0.7, 0, 0, 7); g.stroke(); } }
+});
+const noiseTex = (base, amt, size) => canvasTex(size, size, (g, w, h) => {
+  g.fillStyle = base; g.fillRect(0, 0, w, h);
+  for (let i = 0; i < w * h * 0.3; i++) { const v = rnd() > 0.5 ? 255 : 0; g.fillStyle = `rgba(${v},${v},${v},${amt * rnd()})`; g.fillRect(rnd() * w, rnd() * h, 1.4, 1.4); }
+});
+const floorTex = canvasTex(1024, 1024, (g, w, h) => {
+  const rows = 14, rh = h / rows;
+  for (let r = 0; r < rows; r++) {
+    let x = -rnd() * 300;
+    while (x < w) {
+      const len = 300 + rnd() * 380, t = 198 + rnd() * 16;
+      g.fillStyle = `rgb(${t + 14},${t - 14},${t - 58})`; g.fillRect(x, r * rh, len, rh);
+      for (let i = 0; i < 10; i++) { g.strokeStyle = `rgba(110,72,38,${0.05 + rnd() * 0.08})`; g.lineWidth = 0.8 + rnd() * 1.6; const yy = r * rh + rnd() * rh; g.beginPath(); g.moveTo(x, yy); g.bezierCurveTo(x + len / 3, yy + (rnd() - 0.5) * 6, x + 2 * len / 3, yy + (rnd() - 0.5) * 6, x + len, yy); g.stroke(); }
+      g.fillStyle = "rgba(70,48,26,0.45)"; g.fillRect(x, r * rh, 2, rh); x += len;
+    }
+    g.fillStyle = "rgba(70,48,26,0.45)"; g.fillRect(0, r * rh, w, 2);
+  }
+}, [4.5, 3]);
+const TEX = { oak: woodTex("#c9a273"), ash: woodTex("#dcc7a2"), worktop: woodTex("#d2b285"), sonoma: woodTex("#c79e6c"), slat: woodTex("#b98d5c"), fabric: noiseTex("#ffffff", 0.05, 128), plaster: noiseTex("#ffffff", 0.03, 256), cork: noiseTex("#b88a55", 0.3, 128) };
+const rotCache = {};
+const woodMat = (name, along, opts = {}) => {
+  let t = TEX[name];
+  if (along) { t = rotCache[name] || (rotCache[name] = (() => { const c = t.clone(); c.center.set(0.5, 0.5); c.rotation = Math.PI / 2; c.needsUpdate = true; return c; })()); }
+  return mat(0xffffff, { map: t, roughness: 0.5, ...opts });
+};
+const fabricMat = (h) => mat(h, { map: TEX.fabric, roughness: 0.97 });
+const steel = mat(0xb8bec1, { metalness: 0.75, roughness: 0.3 });
+const blackMetal = mat(0x222222, { metalness: 0.5, roughness: 0.45 });
+const edgeMat = new THREE.LineBasicMaterial({ color: 0x2f3b3a, transparent: true, opacity: 0.08 });
 const pickables = [];
 
 function box(x, y, z, w, d, h, material, parent, owner, edges = true) {
@@ -994,44 +1051,94 @@ function box(x, y, z, w, d, h, material, parent, owner, edges = true) {
 }
 const furniture = new THREE.Group(); scene.add(furniture);
 
-// podłoga
-const floor = new THREE.Mesh(new THREE.PlaneGeometry(9, 6), mat(0xd9c6a3, { roughness: 0.9 }));
+// podłoga: deska dębowa
+const floor = new THREE.Mesh(new THREE.PlaneGeometry(9, 6), mat(0xffffff, { map: floorTex, roughness: 0.5 }));
 floor.rotation.x = -Math.PI / 2; floor.receiveShadow = true; scene.add(floor);
-const fl = []; for (let x = 50; x < 900; x += 50) fl.push(P(x, 0, 0.2), P(x, 600, 0.2)); for (let y = 50; y < 600; y += 50) fl.push(P(0, y, 0.2), P(900, y, 0.2));
-scene.add(new THREE.LineSegments(new THREE.BufferGeometry().setFromPoints(fl), new THREE.LineBasicMaterial({ color: 0x8c7a5c, transparent: true, opacity: 0.18 })));
 
 // ściany
 const T = 15;
-const wallMat = { N: mat(0xe8dcc6, { transparent: true }), S: mat(0xe8dcc6, { transparent: true }), W: mat(0xe4d7c0, { transparent: true }), E: mat(0xe4d7c0, { transparent: true }) };
+const wallOpts = { transparent: true, map: TEX.plaster, roughness: 0.95 };
+const wallMat = { N: mat(0xe6d8bf, wallOpts), S: mat(0xeadcc4, wallOpts), W: mat(0xe2d3b9, wallOpts), E: mat(0xe2d3b9, wallOpts) };
 const walls = { N: new THREE.Group(), S: new THREE.Group(), W: new THREE.Group(), E: new THREE.Group() };
 Object.values(walls).forEach((g) => scene.add(g));
-const wb = (k, x, y, z, w, d, h) => { const m = box(x, y, z, w, d, h, wallMat[k], walls[k], null, false); m.castShadow = false; return m; };
+const wb = (k, x, y, z, w, d, h) => { const m = box(x, y, z, w, d, h, wallMat[k], walls[k], null, false); m.castShadow = k === "S"; return m; };
 wb("N", -T, -T, 0, DOOR.x0 + T, T, ROOM.h); wb("N", DOOR.x1, -T, 0, ROOM.w - DOOR.x1 + T, T, ROOM.h); wb("N", DOOR.x0, -T, DOOR.h, DOOR.x1 - DOOR.x0, T, ROOM.h - DOOR.h);
 let sx = -T; WINDOWS.forEach(([a, b]) => { wb("S", sx, ROOM.d, 0, a - sx, SOUTH_T, ROOM.h); wb("S", a, ROOM.d, 0, b - a, SOUTH_T, SILL); wb("S", a, ROOM.d, HEAD, b - a, SOUTH_T, ROOM.h - HEAD); wb("S", a, ROOM.d + NICHE + 4, SILL, b - a, SOUTH_T - NICHE - 4, HEAD - SILL); sx = b; }); wb("S", sx, ROOM.d, 0, ROOM.w + T - sx, SOUTH_T, ROOM.h);
 wb("W", -T, 0, 0, T, ROOM.d, ROOM.h); wb("E", ROOM.w, 0, 0, T, ROOM.d, ROOM.h);
-const glassMat = new THREE.MeshStandardMaterial({ color: 0x9cc7dc, transparent: true, opacity: 0.28, roughness: 0.1 });
-WINDOWS.forEach(([a, b]) => { const g = box(a, ROOM.d + NICHE + 1, SILL, b - a, 3, HEAD - SILL, glassMat, walls.S, null, false); g.castShadow = false; box((a + b) / 2 - 2, ROOM.d + NICHE, SILL, 4, 5, HEAD - SILL, mat(0xffffff), walls.S, null, false); box(a - 1, ROOM.d - 3, SILL - 2, b - a + 2, NICHE + 3, 3, mat(0xf3efe7), furniture, null); });
-// skrzydło drzwi otwarte
-const leaf = box(DOOR.hinge - 4, -T - DOOR.leaf, 0, 4, DOOR.leaf, DOOR.h - 2, mat(0xb08d62), walls.N, null);
-// grzejniki
-RADIATORS.forEach((r) => box(r.x, r.y, r.z, r.w, r.d, r.h, mat(0xffffff), furniture, null));
+// okna: szyby, białe ramy ze słupkiem i ślemieniem, parapety
+const glassMat = new THREE.MeshStandardMaterial({ color: lin(0xcfe6f2), transparent: true, opacity: 0.18, roughness: 0.05, metalness: 0.1 });
+const frameMat = mat(0xf7f6f2, { roughness: 0.4 });
+WINDOWS.forEach(([a, b]) => {
+  const g = box(a, ROOM.d + NICHE + 1, SILL, b - a, 2, HEAD - SILL, glassMat, walls.S, null, false); g.castShadow = false;
+  const yy = ROOM.d + NICHE - 3, fw = 7;
+  [[a, SILL, b - a, fw], [a, HEAD - fw, b - a, fw], [a, HEAD - 75, b - a, 5]].forEach(([x0, z0, w0, h0]) => box(x0, yy, z0, w0, 7, h0, frameMat, walls.S, null, false));
+  [a, b - fw, (a + b) / 2 - 3].forEach((x0) => box(x0, yy, SILL, x0 === (a + b) / 2 - 3 ? 6 : fw, 7, HEAD - SILL, frameMat, walls.S, null, false));
+  box(a - 1, ROOM.d - 3, SILL - 3, b - a + 2, NICHE + 3, 3, mat(0xf3efe7, { roughness: 0.35 }), furniture, null, false);
+});
+// listwy przypodłogowe
+const baseMat = mat(0xf4f2ec, { roughness: 0.45 });
+box(0, 0, 0, 1.5, ROOM.d, 9, baseMat, walls.W, null, false); box(ROOM.w - 1.5, 0, 0, 1.5, ROOM.d, 9, baseMat, walls.E, null, false);
+box(0, 0, 0, DOOR.x0, 1.5, 9, baseMat, walls.N, null, false); box(DOOR.x1, 0, 0, ROOM.w - DOOR.x1, 1.5, 9, baseMat, walls.N, null, false);
+box(0, ROOM.d - 1.5, 0, ROOM.w, 1.5, 9, baseMat, walls.S, null, false);
+// opaska drzwi i skrzydło otwarte na zewnątrz
+[[DOOR.x0 - 7, 7], [DOOR.x1, 7]].forEach(([x0, w0]) => box(x0, 0, 0, w0, 1.5, DOOR.h + 7, frameMat, walls.N, null, false));
+box(DOOR.x0 - 7, 0, DOOR.h, DOOR.x1 - DOOR.x0 + 14, 1.5, 7, frameMat, walls.N, null, false);
+const leaf = box(DOOR.hinge - 4, -T - DOOR.leaf, 0, 4, DOOR.leaf, DOOR.h - 2, woodMat("sonoma", true, { roughness: 0.55 }), walls.N, null);
+// sufit (tylko w widoku z wnętrza)
+const ceiling = new THREE.Mesh(new THREE.PlaneGeometry(9, 6), mat(0xf7f3ea, { roughness: 1 }));
+ceiling.rotation.x = Math.PI / 2; ceiling.position.set(0, ROOM.h * S, 0); scene.add(ceiling);
+// grzejniki płytowe
+RADIATORS.forEach((r) => { box(r.x, r.y, r.z, r.w, r.d, r.h, mat(0xf6f6f3, { roughness: 0.35 }), furniture, null, false); for (let k = 5; k < r.w - 2; k += 7) box(r.x + k, r.y - 0.8, r.z + 3, 1.6, 0.8, r.h - 6, mat(0xe4e4e1, { roughness: 0.35 }), furniture, null, false); });
+// lampy wiszące (poglądowo, nie w zakupach)
+const lamps = new THREE.Group(); scene.add(lamps);
+[[310, 320], [450, 320], [756, 285], [756, 425]].forEach(([lx, ly]) => {
+  const bottom = 185;
+  const cord = new THREE.Mesh(new THREE.CylinderGeometry(0.004, 0.004, (ROOM.h - bottom - 20) * S, 6), blackMetal);
+  cord.position.copy(P(lx, ly, (ROOM.h + bottom + 20) / 2)); lamps.add(cord);
+  const shade = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.2, 0.2, 40, 1, true), mat(0x2b2b2b, { side: THREE.DoubleSide, roughness: 0.45, metalness: 0.3 }));
+  shade.position.copy(P(lx, ly, bottom + 10)); shade.castShadow = true; lamps.add(shade);
+  const inner = new THREE.Mesh(new THREE.CylinderGeometry(0.058, 0.197, 0.198, 40, 1, true), mat(0xfff6e6, { side: THREE.BackSide, emissive: 0xffe6bb, emissiveIntensity: 0.5 }));
+  inner.position.copy(shade.position); lamps.add(inner);
+  const bulb = new THREE.Mesh(new THREE.SphereGeometry(0.04, 16, 12), new THREE.MeshBasicMaterial({ color: 0xfff1d0 }));
+  bulb.position.copy(P(lx, ly, bottom + 5)); lamps.add(bulb);
+  const pl = new THREE.PointLight(0xffd9a0, 0.45, 5.5, 2); pl.position.copy(P(lx, ly, bottom - 2)); lamps.add(pl);
+});
 
 // meble
 function chair3d(it, color) {
+  // LÄKTARE: tapicerowane siedzisko i oparcie, biała rama z podłokietnikami
   const g = new THREE.Group(); furniture.add(g);
-  const { x, y, w, d } = it, seat = 46, th = 5;
-  const owner = it;
-  box(x + 3, y + 3, seat - th, w - 6, d - 6, th, mat(color), g, owner);
-  const back = { N: [x + 4, y + d - 8, w - 8, 5], S: [x + 4, y + 3, w - 8, 5], E: [x + 3, y + 4, 5, d - 8], W: [x + w - 8, y + 4, 5, d - 8] }[it.face];
-  box(back[0], back[1], seat, back[2], back[3], it.h - seat, mat(color), g, owner);
-  [[5, 5], [w - 8, 5], [5, d - 8], [w - 8, d - 8]].forEach(([dx, dy]) => box(x + dx, y + dy, 0, 3, 3, seat - th, mat(0xf1f0eb), g, null, false));
+  const { x, y, w, d } = it, seat = 46, owner = it;
+  const fab = fabricMat(color), frame = mat(0xf1f0eb, { roughness: 0.3, metalness: 0.25 });
+  box(x + 5, y + 5, seat - 7, w - 10, d - 10, 3, frame, g, owner, false);
+  box(x + 5, y + 5, seat - 4, w - 10, d - 10, 5, fab, g, owner, false);
+  const f = it.face;
+  const back = { N: [x + 6, y + d - 9, w - 12, 4], S: [x + 6, y + 5, w - 12, 4], E: [x + 5, y + 6, 4, d - 12], W: [x + w - 9, y + 6, 4, d - 12] }[f];
+  box(back[0], back[1], seat + 6, back[2], back[3], it.h - seat - 8, fab, g, owner, false);
+  const alongY = f === "N" || f === "S";
+  (alongY ? [[x + 1.5, y + 8, 3, d - 16], [x + w - 4.5, y + 8, 3, d - 16]] : [[x + 8, y + 1.5, w - 16, 3], [x + 8, y + d - 4.5, w - 16, 3]]).forEach(([ax, ay, aw, ad]) => box(ax, ay, seat + 18, aw, ad, 2.5, frame, g, null, false));
+  (alongY ? [[x + 1.5, y + 8], [x + 1.5, y + d - 11], [x + w - 4.5, y + 8], [x + w - 4.5, y + d - 11]] : [[x + 8, y + 1.5], [x + w - 11, y + 1.5], [x + 8, y + d - 4.5], [x + w - 11, y + d - 4.5]]).forEach(([lx, ly]) => box(lx, ly, 0, 3, 3, seat + 18, frame, g, null, false));
 }
 function table3d(it, topColor, legColor = COL.leg) {
   const { x, y, w, d, h, z } = it;
-  box(x, y, z + h - 3, w, d, 3, mat(topColor), furniture, it);
-  const inset = 4, lw = 4;
-  [[inset, inset], [w - inset - lw, inset], [inset, d - inset - lw], [w - inset - lw, d - inset - lw]].forEach(([dx, dy]) => box(x + dx, y + dy, z, lw, lw, h - 3, mat(legColor), furniture, null, false));
-  if (it.k === "bror_lawa") box(x + 3, y + 3, 15, w - 6, d - 6, 2, mat(COL.leg), furniture, it);
+  const wood = PAL[it.k] && PAL[it.k].col === OAK ? "oak" : PAL[it.k] && PAL[it.k].col === ASH ? "ash" : null;
+  box(x, y, z + h - 2.5, w, d, 2.5, wood ? woodMat(wood, d > w, { roughness: 0.42 }) : mat(topColor), furniture, it);
+  box(x + 6, y + 6, z + h - 6, w - 12, d - 12, 3.5, mat(legColor, { roughness: 0.5 }), furniture, null, false);
+  const inset = 5, lw = 4;
+  [[inset, inset], [w - inset - lw, inset], [inset, d - inset - lw], [w - inset - lw, d - inset - lw]].forEach(([dx, dy]) => box(x + dx, y + dy, z, lw, lw, h - 6, mat(legColor, { roughness: 0.5, metalness: 0.3 }), furniture, null, false));
+}
+function foliage(cx, cy, cz, r) {
+  const greens = [0x4d8642, 0x6a9c55, 0x3e7639, 0x7ba765];
+  for (let k = 0; k < 6; k++) {
+    const sp = new THREE.Mesh(new THREE.IcosahedronGeometry(r * (0.4 + rnd() * 0.3) * S, 1), mat(greens[k % 4], { roughness: 0.85, flatShading: true }));
+    sp.position.copy(P(cx + (rnd() - 0.5) * r * 1.1, cy + (rnd() - 0.5) * r * 1.1, cz + rnd() * r * 0.9));
+    sp.scale.set(1, 0.8 + rnd() * 0.5, 1); sp.castShadow = true; furniture.add(sp);
+  }
+  for (let k = 0; k < 5; k++) {
+    const lf = new THREE.Mesh(new THREE.ConeGeometry(r * 0.13 * S, r * 1.5 * S, 4), mat(0x3e7639, { flatShading: true, roughness: 0.8 }));
+    lf.position.copy(P(cx + (rnd() - 0.5) * r * 0.5, cy + (rnd() - 0.5) * r * 0.5, cz - r * 0.15));
+    lf.rotation.set((rnd() - 0.5) * 2.4, rnd() * 6, (rnd() - 0.5) * 2.4); furniture.add(lf);
+  }
 }
 I.forEach((it) => {
   const c = CAT[it.k];
@@ -1040,14 +1147,22 @@ I.forEach((it) => {
   if (it.kind === "chair") return chair3d(it, pal ? hex(pal.col) : 0xd6c9ae);
   if (it.kind === "table") return table3d(it, pal ? hex(pal.col) : 0xe9e2d3, pal && pal.frame ? hex(pal.frame) : COL.leg);
   if (it.kind === "sofa") {
-    const isSofa = it.k === "sofa";
-    const col = mat(pal ? hex(pal.col) : 0x8ea595);
-    const armCol = pal && pal.frame ? mat(hex(pal.frame)) : col;
-    box(it.x, it.y, 10, it.w, it.d, 32, col, furniture, it);
-    box(it.x, it.y + it.d - 20, 42, it.w, 20, it.h - 42, col, furniture, it);
-    box(it.x, it.y, 42, 14, it.d - 20, 18, armCol, furniture, it);
-    box(it.x + it.w - 14, it.y, 42, 14, it.d - 20, 18, armCol, furniture, it);
-    [[4, 4], [it.w - 8, 4], [4, it.d - 8], [it.w - 8, it.d - 8]].forEach(([dx, dy]) => box(it.x + dx, it.y + dy, 0, 4, 4, 10, mat(COL.leg), furniture, null, false));
+    // EKTORP: rama, poduchy siedziska i oparcia, zaokrąglone podłokietniki
+    const col = fabricMat(pal ? hex(pal.col) : 0x8ea595);
+    const n = it.seats || 2, arm = 17, inner = it.w - 2 * arm, X = it.x, Y = it.y, Dp = it.d;
+    box(X, Y + 4, 4, it.w, Dp - 4, 36, col, furniture, it, false);
+    box(X + arm - 2, Y + Dp - 20, 40, inner + 4, 18, it.h - 46, col, furniture, it, false);
+    [X, X + it.w - arm].forEach((ax) => {
+      box(ax, Y + 2, 4, arm, Dp - 2, 56, col, furniture, it, false);
+      const roll = new THREE.Mesh(new THREE.CylinderGeometry(arm / 2 * S, arm / 2 * S, (Dp - 2) * S, 20), col);
+      roll.rotation.x = Math.PI / 2; roll.position.copy(P(ax + arm / 2, Y + 1 + Dp / 2, 60)); roll.castShadow = true; roll.userData.owner = it; pickables.push(roll); furniture.add(roll);
+    });
+    for (let k = 0; k < n; k++) {
+      const cx = X + arm + (inner / n) * k + 0.8, cw = inner / n - 1.6;
+      box(cx, Y + 3, 40, cw, Dp - 24, 13, col, furniture, it, false);
+      box(cx + 1, Y + Dp - 34, 53, cw - 2, 15, it.h - 55, col, furniture, it, false);
+    }
+    [[3, 6], [it.w - 7, 6], [3, Dp - 6], [it.w - 7, Dp - 6]].forEach(([dx, dy]) => box(X + dx, Y + dy, 0, 4, 4, 4, mat(0x5b4430), furniture, null, false));
     return;
   }
   if (it.kind === "round") {
@@ -1057,10 +1172,56 @@ I.forEach((it) => {
     leg.position.copy(P(it.x + it.w / 2, it.y + it.d / 2, (it.h - 3) / 2)); leg.castShadow = true; furniture.add(leg);
     return;
   }
+  if (it.kind === "pot") {
+    const pot = new THREE.Mesh(new THREE.CylinderGeometry(it.w / 2 * S, it.w / 2.7 * S, it.h * 0.42 * S, 24), mat(0xb9775a, { roughness: 0.85 }));
+    pot.position.copy(P(it.x + it.w / 2, it.y + it.d / 2, it.z + it.h * 0.21)); pot.castShadow = true; pot.receiveShadow = true;
+    pot.userData.owner = it; pickables.push(pot); furniture.add(pot);
+    foliage(it.x + it.w / 2, it.y + it.d / 2, it.z + it.h * 0.5, Math.max(it.w, it.d) * 0.7);
+    return;
+  }
+  if (it.kind === "plants") {
+    // panel z dębowych listew i półek z doniczkami
+    const slat = woodMat("slat", false, { roughness: 0.6 });
+    for (let yy = it.y; yy < it.y + it.d - 2; yy += 9) box(it.x + it.w - 3, yy, it.z, 3, 6, it.h, slat, furniture, it, false);
+    const pots = [0xb9775a, 0xebe6dc, 0xc9b9a0];
+    for (let r = 0; r < 3; r++) {
+      const zz = it.z + 10 + r * 52;
+      box(it.x - 6, it.y + 4, zz, it.w + 3, it.d - 8, 2.5, slat, furniture, it, false);
+      for (let yy = it.y + 18 + (r % 2) * 12; yy < it.y + it.d - 12; yy += 32) {
+        const pot = new THREE.Mesh(new THREE.CylinderGeometry(0.075, 0.06, 0.13, 18), mat(pots[(r + Math.round(yy / 32)) % 3], { roughness: 0.8 }));
+        pot.position.copy(P(it.x - 1, yy, zz + 9)); pot.castShadow = true; furniture.add(pot);
+        foliage(it.x - 1, yy, zz + 20, 15);
+      }
+    }
+    return;
+  }
+  if (it.k === "pojemniki") {
+    const cup = new THREE.Mesh(new THREE.CylinderGeometry(0.04, 0.038, 0.1, 20), woodMat("oak", false, { roughness: 0.5 }));
+    cup.position.copy(P(it.x + 5, it.y + 5, it.z + 5)); cup.castShadow = true; cup.userData.owner = it; pickables.push(cup); furniture.add(cup);
+    [0x2457b8, 0xc8372d, 0x222222, 0xe7b031].forEach((pc, q) => { const pen = new THREE.Mesh(new THREE.CylinderGeometry(0.004, 0.004, 0.14, 6), mat(pc)); pen.position.copy(P(it.x + 3.5 + (q % 2) * 3, it.y + 3.5 + Math.floor(q / 2) * 3, it.z + 9)); pen.rotation.set((q - 1.5) * 0.12, 0, (q % 2 - 0.5) * 0.25); furniture.add(pen); });
+    return;
+  }
+  if (it.k === "laptop") {
+    const alu = mat(0x9aa1a5, { metalness: 0.6, roughness: 0.35 });
+    box(it.x, it.y, it.z, it.w, it.d, 1.5, alu, furniture, it, false);
+    const narrow = it.w < it.d;
+    const scr = new THREE.Mesh(new THREE.BoxGeometry((narrow ? 0.7 : it.w) * S, 22 * S, (narrow ? it.d : 0.7) * S), alu);
+    const glass = new THREE.Mesh(new THREE.PlaneGeometry((narrow ? it.d : it.w) * S * 0.92, 20 * S), mat(0x1c2830, { roughness: 0.15, emissive: 0x24414f, emissiveIntensity: 0.6 }));
+    const g = new THREE.Group(); g.add(scr); g.add(glass);
+    glass.position.set(narrow ? 0.0045 : 0, 0, narrow ? 0 : -0.0045); if (narrow) glass.rotation.y = Math.PI / 2; else glass.rotation.y = Math.PI;
+    g.position.copy(narrow ? P(it.x + 2, it.y + it.d / 2, it.z + 11) : P(it.x + it.w / 2, it.y + it.d - 2, it.z + 11));
+    if (narrow) g.rotation.z = -0.22; else g.rotation.x = 0.22;
+    g.children.forEach((c) => (c.castShadow = true)); furniture.add(g);
+    return;
+  }
+  if (it.k === "czajnik") {
+    const k = new THREE.Mesh(new THREE.CylinderGeometry(0.075, 0.09, 0.23, 24), mat(0xb3b8ba, { metalness: 0.7, roughness: 0.25 }));
+    k.position.copy(P(it.x + 11, it.y + 8, it.z + 13)); k.castShadow = true; k.userData.owner = it; pickables.push(k); furniture.add(k);
+    box(it.x + 1, it.y + 1, it.z, 20, 14, 2, blackMetal, furniture, null, false);
+    return;
+  }
   let color = zc;
-  if (it.k === "scianka") color = 0x6f8a7e;
   if (it.k === "zmywarka") color = 0xe8eaea;
-  if (it.k === "blat") color = COL.wood;
   if (it.k === "druk_duza" || it.k === "druk_mala" || it.k === "finiszer") color = 0xe7e9ea;
   if (it.k === "cmd_monitor" || it.k === "cmd_pc") color = 0x23292b;
   if (it.k === "laptop") color = 0x8a9398;
@@ -1069,55 +1230,103 @@ I.forEach((it) => {
   if (it.k === "mikrofala") color = 0xf4f4f2;
   if (it.k === "czajnik") color = 0xaeb5b8;
   if (it.k === "lodowka") color = 0xf6f6f4;
-  if (it.k === "bror_regal") {
-    const g = furniture;
-    [0, it.w - 3].forEach((dx) => [0, it.d - 3].forEach((dy) => box(it.x + dx, it.y + dy, 0, 3, 3, it.h, mat(COL.leg), g, it, false)));
-    for (let z = 2; z < it.h; z += 38) box(it.x, it.y, z, it.w, it.d, 2, mat(0xc8a77a), g, it);
-    for (let z = 5; z < it.h - 30; z += 38) box(it.x + 6, it.y + 8, z, 30, 22, 12, mat(0xffffff), g, it); // ryzy papieru
-    return;
-  }
   if (pal) color = hex(pal.body || pal.col);
-  if (it.kind === "pot") {
-    box(it.x, it.y, it.z, it.w, it.d, it.h * 0.45, mat(0xb9775a), furniture, it);
-    const leafy = new THREE.Mesh(new THREE.SphereGeometry(Math.max(it.w, it.d) * 0.6 * S, 12, 10), mat(0x5f8f4e));
-    leafy.position.copy(P(it.x + it.w / 2, it.y + it.d / 2, it.z + it.h * 0.7)); leafy.castShadow = true; furniture.add(leafy);
-    return;
-  }
-  if (it.kind === "plants") {
-    box(it.x + it.w - 2, it.y, it.z, 2, it.d, it.h, mat(0xc79e6c), furniture, it);
-    for (let r = 0; r < 3; r++) for (let yy = it.y + 15 + (r % 2) * 12; yy < it.y + it.d - 10; yy += 34) {
-      box(it.x + 1, yy - 7, it.z + 15 + r * 50, 12, 14, 12, mat(0xb9775a), furniture, it, false);
-      const lf = new THREE.Mesh(new THREE.SphereGeometry(0.12, 10, 8), mat(0x5f8f4e)); lf.position.copy(P(it.x + 6, yy, it.z + 33 + r * 50)); furniture.add(lf);
-    }
-    return;
-  }
-  const m = box(it.x, it.y, it.z, it.w, it.d, it.h, mat(color), furniture, it);
-  if (it.kind === "board" && it.k !== "rzutnik" && it.k !== "klucze") {
+  let material = mat(color);
+  if (it.k === "scianka" || it.k === "przegroda") material = fabricMat(pal ? hex(pal.col) : 0xcdc3b0);
+  if (it.k === "blat") material = woodMat("worktop", false, { roughness: 0.4 });
+  if (it.k === "rzutnik") material = mat(0xffffff, { roughness: 1 });
+  if (it.kind === "board" && it.k !== "rzutnik" && it.k !== "klucze") material = mat(0xfafaf8, { roughness: 0.25 });
+  if (it.k === "druk_duza" || it.k === "druk_mala" || it.k === "finiszer" || it.k === "lodowka" || it.k === "zmywarka" || it.k === "mikrofala") material = mat(color, { roughness: 0.4 });
+  const m = box(it.x, it.y, it.z, it.w, it.d, it.h, material, furniture, it);
+  if (it.kind === "board" && it.k !== "rzutnik") {
+    // tablica: rama aluminiowa, kartki A4 i A5, kolorowe magnesy; klucze: korek, haczyki i breloki
     const along = it.w > it.d, len = along ? it.w : it.d;
-    const papers = [0xfff6c8, 0xe8f1fb, 0xffffff, 0xfde3e0];
-    for (let i = 0; i < Math.floor((len - 10) / 32); i++) for (let r = 0; r < 2; r++) if ((i + r) % 3 !== 2) {
-      if (along) box(it.x + 8 + i * 32, it.y + it.d, it.z + it.h - 40 - r * 45, 21, 0.6, 30, mat(papers[(i + r) % 4]), furniture, null, false);
-      else box(it.x + it.w, it.y + 8 + i * 32, it.z + it.h - 40 - r * 45, 0.6, 21, 30, mat(papers[(i + r) % 4]), furniture, null, false);
+    const put = (u, zz, uw, hh, depth, mm) => along ? box(it.x + u, it.y + it.d, zz, uw, depth, hh, mm, furniture, null, false) : box(it.x + it.w, it.y + u, zz, depth, uw, hh, mm, furniture, null, false);
+    const alu = mat(0xc9cdcf, { metalness: 0.7, roughness: 0.3 });
+    put(-2.5, it.z - 2.5, len + 5, 3, 2.2, alu); put(-2.5, it.z + it.h - 0.5, len + 5, 3, 2.2, alu);
+    put(-2.5, it.z - 2.5, 3, it.h + 5, 2.2, alu); put(len - 0.5, it.z - 2.5, 3, it.h + 5, 2.2, alu);
+    if (it.k === "klucze") {
+      put(1, it.z + 1, len - 2, it.h - 2, 0.6, mat(0xffffff, { map: TEX.cork, roughness: 0.95 }));
+      const tags = [0xd9473a, 0x3b78d4, 0xe7b031, 0x47a865, 0x8b57cc, 0xf2f2f2];
+      for (let r = 0; r < 3; r++) for (let k = 0; k < 7; k++) {
+        const u = 6 + k * 9.5, zz = it.z + it.h - 8 - r * 15.5;
+        put(u, zz, 1.4, 1.4, 2.8, steel);
+        if ((k * 5 + r * 3) % 7 !== 6) { put(u - 0.4, zz - 5.5, 2.2, 4.5, 1.6, mat(0xc3c7c9, { metalness: 0.9, roughness: 0.2 })); put(u - 1.6, zz - 10, 4.6, 4, 1.2, mat(tags[(k * 3 + r) % 6], { roughness: 0.45 })); }
+      }
+    } else {
+      const papers = [0xfff3b5, 0xe2edfb, 0xffffff, 0xfde0db, 0xe3f2dd, 0xffffff];
+      const magnets = [0xd9473a, 0x3b78d4, 0x262626, 0xe7b031, 0x47a865];
+      const cols = Math.floor((len - 10) / 25);
+      for (let k = 0; k < cols; k++) for (let r = 0; r < 3; r++) {
+        if ((k * 7 + r * 3) % 6 === 5) continue;
+        const small = (k + 2 * r) % 4 === 0, pw = small ? 14.8 : 21, ph = small ? 10.5 : 29.7;
+        const u = 6 + k * 25 + ((k + r) % 2) * 2, zz = it.z + it.h - 6 - ph - r * 32 - ((k * 3) % 4);
+        if (zz < it.z + 3) continue;
+        put(u, zz, pw, ph, 0.5, mat(papers[(k + 2 * r) % 6], { roughness: 0.9 }));
+        put(u + pw / 2 - 1.5, zz + ph - 3, 3, 3, 1.6, mat(magnets[(k + r) % 5], { roughness: 0.35 }));
+        if (!small) for (let ln = 0; ln < 4; ln++) put(u + 3, zz + ph - 9 - ln * 4.5, pw - 6 - (ln % 2) * 5, 0.8, 0.65, mat(0x8d969a));
+      }
+      put(len * 0.15, it.z - 6, len * 0.7, 3, 6, alu);
+      [0x2457b8, 0xc8372d, 0x222222].forEach((mc, q) => put(len * 0.2 + q * 10, it.z - 3.5, 8, 1.5, 2.5, mat(mc)));
     }
   }
-  if (pal && pal.body) box(it.x + 0.5, it.y + it.d, it.z, it.w - 1, 1.6, it.h, mat(hex(pal.col)), furniture, it);
-  if (it.kind === "lockers" && pal) box(it.x + it.w, it.y + 1, 1, 1, it.d - 2, it.h - 2, mat(hex(pal.front)), furniture, it, false);
+  if (it.k === "cmd_monitor") {
+    const scr = canvasTex(360, 600, (g2, w, h) => {
+      g2.fillStyle = "#f4f1ea"; g2.fillRect(0, 0, w, h); g2.fillStyle = "#17695f"; g2.fillRect(0, 0, w, 74);
+      g2.fillStyle = "#fff"; g2.font = "bold 32px sans-serif"; g2.fillText("Zastępstwa", 20, 48);
+      g2.fillStyle = "#3b4648"; g2.font = "20px sans-serif"; g2.fillText("dzisiaj · pokój nauczycielski", 20, 108);
+      for (let r = 0; r < 8; r++) { g2.fillStyle = r % 2 ? "#ffffff" : "#e9efe9"; g2.fillRect(14, 128 + r * 52, w - 28, 46); g2.fillStyle = "#17695f"; g2.fillRect(14, 128 + r * 52, 6, 46); g2.fillStyle = "#24302f"; g2.font = "19px sans-serif"; g2.fillText(`${r + 1}. lekcja · sala ${[12, 17, 21, 23, 28, 32, 41, 43][r]}`, 30, 158 + r * 52); }
+      g2.fillStyle = "#17695f"; g2.fillRect(14, h - 66, w - 28, 50); g2.fillStyle = "#fff"; g2.font = "bold 20px sans-serif"; g2.fillText("Dyżury  ·  Ogłoszenia  ·  Sale", 30, h - 34);
+    });
+    const plane = new THREE.Mesh(new THREE.PlaneGeometry((it.w - 3) * S, (it.h - 3) * S), new THREE.MeshBasicMaterial({ map: scr, toneMapped: false }));
+    plane.position.copy(P(it.x + it.w / 2, it.y + it.d + 0.15, it.z + it.h / 2)); furniture.add(plane);
+  }
+  if (pal && pal.body) {
+    // fronty Havstorp: rama i płycina, czarne uchwyty
+    const fr = mat(hex(pal.col), { roughness: 0.55 }), fy = it.y + it.d;
+    box(it.x + 0.5, fy, it.z + 0.5, it.w - 1, 1.6, it.h - 1, fr, furniture, it, false);
+    const drawers = it.k === "an_szuflady" ? [0, 0.33, 0.66] : [0];
+    drawers.forEach((q, qi) => {
+      const z0 = it.z + 1 + (it.h - 2) * q, hh = (it.h - 2) / drawers.length;
+      box(it.x + 7, fy + 1.6, z0 + 6, it.w - 14, 0.6, hh - 12, mat(new THREE.Color(hex(pal.col)).multiplyScalar(0.94).getHex(), { roughness: 0.6 }), furniture, null, false);
+      if (drawers.length > 1 && qi > 0) box(it.x + 0.5, fy + 1.4, z0 - 0.4, it.w - 1, 0.6, 0.8, mat(0xb9a988), furniture, null, false);
+      const hz = it.k === "an_wiszaca" ? it.z + 6 : drawers.length > 1 ? z0 + hh - 9 : it.z + it.h - 12;
+      box(it.x + it.w / 2 - 8, fy + 1.6, hz, 16, 2, 1.4, blackMetal, furniture, null, false);
+    });
+  }
+  if (it.kind === "lockers" && pal) {
+    box(it.x + it.w, it.y + 1, 1, 1, it.d - 2, it.h - 2, woodMat("sonoma", true, { roughness: 0.55 }), furniture, it, false);
+    for (let cc = 0; cc < 3; cc++) for (let r = 0; r < 11; r++) {
+      const yy = it.y + (it.d * (cc + 0.5)) / 3, zz = (it.h * (r + 0.5)) / 11;
+      box(it.x + it.w + 1, yy + 5, zz - 1.2, 1.4, 2.4, 2.4, steel, furniture, null, false);
+      box(it.x + it.w + 1, yy - 9, zz + 3, 0.4, 7, 2.6, mat(0xf4f1e8), furniture, null, false);
+    }
+  }
   if (it.kind === "lockers") {
     const pts = [];
-    const fx = it.x + it.w + 1.3;
-    for (let i = 1; i < 3; i++) { const yy = it.y + (it.d * i) / 3; pts.push(P(fx, yy, 0), P(fx, yy, it.h)); }
+    const fx = it.x + it.w + 2.1;
+    for (let k = 1; k < 3; k++) { const yy = it.y + (it.d * k) / 3; pts.push(P(fx, yy, 0), P(fx, yy, it.h)); }
     for (let r = 1; r < 11; r++) { const zz = (it.h * r) / 11; pts.push(P(fx, it.y, zz), P(fx, it.y + it.d, zz)); }
-    m.parent.add(new THREE.LineSegments(new THREE.BufferGeometry().setFromPoints(pts), new THREE.LineBasicMaterial({ color: 0x2f3b3a })));
+    m.parent.add(new THREE.LineSegments(new THREE.BufferGeometry().setFromPoints(pts), new THREE.LineBasicMaterial({ color: 0x5a4127 })));
   }
   if (it.k === "scianka") {
     m.position.y += 0.08;
-    const wh = mat(0xf2f2f0);
+    const wh = mat(0xf2f2f0, { roughness: 0.35, metalness: 0.2 });
     if (it.w >= it.d) [it.x + 2, it.x + it.w - 6].forEach((fx) => { box(fx, it.y + it.d / 2 - 25, 4, 4, 50, 4, wh, furniture, it); box(fx, it.y + it.d / 2 - 2, 8, 4, 4, it.h - 8, wh, furniture, it, false); });
     else [it.y + 2, it.y + it.d - 6].forEach((fy) => { box(it.x + it.w / 2 - 25, fy, 4, 50, 4, 4, wh, furniture, it); box(it.x + it.w / 2 - 2, fy, 8, 4, 4, it.h - 8, wh, furniture, it, false); });
   }
-  if (it.k === "druk_duza") box(it.x + 3, it.y + 6, it.h, it.w - 6, 52, 12, mat(0xd6d9db), furniture, it);
-  if (it.k === "an_zlew") { const sink = box(it.x + 10, it.y + 12, 89, 42, 36, 1, mat(0xb8c0c3, { metalness: 0.6, roughness: 0.3 }), furniture, it, false); box(it.x + 30, it.y + 4, 90, 3, 3, 26, mat(0x9aa3a6, { metalness: 0.7, roughness: 0.3 }), furniture, it, false); }
-  if (it.k === "an_wiszaca") box(it.x, it.y + it.d, it.z - 1, it.w, 1, 1, mat(0xfff3cf, { emissive: 0xffe9b0, emissiveIntensity: 0.6 }), furniture, null, false);
+  if (it.k === "przegroda") [it.x + 8, it.x + it.w - 12].forEach((bx) => box(bx, it.y + 1, it.z - 6, 4, it.d - 2, 7, blackMetal, furniture, null, false));
+  if (it.k === "druk_duza" || it.k === "druk_mala") {
+    const top = it.k === "druk_duza" ? it.z + it.h : it.z + it.h;
+    box(it.x + 3, it.y + 6, top, it.w - 6, it.d - 14, 10, mat(0xd6d9db, { roughness: 0.4 }), furniture, it);
+    box(it.x + it.w * 0.55, it.y + it.d - 14, top - 6, it.w * 0.35, 12, 4, mat(0x2a2f31, { roughness: 0.3 }), furniture, null, false);
+    for (let q = 0; q < 3; q++) box(it.x + 4, it.y + it.d, it.z + 8 + q * (it.h * 0.16), it.w - 8, 0.6, 0.6, mat(0xb9bdbf), furniture, null, false);
+  }
+  if (it.k === "zmywarka") box(it.x + 4, it.y + it.d, it.h - 10, it.w - 8, 1, 6, mat(0x3a3f41, { roughness: 0.3 }), furniture, null, false);
+  if (it.k === "mikrofala") box(it.x + 3, it.y + it.d, it.z + 4, it.w * 0.62, 0.6, it.h - 8, mat(0x1d2224, { roughness: 0.15 }), furniture, null, false);
+  if (it.k === "an_zlew") { box(it.x + 10, it.y + 12, 89.6, 42, 36, 1, mat(0xb8c0c3, { metalness: 0.6, roughness: 0.3 }), furniture, it, false); box(it.x + 30, it.y + 4, 90, 3, 3, 26, steel, furniture, it, false); box(it.x + 30, it.y + 4, 114, 3, 14, 2.5, steel, furniture, null, false); }
+  if (it.k === "an_wiszaca") box(it.x, it.y + it.d - 6, it.z - 1, it.w, 5, 1, mat(0xfff3cf, { emissive: 0xffe9b0, emissiveIntensity: 0.9 }), furniture, null, false);
+
 });
 
 /* orbita */
@@ -1131,6 +1340,8 @@ const VIEWS = {
   iso: { t: [0, 0.6, 0], r: 11.5, theta: 0.62, phi: 0.92 },
   door: eyeView([185, 95, 165], [620, 450, 60]),
   window: eyeView([470, 590, 160], [420, 120, 80]),
+  boards: eyeView([400, 430, 165], [30, 190, 125]),
+  dining: eyeView([420, 340, 150], [900, 340, 165]),
   top: { t: [0, 0, 0], r: 12.5, theta: 0.0001, phi: 0.001 },
 };
 let anim = null;
@@ -1221,6 +1432,7 @@ function updateCamera() {
     walls[k].children.forEach((m) => { if (m.material !== wallMat[k]) m.visible = !fade; });
   }
   leaf.visible = showWalls.checked;
+  ceiling.visible = inside && showWalls.checked;
 }
 let needs = true;
 function req() { needs = true; }
@@ -1231,7 +1443,7 @@ function resize() {
 }
 function bg() {
   const v = getComputedStyle(document.documentElement).getPropertyValue("--floor").trim() || "#f3efe6";
-  scene.background = new THREE.Color(v); req();
+  scene.background = new THREE.Color(v).convertSRGBToLinear(); req();
 }
 new ResizeObserver(resize).observe(host);
 window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", bg);
