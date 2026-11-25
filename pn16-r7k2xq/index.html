@@ -338,7 +338,7 @@ tr.total td { font-weight: 700; border-top: 2px solid var(--ink); }
     <ul>
       <li>IKEA: wszystkie pozycje z listy (28 produktów razem z zamiennikami) są w aktualnej ofercie, żadna nie jest wycofana ani oznaczona jako wyprzedana. Sklep internetowy pokazuje wysoki stan magazynowy każdej z nich.</li>
       <li>IKEA Wrocław Bielany: stanów konkretnego sklepu nie dało się odczytać automatycznie. Przed zamówieniem otwórz link produktu, wybierz sklep Wrocław i sprawdź całe ilości (np. 22 × LÄKTARE) albo zamów przez IKEA dla Firm z dostawą.</li>
-      <li>Szafy skrytkowe OLIVER (Kupmeble): na magazynie, wysyłka w 48 h. Zamieniłem nimi szafy z Kauflandu, których dostępności nie da się sprawdzić.</li>
+      <li>Szafy skrytkowe KAROL (Kupmeble): na magazynie, wysyłka w 48 h, gwarancja 10 lat.</li>
       <li>Czajnik i centrum dowodzenia (Morele): monitor, minikomputer i uchwyty na stanie.</li>
       <li>Tablice ALLboards (Castorama, sprzedawca zewnętrzny, tylko online): strona sklepu nie pokazuje jednoznacznie stanu, więc przed zamówieniem dodaj je do koszyka i sprawdź termin dostawy. Ceny z 24.11.2026.</li>
       <li>Podstawa pod Xeroxa (agapo.pl): dostępna, wysyłka w 3 dni; wykonywana pod podany model. Zamienniki: Szkolmeb (cena na zapytanie), Kamila Meble Rd1 (861 zł, na wymiar).</li>
@@ -397,7 +397,7 @@ tr.total td { font-weight: 700; border-top: 2px solid var(--ink); }
     <div class="card">
       <h3>Decyzje</h3>
       <ol>
-        <li>Ścianki MITTZON na kółkach (podstawa 50 cm): jedna między szafami skrytkowymi a biurkami, druga wsunięta między stół do kompletowania a lodówkę (nóżki wchodzą pod stół i lodówkę), oddziela strefę druku od aneksu.</li>
+        <li>Ścianki MITTZON na kółkach (podstawa 50 cm): jedna wsunięta między stół do kompletowania a lodówkę (nóżki wchodzą pod stół i lodówkę), oddziela strefę druku od aneksu; druga zostaje w zakupie, ale bez stałego miejsca (do przestawiania w razie potrzeby).</li>
         <li>Stoły: 8 × MITTZON 140 × 68 (dąb, czarne nogi, jednolity blat) w dwóch blokach 280 × 136; przy stole roboczym ciasno przed sofami (ok. 49 cm). Alternatywa: blok z 3 stołów 140 × 68 w jednym rzędzie (420 × 68) zwalnia miejsce, ale jest wąski.</li>
         <li>Lodówka: czy szkoła ma lodówkę szer. 60 cm, czy trzeba ją kupić osobno; zawiasy po stronie aneksu.</li>
         <li>Strona sprzętu planuje 4 laptopy KPO dla sali 16: rzut zakłada 2 na biurkach, a pozostałe ładują się w zamykanej szafce TROTTEN pod stołem do kompletowania (na własnych zasilaczach, z gniazda pod blatem).</li>
@@ -442,8 +442,8 @@ const ZONES = {
   tech: "Sprzęt IT – nie kupujemy w tym zakupie",
 };
 const C = [
-  { k: "szafa", z: "storage", name: "JAN NOWAK OLIVER Eco Design, szafa depozytowa 33 skrytki, biały korpus / fronty dąb sonoma", dims: "90 × 45 × 185 cm, skrytka 13 × 22 × 42 cm, zamek w każdej skrytce", price: 1699, qty: 2, shop: "Kupmeble.pl", url: "https://kupmeble.pl/produkt/metalowa-szafa-depozytowa-eco-design-oliver-90x45x185-cm-bialy-dab-sonoma", avail: "na magazynie, wysyłka 48 h", status: ["ok", "Na magazynie, gwarancja 10 lat"], note: "Razem 66 skrytek", alt: [{ name: "OLIVER szara (RAL 7035)", price: 1299, url: "https://kupmeble.pl/produkt/metalowa-szafa-depozytowa-oliver-90x45x185-cm-szara" }, { name: "OLIVER Eco Design antracyt / orzech", price: 1449, url: "https://kupmeble.pl/produkt/metalowa-szafa-depozytowa-eco-design-oliver-90x45x185-cm-antracyt-orzech" }] },
-  { k: "scianka", z: "storage", sw: "acoustic", name: "IKEA MITTZON rama z kółkami i ekranem akustycznym, Gunnared beżowy/biały", dims: "85 × 205 cm, podstawa 50 cm, ekran 5 cm, pokrycie zdejmowane do prania", sku: "s39514683", price: 699, qty: 2, shop: IKEA, url: ip("mittzon-rama-z-kolkami-ekran-akust-gunnared-bezowy-bialy-s39514683"), status: ["ok", "Na kółkach, można przestawiać"], alt: [{ name: "MITTZON rama z kółkami, ekran akustyczny i tablica suchościeralna (s09536177)", price: 999, url: ip("mittzon-rama-z-kolk-ekr-akust-tabl-gunnared-bezowy-bialy-s09536177") }] },
+  { k: "szafa", z: "storage", name: "JAN NOWAK KAROL Eco Design, szafa skrytkowa zamykana na klucz, 18 skrytek, biały korpus / fronty dąb sonoma", dims: "90 × 40 × 185 cm, 18 skrytek (3 × 6) z zamkiem ryglowanym, klucz Master Key do wszystkich skrytek, otwory wentylacyjne, miejsce na wizytownik, 52 kg", sku: "1867 (EAN 5907367500462)", price: 1299, qty: 3, shop: "Kupmeble.pl", url: "https://kupmeble.pl/produkt/szafa-skrytkowa-zamykana-na-klucz-eco-design-karol-90x40x185-cm-bialy-dab-sonoma", avail: "na magazynie, wysyłka 48 h", status: ["ok", "Na magazynie, gwarancja 10 lat"], note: "Razem 54 skrytki" },
+  { k: "scianka", z: "storage", sw: "acoustic", name: "IKEA MITTZON rama z kółkami i ekranem akustycznym, Gunnared beżowy/biały", dims: "85 × 205 cm, podstawa 50 cm, ekran 5 cm, pokrycie zdejmowane do prania", sku: "s39514683", price: 699, qty: 2, shop: IKEA, url: ip("mittzon-rama-z-kolkami-ekran-akust-gunnared-bezowy-bialy-s39514683"), status: ["ok", "1 szt. między stołem do druku a lodówką, 1 szt. bez stałego miejsca (do przestawiania)"], alt: [{ name: "MITTZON rama z kółkami, ekran akustyczny i tablica suchościeralna (s09536177)", price: 999, url: ip("mittzon-rama-z-kolk-ekr-akust-tabl-gunnared-bezowy-bialy-s09536177") }] },
   { k: "biurko", z: "work", name: "IKEA MITTZON biurko, okleina dębowa / czarny", dims: "120 × 60 cm, wysokość ustawiana przy montażu 65–85 cm", sku: "s69525859", price: 699, qty: 2, shop: IKEA, url: ip("mittzon-biurko-okl-deb-czarny-s69525859"), status: ["ok", "2 stanowiska komputerowe"], alt: [{ name: "MITTZON z regulacją elektryczną 62–126 cm, dąb/czarny 120 × 60", price: 1699, url: ip("mittzon-biurko-z-regulacja-wysokosci-elektryczny-okl-deb-czarny-s49526609") }, { name: "Węższe: LINNMON / ADILS 100 × 60, imitacja dębu bejcowanego na biało / czarne nogi", price: 129, url: ip("linnmon-adils-biurko-imitacja-debu-bejcowanego-na-bialo-czarny-s99416340") }] },
   { k: "przegroda", z: "work", name: "IKEA MITTZON ekran akustyczny na biurko, Gunnared beżowy (przegroda między biurkami)", dims: "70 × 72 cm, gr. 8 cm, mocowany do boku biurka wspornikiem L", sku: "105.282.23", price: 300, qty: 1, shop: IKEA, url: ip("mittzon-ekran-akustyczny-na-biurko-gunnared-bezowy-10528223"), status: ["ok", "W sprzedaży, na stanie"] },
   { k: "krz_biuro", z: "work", name: "IKEA LÄKTARE krzesło konferencyjne, średnioszary / biały", dims: "55 × 50 × 84 cm, podłokietniki, siedzisko z okleiną brzozową, pokrycie Gunnared do prania, sztaplowane (do 5 szt.), EN 16139", sku: "s49503250", price: 299, qty: 2, shop: IKEA, url: ip("laektare-krzeslo-konferencyjne-srednioszary-bialy-s49503250"), status: ["ok", "Przy biurkach"] },
@@ -518,14 +518,12 @@ const CAT = Object.fromEntries(C.map((c, i) => [c.k, { ...c, n: i + 1 }]));
 /* rozmieszczenie: x od lewej ściany, y od ściany z wejściem, z = wysokość dołu, wszystko w cm */
 const I = [];
 const add = (k, o) => I.push({ k, z: 0, ...o });
-add("szafa", { x: 0, y: 0, w: 45, d: 90, h: 185, kind: "lockers", face: "E", label: "33" });
-add("szafa", { x: 0, y: 90, w: 45, d: 90, h: 185, kind: "lockers", face: "E", label: "33" });
-add("scianka", { x: 0, y: 202.5, w: 85, d: 5, h: 205, kind: "panel" });
+[0, 90, 180].forEach((y) => add("szafa", { x: 0, y, w: 40, d: 90, h: 185, kind: "lockers", rows: 6, face: "E", label: "18" }));
 add("scianka", { x: 590, y: 2, w: 5, d: 85, h: 205, kind: "panel" });
-[230, 350].forEach((y, i) => add("biurko", { x: 0, y, w: 60, d: 120, h: 75, kind: "table", label: `Biurko ${i + 1}` }));
-[[30, 303], [20, 397]].forEach(([x, y]) => add("laptop", { x, y, w: 24, d: 32, h: 2, z: 75, kind: "box", ontop: true }));
+[285, 405].forEach((y, i) => add("biurko", { x: 0, y, w: 60, d: 120, h: 75, kind: "table", label: `Biurko ${i + 1}` }));
+[[30, 358], [20, 452]].forEach(([x, y]) => add("laptop", { x, y, w: 24, d: 32, h: 2, z: 75, kind: "box", ontop: true }));
 add("laptop", { x: 376, y: 300, w: 32, d: 24, h: 2, z: 75, kind: "box", ontop: true });
-[290, 410].forEach((y) => add("krz_biuro", { cx: 100, cy: y, w: 50, d: 55, face: "W", kind: "chair", h: 84 }));
+[345, 465].forEach((y) => add("krz_biuro", { cx: 100, cy: y, w: 50, d: 55, face: "W", kind: "chair", h: 84 }));
 add("finiszer", { x: 315, y: 4, w: 54.3, d: 68.1, h: 102.3, kind: "box", label: "FS-539SD" });
 add("druk_duza", { x: 369.3, y: 4, w: 61.5, d: 68.8, h: 120.7, kind: "box", label: "C450i" });
 add("cmd_monitor", { x: 255, y: 3, w: 36, d: 6, h: 61, z: 100, kind: "box", above: true, label: "Ekran" });
@@ -557,9 +555,9 @@ add("stol_jad", { x: 756, y: 315, w: 68, d: 140, h: 75, kind: "table" });
 [790, 845].forEach((x) => add("krz_zapas", { x, y: 545, w: 55, d: 50, h: 93, n: 2, face: "N", kind: "stack", label: "2" }));
 add("sofa3", { x: 172, y: 497, w: 218, d: 88, h: 88, face: "N", kind: "sofa", label: "Sofa 3", seats: 3 });
 add("sofa3", { x: 400, y: 497, w: 218, d: 88, h: 88, face: "N", kind: "sofa", label: "Sofa 3", seats: 3 });
-add("przegroda", { x: 0, y: 346, w: 70, d: 8, h: 72, z: 52, kind: "divider" });
+add("przegroda", { x: 0, y: 401, w: 70, d: 8, h: 72, z: 52, kind: "divider" });
 add("klucze", { x: 55, y: 0, w: 70, d: 3, h: 50, z: 130, kind: "board", above: true });
-add("tablica_biurka", { x: 0, y: 250, w: 3, d: 200, h: 100, z: 110, kind: "board", above: true });
+add("tablica_biurka", { x: 0, y: 305, w: 3, d: 200, h: 100, z: 110, kind: "board", above: true });
 add("tablica_druk", { x: 350, y: 0, w: 200, d: 3, h: 100, z: 165, kind: "board", above: true });
 add("rzutnik", { x: 899, y: 185, w: 1, d: 260, h: 146, z: 190, kind: "board", above: true });
 add("zielen_sciana", { x: 892, y: 137, w: 8, d: 40, h: 150, z: 200, kind: "plants", above: true });
@@ -571,7 +569,7 @@ add("projektor", { x: 614, y: 302, w: 32, d: 26, h: 11, z: 352, kind: "dev", abo
 add("telefon", { x: 532, y: 6, w: 20, d: 18, h: 7, z: 95, kind: "dev", ontop: true });
 add("ap", { x: 828, y: 596, w: 24, d: 4, h: 24, z: 218, kind: "dev", above: true });
 add("ogl_rog", { x: 800, y: 597, w: 80, d: 3, h: 60, z: 125, kind: "board", above: true });
-[[8, 18], [10, 78], [8, 138]].forEach(([x, y], i) => add("zielen_szafy", { x, y, w: 24, d: 24, h: 40, z: 185, kind: "pot", above: true }));
+[[8, 30], [8, 130], [8, 225]].forEach(([x, y], i) => add("zielen_szafy", { x, y, w: 24, d: 24, h: 40, z: 185, kind: "pot", above: true }));
 I.forEach((it) => { if (it.cx != null) { it.x = it.cx - it.w / 2; it.y = it.cy - it.d / 2; } });
 
 /* instalacje proponowane */
@@ -586,8 +584,8 @@ const INST = [
   { t: "p230", x: 680, y: 0, z: 110, txt: "Aneks, nad blatem (czajnik)", spec: "Gniazdo podwójne 230 V, obwód kuchenny 16 A" },
   { t: "p230", x: 750, y: 0, z: 110, txt: "Aneks, nad blatem (mikrofalówka)", spec: "Gniazdo pojedyncze 230 V, obwód kuchenny" },
   { t: "p230", x: 810, y: 0, z: 30, txt: "Zmywarka, w szafce obok", spec: "Gniazdo pojedyncze 230 V, osobny obwód 16 A" },
-  { t: "p230", x: 0, y: 335, z: 85, txt: "Biurko 1, nad blatem", spec: "Gniazdo podwójne 230 V (laptop, lampka)" },
-  { t: "p230", x: 0, y: 455, z: 85, txt: "Biurko 2, nad blatem", spec: "Gniazdo podwójne 230 V (laptop, lampka)" },
+  { t: "p230", x: 0, y: 390, z: 85, txt: "Biurko 1, nad blatem", spec: "Gniazdo podwójne 230 V (laptop, lampka)" },
+  { t: "p230", x: 0, y: 510, z: 85, txt: "Biurko 2, nad blatem", spec: "Gniazdo podwójne 230 V (laptop, lampka)" },
   { t: "p230", x: 0, y: 535, z: 30, txt: "Xerox B7130 przy biurkach", spec: "Gniazdo podwójne 230 V z uziemieniem" },
   { t: "p230", x: 630, y: 315, z: 450, ceil: true, txt: "Rzutnik pod sufitem", spec: "Gniazdo 230 V w puszce sufitowej przy uchwycie rzutnika" },
   { t: "p230", x: 478, y: 0, z: 110, txt: "Stół do druku (przy lodówce), nad blatem: ładowanie", spec: "Gniazdo natynkowe potrójne 230 V z ładowarką USB-A + USB-C, wystające ze ściany (ładowanie telefonów i laptopów)" },
@@ -619,7 +617,7 @@ const ROUTES = [
 
 /* kontrola przejść: odcinek pomiaru na rzucie + wymagane minimum */
 const CHECKS = [
-  { a: [135, 340], b: [240, 340], need: 90, name: "Przejście od wejścia między krzesłami biurek a stołem roboczym", why: "Główny ciąg komunikacyjny w głąb sali" },
+  { a: [125, 340], b: [240, 340], need: 90, name: "Przejście od wejścia między krzesłami biurek a stołem roboczym", why: "Główny ciąg komunikacyjny w głąb sali" },
   { a: [400, 73], b: [400, 192], need: 120, name: "Strefa obsługi przed bizhubem C450i (wysuwanie kaset ok. 62 cm + osoba)", why: "Obsługa, otwieranie modułów, kolejka przy wydruku", soft: 100 },
   { a: [520, 190], b: [520, 300], hide: true },
   { a: [520, 300], b: [638, 300], need: 90, name: "Stół roboczy ↔ krzesła jadalni", why: "Przejście do aneksu i jadalni" },
@@ -628,8 +626,8 @@ const CHECKS = [
   { a: [756, 455], b: [756, 600], need: 90, name: "Szczyt stołu jadalni ↔ ściana z oknami", why: "Dojście do stosów krzeseł w narożniku" },
   { a: [480, 448], b: [480, 497], need: 75, name: "Krzesła stołu roboczego (odsunięte) ↔ front sof", why: "Miejsce na nogi siedzących na sofie", soft: 45 },
   { a: [67, 560], b: [172, 560], need: 100, name: "Front podstawy z Xeroxem B7130 ↔ sofa", why: "Obsługa drukarki przy biurkach, wymiana tonera" },
-  { a: [85, 205], b: [248, 202], need: 90, name: "Koniec ścianki akustycznej ↔ krzesło stołu roboczego", why: "Wejście do stanowisk komputerowych od strony drzwi" },
-  { a: [45, 140], b: [125, 140], need: 70, name: "Strefa przed szafami skrytkowymi", why: "Otwieranie drzwiczek skrytek", fixedOk: true },
+  { a: [40, 215], b: [248, 215], need: 120, name: "Front szaf skrytkowych ↔ krzesło stołu roboczego", why: "Otwarte drzwiczki skrytek i przejście do biurek" },
+  { a: [40, 140], b: [125, 140], need: 70, name: "Strefa przed szafami skrytkowymi", why: "Otwieranie drzwiczek skrytek", fixedOk: true },
   { a: [60, 560], b: [60, 600], hide: true },
 ];
 CHECKS.forEach((c) => {
@@ -658,7 +656,7 @@ const known = C.filter((c) => c.price && !c.outside).reduce((s, c) => s + c.pric
 document.getElementById("facts").innerHTML = [
   ["Powierzchnia", "54 m² <small>900 × 600 cm</small>"],
   ["Miejsca siedzące", `${seats} <small>ustawione, + ${stacked} dodatkowe krzesła w narożniku</small>`],
-  ["Skrytki", "66 <small>2 szafy × 33</small>"],
+  ["Skrytki", "54 <small>3 szafy × 18</small>"],
   ["Drukarki A3", "2 <small>przy wejściu i przy biurkach</small>"],
   ["Aneks", "240 cm <small>+ lodówka 60 cm</small>"],
   ["Zakup mebli i aneksu", `${Math.round(known).toLocaleString("pl-PL")} zł <small>brutto, bez dostawy</small>`],
@@ -820,7 +818,7 @@ function drawPlan() {
 }
 function badgePos(it) {
   const map = {
-    szafa: [70, 150], przegroda: [84, 340], klucze: [92, 22], tablica_biurka: [24, 248], tablica_druk: [452, 26], rzutnik: [872, 315], zielen_sciana: [872, 157], zielen_okna: [196, 632], ogloszenia: [318, 572], ogl_rog: [840, 572], projektor: [630, 286], telefon: [560, 40], ap: [812, 585], zielen_szafy: [22, 60], cmd_monitor: [256, 26], cmd_pc: [284, 50], scianka: [100, 205], biurko: [84, 357], krz_biuro: [140, 290], stol_pracy: [232, 262], krz_pracy: [300, 196],
+    szafa: [60, 135], przegroda: [84, 395], klucze: [92, 22], tablica_biurka: [24, 303], tablica_druk: [452, 26], rzutnik: [872, 315], zielen_sciana: [872, 157], zielen_okna: [196, 632], ogloszenia: [318, 572], ogl_rog: [840, 572], projektor: [630, 286], telefon: [560, 40], ap: [812, 585], zielen_szafy: [22, 70], cmd_monitor: [256, 26], cmd_pc: [284, 50], scianka: [575, 100], biurko: [84, 412], krz_biuro: [140, 345], stol_pracy: [232, 262], krz_pracy: [300, 196],
     druk_duza: [400, 92], finiszer: [342, 92], druk_mala: [88, 582], podstawa: [88, 542], stol_wysoki: [575, 88], tonery: [545, 74], akcesoria: [482, 64], lodowka: [630, 98], czajnik: [705, 110], mikrofala: [750, 110],
     an_szuflady: [690, 76], an_polki: [750, 76], zmywarka: [810, 76], an_zlew: [880, 76], an_wiszaca: [780, 132], blat: [850, 132],
     stol_jad: [700, 196], krz_jad: [648, 182], krz_zapas: [845, 530], sofa3: [185, 486], sofa2: [412, 486], stolik: [577, 508], fotel: [642, 494], laptop: [44, 365],
@@ -939,7 +937,7 @@ function drawElev(key) {
       el("rect", { x: u0, y: Y(it.z + it.h), width: w, height: it.h, class: cls }, gi);
       if (it.kind === "lockers" && key === "W") {
         for (let i = 1; i < 3; i++) el("line", { x1: u0 + (w * i) / 3, y1: Y(it.h), x2: u0 + (w * i) / 3, y2: H, stroke: "var(--wall)", "stroke-width": 1 }, gi);
-        for (let r = 1; r < 11; r++) el("line", { x1: u0, y1: Y((it.h * r) / 11), x2: u1, y2: Y((it.h * r) / 11), stroke: "var(--wall)", "stroke-width": 0.8 }, gi);
+        for (let r = 1; r < (it.rows || 11); r++) el("line", { x1: u0, y1: Y((it.h * r) / (it.rows || 11)), x2: u1, y2: Y((it.h * r) / (it.rows || 11)), stroke: "var(--wall)", "stroke-width": 0.8 }, gi);
       }
       if (it.k === "an_wiszaca" && key === "N") el("line", { x1: u0 + w / 2, y1: Y(it.z + it.h), x2: u0 + w / 2, y2: Y(it.z), stroke: "var(--wall)", "stroke-width": 1 }, gi);
       if (it.k === "an_szuflady" && key === "N") [30, 58].forEach((z) => el("line", { x1: u0, y1: Y(z), x2: u1, y2: Y(z), stroke: "var(--wall)", "stroke-width": 1 }, gi));
@@ -1014,7 +1012,7 @@ function drawElev(key) {
   txt(elev, W.len / 2, -22, W.title, "lbl", { "text-anchor": "middle" });
   const notes = {
     N: "Przy szafach skrytkowych tablica na klucze do sal (ok. 70 × 50 cm). Drzwi otwierają się na zewnątrz, w prawo. Nad bizhubem i stołem do kompletowania tablica magnetyczna ok. 200 × 100 cm (dół 165 cm). Tuż przy drzwiach ekran dotykowy 27″ zawieszony w pionie na uchwycie ściennym (dół 100 cm, góra 161 cm), minikomputer za ekranem. Obok bizhub C450i z finiszerem FS-539SD; po prawej 34 cm zapasu na tacę boczną. Stół do kompletowania TROTTEN 120 × 70 z elektryczną regulacją (ok. 95 cm), pod nim szafka na tonery i papier. Lodówka 60 cm oddziela strefę druku od aneksu 240 cm. Na blacie: czajnik, mikrofalówka; szafki wiszące 4 × 60, dół 150 cm, góra 250 cm.",
-    W: "Nad biurkami tablica magnetyczna ok. 200 × 100 cm z kartkami (dół 110 cm). Między biurkami beżowy ekran akustyczny MITTZON 70 × 72 cm. Ścianka MITTZON na kółkach (205 cm) między szafami a biurkiem 1, widoczna z boku; druga ścianka jest wsunięta między stół do kompletowania a lodówkę i oddziela strefę druku od aneksu. Obok biurek Xerox B7130 na podstawie KSW ok. 45 cm (razem ok. 122 cm). Szafy skrytkowe 3 × 11 skrytek każda.",
+    W: "Nad biurkami tablica magnetyczna ok. 200 × 100 cm z kartkami (dół 110 cm). Między biurkami beżowy ekran akustyczny MITTZON 70 × 72 cm. Ścianka MITTZON na kółkach jest wsunięta między stół do kompletowania a lodówkę i oddziela strefę druku od aneksu. Obok biurek Xerox B7130 na podstawie KSW ok. 45 cm (razem ok. 122 cm). Trzy szafy skrytkowe KAROL 90 × 40 × 185 cm, po 18 skrytek (3 × 6), razem 54.",
     S: "Okna we wnękach: parapet na 90 cm, głębokość wnęki ok. 40 cm, na parapetach doniczki; na filarach między oknami małe tablice ogłoszeń (dół 145 cm), a nad nimi wysoko wiszące doniczki; w narożniku przy krzesłach tablica 80 × 60 cm. Sofy EKTORP (88 cm) poniżej parapetu, przed grzejnikami min. 15 cm odstępu.",
     E: "Ściana za jadalnią: białe pole pod obraz z rzutnika (ok. 260 × 146 cm, od 190 do 336 cm) na osi stołu, po obu bokach wąskie pasy roślin z długimi zwisającymi pędami. W narożniku przy oknie 4 dodatkowe krzesła LÄKTARE (2 stosy po 2), nad nimi na filarze tablica ogłoszeń. Ściany w ciepłym beżu, sala ok. 450 cm wysokości.",
   };
@@ -1728,8 +1726,9 @@ I.forEach((it) => {
   }
   if (it.kind === "lockers" && pal) {
     box(it.x + it.w, it.y + 1, 1, 1, it.d - 2, it.h - 2, woodMat("sonoma", true, { roughness: 0.55 }), furniture, it, false);
-    for (let cc = 0; cc < 3; cc++) for (let r = 0; r < 11; r++) {
-      const yy = it.y + (it.d * (cc + 0.5)) / 3, zz = (it.h * (r + 0.5)) / 11;
+    const rows = it.rows || 11;
+    for (let cc = 0; cc < 3; cc++) for (let r = 0; r < rows; r++) {
+      const yy = it.y + (it.d * (cc + 0.5)) / 3, zz = (it.h * (r + 0.5)) / rows;
       box(it.x + it.w + 1, yy + 5, zz - 1.2, 1.4, 2.4, 2.4, steel, furniture, null, false);
       box(it.x + it.w + 1, yy - 9, zz + 3, 0.4, 7, 2.6, mat(0xf4f1e8), furniture, null, false);
     }
@@ -1738,7 +1737,7 @@ I.forEach((it) => {
     const pts = [];
     const fx = it.x + it.w + 2.1;
     for (let k = 1; k < 3; k++) { const yy = it.y + (it.d * k) / 3; pts.push(P(fx, yy, 0), P(fx, yy, it.h)); }
-    for (let r = 1; r < 11; r++) { const zz = (it.h * r) / 11; pts.push(P(fx, it.y, zz), P(fx, it.y + it.d, zz)); }
+    for (let r = 1; r < (it.rows || 11); r++) { const zz = (it.h * r) / (it.rows || 11); pts.push(P(fx, it.y, zz), P(fx, it.y + it.d, zz)); }
     m.parent.add(new THREE.LineSegments(new THREE.BufferGeometry().setFromPoints(pts), new THREE.LineBasicMaterial({ color: 0x5a4127 })));
   }
   if (it.k === "scianka") {
