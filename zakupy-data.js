@@ -1,6 +1,6 @@
 // Zakładka "Zakupy listopad 2027": zestawienie zakupów dokładnie według arkusza (JSON z arkusza Claude).
 // Dwa arkusze: "Wyposażenie maturalne" (ceny brutto) i "Wyposażenie pracowni" (ceny netto + VAT) z działami:
-// pracownie zawodowe, pracownia gastronomiczno-spożywcza, pracownia fryzjerska (pracownia handlowa usunięta 27.11.2026: niesfinansowana w całości).
+// pracownia gastronomiczno-spożywcza i pracownia fryzjerska wg pisma z 17.11.2026 (podpisany wniosek na 125 000 zł); pracownia handlowa usunięta 27.11.2026 (niesfinansowana w całości).
 // lp to numer pozycji z arkusza (5a = pozycja dopisana później). Daty w formacie RRRR-MM-DD.
 // Kontroferty mają cena_brutto albo cena_netto, zależnie od arkusza. Pozycja bez ceny nie wchodzi do sum.
 // Kwota do zapłaty pozycji = wartosc_brutto: przy VAT 0% to cena netto, przy VAT 23% cena brutto.
@@ -113,7 +113,7 @@ export const zakupyListopad = {
           "lp": 4,
           "kategoria": "Papier do flipcharta",
           "produkt": "Blok INTERDRUK 65×100 cm, 20 kartek, gładki",
-          "parametry": "Zapas bloków do flipcharta (16 szt. w wyposażeniu maturalnym, 14 szt. w pracowni handlowej)",
+          "parametry": "Zapas bloków do flipcharta",
           "ilosc": 16,
           "cena_szt_brutto": 27.39,
           "wartosc_brutto": 438.24,
@@ -338,97 +338,85 @@ export const zakupyListopad = {
       "sumy": {},
       "sekcje": [
         {
-          "id": "zawodowe",
-          "nazwa": "Pracownie zawodowe",
+          "id": "gastronomiczna",
+          "nazwa": "Pracownia gastronomiczno-spożywcza",
           "pozycje": [
             {
-              "lp": 6,
-              "kategoria": "Telewizor",
-              "produkt": "Xiaomi TV Max 85 2025 85\" QLED 4K",
-              "parametry": "85\", QLED 4K 144 Hz, Google TV, HDMI 2.1, Dolby Vision / Atmos",
+              "lp": 1,
+              "kategoria": "Komputer All-in-One",
+              "produkt": "MSI PRO AP242P 14M (Win11 Pro)",
+              "parametry": "Intel Core i5-14400, 16 GB DDR5, 512 GB SSD, 23,8\" FHD IPS 100 Hz, Win 11 Pro, klawiatura + mysz bezprzewodowe; wyjścia: HDMI 2.1 out + DisplayPort 1.4 out",
               "ilosc": 1,
-              "cena_szt_netto": 4065.03,
+              "cena_szt_netto": 4267.48,
+              "vat": 0,
+              "cena_szt_brutto": 4267.48,
+              "wartosc_brutto": 4267.48,
+              "sklep": "x-kom.pl",
+              "dostepnosc": "Dostępny – u Ciebie pojutrze",
+              "dostawa": "Darmowa do salonu, kurier od 17,99 zł",
+              "link": "https://www.x-kom.pl/p/1243600-all-in-one-msi-pro-ap242p-14m-i5-14400-16gb-512-win11px.html",
+              "uwagi": "MSI deklaruje obsługę 3 ekranów (wbudowany + 2 zewnętrzne przez HDMI-out i DP-out naraz). Cena netto wyliczona z 5 249 zł brutto – procedurę 0% VAT potwierdzić z x-kom. Gwarancja 36 mies. Wersja bez systemu kosztuje 4 150 zł brutto.",
+              "data_sprawdzenia": "2026-11-27",
+              "kontroferty": [
+                {
+                  "opis": "morele.net – sprzedawca FOXKOMPUTER, dostępny (5 495,09 zł brutto)",
+                  "cena_netto": 4467.55,
+                  "link": "https://www.morele.net/komputer-msi-pro-ap242p-14m-691eu-core-i5-14400-16-gb-512-gb-ssd-windows-11-pro-14148476/"
+                },
+                {
+                  "opis": "sklep-dell.pl – Dell Pro 24 QC24250 (Ultra 7 265, HDMI-out + DP-out), dostępny",
+                  "cena_netto": 6424.84,
+                  "link": "https://www.sklep-dell.pl/dell-pro-24-all-in-one-qc24250-bto154-qc24250-emea.html"
+                }
+              ],
+              "weryfikacja": "Pismo z 17.11.2026: oferta X 4 267,48 zł, oferta Y 4 467,55 zł, oferta Z 6 424,84 zł; kwota do planu 4 267,48 zł."
+            },
+            {
+              "lp": 2,
+              "kategoria": "Urządzenie wielofunkcyjne",
+              "produkt": "Xerox VersaLink B7130 MFP (B7101V_D)",
+              "parametry": "A3 mono, 30 str./min, dupleks, skaner dwustronny DADF 130 ark., 1 kaseta 520 ark., toner startowy",
+              "ilosc": 1,
+              "cena_szt_netto": 4982.93,
               "vat": 0.23,
-              "cena_szt_brutto": 4999.99,
-              "wartosc_brutto": 4999.99,
-              "sklep": "Media Expert",
-              "dostepnosc": "Dostępny, dostawa jutro / odbiór w sklepie jutro",
+              "cena_szt_brutto": 6129.01,
+              "wartosc_brutto": 6129.01,
+              "sklep": "everprint.pl",
+              "dostepnosc": "5+ szt., wysyłka natychmiast",
               "dostawa": "Darmowa",
-              "link": "https://www.mediaexpert.pl/telewizory-i-rtv/telewizory/telewizor-xiaomi-max-2025-85-miniled-4k-144hz-google-tv-dolby-atmos-dolby-vision-hdmi-2-1",
-              "uwagi": "Cena 4 999,99 zł brutto. Zgodność rozstawu VESA z uchwytem Goldenline (do 600×400, 50 kg) do potwierdzenia w karcie produktu.",
-              "data_sprawdzenia": "2026-11-16",
+              "link": "https://everprint.pl/pl/p/Xerox-Versalink-B7130-z-1-podajnikiem-Urzadzenie-wielofunkcyjne-mono-A3/36026",
+              "uwagi": "Urządzenie biurkowe – opcjonalnie podstawa z szufladą Xerox 097S04907 (1 475 zł brutto). Instalacja jest warunkiem gwarancji producenta (u części sprzedawców płatna). VAT 23% – nie było w liście 0%.",
+              "data_sprawdzenia": "2026-11-27",
               "kontroferty": [
                 {
-                  "opis": "Media Expert – Xiaomi TV S Mini LED 2026 85\"",
-                  "cena_netto": 4877.24,
-                  "link": "https://www.mediaexpert.pl/telewizory-i-rtv/telewizory/telewizor-xiaomi-s-mini-2026-85-qd-mini-led-4k-144-hz-google-tv-dolby-atmos-dolby-vision-hdmi-2-1"
-                }
-              ]
-            },
-            {
-              "lp": 7,
-              "kategoria": "Uchwyt TV",
-              "produkt": "Goldenline TM3790FMUS – uchwyt ścienny 37–90\"",
-              "parametry": "Ruchomy (regulacja w pionie i poziomie), VESA do 600×400, udźwig 50 kg",
-              "ilosc": 1,
-              "cena_szt_netto": 325.2,
-              "vat": 0.23,
-              "cena_szt_brutto": 400.0,
-              "wartosc_brutto": 400.0,
-              "sklep": "Media Expert",
-              "dostepnosc": "Dostępny",
-              "dostawa": "Darmowa dostawa",
-              "link": "https://www.mediaexpert.pl/telewizory-i-rtv/uchwyty-do-tv/uchwyty/uchwyt-goldenline-do-tv-37-70-tm3790fmus-pelna-regulacja-super-slim",
-              "uwagi": "Pasuje do TCL 85P7L (VESA 600×400, 30,3 kg). Montaż na ścianie nośnej.",
-              "data_sprawdzenia": "2026-11-16",
-              "kontroferty": [
+                  "opis": "centrumpapieru.pl – dostępność 24h, + 24,60 zł dostawy",
+                  "cena_netto": 4982.93,
+                  "link": "https://www.centrumpapieru.pl/produkt/21760/urzadzenie-wielofunkcyjne-xerox-versalink-b7130d-a3"
+                },
                 {
-                  "opis": "Media Expert – ART AR-92XL 55–120\", ruchomy, 140 kg",
-                  "cena_netto": 539.88,
-                  "link": "https://www.mediaexpert.pl/telewizory-i-rtv/uchwyty-do-tv/uchwyty/uchwyt-art-do-tv-55-120-cali-ar-92xl-czarny"
+                  "opis": "printmark.pl – wariant z dodatkową kasetą",
+                  "cena_netto": 6400.0,
+                  "link": "https://printmark.pl/sklep/xerox-versalink-b7130-2"
                 }
-              ]
+              ],
+              "weryfikacja": "Pismo z 17.11.2026: oferta X 6 129,01 zł, oferta Y 6 129,01 zł, oferta Z 7 872,00 zł; kwota do planu 6 129,01 zł."
             },
             {
-              "lp": 8,
-              "kategoria": "Urządzenie wielofunkcyjne A4",
-              "produkt": "Epson EcoTank L6570 (kolor, dolewane tusze)",
-              "parametry": "A4 kolor, automatyczny druk dwustronny, ADF 50 ark. z dwustronnym skanowaniem, Wi-Fi, LAN, faks",
-              "ilosc": 2,
-              "cena_szt_netto": 2902.44,
-              "vat": 0.23,
-              "cena_szt_brutto": 3570.0,
-              "wartosc_brutto": 7140.0,
-              "sklep": "wmkomputer.pl",
-              "dostepnosc": "Dostępne, realizacja 24h",
-              "dostawa": "Do potwierdzenia w koszyku",
-              "link": "https://www.wmkomputer.pl/epson-ecotank-l6570-urzadzenie-wielofunkcyjne-kolor-a4.html",
-              "uwagi": "Tańszy Epson L6550 (3 225 zł brutto) – do sprawdzenia, czy też ma dwustronne skanowanie z ADF. VAT 23% – jeśli szkoła kupuje drukarki z 0%, cena spadnie.",
-              "data_sprawdzenia": "2026-11-16",
-              "kontroferty": [
-                {
-                  "opis": "Media Expert – ten sam model, dostawa jutro",
-                  "cena_netto": 3413.82,
-                  "link": "https://www.mediaexpert.pl/komputery-i-tablety/drukarki-i-urzadzenia-biurowe/urzadzenia-wielofunkcyjne/urzadzenie-wielofunkcyjne-epson-ecotank-l6570"
-                }
-              ]
-            },
-            {
-              "lp": 9,
+              "lp": 3,
               "kategoria": "Wentylator",
               "produkt": "Velano VELWEPR0007 – wentylator przemysłowy podłogowy 61 cm",
               "parametry": "Śmigło 61 cm, 300 W, przepływ 12 000 m³/h, 1300 obr./min, 3 prędkości, wys. 70 cm, na kółkach; 65 dB(A)",
-              "ilosc": 4,
+              "ilosc": 2,
               "cena_szt_netto": 365.04,
               "vat": 0.23,
               "cena_szt_brutto": 449.0,
-              "wartosc_brutto": 1796.0,
+              "wartosc_brutto": 898.0,
               "sklep": "Allegro (Tadek_Sprzedawca)",
               "dostepnosc": "80 szt. dostępnych, dostawa pojutrze",
               "dostawa": "Darmowa",
               "link": "https://allegro.pl/produkt/wentylator-podlogowy-velano-velwepr0007-czarny-bd697b16-68a3-46e7-a04a-9cd77fe62176",
-              "uwagi": "Największy i najmocniejszy niski wentylator dostępny od ręki (kupowane 4 szt.) Cena 449 zł brutto. Przy tej mocy jest głośniejszy (65 dB).",
-              "data_sprawdzenia": "2026-11-16",
+              "uwagi": "Największy i najmocniejszy niski wentylator dostępny od ręki (kupowane 2 szt. w tej pracowni) Cena 449 zł brutto. Przy tej mocy jest głośniejszy (65 dB).",
+              "data_sprawdzenia": "2026-11-27",
               "kontroferty": [
                 {
                   "opis": "Allegro – wentylator podłogowy cyrkulator metalowy, duży (dostawa ok. 89 dni)",
@@ -440,59 +428,36 @@ export const zakupyListopad = {
                   "cena_netto": 910.52,
                   "link": "https://allegro.pl/produkt/wentylator-osiowy-bvn-bsms-600-612-mm-56215fff-6878-4254-8e60-3f73e3e7df0a"
                 }
-              ]
+              ],
+              "weryfikacja": "Pismo z 17.11.2026: oferta X 898,00 zł, oferta Y 1 131,99 zł, oferta Z 2 239,88 zł; kwota do planu 898,00 zł."
             },
             {
-              "lp": 10,
-              "kategoria": "Szafa",
-              "produkt": "Szafa (pozycja budżetowa)",
-              "parametry": "Cena 800 zł brutto/szt. – podana przez szkołę",
-              "ilosc": 12,
-              "cena_szt_netto": 650.41,
-              "vat": 0.23,
-              "cena_szt_brutto": 800.0,
-              "wartosc_brutto": 9600.0,
-              "sklep": "Do ustalenia",
-              "dostepnosc": null,
-              "dostawa": null,
-              "link": null,
-              "uwagi": null,
-              "data_sprawdzenia": "2026-11-16",
-              "kontroferty": []
-            }
-          ]
-        },
-        {
-          "id": "gastronomiczna",
-          "nazwa": "Pracownia gastronomiczno-spożywcza",
-          "pozycje": [
-            {
-              "lp": 11,
-              "kategoria": "Robot planetarny",
-              "produkt": "Kenwood Titanium Chef Patissier XL KWL90.244SI",
-              "parametry": "1400 W, dwie misy (7 l i 5 l), wbudowana waga, funkcja podgrzewania misy; bez blendera kielichowego (blender osobno, poz. 11a)",
+              "lp": 4,
+              "kategoria": "Robot planetarny z podgrzewaniem",
+              "produkt": "Kenwood Titanium Chef Patissier XL KWL90.124SI",
+              "parametry": "1400 W, wbudowana waga, funkcja podgrzewania misy, dwie misy (7 l i 5 l)",
               "ilosc": 1,
-              "cena_szt_netto": 3088.62,
+              "cena_szt_netto": 2926.02,
               "vat": 0.23,
-              "cena_szt_brutto": 3799.0,
-              "wartosc_brutto": 3799.0,
-              "sklep": "Media Expert",
+              "cena_szt_brutto": 3599.0,
+              "wartosc_brutto": 3599.0,
+              "sklep": "MediaMarkt",
               "dostepnosc": "Do potwierdzenia",
               "dostawa": "Do potwierdzenia w koszyku",
-              "link": "https://www.mediaexpert.pl/p/2465264",
-              "uwagi": "Wybór szkoły 16.11.2026 zamiast gastronomicznego miksera 7 l i domowego Prospero+. Cena 3 799 zł brutto to cena sugerowana z karty Media Expert (z wyszukiwarki), do potwierdzenia. Wariant KWL90.124SI ma wg opisu Morele wbudowany blender kielichowy 1,6 l (patrz kontroferta): jeśli to się potwierdzi, można go kupić zamiast tego robota i osobnego blendera.",
-              "data_sprawdzenia": "2026-11-16",
-              "weryfikacja": "Zmiana 16.11.2026: poprzednio Hendi 222829 7 l (2 324,25 zł netto) i Kenwood Prospero+ 4,3 l.",
+              "link": "https://mediamarkt.pl/pl/product/_robot-planetarny-kenwood-chef-patissier-xl-kwl90124si-srebrny-1490897.html",
+              "uwagi": "Kwota do planu 3 599 zł to oferta Y z pisma. Według opisu sklepu Morele ten wariant ma w zestawie blender kielichowy 1,6 l (niepotwierdzone), więc osobny blender (poz. 5) może być zbędny. Oferta X 3 799 zł to wariant KWL90.244SI (Media Expert, bez blendera).",
+              "data_sprawdzenia": "2026-11-27",
+              "weryfikacja": "Pismo z 17.11.2026: oferta X 3 799,00 zł, oferta Y 3 599,00 zł, oferta Z 4 319,00 zł; kwota do planu 3 599,00 zł.",
               "kontroferty": [
                 {
-                  "opis": "mediamarkt.pl – Kenwood Titanium Chef Patissier XL KWL90.124SI: waga, podgrzewanie, misy 7 l i 5 l, wg Morele z blenderem kielichowym 1,6 l w zestawie; cena orientacyjna 3 599 zł brutto, potwierdzić zawartość zestawu",
-                  "cena_netto": 2926.02,
-                  "link": "https://mediamarkt.pl/pl/product/_robot-planetarny-kenwood-chef-patissier-xl-kwl90124si-srebrny-1490897.html"
+                  "opis": "mediaexpert.pl – Kenwood Titanium Chef Patissier XL KWL90.244SI, waga i podgrzewanie, 2 misy, bez blendera kielichowego (oferta X z pisma)",
+                  "cena_netto": 3088.62,
+                  "link": "https://www.mediaexpert.pl/p/2465264"
                 }
               ]
             },
             {
-              "lp": "11a",
+              "lp": 5,
               "kategoria": "Blender kielichowy do robota",
               "produkt": "Kenwood KAH359GL – blender szklany ThermoResist 1,6 l",
               "parametry": "Nakładka blender kielichowy do robotów Kenwood Chef Titanium / Chef XL Titanium (gniazdo szybkich obrotów); szkło ThermoResist do 160 °C, pojemność 1,6 l wg większości sklepów (Coolblue podaje 1,2 l), 4 ostrza",
@@ -506,8 +471,8 @@ export const zakupyListopad = {
               "dostawa": "Darmowa wysyłka powyżej 120 zł",
               "link": "https://www.kenwoodworld.com/pl-pl/blender-thermoresist-kah359gl/p/KAH359GL",
               "uwagi": "Blender kupowany osobno do robota Titanium Chef Patissier XL (1 szt. do 1 robota). Mniejszego kielicha do robotów Kenwood Chef nie znalazłem: nakładki szklane KAH358GL i KAH359GL mają ten sam kielich (ok. 1,6 l). Samodzielny Kenwood Blend-X Compact BLP31 też ma jug 1,6 l, plastikowy, więc nie jest mniejszy. Zgodność z KWL90 potwierdzić w instrukcji lub u producenta. Na części stron cena 379 zł.",
-              "data_sprawdzenia": "2026-11-16",
-              "weryfikacja": "Nowa pozycja (16.11.2026).",
+              "data_sprawdzenia": "2026-11-27",
+              "weryfikacja": "Pismo z 17.11.2026: oferta X 369,00 zł, oferta Y 369,00 zł, oferta Z 474,57 zł; kwota do planu 369,00 zł.",
               "kontroferty": [
                 {
                   "opis": "komputronik.pl – Kenwood KAH 359GL, chwilowo niedostępny",
@@ -517,7 +482,7 @@ export const zakupyListopad = {
               ]
             },
             {
-              "lp": "11b",
+              "lp": 6,
               "kategoria": "Mały robot planetarny",
               "produkt": "Maestro MR-557 – robot planetarny, misa 3 l, 1200 W",
               "parametry": "Najmniejszy robot planetarny, jaki znalazłem: misa ze stali nierdzewnej 3 l, trzy końcówki (ubijanie, mieszanie, wyrabianie); niemarkowy, do małych porcji",
@@ -531,36 +496,37 @@ export const zakupyListopad = {
               "dostawa": "Do potwierdzenia",
               "link": "https://mediamarkt.pl/pl/product/_mikser-planetarny-maestro-mr-557-czarny-srebrny-172612739.html",
               "uwagi": "Drugi, dużo mniejszy robot do małych ilości (np. 2 żółtka). Cena 237 zł brutto z wyników wyszukiwarki; promocja MediaMarkt była ważna tylko do 19.07.2026, więc cenę potwierdzić. W Empik ok. 220 zł brutto (bez linku). Przy 2 żółtkach 3 l to nadal dużo: do tak małych porcji lepszy może być ręczny mikser. Inne małe: Bosch MUM Serie 2 MUMS2EB01 (3,8 l, 700 W), cena w PLN do sprawdzenia.",
-              "data_sprawdzenia": "2026-11-16",
-              "weryfikacja": "Nowa pozycja (16.11.2026).",
+              "data_sprawdzenia": "2026-11-27",
+              "weryfikacja": "Pismo z 17.11.2026: oferta X 237,00 zł, oferta Y 315,99 zł, oferta Z 319,00 zł; kwota do planu 237,00 zł.",
               "kontroferty": []
             },
             {
-              "lp": 12,
+              "lp": 7,
               "kategoria": "Zmywarka",
               "produkt": "Bosch Serie 4 SMS4HVI14E, wolnostojąca 60 cm",
               "parametry": "14 kompletów, 230 V, AquaStop, trzecia szuflada, ExtraDry, HygienePlus",
-              "ilosc": 1,
-              "cena_szt_netto": 1463.41,
+              "ilosc": 2,
+              "cena_szt_netto": 1973.97,
               "vat": 0.23,
-              "cena_szt_brutto": 1799.99,
-              "wartosc_brutto": 1799.99,
+              "cena_szt_brutto": 2427.98,
+              "wartosc_brutto": 4855.96,
               "sklep": "Media Expert",
               "dostepnosc": "Dostępna – u Ciebie dziś / w sklepie jutro",
               "dostawa": "Darmowa dostawa, odbiór zużytego sprzętu",
               "link": "https://www.mediaexpert.pl/agd/zmywarki-i-akcesoria/zmywarki/zmywarka-bosch-serie-4-sms4hvi14e",
-              "uwagi": "Z kodem ME0711-071226 cena 1 699 zł brutto (do 07.12.2026). Alternatywa gastronomiczna na 230 V: Hendi 230220, kosz 50×50, 3,6 kW – potrzebny osobny obwód 16 A i przyłącze wody (tylko jedna, nie zmieści się „podwójna” bez siły).",
-              "data_sprawdzenia": "2026-11-16",
+              "uwagi": "Pismo planuje 2 zmywarki za 4 855,96 zł, czyli więcej niż oferta X (3 599,99 zł), z rezerwą. Wcześniej ustaliliśmy 1 szt. (1 799,99 zł), ale kwota i ilość wg pisma. Z kodem ME0711-071226 cena 1 699 zł brutto (do 07.12.2026). Alternatywa gastronomiczna na 230 V: Hendi 230220, kosz 50×50, 3,6 kW – potrzebny osobny obwód 16 A i przyłącze wody (tylko jedna, nie zmieści się „podwójna” bez siły).",
+              "data_sprawdzenia": "2026-11-27",
               "kontroferty": [
                 {
                   "opis": "neonet.pl – Bosch SMS4HVW14E (wersja biała), ostatnie sztuki",
                   "cena_netto": 2031.71,
                   "link": "https://www.neonet.pl/p/1475128-zmywarka-bosch-sms4hvw14e.html"
                 }
-              ]
+              ],
+              "weryfikacja": "Pismo z 17.11.2026: oferta X 3 599,99 zł, oferta Y 4 998,01 zł, oferta Z 6 098,00 zł; kwota do planu 4 855,96 zł."
             },
             {
-              "lp": 13,
+              "lp": 8,
               "kategoria": "Zastawa – porcelana",
               "produkt": "Lubiana Kaszub/Hel, talerz obiadowy płytki 26,5 cm",
               "parametry": "Porcelana biała, gastronomiczna, do zmywarki i mikrofali",
@@ -574,11 +540,12 @@ export const zakupyListopad = {
               "dostawa": "Do potwierdzenia (duże zamówienie)",
               "link": "https://bokono.pl/pl/c/Lubiana-Kaszub-Hel/1431",
               "uwagi": "Cała porcelana z jednej serii Lubiana Kaszub/Hel. Przy 100 szt. każdej pozycji zapytać Bokono o stan, rabat i koszt wysyłki palety.",
-              "data_sprawdzenia": "2026-11-16",
-              "kontroferty": []
+              "data_sprawdzenia": "2026-11-27",
+              "kontroferty": [],
+              "weryfikacja": "Pismo z 17.11.2026: oferta X 2 099,61 zł, oferta Y 2 583,00 zł, oferta Z 2 499,00 zł; kwota do planu 2 099,61 zł."
             },
             {
-              "lp": 14,
+              "lp": 9,
               "kategoria": "Zastawa – porcelana",
               "produkt": "Lubiana Kaszub/Hel, talerz obiadowy głęboki 22,5 cm",
               "parametry": "Porcelana biała",
@@ -592,11 +559,12 @@ export const zakupyListopad = {
               "dostawa": "Jak wyżej",
               "link": "https://bokono.pl/Talerz-gleboki-Kaszub-Hel-Lubiana-22-5-cm/2132",
               "uwagi": null,
-              "data_sprawdzenia": "2026-11-16",
-              "kontroferty": []
+              "data_sprawdzenia": "2026-11-27",
+              "kontroferty": [],
+              "weryfikacja": "Pismo z 17.11.2026: oferta X 1 200,48 zł, oferta Y 1 650,00 zł, oferta Z 1 730,00 zł; kwota do planu 1 200,48 zł."
             },
             {
-              "lp": 15,
+              "lp": 10,
               "kategoria": "Zastawa – porcelana",
               "produkt": "Lubiana Kaszub/Hel, talerz deserowy 19 cm",
               "parametry": "Porcelana biała",
@@ -610,11 +578,12 @@ export const zakupyListopad = {
               "dostawa": "Jak wyżej",
               "link": "https://bokono.pl/pl/p/LUBIANA-KASZUBHEL-Talerz-Deserowy-Plytki-1-Szt.-Porcelanowy-19-cm-Bialy/2136",
               "uwagi": null,
-              "data_sprawdzenia": "2026-11-16",
-              "kontroferty": []
+              "data_sprawdzenia": "2026-11-27",
+              "kontroferty": [],
+              "weryfikacja": "Pismo z 17.11.2026: oferta X 1 089,78 zł, oferta Y 2 039,00 zł, oferta Z 1 151,00 zł; kwota do planu 1 089,78 zł."
             },
             {
-              "lp": 16,
+              "lp": 11,
               "kategoria": "Zastawa – porcelana",
               "produkt": "Lubiana Kaszub/Hel, bulionówka 300 ml",
               "parametry": "Porcelana biała",
@@ -628,11 +597,12 @@ export const zakupyListopad = {
               "dostawa": "Jak wyżej",
               "link": "https://bokono.pl/pl/p/LUBIANA-KASZUBHEL-Bulionowka-Flaczarka-Biala-Miska-Miseczka-Do-Zupy-300-ml/2151",
               "uwagi": null,
-              "data_sprawdzenia": "2026-11-16",
-              "kontroferty": []
+              "data_sprawdzenia": "2026-11-27",
+              "kontroferty": [],
+              "weryfikacja": "Pismo z 17.11.2026: oferta X 1 389,90 zł, oferta Y 1 450,00 zł, oferta Z 1 935,00 zł; kwota do planu 1 389,90 zł."
             },
             {
-              "lp": 17,
+              "lp": 12,
               "kategoria": "Zastawa – porcelana",
               "produkt": "Lubiana Kaszub/Hel, spodek 16 cm do bulionówki 300 ml",
               "parametry": "Porcelana biała",
@@ -646,11 +616,12 @@ export const zakupyListopad = {
               "dostawa": "Darmowa od 200 zł",
               "link": "https://sklep.casa-mia.pl/spodki-porcelanowe/2779-lubiana-kaszubhel-spodek-16-cm-dla-bulionowki-300-ml-5900245002539.html",
               "uwagi": "Bokono nie ma spodków w tej serii.",
-              "data_sprawdzenia": "2026-11-16",
-              "kontroferty": []
+              "data_sprawdzenia": "2026-11-27",
+              "kontroferty": [],
+              "weryfikacja": "Pismo z 17.11.2026: oferta X 730,62 zł, oferta Y 1 097,00 zł, oferta Z 1 335,00 zł; kwota do planu 730,62 zł."
             },
             {
-              "lp": 18,
+              "lp": 13,
               "kategoria": "Zastawa – porcelana",
               "produkt": "Lubiana Kaszub/Hel, filiżanka 200 ml",
               "parametry": "Porcelana biała",
@@ -664,17 +635,18 @@ export const zakupyListopad = {
               "dostawa": "Jak wyżej",
               "link": "https://bokono.pl/pl/p/LUBIANA-KASZUBHEL-Filizanka-Do-Kawy-Herbaty-Porcelana-Biala-Ceramika-200ml/2163",
               "uwagi": null,
-              "data_sprawdzenia": "2026-11-16",
+              "data_sprawdzenia": "2026-11-27",
               "kontroferty": [
                 {
                   "opis": "Casa Mia – filiżanka Kaszub/Hel 0,2 l",
                   "cena_netto": 11.95,
                   "link": "https://sklep.casa-mia.pl/"
                 }
-              ]
+              ],
+              "weryfikacja": "Pismo z 17.11.2026: oferta X 1 182,03 zł, oferta Y 1 469,85 zł, oferta Z 1 587,00 zł; kwota do planu 1 182,03 zł."
             },
             {
-              "lp": 19,
+              "lp": 14,
               "kategoria": "Zastawa – porcelana",
               "produkt": "Lubiana Kaszub/Hel, spodek 15 cm pod filiżankę",
               "parametry": "Porcelana biała",
@@ -688,11 +660,12 @@ export const zakupyListopad = {
               "dostawa": "Darmowa od 200 zł",
               "link": "https://sklep.casa-mia.pl/spodki-porcelanowe/203-lubiana-spodek-pod-filizanke-kaszubhel-15-cm-5900245042979.html",
               "uwagi": "Dopasowanie do filiżanki 200 ml potwierdzić ze sklepem.",
-              "data_sprawdzenia": "2026-11-16",
-              "kontroferty": []
+              "data_sprawdzenia": "2026-11-27",
+              "kontroferty": [],
+              "weryfikacja": "Pismo z 17.11.2026: oferta X 824,10 zł, oferta Y 886,00 zł, oferta Z 1 149,00 zł; kwota do planu 824,10 zł."
             },
             {
-              "lp": 20,
+              "lp": 15,
               "kategoria": "Zastawa – szkło",
               "produkt": "Krosno Basic, szklanka long drink 300 ml – komplet 6 szt.",
               "parametry": "17 kompletów = 102 szt.; szkło bezołowiowe, do zmywarki",
@@ -706,11 +679,12 @@ export const zakupyListopad = {
               "dostawa": "1–2 dni robocze",
               "link": "https://krosno.com/products/szklanki-long-drink-basic-300ml",
               "uwagi": "Sklep obsługuje też klientów hurtowych – zapytać o rabat.",
-              "data_sprawdzenia": "2026-11-16",
-              "kontroferty": []
+              "data_sprawdzenia": "2026-11-27",
+              "kontroferty": [],
+              "weryfikacja": "Pismo z 17.11.2026: oferta X 423,22 zł, oferta Y 593,30 zł, oferta Z 594,83 zł; kwota do planu 423,22 zł."
             },
             {
-              "lp": 21,
+              "lp": 16,
               "kategoria": "Zastawa – sztućce",
               "produkt": "Łyżka stołowa Luca 198 mm – op. 12 szt.",
               "parametry": "Stal nierdzewna 18/10, gastronomiczna; 9 op. = 108 szt.",
@@ -724,11 +698,12 @@ export const zakupyListopad = {
               "dostawa": "Darmowa od 200 zł",
               "link": "https://primegastro.pl/products/12-sztuk-lyzka-stolowa-luca-20-8-cm",
               "uwagi": "Całe sztućce z jednej serii Luca.",
-              "data_sprawdzenia": "2026-11-16",
-              "kontroferty": []
+              "data_sprawdzenia": "2026-11-27",
+              "kontroferty": [],
+              "weryfikacja": "Pismo z 17.11.2026: oferta X 1 521,46 zł, oferta Y 1 659,51 zł, oferta Z 1 825,20 zł; kwota do planu 1 521,46 zł."
             },
             {
-              "lp": 22,
+              "lp": 17,
               "kategoria": "Zastawa – sztućce",
               "produkt": "Widelec stołowy Luca 200 mm – op. 12 szt.",
               "parametry": "Stal 18/10; 9 op. = 108 szt.",
@@ -742,11 +717,12 @@ export const zakupyListopad = {
               "dostawa": "Darmowa od 200 zł",
               "link": "https://primegastro.pl/products/12-sztuk-widelec-stolowy-luca-20-cm",
               "uwagi": null,
-              "data_sprawdzenia": "2026-11-16",
-              "kontroferty": []
+              "data_sprawdzenia": "2026-11-27",
+              "kontroferty": [],
+              "weryfikacja": "Pismo z 17.11.2026: oferta X 1 521,46 zł, oferta Y 2 154,60 zł, oferta Z 1 749,60 zł; kwota do planu 1 521,46 zł."
             },
             {
-              "lp": 23,
+              "lp": 18,
               "kategoria": "Zastawa – sztućce",
               "produkt": "Nóż stołowy (obiadowy) Luca 244 mm – op. 12 szt.",
               "parametry": "Stal nierdzewna; 9 op. = 108 szt.",
@@ -760,11 +736,12 @@ export const zakupyListopad = {
               "dostawa": "Darmowa",
               "link": "https://primegastro.pl/en/products/12-sztuk-noz-stolowy-luca-24-4-cm",
               "uwagi": null,
-              "data_sprawdzenia": "2026-11-16",
-              "kontroferty": []
+              "data_sprawdzenia": "2026-11-27",
+              "kontroferty": [],
+              "weryfikacja": "Pismo z 17.11.2026: oferta X 1 859,65 zł, oferta Y 2 039,94 zł, oferta Z 2 094,12 zł; kwota do planu 1 859,65 zł."
             },
             {
-              "lp": 24,
+              "lp": 19,
               "kategoria": "Zastawa – sztućce",
               "produkt": "Łyżeczka deserowa Luca 140 mm – op. 12 szt.",
               "parametry": "Stal 18/10; 9 op. = 108 szt.",
@@ -778,11 +755,12 @@ export const zakupyListopad = {
               "dostawa": "Darmowa od 200 zł",
               "link": "https://primegastro.pl/en/products/12-sztuk-lyzeczka-deserowa-luca-14-cm",
               "uwagi": "W serii nie ma osobnej łyżeczki do herbaty – łyżeczka deserowa 14 cm pełni tę rolę.",
-              "data_sprawdzenia": "2026-11-16",
-              "kontroferty": []
+              "data_sprawdzenia": "2026-11-27",
+              "kontroferty": [],
+              "weryfikacja": "Pismo z 17.11.2026: oferta X 1 267,74 zł, oferta Y 1 313,64 zł, oferta Z 1 510,92 zł; kwota do planu 1 267,74 zł."
             },
             {
-              "lp": 25,
+              "lp": 20,
               "kategoria": "Zastawa – sztućce",
               "produkt": "Widelczyk deserowy Luca 140 mm – op. 12 szt.",
               "parametry": "Stal 18/10; 9 op. = 108 szt.",
@@ -796,11 +774,12 @@ export const zakupyListopad = {
               "dostawa": "Darmowa od 200 zł",
               "link": "https://primegastro.pl/en/products/12-sztuk-widelec-deserowy-luca-14-cm",
               "uwagi": null,
-              "data_sprawdzenia": "2026-11-16",
-              "kontroferty": []
+              "data_sprawdzenia": "2026-11-27",
+              "kontroferty": [],
+              "weryfikacja": "Pismo z 17.11.2026: oferta X 1 267,74 zł, oferta Y 1 313,64 zł, oferta Z 1 535,76 zł; kwota do planu 1 267,74 zł."
             },
             {
-              "lp": 26,
+              "lp": 21,
               "kategoria": "Szafa metalowa",
               "produkt": "Umstahl – szafa metalowa aktowa M 2OLA 1000 MAG (EXPRESS 24H)",
               "parametry": "100 × 42 × 200 cm; drzwi skrzydłowe, zamek z 2 kluczami, ryglowanie 3-punktowe, 4 półki; gwarancja 6 lat",
@@ -814,7 +793,7 @@ export const zakupyListopad = {
               "dostawa": "Kurier 196,80 zł brutto",
               "link": "https://umstahl.pl/szafa-metalowa-aktowa-m-2ola-1000-24h,id476.html",
               "uwagi": "Cena 1 584,24 zł brutto. Głębsze szafy (50–60 cm) w rozmiarze ok. 2 × 1 m nie były dostępne od ręki w 6 szt. Na Allegro tańsza Malow SBM 203 (43,5 cm, 1 134 zł netto, dostawa ok. 23.11).",
-              "data_sprawdzenia": "2026-11-16",
+              "data_sprawdzenia": "2026-11-27",
               "kontroferty": [
                 {
                   "opis": "umstahl.pl – M 2OLA 1000 (wersja standardowa, bez Express)",
@@ -826,10 +805,11 @@ export const zakupyListopad = {
                   "cena_netto": 1560.0,
                   "link": "https://umstahl.pl/szafa-metalowa-aktowa-m-2ola-1000-sk,id54.html"
                 }
-              ]
+              ],
+              "weryfikacja": "Pismo z 17.11.2026: oferta X 9 505,44 zł, oferta Y 10 332,00 zł, oferta Z 11 512,80 zł; kwota do planu 9 505,44 zł."
             },
             {
-              "lp": 27,
+              "lp": 22,
               "kategoria": "Podgrzewacz (bemar na pastę)",
               "produkt": "Technica – podgrzewacz gastronomiczny na pastę/paliwo GN 1/1 9 l – zestaw 2 szt.",
               "parametry": "Stal nierdzewna, 605 × 370 × 240 mm; w zestawie 2 pojemniki GN 1/1 65 mm, 2 pokrywy, 4 pojemniki na pastę; 2 zestawy = 4 szt.",
@@ -843,7 +823,7 @@ export const zakupyListopad = {
               "dostawa": "Darmowa",
               "link": "https://allegro.pl/oferta/podgrzewacz-gastronomiczny-na-paste-paliwo-zestaw-2szt-gn-1-1-9l-technica-17464321523",
               "uwagi": "Cena 263,19 zł brutto za zestaw 2 szt. Pasta paliwowa kupowana osobno (np. Hendi 194357, 6 × 200 g, ok. 25 zł).",
-              "data_sprawdzenia": "2026-11-16",
+              "data_sprawdzenia": "2026-11-27",
               "kontroferty": [
                 {
                   "opis": "Allegro – 2 × pojedynczy podgrzewacz Technica GN 1/1 9 l (cena za 2 szt.)",
@@ -855,10 +835,11 @@ export const zakupyListopad = {
                   "cena_netto": 403.5,
                   "link": "https://allegro.pl/listing?string=hendi%20podgrzewacz%20na%20past%C4%99%20GN%201%2F1"
                 }
-              ]
+              ],
+              "weryfikacja": "Pismo z 17.11.2026: oferta X 526,39 zł, oferta Y 537,68 zł, oferta Z 992,61 zł; kwota do planu 526,39 zł."
             },
             {
-              "lp": 28,
+              "lp": 23,
               "kategoria": "Patera na ciasto",
               "produkt": "Patera Rita Lubiana 30 cm",
               "parametry": "Porcelana, biała, śr. 30 cm",
@@ -872,7 +853,7 @@ export const zakupyListopad = {
               "dostawa": "Od 15,99 zł",
               "link": "https://bokono.pl/pl/p/Patera-Rita-Lubiana-30-cm/8891",
               "uwagi": "Status „na wyczerpaniu” – zamówić szybko. Cena 25,99 zł brutto.",
-              "data_sprawdzenia": "2026-11-16",
+              "data_sprawdzenia": "2026-11-27",
               "kontroferty": [
                 {
                   "opis": "Bokono – patera z falbanką 32 cm Jasło",
@@ -884,31 +865,33 @@ export const zakupyListopad = {
                   "cena_netto": 130.07,
                   "link": "https://allegro.pl/oferta/patera-na-ciasto-biala-porcelanowa-na-nozce-30x10cm-wilmax-zloty-rant-dekor-18777435880"
                 }
-              ]
+              ],
+              "weryfikacja": "Pismo z 17.11.2026: oferta X 103,96 zł, oferta Y 287,97 zł, oferta Z 639,94 zł; kwota do planu 103,96 zł."
             },
             {
-              "lp": 29,
+              "lp": 24,
               "kategoria": "Łopatka do ciasta",
               "produkt": "Łopatka do tortu – spiczasta – 250 mm (THSL)",
               "parametry": "Stal nierdzewna, 250 mm",
               "ilosc": 4,
               "cena_szt_netto": 66.15,
               "vat": 0.23,
-              "cena_szt_brutto": 81.36,
+              "cena_szt_brutto": 81.37,
               "wartosc_brutto": 325.46,
               "sklep": "Prime Gastro (GGM)",
               "dostepnosc": "W magazynie, realizacja 2–6 dni rob.",
               "dostawa": "Darmowa od 200 zł",
               "link": "https://primegastro.pl/products/serwer-do-ciasta-spiczasty-wzor",
               "uwagi": "Tańsza łopatka Patisse 26 cm (Allegro, 21,79 zł netto) jest dostępna tylko w 1 szt.",
-              "data_sprawdzenia": "2026-11-16",
+              "data_sprawdzenia": "2026-11-27",
               "kontroferty": [
                 {
                   "opis": "Bokono – łopatka do ciasta z suwakiem Zyliss",
                   "cena_netto": 72.36,
                   "link": "https://bokono.pl/pl/p/Lopatka-do-ciasta-z-suwakiem-Zyliss/12622"
                 }
-              ]
+              ],
+              "weryfikacja": "Pismo z 17.11.2026: oferta X 325,46 zł, oferta Y 356,01 zł, oferta Z 382,72 zł; kwota do planu 325,46 zł."
             }
           ]
         },
@@ -917,7 +900,111 @@ export const zakupyListopad = {
           "nazwa": "Pracownia fryzjerska",
           "pozycje": [
             {
-              "lp": 30,
+              "lp": 1,
+              "kategoria": "Komputer All-in-One",
+              "produkt": "MSI PRO AP242P 14M (Win11 Pro)",
+              "parametry": "Intel Core i5-14400, 16 GB DDR5, 512 GB SSD, 23,8\" FHD IPS 100 Hz, Win 11 Pro, klawiatura + mysz bezprzewodowe; wyjścia: HDMI 2.1 out + DisplayPort 1.4 out",
+              "ilosc": 1,
+              "cena_szt_netto": 4267.48,
+              "vat": 0,
+              "cena_szt_brutto": 4267.48,
+              "wartosc_brutto": 4267.48,
+              "sklep": "x-kom.pl",
+              "dostepnosc": "Dostępny – u Ciebie pojutrze",
+              "dostawa": "Darmowa do salonu, kurier od 17,99 zł",
+              "link": "https://www.x-kom.pl/p/1243600-all-in-one-msi-pro-ap242p-14m-i5-14400-16gb-512-win11px.html",
+              "uwagi": "MSI deklaruje obsługę 3 ekranów (wbudowany + 2 zewnętrzne przez HDMI-out i DP-out naraz). Cena netto wyliczona z 5 249 zł brutto – procedurę 0% VAT potwierdzić z x-kom. Gwarancja 36 mies. Wersja bez systemu kosztuje 4 150 zł brutto.",
+              "data_sprawdzenia": "2026-11-27",
+              "kontroferty": [
+                {
+                  "opis": "morele.net – sprzedawca FOXKOMPUTER, dostępny (5 495,09 zł brutto)",
+                  "cena_netto": 4467.55,
+                  "link": "https://www.morele.net/komputer-msi-pro-ap242p-14m-691eu-core-i5-14400-16-gb-512-gb-ssd-windows-11-pro-14148476/"
+                },
+                {
+                  "opis": "sklep-dell.pl – Dell Pro 24 QC24250 (Ultra 7 265, HDMI-out + DP-out), dostępny",
+                  "cena_netto": 6424.84,
+                  "link": "https://www.sklep-dell.pl/dell-pro-24-all-in-one-qc24250-bto154-qc24250-emea.html"
+                }
+              ],
+              "weryfikacja": "Pismo z 17.11.2026: oferta X 4 267,48 zł, oferta Y 4 467,55 zł, oferta Z 6 424,84 zł; kwota do planu 4 267,48 zł."
+            },
+            {
+              "lp": 2,
+              "kategoria": "Szafa",
+              "produkt": "Szafa do przechowywania wyposażenia",
+              "parametry": "Pozycja budżetowa z pisma: 7 245,00 zł za 1 szt.",
+              "ilosc": 1,
+              "cena_szt_netto": 5890.24,
+              "vat": 0.23,
+              "cena_szt_brutto": 7245.0,
+              "wartosc_brutto": 7245.0,
+              "sklep": "Do ustalenia",
+              "dostepnosc": null,
+              "dostawa": null,
+              "link": null,
+              "uwagi": "Pozycja budżetowa z pisma, bez wybranego produktu: sklep i model do ustalenia.",
+              "data_sprawdzenia": "2026-11-27",
+              "kontroferty": [],
+              "weryfikacja": "Pismo z 17.11.2026: oferta X 7 245,00 zł, oferta Y 8 000,00 zł, oferta Z 7 413,82 zł; kwota do planu 7 245,00 zł."
+            },
+            {
+              "lp": 3,
+              "kategoria": "Urządzenie wielofunkcyjne A4",
+              "produkt": "Epson EcoTank L6570 (kolor, dolewane tusze)",
+              "parametry": "A4 kolor, automatyczny druk dwustronny, ADF 50 ark. z dwustronnym skanowaniem, Wi-Fi, LAN, faks",
+              "ilosc": 1,
+              "cena_szt_netto": 3918.55,
+              "vat": 0.23,
+              "cena_szt_brutto": 4819.82,
+              "wartosc_brutto": 4819.82,
+              "sklep": "wmkomputer.pl",
+              "dostepnosc": "Dostępne, realizacja 24h",
+              "dostawa": "Do potwierdzenia w koszyku",
+              "link": "https://www.wmkomputer.pl/epson-ecotank-l6570-urzadzenie-wielofunkcyjne-kolor-a4.html",
+              "uwagi": "Kwota do planu 4 819,82 zł jest wyższa od oferty X (3 570 zł) o 1 249,82 zł, jako rezerwa w piśmie. Tańszy Epson L6550 (3 225 zł brutto) – do sprawdzenia, czy też ma dwustronne skanowanie z ADF. VAT 23% – jeśli szkoła kupuje drukarki z 0%, cena spadnie.",
+              "data_sprawdzenia": "2026-11-27",
+              "kontroferty": [
+                {
+                  "opis": "Media Expert – ten sam model, dostawa jutro",
+                  "cena_netto": 3413.82,
+                  "link": "https://www.mediaexpert.pl/komputery-i-tablety/drukarki-i-urzadzenia-biurowe/urzadzenia-wielofunkcyjne/urzadzenie-wielofunkcyjne-epson-ecotank-l6570"
+                }
+              ],
+              "weryfikacja": "Pismo z 17.11.2026: oferta X 3 570,00 zł, oferta Y 4 199,00 zł, oferta Z 5 700,00 zł; kwota do planu 4 819,82 zł."
+            },
+            {
+              "lp": 4,
+              "kategoria": "Wentylator",
+              "produkt": "Velano VELWEPR0007 – wentylator przemysłowy podłogowy 61 cm",
+              "parametry": "Śmigło 61 cm, 300 W, przepływ 12 000 m³/h, 1300 obr./min, 3 prędkości, wys. 70 cm, na kółkach; 65 dB(A)",
+              "ilosc": 2,
+              "cena_szt_netto": 365.04,
+              "vat": 0.23,
+              "cena_szt_brutto": 449.0,
+              "wartosc_brutto": 897.99,
+              "sklep": "Allegro (Tadek_Sprzedawca)",
+              "dostepnosc": "80 szt. dostępnych, dostawa pojutrze",
+              "dostawa": "Darmowa",
+              "link": "https://allegro.pl/produkt/wentylator-podlogowy-velano-velwepr0007-czarny-bd697b16-68a3-46e7-a04a-9cd77fe62176",
+              "uwagi": "Największy i najmocniejszy niski wentylator dostępny od ręki (kupowane 2 szt. w tej pracowni) Cena 449 zł brutto. Przy tej mocy jest głośniejszy (65 dB).",
+              "data_sprawdzenia": "2026-11-27",
+              "kontroferty": [
+                {
+                  "opis": "Allegro – wentylator podłogowy cyrkulator metalowy, duży (dostawa ok. 89 dni)",
+                  "cena_netto": 460.16,
+                  "link": "https://allegro.pl/produkt/wentylator-podlogowy-mocny-duzy-cyrkulator-powietrza-wiatrak-przemyslowy-5a8f1114-824c-49eb-9d71-a4ddc8445f5f"
+                },
+                {
+                  "opis": "Allegro – BVN BSMS 600, wentylator osiowy 612 mm, 8000 m³/h",
+                  "cena_netto": 910.52,
+                  "link": "https://allegro.pl/produkt/wentylator-osiowy-bvn-bsms-600-612-mm-56215fff-6878-4254-8e60-3f73e3e7df0a"
+                }
+              ],
+              "weryfikacja": "Pismo z 17.11.2026: oferta X 897,99 zł, oferta Y 1 131,99 zł, oferta Z 2 239,88 zł; kwota do planu 897,99 zł."
+            },
+            {
+              "lp": 5,
               "kategoria": "Pomocnik fryzjerski",
               "produkt": "Pomocnik fryzjerski drewniany",
               "parametry": "Cena 1000 zł brutto/szt. – podana przez szkołę",
@@ -931,11 +1018,12 @@ export const zakupyListopad = {
               "dostawa": null,
               "link": null,
               "uwagi": null,
-              "data_sprawdzenia": "2026-11-16",
-              "kontroferty": []
+              "data_sprawdzenia": "2026-11-27",
+              "kontroferty": [],
+              "weryfikacja": "Pismo z 17.11.2026: oferta X 4 000,00 zł, oferta Y 5 276,84 zł, oferta Z 6 172,00 zł; kwota do planu 4 000,00 zł."
             },
             {
-              "lp": 31,
+              "lp": 6,
               "kategoria": "Suszarka do włosów",
               "produkt": "Suszarka do włosów",
               "parametry": "Cena 500 zł brutto/szt. – podana przez szkołę",
@@ -949,8 +1037,9 @@ export const zakupyListopad = {
               "dostawa": null,
               "link": null,
               "uwagi": null,
-              "data_sprawdzenia": "2026-11-16",
-              "kontroferty": []
+              "data_sprawdzenia": "2026-11-27",
+              "kontroferty": [],
+              "weryfikacja": "Pismo z 17.11.2026: oferta X 3 000,00 zł, oferta Y 3 460,20 zł, oferta Z 3 954,00 zł; kwota do planu 3 000,00 zł."
             }
           ]
         }
