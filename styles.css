@@ -969,14 +969,20 @@ body[data-view="shopping"] .intro,
 body[data-view="shopping"] .workspace,
 body[data-view="shopping"] .open-items,
 body[data-view="shopping"] .mobile-room-nav,
-body[data-view="shopping"] .catalog-toggle {
+body[data-view="shopping"] .catalog-toggle,
+body[data-view="room16"] .intro,
+body[data-view="room16"] .workspace,
+body[data-view="room16"] .open-items,
+body[data-view="room16"] .mobile-room-nav,
+body[data-view="room16"] .catalog-toggle {
   display: none !important;
 }
 
 body:not([data-view="purchases"]) .purchase-view,
 body:not([data-view="resources"]) .resources-view,
 body:not([data-view="nis2"]) .nis2-view,
-body:not([data-view="shopping"]) .shopping-view {
+body:not([data-view="shopping"]) .shopping-view,
+body:not([data-view="room16"]) .room16-view {
   display: none;
 }
 
@@ -1736,6 +1742,34 @@ body:not([data-view="shopping"]) .shopping-view {
   overflow-wrap: anywhere;
 }
 
+/* ---------- Pokój nauczycielski 16 ---------- */
+
+.room16-view .purchase-intro h1:focus {
+  outline: none;
+}
+
+.room16-open {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  border-radius: var(--radius-sm);
+  background: var(--accent);
+  color: #fff;
+  font-weight: 700;
+  padding: 8px 16px;
+  text-decoration: none;
+}
+
+.room16-frame {
+  display: block;
+  width: 100%;
+  height: calc(100vh - 170px);
+  min-height: 560px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
 /* ---------- Zasoby ---------- */
 
 .resources-view .purchase-intro h1:focus {
@@ -2108,7 +2142,8 @@ body:not([data-view="shopping"]) .shopping-view {
   body[data-view="purchases"],
   body[data-view="resources"],
   body[data-view="nis2"],
-  body[data-view="shopping"] {
+  body[data-view="shopping"],
+  body[data-view="room16"] {
     padding-bottom: 0;
   }
 

@@ -94,8 +94,8 @@ const els = {
   calcReset: document.querySelector("#calcReset"),
 };
 
-const VIEW_HASHES = { purchases: "#zakupy", resources: "#zasoby", nis2: "#nis2", shopping: "#zakupy-listopad" };
-const VIEW_TITLES = { purchases: "Do zakupu", resources: "Zasoby", nis2: "NIS2. Przepisy", shopping: zakupyListopad.tytul };
+const VIEW_HASHES = { purchases: "#zakupy", resources: "#zasoby", nis2: "#nis2", shopping: "#zakupy-listopad", room16: "#pokoj-nauczycielski-16" };
+const VIEW_TITLES = { purchases: "Do zakupu", resources: "Zasoby", nis2: "NIS2. Przepisy", shopping: zakupyListopad.tytul, room16: "Pokój nauczycielski 16" };
 const baseTitle = document.title;
 
 const mobileCatalogQuery = window.matchMedia("(max-width: 980px)");
@@ -1027,6 +1027,16 @@ const renderShoppingPrint = () => {
   `;
 };
 
+// Plan sali 16 to osobna, ciężka strona (model 3D): ładujemy ją dopiero przy pierwszym wejściu w zakładkę.
+const loadRoom16Frame = () => {
+  const frame = document.querySelector("#room16Frame");
+  if (frame && !frame.getAttribute("src")) frame.setAttribute("src", frame.dataset.src);
+  els.printSheet.innerHTML = `
+    <h1>Pokój nauczycielski, sala 16: wyposażenie i zakupy</h1>
+    <p>Plan wyposażenia (rzut, elewacje, model 3D, lista zakupów, instalacje) jest na stronie: pn16-r7k2xq/index.html.</p>
+  `;
+};
+
 const renderViewTabs = () => {
   document.body.dataset.view = state.view;
   document.title = VIEW_TITLES[state.view] ? `${VIEW_TITLES[state.view]} | ${baseTitle}` : baseTitle;
@@ -1325,6 +1335,7 @@ const render = ({ historyMode = "replace", moveFocus = false } = {}) => {
   if (state.view === "purchases") renderPurchasePrint();
   if (state.view === "resources") renderResourcesPrint();
   if (state.view === "shopping") renderShoppingPrint();
+  if (state.view === "room16") loadRoom16Frame();
   if (state.view === "nis2") {
     renderNis2Deadlines();
     renderNis2Print();
