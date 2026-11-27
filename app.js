@@ -993,7 +993,7 @@ const shopJumpTargets = () => zakupyListopad.arkusze.flatMap((sheet) => (sheet.s
 const renderShopping = () => {
   const all = shopAllTotals();
   els.shoppingTabCount.textContent = all.count;
-  els.shoppingSummary.textContent = `Wyposażenie maturalne oraz wyposażenie pracowni (handlowa, zawodowe, gastronomiczno-spożywcza, fryzjerska), z linkami do sklepów i kontrofertami. Przy każdej pozycji kwota do zapłaty: przy VAT 0% cena netto, przy VAT 23% cena z VAT. Ceny sprawdzone ${isoToPl(zakupyListopad.data_eksportu)}. Pozycje bez ceny nie wchodzą do sum.`;
+  els.shoppingSummary.textContent = `Wyposażenie maturalne oraz wyposażenie pracowni (zawodowe, gastronomiczno-spożywcza, fryzjerska), z linkami do sklepów i kontrofertami. Przy każdej pozycji kwota do zapłaty: przy VAT 0% cena netto, przy VAT 23% cena z VAT. Ceny sprawdzone ${isoToPl(zakupyListopad.data_eksportu)}. Pozycje bez ceny nie wchodzą do sum.`;
   const tiles = [
     ...zakupyListopad.arkusze.map((sheet) => [`sheet-${sheet.id}`, sheet.nazwa, zl(shopTotals(sheet).pay)]),
     ["total", "Razem do zapłaty", zl(all.pay)],
