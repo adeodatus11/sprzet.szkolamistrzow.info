@@ -1760,6 +1760,72 @@ body:not([data-view="room16"]) .room16-view {
   text-decoration: none;
 }
 
+.r16-list {
+  display: grid;
+  gap: 22px;
+  margin-bottom: 8px;
+}
+
+.r16-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.r16-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.r16-table th,
+.r16-table td {
+  border-bottom: 1px solid var(--line-soft);
+  padding: 8px 10px;
+  text-align: left;
+  vertical-align: top;
+}
+
+.r16-table th {
+  background: var(--surface-soft);
+  color: var(--muted);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+}
+
+.r16-table tr:last-child td {
+  border-bottom: 0;
+}
+
+.r16-type {
+  min-width: 130px;
+  font-weight: 700;
+}
+
+.r16-name {
+  min-width: 220px;
+  overflow-wrap: anywhere;
+}
+
+.r16-note,
+.r16-alt {
+  display: block;
+  margin-top: 3px;
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+.r16-num {
+  text-align: right !important;
+  white-space: nowrap;
+}
+
+.r16-shop {
+  min-width: 110px;
+  color: var(--muted);
+}
+
 .room16-frame {
   display: block;
   width: 100%;

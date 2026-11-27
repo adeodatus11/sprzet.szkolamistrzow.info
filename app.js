@@ -17,6 +17,7 @@ import {
   unresolvedItems,
 } from "./equipment-data.js";
 import { zakupyListopad } from "./zakupy-data.js";
+import { pokoj16 } from "./pokoj16-data.js";
 import {
   nis2Annex,
   nis2Deadlines,
@@ -1028,12 +1029,69 @@ const renderShoppingPrint = () => {
 };
 
 // Plan sali 16 to osobna, ciężka strona (model 3D): ładujemy ją dopiero przy pierwszym wejściu w zakładkę.
+const r16Value = (item) => Math.round(item.cena_szt * item.ilosc * 100) / 100;
+const r16Total = (items) => items.reduce((sum, item) => sum + r16Value(item), 0);
+
+const r16Row = (item) => `
+  <tr data-r16="${escapeHtml(item.id)}">
+    <td class="r16-type">${escapeHtml(item.rodzaj)}</td>
+    <td class="r16-name">
+      <a href="${escapeHtml(item.link)}" target="_blank" rel="noopener noreferrer">${escapeHtml(item.nazwa)}</a>
+      ${item.uwagi ? `<span class="r16-note">${escapeHtml(item.uwagi)}</span>` : ""}
+      ${(item.zamienniki ?? []).map((alt) => `<span class="r16-alt">Zamiennik: <a href="${escapeHtml(alt.link)}" target="_blank" rel="noopener noreferrer">${escapeHtml(alt.nazwa)}</a>${alt.cena != null ? ` (${zl(alt.cena)})` : ""}</span>`).join("")}
+    </td>
+    <td class="r16-num">${item.ilosc}</td>
+    <td class="r16-num">${zl(item.cena_szt)}</td>
+    <td class="r16-num"><strong>${zl(r16Value(item))}</strong></td>
+    <td class="r16-shop">${escapeHtml(item.sklep)}</td>
+  </tr>
+`;
+
+const renderRoom16List = () => {
+  const items = pokoj16.pozycje;
+  const tiles = [
+    ["total", "Razem do zapłaty (brutto)", zl(r16Total(items))],
+    ["count", "Pozycji", items.length],
+  ];
+  document.querySelector("#room16Totals").innerHTML = tiles.map(([key, label, value]) => `
+    <div class="total-tile" data-total="${key}">
+      <span class="total-value">${value}</span>
+      <span class="total-label">${escapeHtml(label)}</span>
+    </div>
+  `).join("");
+  document.querySelector("#room16List").innerHTML = pokoj16.grupy.map((group) => {
+    const rows = items.filter((item) => item.grupa === group);
+    if (!rows.length) return "";
+    return `
+      <section class="r16-group">
+        <div class="panel-heading">
+          <h2>${escapeHtml(group)}</h2>
+          <span>${rows.length} poz. · ${escapeHtml(zl(r16Total(rows)))}</span>
+        </div>
+        <div class="r16-wrap">
+          <table class="r16-table">
+            <thead><tr><th>Rodzaj</th><th>Nazwa i link do sklepu</th><th>Ilość</th><th>Cena za szt.</th><th>Razem</th><th>Sklep</th></tr></thead>
+            <tbody>${rows.map(r16Row).join("")}</tbody>
+          </table>
+        </div>
+      </section>
+    `;
+  }).join("");
+};
+
 const loadRoom16Frame = () => {
   const frame = document.querySelector("#room16Frame");
   if (frame && !frame.getAttribute("src")) frame.setAttribute("src", frame.dataset.src);
   els.printSheet.innerHTML = `
-    <h1>Pokój nauczycielski, sala 16: wyposażenie i zakupy</h1>
-    <p>Plan wyposażenia (rzut, elewacje, model 3D, lista zakupów, instalacje) jest na stronie: pn16-r7k2xq/index.html.</p>
+    <h1>Pokój nauczycielski, sala 16: lista zakupów</h1>
+    <div class="print-meta">
+      <div><strong>Ceny brutto sprawdzone:</strong> ${escapeHtml(pokoj16.sprawdzono)}</div>
+      <div><strong>Razem do zapłaty:</strong> ${escapeHtml(zl(r16Total(pokoj16.pozycje)))}</div>
+    </div>
+    ${pokoj16.grupy.map((group) => {
+      const rows = pokoj16.pozycje.filter((item) => item.grupa === group);
+      return rows.length ? printSection(`${group} (${zl(r16Total(rows))})`, listItems(rows.map((item) => `${item.rodzaj}: ${item.nazwa}; ${item.ilosc} szt. × ${zl(item.cena_szt)} = ${zl(r16Value(item))}; ${item.sklep}; ${item.link}`))) : "";
+    }).join("")}
   `;
 };
 
@@ -1510,5 +1568,6 @@ renderResources();
 renderPurchaseView();
 renderNis2();
 renderShopping();
+renderRoom16List();
 render();
 setCatalogOpen(false, { restoreFocus: false });
