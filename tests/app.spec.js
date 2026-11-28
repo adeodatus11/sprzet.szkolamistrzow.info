@@ -1623,3 +1623,24 @@ test("nis2-data: daty są poprawne i identyfikatory unikalne", async ({ page }) 
   });
   expect(problems).toEqual([]);
 });
+
+test("pokój nauczycielski 16: każda pozycja listy zakupów ma zdjęcie poglądowe", async ({ page }) => {
+  await page.goto("/#pokoj-nauczycielski-16");
+  const photos = page.locator("#room16List .r16-photo img");
+  await expect(photos).toHaveCount(37);
+  await expect(page.locator("#room16List .r16-photo.is-empty")).toHaveCount(0);
+  const broken = await photos.evaluateAll(async (images) => {
+    await Promise.all(images.map((image) => { image.loading = "eager"; return image.decode().catch(() => {}); }));
+    return images.filter((image) => !image.naturalWidth).map((image) => image.getAttribute("src"));
+  });
+  expect(broken).toEqual([]);
+
+  await page.goto("/pn16-r7k2xq/index.html");
+  const planPhotos = page.locator("#list-table .photo img");
+  await expect(planPhotos).toHaveCount(37);
+  const planBroken = await planPhotos.evaluateAll(async (images) => {
+    await Promise.all(images.map((image) => { image.loading = "eager"; return image.decode().catch(() => {}); }));
+    return images.filter((image) => !image.naturalWidth).map((image) => image.getAttribute("src"));
+  });
+  expect(planBroken).toEqual([]);
+});

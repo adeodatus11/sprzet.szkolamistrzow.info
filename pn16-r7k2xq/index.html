@@ -199,6 +199,9 @@ th { font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; color: 
 td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
 td.mono { font-family: var(--font-mono); font-size: 12.5px; white-space: nowrap; }
 .item-cell { min-width: 260px; }
+td.photo-cell { width: 92px; padding: 6px 8px; }
+.photo { display: grid; place-items: center; width: 76px; height: 76px; overflow: hidden; background: #fff; border: 1px solid var(--line-soft); border-radius: 6px; }
+.photo img { width: 100%; height: 100%; object-fit: contain; }
 .item-cell .meta { font-size: 12.5px; color: var(--muted); margin-top: 2px; }
 .item-cell .alt { font-size: 12.5px; margin-top: 3px; }
 .item-cell .av { color: var(--accent); }
@@ -1041,13 +1044,17 @@ document.getElementById("chk-table").innerHTML =
   VISIBLE_CHECKS.map((c) => `<tr><td>${esc(c.name)}</td><td>${esc(c.why)}</td><td class="num">${c.val} cm</td><td class="num">${c.need} cm</td><td><span class="pill ${c.st}">${c.st === "ok" ? "Wystarcza" : c.st === "warn" ? "Ciasno" : "Za mało"}</span></td></tr>`).join("") +
   `<tr><td>Szerokość drzwi w świetle</td><td>Droga ewakuacyjna</td><td class="num">?</td><td class="num">90 cm</td><td><span class="pill mute">Do pomiaru</span></td></tr></tbody>`;
 
+// Zdjęcia poglądowe produktów z ofert (pobrane do img/ skryptem tools/fetch-product-images.mjs); ten sam produkt = to samo zdjęcie.
+const PHOTO = { szafa: "img/szafa.jpg", scianka: "img/scianka.jpg", przegroda: "img/przegroda.jpg", krz_biuro: "img/krz_biuro.jpg", stol_pracy: "img/stol_pracy.jpg", krz_pracy: "img/krz_biuro.jpg", podstawa: "img/podstawa.jpg", stol_wysoki: "img/stol_wysoki.jpg", tonery: "img/tonery.jpg", an_szuflady: "img/an_szuflady.jpg", an_polki: "img/an_polki.jpg", nogi: "img/nogi.jpg", zmywarka: "img/zmywarka.jpg", an_zlew: "img/an_zlew.jpg", zlew: "img/zlew.jpg", bateria: "img/bateria.jpg", blat: "img/blat.jpg", an_wiszaca: "img/an_wiszaca.jpg", cokol: "img/cokol.jpg", panel_m: "img/panel_m.jpg", led: "img/led.jpg", led_zas: "img/led_zas.jpg", led_kabel: "img/led_kabel.jpg", mikrofala: "img/mikrofala.jpg", czajnik: "img/czajnik.jpg", stol_jad: "img/stol_pracy.jpg", krz_jad: "img/krz_biuro.jpg", krz_zapas: "img/krz_biuro.jpg", sofa3: "img/sofa3.jpg", cmd_monitor: "img/cmd_monitor.jpg", cmd_pc: "img/cmd_pc.jpg", cmd_mount: "img/cmd_mount.jpg", cmd_vesa: "img/cmd_vesa.jpg", tablica_biurka: "img/tablica_biurka.jpg", tablica_druk: "img/tablica_biurka.jpg", ogloszenia: "img/ogloszenia.jpg", ogl_rog: "img/ogl_rog.jpg" };
+const photoCell = (c) => `<td class="photo-cell">${PHOTO[c.k] ? `<a class="photo" href="${esc(c.url || PHOTO[c.k])}" target="_blank" rel="noopener"><img src="${PHOTO[c.k]}" alt="${esc(c.name)}: zdjęcie poglądowe" loading="lazy" /></a>` : ""}</td>`;
+
 function costTable() {
   let rows = "", sum = 0, sumIkea = 0;
   const IKEA_ROWS = [];
   for (const [z, zname] of Object.entries(ZONES)) {
     const items = C.filter((c) => c.z === z);
     if (!items.length) continue;
-    rows += `<tr class="zone-row"><td colspan="7">${esc(zname)}</td></tr>`;
+    rows += `<tr class="zone-row"><td colspan="8">${esc(zname)}</td></tr>`;
     items.forEach((c) => {
       const val = c.price && !c.outside ? c.price * c.qty : null;
       if (val != null) { sum += val; if (c.shop === IKEA) sumIkea += val; }
@@ -1055,14 +1062,14 @@ function costTable() {
       const alt = (c.alt || []).map((a) => `<div class="alt">Zamiennik: <a href="${esc(a.url)}" target="_blank" rel="noopener">${esc(a.name)}</a> · ${a.price ? fmt(a.price) : "cena na zapytanie"}</div>`).join("");
       const av = c.shop === IKEA && !c.outside ? "stan 24.11: w sprzedaży, nie wycofany, wysoki stan magazynowy" : c.avail ? "stan 24.11: " + c.avail : "";
       const meta = [c.sku && `nr ${esc(c.sku)}`, c.shop && esc(c.shop), av && `<span class="av">${esc(av)}</span>`, c.src && esc(c.src)].filter(Boolean).join(" · ");
-      rows += `<tr${c.outside ? ' class="out"' : ""}><td class="mono">${CAT[c.k].n}</td><td class="item-cell">${link}<div class="meta">${meta}</div>${alt}</td><td>${esc(c.dims)}</td><td class="num">${c.qty}</td><td class="num">${c.price && !c.outside ? fmt(c.price) : "–"}</td><td class="num">${val != null ? fmt(val) : "–"}</td><td><span class="pill ${c.status[0]}">${esc(c.status[1])}</span></td></tr>`;
+      rows += `<tr${c.outside ? ' class="out"' : ""}><td class="mono">${CAT[c.k].n}</td>${photoCell(c)}<td class="item-cell">${link}<div class="meta">${meta}</div>${alt}</td><td>${esc(c.dims)}</td><td class="num">${c.qty}</td><td class="num">${c.price && !c.outside ? fmt(c.price) : "–"}</td><td class="num">${val != null ? fmt(val) : "–"}</td><td><span class="pill ${c.status[0]}">${esc(c.status[1])}</span></td></tr>`;
     });
   }
-  rows += `<tr class="zone-row"><td colspan="7">Usługi (do oferty)</td></tr>
-    <tr><td class="mono">–</td><td class="item-cell">Dostawa i montaż mebli IKEA (IKEA dla Firm), montaż aneksu z podłączeniem wody i zmywarki<div class="meta">wycena przez IKEA dla Firm lub lokalnego montażystę</div></td><td>–</td><td class="num">1</td><td class="num">–</td><td class="num">–</td><td><span class="pill warn">Poprosić o ofertę</span></td></tr>
-    <tr><td class="mono">–</td><td class="item-cell">Dostawa szaf skrytkowych i czajnika<div class="meta">Kupmeble i Morele: koszt wg koszyka</div></td><td>–</td><td class="num">–</td><td class="num">–</td><td class="num">–</td><td><span class="pill mute">Sprawdzić w koszyku</span></td></tr>`;
-  document.getElementById("list-table").innerHTML = `<thead><tr><th>Nr</th><th>Produkt i sklep</th><th>Wymiary / wariant</th><th class="num">Ilość</th><th class="num">Cena brutto</th><th class="num">Wartość</th><th>Status</th></tr></thead><tbody>${rows}
-    <tr class="total"><td></td><td colspan="4">Razem do zapłaty (brutto, bez dostawy i montażu)</td><td class="num">${fmt(sum)}</td><td></td></tr></tbody>`;
+  rows += `<tr class="zone-row"><td colspan="8">Usługi (do oferty)</td></tr>
+    <tr><td class="mono">–</td><td></td><td class="item-cell">Dostawa i montaż mebli IKEA (IKEA dla Firm), montaż aneksu z podłączeniem wody i zmywarki<div class="meta">wycena przez IKEA dla Firm lub lokalnego montażystę</div></td><td>–</td><td class="num">1</td><td class="num">–</td><td class="num">–</td><td><span class="pill warn">Poprosić o ofertę</span></td></tr>
+    <tr><td class="mono">–</td><td></td><td class="item-cell">Dostawa szaf skrytkowych i czajnika<div class="meta">Kupmeble i Morele: koszt wg koszyka</div></td><td>–</td><td class="num">–</td><td class="num">–</td><td class="num">–</td><td><span class="pill mute">Sprawdzić w koszyku</span></td></tr>`;
+  document.getElementById("list-table").innerHTML = `<thead><tr><th>Nr</th><th>Zdjęcie</th><th>Produkt i sklep</th><th>Wymiary / wariant</th><th class="num">Ilość</th><th class="num">Cena brutto</th><th class="num">Wartość</th><th>Status</th></tr></thead><tbody>${rows}
+    <tr class="total"><td></td><td></td><td colspan="4">Razem do zapłaty (brutto, bez dostawy i montażu)</td><td class="num">${fmt(sum)}</td><td></td></tr></tbody>`;
   const kitchen = C.filter((c) => c.z === "kitchen" && c.price).reduce((s, c) => s + c.price * c.qty, 0);
   document.getElementById("cost-sum").innerHTML = `
     <div><dt>Razem do zapłaty</dt><dd>${fmt(sum)}<small>meble, aneks, tablice i centrum dowodzenia, brutto, bez dostawy i montażu</small></dd></div>
