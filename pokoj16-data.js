@@ -212,6 +212,68 @@ export const pokoj16 = {
       "zdjecie": "assets/pokoj16/niszczarka.jpg"
     },
     {
+      "id": "hdmi_rzutnik",
+      "grupa": "Strefa druku i ładowania laptopów",
+      "rodzaj": "Kabel HDMI do rzutnika (światłowodowy, 15 m)",
+      "nazwa": "Claroc AOC HDMI 2.0 4K, aktywny kabel światłowodowy 15 m (FEN-HDMI-20-15M)",
+      "ilosc": 1,
+      "cena_szt": 132.03,
+      "sklep": "Morele.net (sprzedawca NET-S)",
+      "link": "https://www.morele.net/kabel-claroc-hdmi-hdmi-15m-czarny-fen-hdmi-20-15m-9457190/",
+      "uwagi": "Z gniazda HDMI nad stołem do druku do rzutnika pod sufitem (trasa ok. 9 m: pion w ścianie, pod sufitem do rzutnika); kabel kierunkowy: koniec „Source” do gniazda, „Display” do rzutnika",
+      "zamienniki": [
+        {
+          "nazwa": "Gembird AOC HDMI 10 m (CCBP-HDMI-AOC-10M-02), jeśli trasa wyjdzie krótsza niż ok. 9 m",
+          "cena": 129.99,
+          "link": "https://www.morele.net/kabel-gembird-hdmi-hdmi-10m-czarny-ccbp-hdmi-aoc-10m-02-12516285/"
+        }
+      ],
+      "zdjecie": "assets/pokoj16/hdmi_rzutnik.jpg"
+    },
+    {
+      "id": "hdmi_gniazdo",
+      "grupa": "Strefa druku i ładowania laptopów",
+      "rodzaj": "Gniazdo ścienne HDMI (moduł keystone)",
+      "nazwa": "Digitus moduł keystone HDMI z przewodem 12 cm, żeński/żeński, biały (DN-93403)",
+      "ilosc": 1,
+      "cena_szt": 30.49,
+      "sklep": "Morele.net (sprzedawca Switchprojekt)",
+      "link": "https://www.morele.net/digitus-modul-keystone-hdmi-z-kablem-12cm-lacznik-do-gniazd-i-pustych-paneli-zenski-zenski-bialy-dn-93403-4914021/",
+      "uwagi": "Gotowa końcówka na ścianę: z przodu gniazdo HDMI na laptop, z tyłu przewód 12 cm, do którego wpina się kabel do rzutnika",
+      "zamienniki": [
+        {
+          "nazwa": "Digitus moduł keystone HDMI bez przewodu (DN-93401)",
+          "cena": 13.26,
+          "link": "https://www.morele.net/digitus-modul-keystone-hdmi-lacznik-do-gniazd-i-pustych-paneli-zenski-zenski-bialy-dn-93401-4899322/"
+        }
+      ],
+      "zdjecie": "assets/pokoj16/hdmi_gniazdo.jpg"
+    },
+    {
+      "id": "hdmi_puszka",
+      "grupa": "Strefa druku i ładowania laptopów",
+      "rodzaj": "Puszka natynkowa na gniazdo HDMI",
+      "nazwa": "Lanberg puszka natynkowa na jeden moduł keystone, biała (OK1-0001-W)",
+      "ilosc": 1,
+      "cena_szt": 2.68,
+      "sklep": "Morele.net (sprzedawca Switchprojekt)",
+      "link": "https://www.morele.net/lanberg-puszka-natynkowa-na-jeden-modul-keystone-ok1-0001-w-5802527/",
+      "uwagi": "Na moduł HDMI nad blatem stołu do druku (110 cm), obok gniazd 230 V",
+      "zdjecie": "assets/pokoj16/hdmi_puszka.jpg"
+    },
+    {
+      "id": "hdmi_laptop",
+      "grupa": "Strefa druku i ładowania laptopów",
+      "rodzaj": "Kabel HDMI 2 m (laptop → gniazdo)",
+      "nazwa": "Unitek HDMI – HDMI 2 m (C11063BK-2M)",
+      "ilosc": 1,
+      "cena_szt": 14.99,
+      "sklep": "Morele.net",
+      "link": "https://www.morele.net/kabel-unitek-hdmi-hdmi-2m-czarny-c11063bk-2m-10753408/",
+      "uwagi": "Leży przy gnieździe: laptop podłącza się do rzutnika jednym kablem",
+      "zdjecie": "assets/pokoj16/hdmi_laptop.jpg"
+    },
+    {
       "id": "an_szuflady",
       "grupa": "Aneks kuchenny (lodówka i zmywarka poza zakupem)",
       "rodzaj": "Szafka kuchenna z szufladami",
