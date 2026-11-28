@@ -1,6 +1,6 @@
 // Zakładka "Pokój nauczycielski 16": lista zakupów wyposażenia sali 16 (rodzaj, nazwa, link do sklepu, cena brutto).
-// Dane wyciągnięte z planu sali pokoj16-plan.js (katalog C, ceny brutto sprawdzone 24.11.2026; biurka, ekrany, lampy, podstawki i ścianka z tablicą 28.11.2026).
-// Pominięte pozycje poza zakupem (lodówka, zmywarka, laptopy KPO, rzutnik, drukarki szkoły, zieleń, malowanie) oraz bez linku.
+// Dane wyciągnięte z planu sali pokoj16-plan.js (katalog C, ceny brutto sprawdzone 24.11.2026; biurka, ekrany, lampy, podstawki i ścianka z tablicą, regał EKET i niszczarka 28.11.2026).
+// Pominięte pozycje poza zakupem (lodówka, zmywarka, czajnik, podstawa pod Xeroxa, laptopy KPO, rzutnik, drukarki szkoły, zieleń, malowanie) oraz bez linku.
 
 export const pokoj16 = {
   "tytul": "Pokój nauczycielski 16: lista zakupów",
@@ -140,30 +140,6 @@ export const pokoj16 = {
       "zdjecie": "assets/pokoj16/krz_biuro.jpg"
     },
     {
-      "id": "podstawa",
-      "grupa": "Strefa druku i ładowania laptopów",
-      "rodzaj": "Podstawa pod kserokopiarkę",
-      "nazwa": "Podstawa pod kserokopiarkę KSW, wykonana pod Xerox VersaLink B7130",
-      "ilosc": 1,
-      "cena_szt": 467.4,
-      "sklep": "agapo.pl (PC-NET, polski producent)",
-      "link": "https://agapo.pl/podstawa-stolik-pod-drukarke-kserokopiarke-urzadzenie-wielofunkcyjne-p-44382.html",
-      "uwagi": "Przy zamówieniu podać model: Xerox VersaLink B7130, 1 kaseta",
-      "zamienniki": [
-        {
-          "nazwa": "Szkolmeb, szafka pod ksero 70 × 80 × 50 cm (meble szkolne)",
-          "cena": null,
-          "link": "https://szkolmeb.pl/szafka-pod-ksero"
-        },
-        {
-          "nazwa": "Kamila Meble, szafka na drukarkę Rd1 z zamkiem (standardowo za wysoka, wykonują na wymiar)",
-          "cena": 861,
-          "link": "https://kamilameble.pl/szafy-biurowe/1279-szafka-rd1.html"
-        }
-      ],
-      "zdjecie": "assets/pokoj16/podstawa.jpg"
-    },
-    {
       "id": "stol_wysoki",
       "grupa": "Strefa druku i ładowania laptopów",
       "rodzaj": "Biurko z regulacją wysokości",
@@ -176,16 +152,52 @@ export const pokoj16 = {
       "zdjecie": "assets/pokoj16/stol_wysoki.jpg"
     },
     {
-      "id": "tonery",
+      "id": "regal_druk",
       "grupa": "Strefa druku i ładowania laptopów",
-      "rodzaj": "Szafka z drzwiami przesuwnymi",
-      "nazwa": "IKEA TROTTEN szafka z drzwiami przesuwnymi, biały (laptopy z ładowarkami, papier, tonery)",
+      "rodzaj": "Regał z otwartymi półkami",
+      "nazwa": "IKEA EKET szafka z 4 przegrodami, biały, 70 × 35 × 70 cm (otwarta, bez drzwi)",
       "ilosc": 1,
-      "cena_szt": 599,
+      "cena_szt": 260,
       "sklep": "IKEA (Wrocław Bielany / ikea.com/pl)",
-      "link": "https://www.ikea.com/pl/pl/p/trotten-szafka-z-drzwiami-przesuwnymi-bialy-40474761/",
-      "uwagi": "Pod stołem do kompletowania, obok bizhuba",
-      "zdjecie": "assets/pokoj16/tonery.jpg"
+      "link": "https://www.ikea.com/pl/pl/p/eket-szafka-z-4-przegrodami-bialy-60333954/",
+      "uwagi": "Pod stołem do kompletowania; na nóżkach 10 cm razem 80 cm wysokości",
+      "zdjecie": "assets/pokoj16/regal_druk.jpg"
+    },
+    {
+      "id": "nogi_eket",
+      "grupa": "Strefa druku i ładowania laptopów",
+      "rodzaj": "Nóżki do regału",
+      "nazwa": "IKEA EKET noga, metal/srebrny, 10 cm (opakowanie 4 szt.)",
+      "ilosc": 1,
+      "cena_szt": 65,
+      "sklep": "IKEA (Wrocław Bielany / ikea.com/pl)",
+      "link": "https://www.ikea.com/pl/pl/p/eket-noga-metal-srebrny-70428904/",
+      "uwagi": "Regał nie stoi na podłodze; nóżki z regulowanymi stopkami",
+      "zdjecie": "assets/pokoj16/nogi_eket.jpg"
+    },
+    {
+      "id": "niszczarka",
+      "grupa": "Strefa druku i ładowania laptopów",
+      "rodzaj": "Niszczarka",
+      "nazwa": "Fellowes Powershred 99Ci, P-4 (ścinki 4 × 38 mm), 18 kartek naraz, kosz 34 l",
+      "ilosc": 1,
+      "cena_szt": 1519.98,
+      "sklep": "Morele.net",
+      "link": "https://www.morele.net/niszczarka-fellowes-99ci-p-4-174401/",
+      "uwagi": "Niszczy też zszywki, spinacze i karty; 29 × 44 × 64 cm, między bizhubem a stołem do kompletowania",
+      "zamienniki": [
+        {
+          "nazwa": "Fellowes 79Ci P-4, 16 kartek, kosz 23 l (mniejsza)",
+          "cena": 1068.93,
+          "link": "https://www.morele.net/niszczarka-fellowes-79ci-p-4-225077/"
+        },
+        {
+          "nazwa": "HP OneShred Auto 200CC P-4, automatyczny podajnik na 200 kartek, kosz 28 l",
+          "cena": 1302.46,
+          "link": "https://www.morele.net/niszczarka-hp-hp-niszczarka-oneshred-auto-200cc-bialo-szara-13263815/"
+        }
+      ],
+      "zdjecie": "assets/pokoj16/niszczarka.jpg"
     },
     {
       "id": "an_szuflady",
@@ -204,11 +216,11 @@ export const pokoj16 = {
       "grupa": "Aneks kuchenny (lodówka i zmywarka poza zakupem)",
       "rodzaj": "Szafka kuchenna z półkami",
       "nazwa": "IKEA METOD szafka stojąca z półkami, biały/Havstorp beżowy",
-      "ilosc": 1,
+      "ilosc": 2,
       "cena_szt": 325,
       "sklep": "IKEA (Wrocław Bielany / ikea.com/pl)",
       "link": "https://www.ikea.com/pl/pl/p/metod-szafka-st-polki-bialy-havstorp-bezowy-s89469862/",
-      "uwagi": "W sprzedaży, na stanie",
+      "uwagi": "2 szt.: jedna obok szafki z szufladami, druga w miejscu zmywarki",
       "zdjecie": "assets/pokoj16/an_polki.jpg"
     },
     {
@@ -216,11 +228,11 @@ export const pokoj16 = {
       "grupa": "Aneks kuchenny (lodówka i zmywarka poza zakupem)",
       "rodzaj": "Nóżki do szafek kuchennych",
       "nazwa": "IKEA METOD noga szafki 8 cm (opakowanie 2 szt.)",
-      "ilosc": 6,
+      "ilosc": 8,
       "cena_szt": 25,
       "sklep": "IKEA (Wrocław Bielany / ikea.com/pl)",
       "link": "https://www.ikea.com/pl/pl/p/metod-noga-szafki-70556067/",
-      "uwagi": "W sprzedaży, na stanie",
+      "uwagi": "4 szafki dolne × 4 nogi = 16 szt.",
       "zdjecie": "assets/pokoj16/nogi.jpg"
     },
     {
@@ -368,18 +380,6 @@ export const pokoj16 = {
       "link": "https://www.ikea.com/pl/pl/p/tillreda-kuchenka-mikrofalowa-bialy-50486792/",
       "uwagi": "W sprzedaży, na stanie",
       "zdjecie": "assets/pokoj16/mikrofala.jpg"
-    },
-    {
-      "id": "czajnik",
-      "grupa": "Aneks kuchenny (lodówka i zmywarka poza zakupem)",
-      "rodzaj": "Czajnik elektryczny",
-      "nazwa": "Czajnik elektryczny Lafe Steelo EK02, stal",
-      "ilosc": 1,
-      "cena_szt": 84,
-      "sklep": "Morele.net (sprzedawca zewnętrzny)",
-      "link": "https://www.morele.net/czajnik-lafe-elektryczny-1-7-l-steelo-ek02-600730490/",
-      "uwagi": "Na stanie",
-      "zdjecie": "assets/pokoj16/czajnik.jpg"
     },
     {
       "id": "stol_jad",

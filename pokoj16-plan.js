@@ -42,14 +42,14 @@ const C = [
   { k: "druk_duza", z: "tech", name: "Konica Minolta bizhub C450i z kasetą PC-x16 (korpus)", dims: "61,5 × 68,8 × 120,7 cm; z otwartym podajnikiem dokumentów 156 cm; taca boczna wysuwa się o 32 cm w prawo", qty: 1, status: ["mute", "Sprzęt IT, nie w tym zakupie"], outside: true },
   { k: "finiszer", z: "tech", name: "Finiszer broszurujący FS-539SD (z modułem RU-513 w korpusie)", dims: "54,3 × 68,1 × 102,3 cm, z wysuniętymi tacami 65,8 cm szer., 53 kg", qty: 1, status: ["mute", "Sprzęt IT, nie w tym zakupie"], outside: true },
   { k: "druk_mala", z: "tech", name: "Xerox VersaLink B7130 MFP (B7101V_D), posiadana, przy komputerach", dims: "sama drukarka 59 × 67 × 77 cm, 54 kg; z podstawą Xerox ok. 62 × 67 × 112 cm", qty: 1, status: ["ok", "Jest w szkole"], outside: true },
-  { k: "podstawa", z: "print", name: "Podstawa pod kserokopiarkę KSW, wykonana pod Xerox VersaLink B7130", dims: "pod wymiar drukarki (59 × 67 cm), płyta MDF laminowana, kółka, drzwiczki na papier i toner, ok. 20 kg", price: 467.4, qty: 1, shop: "agapo.pl (PC-NET, polski producent)", url: "https://agapo.pl/podstawa-stolik-pod-drukarke-kserokopiarke-urzadzenie-wielofunkcyjne-p-44382.html", avail: "dostępna, wysyłka w 3 dni, kurier 24,60 zł", status: ["ok", "Przy zamówieniu podać model: Xerox VersaLink B7130, 1 kaseta"], alt: [{ name: "Szkolmeb, szafka pod ksero 70 × 80 × 50 cm (meble szkolne)", url: "https://szkolmeb.pl/szafka-pod-ksero" }, { name: "Kamila Meble, szafka na drukarkę Rd1 z zamkiem (standardowo za wysoka, wykonują na wymiar)", price: 861, url: "https://kamilameble.pl/szafy-biurowe/1279-szafka-rd1.html" }] },
   { k: "stol_wysoki", z: "print", name: "IKEA TROTTEN biurko z regulacją wysokości, elektryczne, imitacja jesionu / biały (stół do kompletowania)", dims: "120 × 70 cm, wys. 71–118 cm", sku: "s39621881", price: 999, qty: 1, shop: IKEA, url: ip("trotten-biurko-z-regulacja-wysokosci-elektryczny-imitacja-jesionu-bialy-s39621881"), status: ["ok", "Jeden stół obok strefy druku"] },
-  { k: "tonery", z: "print", name: "IKEA TROTTEN szafka z drzwiami przesuwnymi, biały (laptopy z ładowarkami, papier, tonery)", dims: "80 × 55 × 75 cm, zamek; górna półka: laptopy i ładowarki, dolna: papier i tonery; otwór w tylnej ściance na przewód", sku: "404.747.61", price: 599, qty: 1, shop: IKEA, url: ip("trotten-szafka-z-drzwiami-przesuwnymi-bialy-40474761"), status: ["ok", "Pod stołem do kompletowania, obok bizhuba"] },
-  { k: "akcesoria", z: "tech", name: "Niszczarka, bindownica, zszywacz, skaner", dims: "zestaw", qty: 1, status: ["mute", "Sprzęt, nie w tym zakupie"], outside: true },
+  { k: "regal_druk", z: "print", name: "IKEA EKET szafka z 4 przegrodami, biały (otwarte półki pod stołem do kompletowania)", dims: "70 × 35 × 70 cm, 4 otwarte przegrody na papier, tonery i laptopy; na nóżkach EKET 10 cm razem 80 cm (stół musi stać min. ok. 88 cm)", sku: "603.339.54", price: 260, qty: 1, shop: IKEA, url: ip("eket-szafka-z-4-przegrodami-bialy-60333954"), avail: "28.11: w sprzedaży, na stanie", status: ["ok", "Pod stołem do kompletowania, bez drzwi i zamka"] },
+  { k: "nogi_eket", z: "print", name: "IKEA EKET noga, metal/srebrny, 10 cm (opakowanie 4 szt.)", dims: "10 cm, regulowane stopki; regał nie stoi na podłodze", sku: "704.289.04", price: 65, qty: 1, shop: IKEA, url: ip("eket-noga-metal-srebrny-70428904"), avail: "28.11: w sprzedaży, na stanie", status: ["ok", "Do regału EKET"], noDraw: true },
+  { k: "niszczarka", z: "print", name: "Niszczarka Fellowes Powershred 99Ci, P-4, 18 kartek, kosz 34 l", dims: "29 × 44 × 64 cm, ścinki 4 × 38 mm, niszczy też zszywki, spinacze i karty, 16,5 kg; stoi między bizhubem a stołem do kompletowania", price: 1519.98, qty: 1, shop: "Morele.net", url: "https://www.morele.net/niszczarka-fellowes-99ci-p-4-174401/", avail: "28.11: na stanie, sprzedaje Morele.net", status: ["warn", "Sprawdzić, czy otwarta taca boczna bizhuba nie zahacza o niszczarkę (64 cm)"], alt: [{ name: "Fellowes 79Ci P-4, 16 kartek, kosz 23 l (mniejsza)", price: 1068.93, url: "https://www.morele.net/niszczarka-fellowes-79ci-p-4-225077/" }, { name: "HP OneShred Auto 200CC P-4, automatyczny podajnik na 200 kartek, kosz 28 l", price: 1302.46, url: "https://www.morele.net/niszczarka-hp-hp-niszczarka-oneshred-auto-200cc-bialo-szara-13263815/" }] },
+  { k: "akcesoria", z: "tech", name: "Bindownica, zszywacz, skaner (sprzęt szkoły)", dims: "na regale EKET albo na stole do kompletowania", qty: 1, status: ["mute", "Sprzęt, nie w tym zakupie"], outside: true, noDraw: true },
   { k: "an_szuflady", z: "kitchen", name: "IKEA METOD/MAXIMERA szafka z 3 szufladami, biały/Havstorp beżowy", dims: "60 × 60 cm", sku: "s09426701", price: 835, qty: 1, shop: IKEA, url: ip("metod-maximera-szafka-stojaca-z-3-szufladami-bialy-havstorp-bezowy-s09426701"), status: ["ok", "W sprzedaży, na stanie"] },
-  { k: "an_polki", z: "kitchen", name: "IKEA METOD szafka stojąca z półkami, biały/Havstorp beżowy", dims: "60 × 60 cm, 1 drzwi, 2 półki", sku: "s89469862", price: 325, qty: 1, shop: IKEA, url: ip("metod-szafka-st-polki-bialy-havstorp-bezowy-s89469862"), status: ["ok", "W sprzedaży, na stanie"] },
-  { k: "nogi", z: "kitchen", name: "IKEA METOD noga szafki 8 cm (opakowanie 2 szt.)", dims: "3 szafki × 4 nogi = 12 szt.", sku: "705.560.67", price: 25, qty: 6, shop: IKEA, url: ip("metod-noga-szafki-70556067"), status: ["ok", "W sprzedaży, na stanie"], noDraw: true },
-  { k: "zmywarka", z: "kitchen", name: "Zmywarka wolnostojąca 60 cm (miejsce w aneksie, nie kupujemy w tym zakupie)", dims: "60 × 60 × ok. 85 cm, wsuwana pod blat aneksu; gniazdo 230 V i zawór wody zostają w projekcie", qty: 1, status: ["mute", "Nie kupujemy w tym zakupie"], outside: true },
+  { k: "an_polki", z: "kitchen", name: "IKEA METOD szafka stojąca z półkami, biały/Havstorp beżowy", dims: "60 × 60 cm, 1 drzwi, 2 półki; 2 szt.: obok szafki z szufladami i w miejscu zmywarki", sku: "s89469862", price: 325, qty: 2, shop: IKEA, url: ip("metod-szafka-st-polki-bialy-havstorp-bezowy-s89469862"), status: ["ok", "W sprzedaży, na stanie"] },
+  { k: "nogi", z: "kitchen", name: "IKEA METOD noga szafki 8 cm (opakowanie 2 szt.)", dims: "4 szafki × 4 nogi = 16 szt.", sku: "705.560.67", price: 25, qty: 8, shop: IKEA, url: ip("metod-noga-szafki-70556067"), status: ["ok", "W sprzedaży, na stanie"], noDraw: true },
   { k: "an_zlew", z: "kitchen", name: "IKEA METOD szafka pod zlew, biały/Havstorp beżowy", dims: "60 × 60 cm", sku: "s49455131", price: 340, qty: 1, shop: IKEA, url: ip("metod-szafka-pod-zlew-bialy-havstorp-bezowy-s49455131"), status: ["ok", "W sprzedaży, na stanie"] },
   { k: "zlew", z: "kitchen", name: "IKEA LÅNGUDDEN zlew wpuszczany, 1 komora, stal nierdzewna", dims: "46 × 46 cm", sku: "s59157391", price: 289, qty: 1, shop: IKEA, url: ip("langudden-zlew-wpuszczany-1-komorowy-stal-nierdz-s59157391"), status: ["ok", "W sprzedaży, na stanie"], noDraw: true, alt: [{ name: "VRESJÖN 54 × 44 cm, stal", price: 1079, url: ip("vresjoen-zlew-wpuszczany-1-komora-stal-nierdz-s99425721") }] },
   { k: "bateria", z: "kitchen", name: "IKEA SALLSJÖN bateria kuchenna z uchwytem z boku, stalowy", dims: "jednouchwytowa", sku: "706.009.04", price: 349, qty: 1, shop: IKEA, url: ip("sallsjoen-bateria-kuchenna-z-uchwytem-z-boku-stalowy-70600904"), status: ["ok", "W sprzedaży, na stanie"], noDraw: true, alt: [{ name: "LAGAN, chrom (najtańsza)", price: 119, url: ip("lagan-bateria-kuchenna-chrom-10085027") }] },
@@ -61,7 +61,6 @@ const C = [
   { k: "led_zas", z: "kitchen", name: "IKEA TRÅDFRI zasilacz 30 W do oświetlenia LED", dims: "do 9 listew", sku: "603.426.56", price: 130, qty: 1, shop: IKEA, url: ip("tradfri-zasilacz-do-sterowania-bezprzewod-smart-szary-60342656"), status: ["warn", "Dobrać przewód zasilający w sklepie"], noDraw: true },
   { k: "led_kabel", z: "kitchen", name: "IKEA VÅGDAL przewód połączeniowy, biały", dims: "3,5 m", sku: "704.636.00", price: 15, qty: 2, shop: IKEA, url: ip("vagdal-przewod-polaczeniowy-bialy-70463600"), status: ["ok", "W sprzedaży, na stanie"], noDraw: true },
   { k: "mikrofala", z: "kitchen", name: "IKEA TILLREDA kuchenka mikrofalowa wolnostojąca, biały", dims: "20 l, 700 W", sku: "504.867.92", price: 249, qty: 1, shop: IKEA, url: ip("tillreda-kuchenka-mikrofalowa-bialy-50486792"), status: ["ok", "W sprzedaży, na stanie"] },
-  { k: "czajnik", z: "kitchen", name: "Czajnik elektryczny Lafe Steelo EK02, stal", dims: "1,7 l, 2200 W", price: 84, qty: 1, shop: "Morele.net (sprzedawca zewnętrzny)", url: "https://www.morele.net/czajnik-lafe-elektryczny-1-7-l-steelo-ek02-600730490/", avail: "na stanie", status: ["ok", "Na stanie"] },
   { k: "lodowka", z: "kitchen", name: "Lodówka wolnostojąca, szer. 60 cm", dims: "60 × 65 × ok. 220 cm, szara, zawiasy po stronie aneksu", qty: 1, status: ["mute", "Nie kupujemy w tym zakupie"], outside: true },
   { k: "stol_jad", z: "dining", name: "IKEA MITTZON stół konferencyjny, okleina dębowa / czarny, 140 × 68 cm, jednolity blat", dims: "140 × 68 × 75 cm, ten sam model co stół roboczy; 4 szt. zestawione w blok 280 × 136 cm, 8 miejsc (bez krzeseł na szczytach)", sku: "s39513952", price: 649, qty: 4, shop: IKEA, url: ip("mittzon-stol-konferencyjny-okl-deb-czarny-s39513952"), status: ["ok", "W sprzedaży, na stanie"] },
   { k: "krz_jad", z: "dining", name: "IKEA LÄKTARE krzesło konferencyjne, średnioszary / biały", dims: "55 × 50 × 84 cm, podłokietniki, siedzisko z okleiną brzozową, pokrycie Gunnared do prania, sztaplowane (do 5 szt.), 8 przy stole jadalni", sku: "s49503250", price: 299, qty: 8, shop: IKEA, url: ip("laektare-krzeslo-konferencyjne-srednioszary-bialy-s49503250"), status: ["ok", "W jadalni, w sprzedaży, na stanie"] },
@@ -94,7 +93,7 @@ const PAL = {
   szafa: { col: "#f1f0eb", front: "#c79e6c" }, scianka: { col: "#cdc3b0" },
   biurko: { col: PINE, frame: WHITE_FRAME }, lampa: { col: "#f4f4f2" }, podstawka: { col: "#f2f1ec" }, stol_pracy: { col: OAK, frame: "#2a2a2a" }, stol_jad: { col: OAK, frame: "#2a2a2a" },
   stol_wysoki: { col: ASH, frame: WHITE_FRAME }, krz_biuro: { col: "#8f9294" }, krz_pracy: { col: "#8f9294" }, krz_jad: { col: "#8f9294" },
-  tonery: { col: "#f1f0eb" }, podstawa: { col: "#c9c9c5" }, an_szuflady: { col: HAV, body: WHITE_FRAME }, an_polki: { col: HAV, body: WHITE_FRAME }, an_zlew: { col: HAV, body: WHITE_FRAME },
+  regal_druk: { col: "#f3f2ee" }, niszczarka: { col: "#3b3f42" }, an_szuflady: { col: HAV, body: WHITE_FRAME }, an_polki: { col: HAV, body: WHITE_FRAME }, an_zlew: { col: HAV, body: WHITE_FRAME },
   zmywarka: { col: "#f3f3f1" }, an_wiszaca: { col: HAV, body: WHITE_FRAME }, blat: { col: "#cfae80" }, lodowka: { col: "#8f9396" }, mikrofala: { col: "#f4f4f2" }, czajnik: { col: "#b3b8ba" },
   sofa3: { col: "#5d6061" }, sofa2: { col: "#8e9192" }, fotel: { col: "#dccfb7", frame: "#b98f5e" }, stolik: { col: "#c29a68" }, pojemniki: { col: "#f4f4f2" },
   druk_duza: { col: "#e3e4e2" }, finiszer: { col: "#e3e4e2" }, druk_mala: { col: "#dfe1e0" }, akcesoria: { col: "#4e5a5f" },
@@ -120,18 +119,16 @@ add("finiszer", { x: 315, y: 4, w: 54.3, d: 68.1, h: 102.3, kind: "box", label: 
 add("druk_duza", { x: 369.3, y: 4, w: 61.5, d: 68.8, h: 120.7, kind: "box", label: "C450i" });
 add("cmd_monitor", { x: 255, y: 3, w: 36, d: 6, h: 61, z: 100, kind: "box", above: true, label: "Ekran" });
 add("cmd_pc", { x: 264, y: 0, w: 18, d: 3, h: 18, z: 120, kind: "box", above: true });
-add("podstawa", { x: 0, y: 527, w: 67, d: 62, h: 45, kind: "box" });
-add("druk_mala", { x: 0, y: 528.5, w: 67, d: 59, h: 77, z: 45, kind: "box", label: "B7130" });
+add("druk_mala", { x: 0, y: 528.5, w: 67, d: 59, h: 77, z: 0, kind: "box", label: "B7130" });
 add("stol_wysoki", { x: 465, y: 0, w: 120, d: 70, h: 95, kind: "table", label: "Stół wysoki" });
-add("tonery", { x: 500, y: 5, w: 80, d: 55, h: 75, kind: "box" });
-add("akcesoria", { x: 467, y: 10, w: 30, d: 35, h: 60, kind: "box" });
+add("regal_druk", { x: 490, y: 3, w: 70, d: 35, h: 80, kind: "box", label: "EKET" });
+add("niszczarka", { x: 433, y: 8, w: 29, d: 44, h: 64, kind: "box" });
 add("lodowka", { x: 600, y: 0, w: 60, d: 65, h: 220, kind: "box", label: "Lodówka" });
 add("an_szuflady", { x: 660, y: 0, w: 60, d: 60, h: 86, kind: "box", label: "Szuf." });
 add("an_polki", { x: 720, y: 0, w: 60, d: 60, h: 86, kind: "box", label: "Półki" });
-add("zmywarka", { x: 780, y: 0, w: 60, d: 60, h: 82, kind: "box", label: "ZM" });
+add("an_polki", { x: 780, y: 0, w: 60, d: 60, h: 86, kind: "box", label: "Półki" });
 add("an_zlew", { x: 840, y: 0, w: 60, d: 60, h: 86, kind: "box", label: "Zlew" });
 add("blat", { x: 660, y: 0, w: 240, d: 63, h: 4, z: 86, kind: "box", hidePlan: true });
-add("czajnik", { x: 698, y: 10, w: 22, d: 16, h: 25, z: 90, kind: "box", ontop: true });
 add("mikrofala", { x: 728, y: 4, w: 45, d: 34, h: 26, z: 90, kind: "box", ontop: true });
 [660, 720, 780, 840].forEach((x) => add("an_wiszaca", { x, y: 0, w: 60, d: 37, h: 100, z: 150, kind: "box", above: true }));
 add("stol_pracy", { x: 240, y: 252, w: 140, d: 68, h: 75, kind: "table", label: "Stół roboczy · 8" });
@@ -173,9 +170,9 @@ const INST = [
   { t: "p230", x: 500, y: 0, z: 110, txt: "Stół do kompletowania TROTTEN, nad blatem", spec: "Gniazdo podwójne 230 V (bindownica, zszywacz, skaner)" },
   { t: "p230", x: 480, y: 0, z: 30, txt: "Stół do kompletowania, pod blatem", spec: "Gniazdo podwójne 230 V (zasilacze laptopów w szafce, niszczarka)" },
   { t: "p230", x: 630, y: 0, z: 30, txt: "Lodówka, za lodówką", spec: "Gniazdo podwójne 230 V, osobny obwód (płaskie, żeby lodówka stała blisko ściany)" },
-  { t: "p230", x: 680, y: 0, z: 110, txt: "Aneks, nad blatem (czajnik)", spec: "Gniazdo podwójne 230 V, obwód kuchenny 16 A" },
+  { t: "p230", x: 680, y: 0, z: 110, txt: "Aneks, nad blatem (mikrofalówka)", spec: "Gniazdo podwójne 230 V, obwód kuchenny 16 A" },
   { t: "p230", x: 750, y: 0, z: 110, txt: "Aneks, nad blatem (mikrofalówka)", spec: "Gniazdo podwójne 230 V, obwód kuchenny" },
-  { t: "p230", x: 810, y: 0, z: 30, txt: "Zmywarka, w szafce obok", spec: "Gniazdo podwójne 230 V, osobny obwód 16 A" },
+  { t: "p230", x: 810, y: 0, z: 30, txt: "Rezerwa w szafce aneksu (miejsce po zmywarce)", spec: "Gniazdo podwójne 230 V, osobny obwód 16 A" },
   { t: "p230", x: 0, y: 335, z: 95, txt: "Biurko 1, nad blatem", spec: "Gniazdo podwójne 230 V na ścianie nad blatem (laptop, lampka, ładowarka)" },
   { t: "p230", x: 0, y: 435, z: 95, txt: "Biurko 2, nad blatem", spec: "Gniazdo podwójne 230 V na ścianie nad blatem (laptop, lampka, ładowarka)" },
   { t: "p230", x: 0, y: 535, z: 30, txt: "Xerox B7130 przy biurkach", spec: "Gniazdo podwójne 230 V z uziemieniem" },
@@ -189,7 +186,7 @@ const INST = [
   { t: "ap", x: 840, y: 600, z: 230, txt: "Access point Wi-Fi nad tablicą ogłoszeń w narożniku", spec: "Przewód U/UTP kat. 6 z gniazdem RJ45 w puszce natynkowej za AP; zasilanie przez PoE (bez gniazda 230 V)" },
   { t: "hdmi", x: 520, y: 0, z: 110, txt: "Stół do druku (przy lodówce), nad blatem: laptop → rzutnik", spec: "Gniazdo HDMI w ramce z gniazdami (moduł keystone HDMI), przewód w ścianie do rzutnika" },
   { t: "hdmi", x: 645, y: 315, z: 450, ceil: true, txt: "Rzutnik pod sufitem", spec: "Wyjście przewodu HDMI (z gniazda H1) w puszce sufitowej przy rzutniku" },
-  { t: "h2o", x: 880, y: 0, z: 50, txt: "Zlew w narożniku aneksu", spec: "Woda zimna i ciepła (zawory pod zlewem), odpływ Ø50, zawór do zmywarki" },
+  { t: "h2o", x: 880, y: 0, z: 50, txt: "Zlew w narożniku aneksu", spec: "Woda zimna i ciepła (zawory pod zlewem), odpływ Ø50" },
 ];
 const INST_PREFIX = { p230: "E", rj: "D", tel: "T", hdmi: "H", ap: "A", box: "P", h2o: "W" };
 { const cnt = {}; INST.forEach((q) => { cnt[q.t] = (cnt[q.t] || 0) + 1; q.code = INST_PREFIX[q.t] + cnt[q.t]; }); }
@@ -213,12 +210,12 @@ const CHECKS = [
   { a: [400, 73], b: [400, 192], need: 120, name: "Strefa obsługi przed bizhubem C450i (wysuwanie kaset ok. 62 cm + osoba)", why: "Obsługa, otwieranie modułów, kolejka przy wydruku", soft: 100 },
   { a: [520, 190], b: [520, 300], hide: true },
   { a: [520, 300], b: [638, 300], need: 90, name: "Stół roboczy ↔ krzesła jadalni", why: "Przejście do aneksu i jadalni" },
-  { a: [756, 60], b: [756, 175], need: 100, name: "Front aneksu ↔ szczyt stołu jadalni", why: "Praca przy zlewie, otwarta zmywarka, przejście" },
+  { a: [756, 60], b: [756, 175], need: 100, name: "Front aneksu ↔ szczyt stołu jadalni", why: "Praca przy zlewie, otwarte szafki, przejście" },
   { a: [824, 390], b: [900, 390], need: 75, name: "Krawędź stołu jadalni ↔ prawa ściana", why: "Odsunięcie krzeseł, bez przejścia za nimi" },
   { a: [756, 455], b: [756, 600], need: 90, name: "Szczyt stołu jadalni ↔ ściana z oknami", why: "Dojście do stosów krzeseł w narożniku" },
   { a: [480, 448], b: [480, 497], need: 75, name: "Krzesła stołu roboczego (odsunięte) ↔ front sof", why: "Miejsce na nogi siedzących na sofie", soft: 45 },
-  { a: [24, 484], b: [24, 527], need: 30, name: "Ekran przy biurku 2 ↔ podstawa Xeroxa", why: "Odstęp od drukarki: dostęp z boku, przewody, wentylacja" },
-  { a: [67, 560], b: [172, 560], need: 100, name: "Front podstawy z Xeroxem B7130 ↔ sofa", why: "Obsługa drukarki przy biurkach, wymiana tonera" },
+  { a: [24, 484], b: [24, 527], need: 30, name: "Ekran przy biurku 2 ↔ Xerox", why: "Odstęp od drukarki: dostęp z boku, przewody, wentylacja" },
+  { a: [67, 560], b: [172, 560], need: 100, name: "Front Xeroxa B7130 ↔ sofa", why: "Obsługa drukarki przy biurkach, wymiana tonera" },
   { a: [40, 215], b: [248, 215], need: 120, name: "Front szaf skrytkowych ↔ krzesło stołu roboczego", why: "Otwarte drzwiczki skrytek i przejście do biurek" },
   { a: [40, 140], b: [125, 140], need: 70, name: "Strefa przed szafami skrytkowymi", why: "Otwieranie drzwiczek skrytek", fixedOk: true },
   { a: [60, 560], b: [60, 600], hide: true },
@@ -412,8 +409,8 @@ function drawPlan() {
 function badgePos(it) {
   const map = {
     szafa: [60, 135], przegroda: [84, 372], klucze: [92, 22], tablica_biurka: [24, 303], tablica_druk: [452, 26], rzutnik: [872, 315], zielen_sciana: [872, 157], zielen_okna: [196, 632], ogloszenia: [318, 572], ogl_rog: [840, 572], projektor: [630, 286], telefon: [560, 40], ap: [812, 585], zielen_szafy: [22, 70], cmd_monitor: [256, 26], cmd_pc: [284, 50], scianka: [575, 100], biurko: [70, 296], krz_biuro: [130, 326], lampa: [8, 352], podstawka: [52, 338], stol_pracy: [232, 262], krz_pracy: [300, 196],
-    druk_duza: [400, 92], finiszer: [342, 92], druk_mala: [88, 582], podstawa: [88, 542], stol_wysoki: [575, 88], tonery: [545, 74], akcesoria: [482, 64], lodowka: [630, 98], czajnik: [705, 110], mikrofala: [750, 110],
-    an_szuflady: [690, 76], an_polki: [750, 76], zmywarka: [810, 76], an_zlew: [880, 76], an_wiszaca: [780, 132], blat: [850, 132],
+    druk_duza: [400, 92], finiszer: [342, 92], druk_mala: [88, 582], stol_wysoki: [575, 88], regal_druk: [525, 60], niszczarka: [447, 70], lodowka: [630, 98], czajnik: [705, 110], mikrofala: [750, 110],
+    an_szuflady: [690, 76], an_polki: [750, 76],  an_zlew: [880, 76], an_wiszaca: [780, 132], blat: [850, 132],
     stol_jad: [700, 196], krz_jad: [648, 182], krz_zapas: [845, 530], sofa3: [185, 486], sofa2: [412, 486], stolik: [577, 508], fotel: [642, 494], laptop: [44, 365],
   };
   return map[it.k] || [it.x + it.w + 10, it.y];
@@ -604,8 +601,8 @@ function drawElev(key) {
   txt(elev, W.len, -22, W.right, "wtxt", { "text-anchor": "end" });
   txt(elev, W.len / 2, -22, W.title, "lbl", { "text-anchor": "middle" });
   const notes = {
-    N: "Przy szafach skrytkowych tablica na klucze do sal (ok. 70 × 50 cm). Drzwi otwierają się na zewnątrz, w prawo. Nad bizhubem i stołem do kompletowania tablica magnetyczna ok. 200 × 100 cm (dół 165 cm). Tuż przy drzwiach ekran dotykowy 27″ zawieszony w pionie na uchwycie ściennym (dół 100 cm, góra 161 cm), minikomputer za ekranem. Obok bizhub C450i z finiszerem FS-539SD; po prawej 34 cm zapasu na tacę boczną. Stół do kompletowania TROTTEN 120 × 70 z elektryczną regulacją (ok. 95 cm), pod nim szafka na tonery i papier. Lodówka 60 cm oddziela strefę druku od aneksu 240 cm. Na blacie: czajnik, mikrofalówka; szafki wiszące 4 × 60, dół 150 cm, góra 250 cm.",
-    W: "Nad biurkami tablica magnetyczna ok. 200 × 100 cm z kartkami (dół 110 cm). Dwa biurka BOLLPOJKE 90 × 55 cm (sosna, biała rama), na każdym lampa TERTIAL i podstawka STENERIK pod laptop; przy każdym biurku podwójne gniazdo 230 V na ścianie (95 cm). Ekrany akustyczne MITTZON 70 × 72 cm na zaciskach: jeden między biurkami, drugi z boku biurka 2 od strony Xeroxa. Od ekranu do podstawy Xeroxa 43 cm odstępu. Ścianka MITTZON na kółkach (dół ekran akustyczny, góra tablica) jest wsunięta między stół do kompletowania a lodówkę i oddziela strefę druku od aneksu. Obok biurek Xerox B7130 na podstawie KSW ok. 45 cm (razem ok. 122 cm). Trzy szafy skrytkowe KAROL 90 × 40 × 185 cm, po 18 skrytek (3 × 6), razem 54.",
+    N: "Przy szafach skrytkowych tablica na klucze do sal (ok. 70 × 50 cm). Drzwi otwierają się na zewnątrz, w prawo. Nad bizhubem i stołem do kompletowania tablica magnetyczna ok. 200 × 100 cm (dół 165 cm). Tuż przy drzwiach ekran dotykowy 27″ zawieszony w pionie na uchwycie ściennym (dół 100 cm, góra 161 cm), minikomputer za ekranem. Obok bizhub C450i z finiszerem FS-539SD; po prawej 34 cm zapasu na tacę boczną, w tym miejscu niszczarka Fellowes 99Ci (64 cm, poniżej tacy). Stół do kompletowania TROTTEN 120 × 70 z elektryczną regulacją (ok. 95 cm), pod nim regał EKET z 4 otwartymi przegrodami na nóżkach (80 cm) na papier, tonery i laptopy. Lodówka 60 cm oddziela strefę druku od aneksu 240 cm. Na blacie mikrofalówka; szafki wiszące 4 × 60, dół 150 cm, góra 250 cm.",
+    W: "Nad biurkami tablica magnetyczna ok. 200 × 100 cm z kartkami (dół 110 cm). Dwa biurka BOLLPOJKE 90 × 55 cm (sosna, biała rama), na każdym lampa TERTIAL i podstawka STENERIK pod laptop; przy każdym biurku podwójne gniazdo 230 V na ścianie (95 cm). Ekrany akustyczne MITTZON 70 × 72 cm na zaciskach: jeden między biurkami, drugi z boku biurka 2 od strony Xeroxa. Od ekranu do Xeroxa 43 cm odstępu. Ścianka MITTZON na kółkach (dół ekran akustyczny, góra tablica) jest wsunięta między stół do kompletowania a lodówkę i oddziela strefę druku od aneksu. Obok biurek Xerox B7130 (77 cm, bez podstawy KSW: na podłodze albo na własnej podstawie szkoły, do ustalenia). Trzy szafy skrytkowe KAROL 90 × 40 × 185 cm, po 18 skrytek (3 × 6), razem 54.",
     S: "Okna we wnękach: parapet na 90 cm, głębokość wnęki ok. 40 cm, na parapetach doniczki; na filarach między oknami małe tablice ogłoszeń (dół 145 cm), a nad nimi wysoko wiszące doniczki; w narożniku przy krzesłach tablica 80 × 60 cm. Sofy EKTORP (88 cm) poniżej parapetu, przed grzejnikami min. 15 cm odstępu.",
     E: "Ściana za jadalnią: białe pole pod obraz z rzutnika (ok. 260 × 146 cm, od 190 do 336 cm) na osi stołu, po obu bokach wąskie pasy roślin z długimi zwisającymi pędami. W narożniku przy oknie 4 dodatkowe krzesła LÄKTARE (2 stosy po 2), nad nimi na filarze tablica ogłoszeń. Ściany w ciepłym beżu, sala ok. 450 cm wysokości.",
   };
@@ -655,16 +652,16 @@ function costTable() {
   }
   rows += `<tr class="zone-row"><td colspan="8">Usługi (do oferty)</td></tr>
     <tr><td class="mono">–</td><td></td><td class="item-cell">Dostawa i montaż mebli IKEA (IKEA dla Firm), montaż aneksu z podłączeniem wody<div class="meta">wycena przez IKEA dla Firm lub lokalnego montażystę</div></td><td>–</td><td class="num">1</td><td class="num">–</td><td class="num">–</td><td><span class="pill warn">Poprosić o ofertę</span></td></tr>
-    <tr><td class="mono">–</td><td></td><td class="item-cell">Dostawa szaf skrytkowych i czajnika<div class="meta">Kupmeble i Morele: koszt wg koszyka</div></td><td>–</td><td class="num">–</td><td class="num">–</td><td class="num">–</td><td><span class="pill mute">Sprawdzić w koszyku</span></td></tr>`;
+    <tr><td class="mono">–</td><td></td><td class="item-cell">Dostawa szaf skrytkowych i niszczarki<div class="meta">Kupmeble i Morele: koszt wg koszyka</div></td><td>–</td><td class="num">–</td><td class="num">–</td><td class="num">–</td><td><span class="pill mute">Sprawdzić w koszyku</span></td></tr>`;
   document.getElementById("list-table").innerHTML = `<thead><tr><th>Nr</th><th>Zdjęcie</th><th>Produkt i sklep</th><th>Wymiary / wariant</th><th class="num">Ilość</th><th class="num">Cena brutto</th><th class="num">Wartość</th><th>Status</th></tr></thead><tbody>${rows}
     <tr class="total"><td></td><td></td><td colspan="4">Razem do zapłaty (brutto, bez dostawy i montażu)</td><td class="num">${fmt(sum)}</td><td></td></tr></tbody>`;
   const kitchen = C.filter((c) => c.z === "kitchen" && c.price && !c.outside).reduce((s, c) => s + c.price * c.qty, 0);
   document.getElementById("cost-sum").innerHTML = `
     <div><dt>Razem do zapłaty</dt><dd>${fmt(sum)}<small>meble, aneks, tablice i centrum dowodzenia, brutto, bez dostawy i montażu</small></dd></div>
     <div><dt>W tym IKEA</dt><dd>${fmt(sumIkea)}<small>jedno zamówienie, można poprosić IKEA dla Firm o fakturę i montaż</small></dd></div>
-    <div><dt>W tym inne sklepy</dt><dd>${fmt(sum - sumIkea)}<small>szafy skrytkowe (Kupmeble), centrum dowodzenia i czajnik (Morele), podstawa pod Xeroxa (agapo.pl), tablice magnetyczne i korkowe (Castorama)</small></dd></div>
+    <div><dt>W tym inne sklepy</dt><dd>${fmt(sum - sumIkea)}<small>szafy skrytkowe (Kupmeble), centrum dowodzenia i niszczarka (Morele), tablice magnetyczne i korkowe (Castorama)</small></dd></div>
     <div><dt>W tym centrum dowodzenia</dt><dd>${fmt(C.filter((c) => c.z === "cmd").reduce((s, c) => s + c.price * c.qty, 0))}<small>ekran dotykowy 27″ Full HD, minikomputer N100 do przeglądarki, regulowany uchwyt ścienny VESA, uchwyt VESA na minikomputer</small></dd></div>
-    <div><dt>W tym aneks kuchenny</dt><dd>${fmt(kitchen)}<small>4 szafki dolne i 4 wiszące, blat 240, zlew, bateria, LED, mikrofalówka, czajnik</small></dd></div>`;
+    <div><dt>W tym aneks kuchenny</dt><dd>${fmt(kitchen)}<small>4 szafki dolne i 4 wiszące, blat 240, zlew, bateria, LED, mikrofalówka</small></dd></div>`;
 }
 costTable();
 
@@ -1258,6 +1255,20 @@ I.forEach((it) => {
     return;
   }
   if (it.k === "cmd_pc") { rbox(X, Y, Z, W, D, H, 1.5, 0.5, DEV.black, it); return; }
+  if (it.k === "regal_druk") {
+    // IKEA EKET z 4 otwartymi przegrodami na metalowych nóżkach 10 cm
+    const w2 = mat(0xf3f2ee, { roughness: 0.4 }), inner = mat(0xe9e8e3, { roughness: 0.5 }), leg = mat(0xc4c8ca, { metalness: 0.7, roughness: 0.3 });
+    [[4, 4], [W - 7, 4], [4, D - 7], [W - 7, D - 7]].forEach(([dx, dy]) => box(X + dx, Y + dy, 0, 3, 3, 10, leg, furniture, null, false));
+    const B = 10, T = 1.8;
+    box(X, Y, B, W, T, H - B, inner, furniture, it, false);
+    box(X, Y, B, T, D, H - B, w2, furniture, it); box(X + W - T, Y, B, T, D, H - B, w2, furniture, it);
+    box(X, Y, B, W, D, T, w2, furniture, it); box(X, Y, H - T, W, D, T, w2, furniture, it);
+    box(X, Y, B + (H - B) / 2 - T / 2, W, D, T, w2, furniture, it, false);
+    box(X + W / 2 - T / 2, Y, B, T, D, H - B, w2, furniture, it, false);
+    box(X + 6, Y + 6, B + T, 24, 22, 12, mat(0xffffff, { roughness: 0.6 }), furniture, null, false);
+    box(X + W / 2 + 4, Y + 8, B + (H - B) / 2 + T / 2, 26, 20, 4, mat(0x8a9398, { metalness: 0.5, roughness: 0.35 }), furniture, null, false);
+    return;
+  }
   if (it.k === "tonery") {
     // IKEA TROTTEN szafka z drzwiami przesuwnymi, biała
     const w2 = mat(0xf3f2ee, { roughness: 0.4 });
@@ -1269,8 +1280,8 @@ I.forEach((it) => {
     box(X + W - 5.2, Y + D + 0.35, 20, 1.2, 0.9, H - 40, DEV.seam, furniture, null, false);
     return;
   }
-  if (it.k === "akcesoria") {
-    // niszczarka z koszem i głowicą, na niej zszywacz i bindownica
+  if (it.k === "niszczarka" || it.k === "akcesoria") {
+    // niszczarka Fellowes 99Ci: kosz z okienkiem i głowica tnąca
     rbox(X, Y, 0, W, D, 44, 2, 0.8, mat(0x3b3f42, { roughness: 0.45 }), it);
     fN(5, 8, W - 10, 22, 0.4, mat(0x6f7a80, { roughness: 0.2 }));
     rbox(X - 0.5, Y - 0.5, 44, W + 1, D + 1, 14, 2, 1, mat(0x26292b, { roughness: 0.4 }), it);
