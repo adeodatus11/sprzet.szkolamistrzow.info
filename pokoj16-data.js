@@ -435,7 +435,7 @@ export const pokoj16 = {
       "rodzaj": "Monitor dotykowy",
       "nazwa": "Monitor dotykowy iiyama ProLite T2755MSC-B1, 27″ Full HD",
       "ilosc": 1,
-      "cena_szt": 1793.04,
+      "cena_szt": 1819.94,
       "sklep": "Morele.net",
       "link": "https://www.morele.net/monitor-iiyama-prolite-t2755msc-b1-13179166/",
       "uwagi": "Na stanie",
@@ -454,7 +454,7 @@ export const pokoj16 = {
       "rodzaj": "Minikomputer",
       "nazwa": "Minikomputer Qoobe Mini PC N100, 12 GB RAM, 512 GB SSD, Windows 11 Pro (QE-IN100)",
       "ilosc": 1,
-      "cena_szt": 1839,
+      "cena_szt": 1799,
       "sklep": "Morele.net",
       "link": "https://www.morele.net/komputer-qoobe-mini-pc-n100-12gb-512gb-w11-pro-qe-in100-12gb-512gb-600575926/",
       "uwagi": "Na stanie; potwierdzić Wi-Fi (karta produktu go nie podaje)",
@@ -471,12 +471,19 @@ export const pokoj16 = {
       "id": "cmd_mount",
       "grupa": "Centrum dowodzenia (ekran dotykowy na ścianie przy drzwiach, obok bizhuba)",
       "rodzaj": "Uchwyt ścienny do monitora",
-      "nazwa": "Uchwyt ścienny regulowany do monitora Maclean MC-332, VESA 75/100",
+      "nazwa": "Neomounts NM-W25BLACK, stały płaski uchwyt ścienny, VESA 75/100, 10–32″, do 25 kg",
       "ilosc": 1,
-      "cena_szt": 97.47,
+      "cena_szt": 66.28,
       "sklep": "Morele.net",
-      "link": "https://www.morele.net/maclean-uchwyt-scienny-na-monitor-17-32-mc-332-14202017/",
-      "uwagi": "Na stanie",
+      "link": "https://www.morele.net/neomounts-uchwyt-scienny-na-monitor-10-32-nm-w25black-4764189/",
+      "uwagi": "Ekran 1,2 cm od ściany, bez ramienia: nie ugina się przy dotyku; sprawdzić, czy złącza monitora wychodzą w dół",
+      "zamienniki": [
+        {
+          "nazwa": "Neomounts FPMA-W110BLACK, stały, 1,8 cm od ściany",
+          "cena": 125.99,
+          "link": "https://www.morele.net/neomounts-uchwyt-scienny-fpma-w110black-10-40-4764200/"
+        }
+      ],
       "zdjecie": "assets/pokoj16/cmd_mount.jpg"
     },
     {
@@ -485,10 +492,10 @@ export const pokoj16 = {
       "rodzaj": "Uchwyt VESA na minikomputer",
       "nazwa": "Uchwyt VESA na minikomputer Maclean MC-115 B",
       "ilosc": 1,
-      "cena_szt": 31.4,
+      "cena_szt": 30.61,
       "sklep": "Morele.net",
       "link": "https://www.morele.net/uchwyt-do-komputera-maclean-uchwyt-do-mini-komputerow-maclean-zakres-17-70mm-kompatybilny-z-vesa-max-obciazenie-5kg-czarny-mc-115-b-15476917/",
-      "uwagi": "Na stanie",
+      "uwagi": "Przykręcony do ściany obok monitora (po prawej), nie za ekranem",
       "zdjecie": "assets/pokoj16/cmd_vesa.jpg"
     },
     {
