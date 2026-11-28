@@ -15,9 +15,9 @@ import {
   standardControlTasks,
   statusLabels,
   unresolvedItems,
-} from "./equipment-data.js";
-import { zakupyListopad } from "./zakupy-data.js";
-import { pokoj16 } from "./pokoj16-data.js";
+} from "./equipment-data.js?v=202611281347";
+import { zakupyListopad } from "./zakupy-data.js?v=202611281347";
+import { pokoj16 } from "./pokoj16-data.js?v=202611281347";
 import {
   nis2Annex,
   nis2Deadlines,
@@ -30,7 +30,7 @@ import {
   nis2Sources,
   nis2Summary,
   nis2Updated,
-} from "./nis2-data.js";
+} from "./nis2-data.js?v=202611281347";
 
 const els = {
   stats: document.querySelector("#stats"),
@@ -1033,8 +1033,12 @@ const r16Value = (item) => Math.round(item.cena_szt * item.ilosc * 100) / 100;
 const r16Total = (items) => items.reduce((sum, item) => sum + r16Value(item), 0);
 
 // Zdjęcie poglądowe z oferty (pole zdjecie, uzupełniane skryptem tools/fetch-product-images.mjs); bez zdjęcia: link do oferty.
+// Znacznik wersji plików (zmienia go tools/bump-version.mjs), żeby po publikacji przeglądarka nie brała starych plików z pamięci podręcznej.
+const ASSET_VERSION = "202611281347";
+const withVersion = (url) => `${url}?v=${ASSET_VERSION}`;
+
 const r16Photo = (item) => (item.zdjecie
-  ? `<a class="r16-photo" href="${escapeHtml(item.link)}" target="_blank" rel="noopener noreferrer" title="${escapeHtml(item.nazwa)}"><img src="${escapeHtml(item.zdjecie)}" alt="${escapeHtml(item.rodzaj)}: zdjęcie poglądowe z oferty" decoding="async" /></a>`
+  ? `<a class="r16-photo" href="${escapeHtml(item.link)}" target="_blank" rel="noopener noreferrer" title="${escapeHtml(item.nazwa)}"><img src="${escapeHtml(withVersion(item.zdjecie))}" alt="${escapeHtml(item.rodzaj)}: zdjęcie poglądowe z oferty" decoding="async" /></a>`
   : `<a class="r16-photo is-empty" href="${escapeHtml(item.link)}" target="_blank" rel="noopener noreferrer"><span>Zobacz w sklepie</span></a>`);
 
 const r16Row = (item) => `
@@ -1107,8 +1111,8 @@ const loadScript = (src) => new Promise((resolve) => {
 const loadRoom16Plan = () => {
   if (room16PlanRequested) return;
   room16PlanRequested = true;
-  window.pokoj16Photos = Object.fromEntries(pokoj16.pozycje.filter((item) => item.zdjecie).map((item) => [item.id, item.zdjecie]));
-  loadScript(THREE_URL).then(() => loadScript("pokoj16-plan.js"));
+  window.pokoj16Photos = Object.fromEntries(pokoj16.pozycje.filter((item) => item.zdjecie).map((item) => [item.id, withVersion(item.zdjecie)]));
+  loadScript(THREE_URL).then(() => loadScript(withVersion("pokoj16-plan.js")));
 };
 
 document.querySelector("#room16Jump").addEventListener("click", (event) => {

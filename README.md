@@ -37,6 +37,8 @@ Zasady opisu (też w komentarzu na początku pliku): zadania i decyzje zaczynaj�
 
 ## Publikacja
 
+Przed opublikowaniem zmian uruchom `node tools/bump-version.mjs`: ustawia nowy znacznik `?v=…` w adresach plików (`index.html`, importy i zdjęcia w `app.js`), więc przeglądarki od razu pobierają nową wersję zamiast kopii z pamięci podręcznej (GitHub Pages pozwala trzymać pliki do 10 minut).
+
 Repozytorium publikuje się przez GitHub Pages z gałęzi `main` i katalogu głównego. Plik `CNAME` ustawia domenę:
 
 ```text
