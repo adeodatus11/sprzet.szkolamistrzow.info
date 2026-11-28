@@ -69,7 +69,7 @@ export const pokoj16 = {
       "cena_szt": 300,
       "sklep": "IKEA (Wrocław Bielany / ikea.com/pl)",
       "link": "https://www.ikea.com/pl/pl/p/mittzon-ekran-akustyczny-na-biurko-gunnared-bezowy-10528223/",
-      "uwagi": "1 szt. między biurkami, 1 szt. z boku biurka 2 (od strony Xeroxa); ekran jest do biurek MITTZON, przed zakupem sprawdzić zaciski na blacie BOLLPOJKE",
+      "uwagi": "1 szt. między szafami skrytkowymi a biurkiem 1, 1 szt. między biurkami; ekran jest do biurek MITTZON, przed zakupem sprawdzić zaciski na blacie BOLLPOJKE",
       "zdjecie": "assets/pokoj16/przegroda.jpg"
     },
     {
@@ -298,6 +298,18 @@ export const pokoj16 = {
       "zdjecie": "assets/pokoj16/blat.jpg"
     },
     {
+      "id": "panel_sc",
+      "grupa": "Aneks kuchenny (lodówka i zmywarka poza zakupem)",
+      "rodzaj": "Panel ścienny nad blatem",
+      "nazwa": "IKEA LYSEKIL panel ścienny dwustronny, matowy biały / jasnoszary imitacja betonu, 119,6 × 55 cm",
+      "ilosc": 2,
+      "cena_szt": 199,
+      "sklep": "IKEA (Wrocław Bielany / ikea.com/pl)",
+      "link": "https://www.ikea.com/pl/pl/p/lysekil-panel-scienny-2str-jasnoszary-imitacja-betonu-matowy-bialy-10622923/",
+      "uwagi": "2 szt. na 240 cm między blatem a szafkami wiszącymi (szafki od 145 cm); przyklejany do ściany, można przyciąć; klej montażowy dokupić osobno",
+      "zdjecie": "assets/pokoj16/panel_sc.jpg"
+    },
+    {
       "id": "an_wiszaca",
       "grupa": "Aneks kuchenny (lodówka i zmywarka poza zakupem)",
       "rodzaj": "Szafka kuchenna wisząca",
@@ -452,17 +464,17 @@ export const pokoj16 = {
       "id": "cmd_pc",
       "grupa": "Centrum dowodzenia (ekran dotykowy na ścianie przy drzwiach, obok bizhuba)",
       "rodzaj": "Minikomputer",
-      "nazwa": "Minikomputer Qoobe Mini PC N100, 12 GB RAM, 512 GB SSD, Windows 11 Pro (QE-IN100)",
+      "nazwa": "Minikomputer Beelink Mini S12 Pro, Intel N100, 16 GB RAM, 500 GB SSD, Windows 11 Pro, 2 × HDMI, Wi-Fi 6",
       "ilosc": 1,
-      "cena_szt": 1799,
+      "cena_szt": 2799,
       "sklep": "Morele.net",
-      "link": "https://www.morele.net/komputer-qoobe-mini-pc-n100-12gb-512gb-w11-pro-qe-in100-12gb-512gb-600575926/",
-      "uwagi": "Na stanie; potwierdzić Wi-Fi (karta produktu go nie podaje)",
+      "link": "https://www.morele.net/komputer-beelink-beelink-mini-s12-pro-mini-pc-lake-n100-16-gb-ddr4-ram-500-gb-15183822/",
+      "uwagi": "2 wyjścia HDMI: ekran dotykowy (HDMI + USB do dotyku) i monitor na korytarzu; sprzedaje Morele.net, na stanie",
       "zamienniki": [
         {
-          "nazwa": "Beelink Mini S12 Pro, N100, 16 GB, 500 GB, Windows 11 Pro, Wi-Fi 6 (sprzedawca TeKaPi)",
-          "cena": 2789,
-          "link": "https://www.morele.net/beelink-mini-s12-pro-mini-pc-lake-n100-16-gb-ddr4-ram-500-gb-15183822/"
+          "nazwa": "ASUS NUC 14 Essential, Intel N150, 16 GB, 512 GB SSD, Windows 11 Pro, HDMI + DisplayPort, Wi-Fi 6E",
+          "cena": 3299,
+          "link": "https://www.morele.net/komputer-asus-nuc-14-essential-intel-celeron-n150-16-gb-512-gb-ssd-windows-11-pro-8426666/"
         }
       ],
       "zdjecie": "assets/pokoj16/cmd_pc.jpg"
