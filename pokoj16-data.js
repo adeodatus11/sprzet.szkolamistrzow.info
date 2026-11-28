@@ -463,21 +463,62 @@ export const pokoj16 = {
     {
       "id": "cmd_pc",
       "grupa": "Centrum dowodzenia (ekran dotykowy na ścianie przy drzwiach, obok bizhuba)",
-      "rodzaj": "Minikomputer",
-      "nazwa": "Minikomputer Beelink Mini S12 Pro, Intel N100, 16 GB RAM, 500 GB SSD, Windows 11 Pro, 2 × HDMI, Wi-Fi 6",
+      "rodzaj": "Komputer stacjonarny SFF (poleasingowy)",
+      "nazwa": "Lenovo ThinkCentre M70s SFF, Intel Core i5-10400, 16 GB RAM, 512 GB SSD, Windows 11 Home",
       "ilosc": 1,
-      "cena_szt": 2799,
-      "sklep": "Morele.net",
-      "link": "https://www.morele.net/komputer-beelink-beelink-mini-s12-pro-mini-pc-lake-n100-16-gb-ddr4-ram-500-gb-15183822/",
-      "uwagi": "2 wyjścia HDMI: ekran dotykowy (HDMI + USB do dotyku) i monitor na korytarzu; sprzedaje Morele.net, na stanie",
+      "cena_szt": 1679,
+      "sklep": "AMSO Wrocław, ul. Grabiszyńska 240 (poleasingowy, klasa A)",
+      "link": "https://amso.pl/product-pol-293417-Lenovo-ThinkCentre-M70s-i5-10400-6x2-9GHz-16GB-512GB-SSD-Windows-11-Home.html",
+      "uwagi": "W salonie we Wrocławiu 2 szt. (28.11.2026), od ręki; 2 × DisplayPort + HDMI: DisplayPort do ekranu dotykowego, HDMI do monitora na korytarzu; gwarancja 12 mies.; stoi na regale EKET w strefie druku",
       "zamienniki": [
         {
-          "nazwa": "ASUS NUC 14 Essential, Intel N150, 16 GB, 512 GB SSD, Windows 11 Pro, HDMI + DisplayPort, Wi-Fi 6E",
-          "cena": 3299,
-          "link": "https://www.morele.net/komputer-asus-nuc-14-essential-intel-celeron-n150-16-gb-512-gb-ssd-windows-11-pro-8426666/"
+          "nazwa": "Ten sam komputer z dyskiem 256 GB (AMSO Wrocław, 2 szt.)",
+          "cena": 1599,
+          "link": "https://amso.pl/product-pol-285021-Lenovo-ThinkCentre-M70s-i5-10400-6x2-9GHz-16GB-256GB-SSD-Windows-11-Home.html"
+        },
+        {
+          "nazwa": "Dell OptiPlex 7080 SFF, i5-10500, 16 GB, 512 GB SSD (AMSO Wrocław, 3 szt.; tylko 2 × DisplayPort, do HDMI kabel DisplayPort–HDMI)",
+          "cena": 1829,
+          "link": "https://amso.pl/product-pol-293868-Dell-Optiplex-7080-SFF-i5-10500-6x3-1GHz-16GB-512GB-SSD-Windows-11-Home.html"
         }
       ],
       "zdjecie": "assets/pokoj16/cmd_pc.jpg"
+    },
+    {
+      "id": "kabel_dp",
+      "grupa": "Centrum dowodzenia (ekran dotykowy na ścianie przy drzwiach, obok bizhuba)",
+      "rodzaj": "Kabel DisplayPort 5 m",
+      "nazwa": "Gembird DisplayPort – DisplayPort 5 m (CC-DP2-5M)",
+      "ilosc": 1,
+      "cena_szt": 32.29,
+      "sklep": "Morele.net",
+      "link": "https://www.morele.net/kabel-gembird-displayport-displayport-5m-czarny-cc-dp2-5m-9774142/",
+      "uwagi": "Obraz z komputera na regale EKET do ekranu dotykowego, w listwie wzdłuż ściany",
+      "zdjecie": "assets/pokoj16/kabel_dp.jpg"
+    },
+    {
+      "id": "kabel_usb",
+      "grupa": "Centrum dowodzenia (ekran dotykowy na ścianie przy drzwiach, obok bizhuba)",
+      "rodzaj": "Aktywny przedłużacz USB 5 m",
+      "nazwa": "Manhattan aktywny przedłużacz USB-A – USB-A 5 m (150712)",
+      "ilosc": 1,
+      "cena_szt": 76.43,
+      "sklep": "Morele.net (sprzedawca Netinet)",
+      "link": "https://www.morele.net/kabel-usb-manhattan-przedluzacz-aktywny-usb-manhattan-usb-a-usb-a-5-m-czarny-150712-705899/",
+      "uwagi": "Do obsługi dotyku: przedłuża kabel USB dołączony do monitora; aktywny, bo na tej długości zwykły kabel USB może gubić sygnał",
+      "zdjecie": "assets/pokoj16/kabel_usb.jpg"
+    },
+    {
+      "id": "kabel_hdmi",
+      "grupa": "Centrum dowodzenia (ekran dotykowy na ścianie przy drzwiach, obok bizhuba)",
+      "rodzaj": "Kabel HDMI 10 m",
+      "nazwa": "Digitus HDMI – HDMI 10 m (AK-330118-100-S)",
+      "ilosc": 1,
+      "cena_szt": 111.4,
+      "sklep": "Morele.net",
+      "link": "https://www.morele.net/kabel-digitus-hdmi-hdmi-10m-czarny-ak-330118-100-s-630407/",
+      "uwagi": "Do monitora na korytarzu; długość do potwierdzenia po zmierzeniu trasy (powyżej 10 m kabel aktywny/światłowodowy)",
+      "zdjecie": "assets/pokoj16/kabel_hdmi.jpg"
     },
     {
       "id": "cmd_mount",
@@ -497,18 +538,6 @@ export const pokoj16 = {
         }
       ],
       "zdjecie": "assets/pokoj16/cmd_mount.jpg"
-    },
-    {
-      "id": "cmd_vesa",
-      "grupa": "Centrum dowodzenia (ekran dotykowy na ścianie przy drzwiach, obok bizhuba)",
-      "rodzaj": "Uchwyt VESA na minikomputer",
-      "nazwa": "Uchwyt VESA na minikomputer Maclean MC-115 B",
-      "ilosc": 1,
-      "cena_szt": 30.61,
-      "sklep": "Morele.net",
-      "link": "https://www.morele.net/uchwyt-do-komputera-maclean-uchwyt-do-mini-komputerow-maclean-zakres-17-70mm-kompatybilny-z-vesa-max-obciazenie-5kg-czarny-mc-115-b-15476917/",
-      "uwagi": "Przykręcony do ściany obok monitora (po prawej), nie za ekranem",
-      "zdjecie": "assets/pokoj16/cmd_vesa.jpg"
     },
     {
       "id": "tablica_biurka",

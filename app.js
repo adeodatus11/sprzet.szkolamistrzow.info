@@ -15,9 +15,9 @@ import {
   standardControlTasks,
   statusLabels,
   unresolvedItems,
-} from "./equipment-data.js?v=202611281417";
-import { zakupyListopad } from "./zakupy-data.js?v=202611281417";
-import { pokoj16 } from "./pokoj16-data.js?v=202611281417";
+} from "./equipment-data.js?v=202611281438";
+import { zakupyListopad } from "./zakupy-data.js?v=202611281438";
+import { pokoj16 } from "./pokoj16-data.js?v=202611281438";
 import {
   nis2Annex,
   nis2Deadlines,
@@ -30,7 +30,7 @@ import {
   nis2Sources,
   nis2Summary,
   nis2Updated,
-} from "./nis2-data.js?v=202611281417";
+} from "./nis2-data.js?v=202611281438";
 
 const els = {
   stats: document.querySelector("#stats"),
@@ -1034,7 +1034,7 @@ const r16Total = (items) => items.reduce((sum, item) => sum + r16Value(item), 0)
 
 // Zdjęcie poglądowe z oferty (pole zdjecie, uzupełniane skryptem tools/fetch-product-images.mjs); bez zdjęcia: link do oferty.
 // Znacznik wersji plików (zmienia go tools/bump-version.mjs), żeby po publikacji przeglądarka nie brała starych plików z pamięci podręcznej.
-const ASSET_VERSION = "202611281417";
+const ASSET_VERSION = "202611281438";
 const withVersion = (url) => `${url}?v=${ASSET_VERSION}`;
 
 const r16Photo = (item) => (item.zdjecie
