@@ -22,7 +22,7 @@ const ZONES = {
   storage: "Szafki osobiste i ścianka",
   work: "Stanowiska komputerowe i stół roboczy",
   print: "Strefa druku i ładowania laptopów",
-  kitchen: "Aneks kuchenny (lodówka poza zakupem)",
+  kitchen: "Aneks kuchenny (lodówka i zmywarka poza zakupem)",
   dining: "Jadalnia",
   lounge: "Wypoczynek",
   cmd: "Centrum dowodzenia (ekran dotykowy na ścianie przy drzwiach, obok bizhuba)",
@@ -49,7 +49,7 @@ const C = [
   { k: "an_szuflady", z: "kitchen", name: "IKEA METOD/MAXIMERA szafka z 3 szufladami, biały/Havstorp beżowy", dims: "60 × 60 cm", sku: "s09426701", price: 835, qty: 1, shop: IKEA, url: ip("metod-maximera-szafka-stojaca-z-3-szufladami-bialy-havstorp-bezowy-s09426701"), status: ["ok", "W sprzedaży, na stanie"] },
   { k: "an_polki", z: "kitchen", name: "IKEA METOD szafka stojąca z półkami, biały/Havstorp beżowy", dims: "60 × 60 cm, 1 drzwi, 2 półki", sku: "s89469862", price: 325, qty: 1, shop: IKEA, url: ip("metod-szafka-st-polki-bialy-havstorp-bezowy-s89469862"), status: ["ok", "W sprzedaży, na stanie"] },
   { k: "nogi", z: "kitchen", name: "IKEA METOD noga szafki 8 cm (opakowanie 2 szt.)", dims: "3 szafki × 4 nogi = 12 szt.", sku: "705.560.67", price: 25, qty: 6, shop: IKEA, url: ip("metod-noga-szafki-70556067"), status: ["ok", "W sprzedaży, na stanie"], noDraw: true },
-  { k: "zmywarka", z: "kitchen", name: "Zmywarka wolnostojąca Bosch Serie 2 SMS2ITI65E, 60 cm, biała", dims: "60 × 60 × 85 cm, 12 kompletów, 46 dB, zdejmowany blat (po zdjęciu wsuwa się pod blat aneksu)", price: 2140.11, qty: 1, shop: "Morele.net", url: "https://www.morele.net/zmywarka-bosch-sms2iti65e-600582926/", avail: "na stanie, sprzedaje Morele.net", status: ["ok", "Na stanie"], alt: [{ name: "Beko BDFN26530W, 60 cm, 15 kompletów, 44 dB (bez zdejmowanego blatu, 85 cm)", price: 1769.99, url: "https://www.morele.net/zmywarka-beko-bdfn26530w-13134604/" }] },
+  { k: "zmywarka", z: "kitchen", name: "Zmywarka wolnostojąca 60 cm (miejsce w aneksie, nie kupujemy w tym zakupie)", dims: "60 × 60 × ok. 85 cm, wsuwana pod blat aneksu; gniazdo 230 V i zawór wody zostają w projekcie", qty: 1, status: ["mute", "Nie kupujemy w tym zakupie"], outside: true },
   { k: "an_zlew", z: "kitchen", name: "IKEA METOD szafka pod zlew, biały/Havstorp beżowy", dims: "60 × 60 cm", sku: "s49455131", price: 340, qty: 1, shop: IKEA, url: ip("metod-szafka-pod-zlew-bialy-havstorp-bezowy-s49455131"), status: ["ok", "W sprzedaży, na stanie"] },
   { k: "zlew", z: "kitchen", name: "IKEA LÅNGUDDEN zlew wpuszczany, 1 komora, stal nierdzewna", dims: "46 × 46 cm", sku: "s59157391", price: 289, qty: 1, shop: IKEA, url: ip("langudden-zlew-wpuszczany-1-komorowy-stal-nierdz-s59157391"), status: ["ok", "W sprzedaży, na stanie"], noDraw: true, alt: [{ name: "VRESJÖN 54 × 44 cm, stal", price: 1079, url: ip("vresjoen-zlew-wpuszczany-1-komora-stal-nierdz-s99425721") }] },
   { k: "bateria", z: "kitchen", name: "IKEA SALLSJÖN bateria kuchenna z uchwytem z boku, stalowy", dims: "jednouchwytowa", sku: "706.009.04", price: 349, qty: 1, shop: IKEA, url: ip("sallsjoen-bateria-kuchenna-z-uchwytem-z-boku-stalowy-70600904"), status: ["ok", "W sprzedaży, na stanie"], noDraw: true, alt: [{ name: "LAGAN, chrom (najtańsza)", price: 119, url: ip("lagan-bateria-kuchenna-chrom-10085027") }] },
@@ -654,17 +654,17 @@ function costTable() {
     });
   }
   rows += `<tr class="zone-row"><td colspan="8">Usługi (do oferty)</td></tr>
-    <tr><td class="mono">–</td><td></td><td class="item-cell">Dostawa i montaż mebli IKEA (IKEA dla Firm), montaż aneksu z podłączeniem wody i zmywarki<div class="meta">wycena przez IKEA dla Firm lub lokalnego montażystę</div></td><td>–</td><td class="num">1</td><td class="num">–</td><td class="num">–</td><td><span class="pill warn">Poprosić o ofertę</span></td></tr>
+    <tr><td class="mono">–</td><td></td><td class="item-cell">Dostawa i montaż mebli IKEA (IKEA dla Firm), montaż aneksu z podłączeniem wody<div class="meta">wycena przez IKEA dla Firm lub lokalnego montażystę</div></td><td>–</td><td class="num">1</td><td class="num">–</td><td class="num">–</td><td><span class="pill warn">Poprosić o ofertę</span></td></tr>
     <tr><td class="mono">–</td><td></td><td class="item-cell">Dostawa szaf skrytkowych i czajnika<div class="meta">Kupmeble i Morele: koszt wg koszyka</div></td><td>–</td><td class="num">–</td><td class="num">–</td><td class="num">–</td><td><span class="pill mute">Sprawdzić w koszyku</span></td></tr>`;
   document.getElementById("list-table").innerHTML = `<thead><tr><th>Nr</th><th>Zdjęcie</th><th>Produkt i sklep</th><th>Wymiary / wariant</th><th class="num">Ilość</th><th class="num">Cena brutto</th><th class="num">Wartość</th><th>Status</th></tr></thead><tbody>${rows}
     <tr class="total"><td></td><td></td><td colspan="4">Razem do zapłaty (brutto, bez dostawy i montażu)</td><td class="num">${fmt(sum)}</td><td></td></tr></tbody>`;
-  const kitchen = C.filter((c) => c.z === "kitchen" && c.price).reduce((s, c) => s + c.price * c.qty, 0);
+  const kitchen = C.filter((c) => c.z === "kitchen" && c.price && !c.outside).reduce((s, c) => s + c.price * c.qty, 0);
   document.getElementById("cost-sum").innerHTML = `
     <div><dt>Razem do zapłaty</dt><dd>${fmt(sum)}<small>meble, aneks, tablice i centrum dowodzenia, brutto, bez dostawy i montażu</small></dd></div>
     <div><dt>W tym IKEA</dt><dd>${fmt(sumIkea)}<small>jedno zamówienie, można poprosić IKEA dla Firm o fakturę i montaż</small></dd></div>
     <div><dt>W tym inne sklepy</dt><dd>${fmt(sum - sumIkea)}<small>szafy skrytkowe (Kupmeble), centrum dowodzenia i czajnik (Morele), podstawa pod Xeroxa (agapo.pl), tablice magnetyczne i korkowe (Castorama)</small></dd></div>
     <div><dt>W tym centrum dowodzenia</dt><dd>${fmt(C.filter((c) => c.z === "cmd").reduce((s, c) => s + c.price * c.qty, 0))}<small>ekran dotykowy 27″ Full HD, minikomputer N100 do przeglądarki, regulowany uchwyt ścienny VESA, uchwyt VESA na minikomputer</small></dd></div>
-    <div><dt>W tym aneks kuchenny</dt><dd>${fmt(kitchen)}<small>4 szafki dolne i 4 wiszące, blat 240, zlew, bateria, zmywarka wolnostojąca, LED, mikrofalówka, czajnik</small></dd></div>`;
+    <div><dt>W tym aneks kuchenny</dt><dd>${fmt(kitchen)}<small>4 szafki dolne i 4 wiszące, blat 240, zlew, bateria, LED, mikrofalówka, czajnik</small></dd></div>`;
 }
 costTable();
 

@@ -1,6 +1,6 @@
 // Zakładka "Pokój nauczycielski 16": lista zakupów wyposażenia sali 16 (rodzaj, nazwa, link do sklepu, cena brutto).
 // Dane wyciągnięte z planu sali pokoj16-plan.js (katalog C, ceny brutto sprawdzone 24.11.2026; biurka, ekrany, lampy, podstawki i ścianka z tablicą 28.11.2026).
-// Pominięte pozycje poza zakupem (lodówka, laptopy KPO, rzutnik, drukarki szkoły, zieleń, malowanie) oraz bez linku.
+// Pominięte pozycje poza zakupem (lodówka, zmywarka, laptopy KPO, rzutnik, drukarki szkoły, zieleń, malowanie) oraz bez linku.
 
 export const pokoj16 = {
   "tytul": "Pokój nauczycielski 16: lista zakupów",
@@ -10,7 +10,7 @@ export const pokoj16 = {
     "Szafki osobiste i ścianka",
     "Stanowiska komputerowe i stół roboczy",
     "Strefa druku i ładowania laptopów",
-    "Aneks kuchenny (lodówka poza zakupem)",
+    "Aneks kuchenny (lodówka i zmywarka poza zakupem)",
     "Jadalnia",
     "Wypoczynek",
     "Centrum dowodzenia (ekran dotykowy na ścianie przy drzwiach, obok bizhuba)",
@@ -189,7 +189,7 @@ export const pokoj16 = {
     },
     {
       "id": "an_szuflady",
-      "grupa": "Aneks kuchenny (lodówka poza zakupem)",
+      "grupa": "Aneks kuchenny (lodówka i zmywarka poza zakupem)",
       "rodzaj": "Szafka kuchenna z szufladami",
       "nazwa": "IKEA METOD/MAXIMERA szafka z 3 szufladami, biały/Havstorp beżowy",
       "ilosc": 1,
@@ -201,7 +201,7 @@ export const pokoj16 = {
     },
     {
       "id": "an_polki",
-      "grupa": "Aneks kuchenny (lodówka poza zakupem)",
+      "grupa": "Aneks kuchenny (lodówka i zmywarka poza zakupem)",
       "rodzaj": "Szafka kuchenna z półkami",
       "nazwa": "IKEA METOD szafka stojąca z półkami, biały/Havstorp beżowy",
       "ilosc": 1,
@@ -213,7 +213,7 @@ export const pokoj16 = {
     },
     {
       "id": "nogi",
-      "grupa": "Aneks kuchenny (lodówka poza zakupem)",
+      "grupa": "Aneks kuchenny (lodówka i zmywarka poza zakupem)",
       "rodzaj": "Nóżki do szafek kuchennych",
       "nazwa": "IKEA METOD noga szafki 8 cm (opakowanie 2 szt.)",
       "ilosc": 6,
@@ -224,27 +224,8 @@ export const pokoj16 = {
       "zdjecie": "assets/pokoj16/nogi.jpg"
     },
     {
-      "id": "zmywarka",
-      "grupa": "Aneks kuchenny (lodówka poza zakupem)",
-      "rodzaj": "Zmywarka",
-      "nazwa": "Zmywarka wolnostojąca Bosch Serie 2 SMS2ITI65E, 60 cm, biała",
-      "ilosc": 1,
-      "cena_szt": 2140.11,
-      "sklep": "Morele.net",
-      "link": "https://www.morele.net/zmywarka-bosch-sms2iti65e-600582926/",
-      "uwagi": "Na stanie",
-      "zamienniki": [
-        {
-          "nazwa": "Beko BDFN26530W, 60 cm, 15 kompletów, 44 dB (bez zdejmowanego blatu, 85 cm)",
-          "cena": 1769.99,
-          "link": "https://www.morele.net/zmywarka-beko-bdfn26530w-13134604/"
-        }
-      ],
-      "zdjecie": "assets/pokoj16/zmywarka.jpg"
-    },
-    {
       "id": "an_zlew",
-      "grupa": "Aneks kuchenny (lodówka poza zakupem)",
+      "grupa": "Aneks kuchenny (lodówka i zmywarka poza zakupem)",
       "rodzaj": "Szafka pod zlew",
       "nazwa": "IKEA METOD szafka pod zlew, biały/Havstorp beżowy",
       "ilosc": 1,
@@ -256,7 +237,7 @@ export const pokoj16 = {
     },
     {
       "id": "zlew",
-      "grupa": "Aneks kuchenny (lodówka poza zakupem)",
+      "grupa": "Aneks kuchenny (lodówka i zmywarka poza zakupem)",
       "rodzaj": "Zlew",
       "nazwa": "IKEA LÅNGUDDEN zlew wpuszczany, 1 komora, stal nierdzewna",
       "ilosc": 1,
@@ -275,7 +256,7 @@ export const pokoj16 = {
     },
     {
       "id": "bateria",
-      "grupa": "Aneks kuchenny (lodówka poza zakupem)",
+      "grupa": "Aneks kuchenny (lodówka i zmywarka poza zakupem)",
       "rodzaj": "Bateria kuchenna",
       "nazwa": "IKEA SALLSJÖN bateria kuchenna z uchwytem z boku, stalowy",
       "ilosc": 1,
@@ -294,7 +275,7 @@ export const pokoj16 = {
     },
     {
       "id": "blat",
-      "grupa": "Aneks kuchenny (lodówka poza zakupem)",
+      "grupa": "Aneks kuchenny (lodówka i zmywarka poza zakupem)",
       "rodzaj": "Blat kuchenny",
       "nazwa": "IKEA EKBACKEN blat, efekt jasnego dębu / laminat",
       "ilosc": 1,
@@ -306,7 +287,7 @@ export const pokoj16 = {
     },
     {
       "id": "an_wiszaca",
-      "grupa": "Aneks kuchenny (lodówka poza zakupem)",
+      "grupa": "Aneks kuchenny (lodówka i zmywarka poza zakupem)",
       "rodzaj": "Szafka kuchenna wisząca",
       "nazwa": "IKEA METOD szafka ścienna z półkami, 2 drzwi, biały/Havstorp beżowy",
       "ilosc": 4,
@@ -318,7 +299,7 @@ export const pokoj16 = {
     },
     {
       "id": "cokol",
-      "grupa": "Aneks kuchenny (lodówka poza zakupem)",
+      "grupa": "Aneks kuchenny (lodówka i zmywarka poza zakupem)",
       "rodzaj": "Cokół kuchenny",
       "nazwa": "IKEA HAVSTORP cokół, beżowy",
       "ilosc": 2,
@@ -330,7 +311,7 @@ export const pokoj16 = {
     },
     {
       "id": "panel_m",
-      "grupa": "Aneks kuchenny (lodówka poza zakupem)",
+      "grupa": "Aneks kuchenny (lodówka i zmywarka poza zakupem)",
       "rodzaj": "Panel maskujący",
       "nazwa": "IKEA HAVSTORP panel maskujący, beżowy (bok szafki z szufladami)",
       "ilosc": 1,
@@ -342,7 +323,7 @@ export const pokoj16 = {
     },
     {
       "id": "led",
-      "grupa": "Aneks kuchenny (lodówka poza zakupem)",
+      "grupa": "Aneks kuchenny (lodówka i zmywarka poza zakupem)",
       "rodzaj": "Listwa LED",
       "nazwa": "IKEA MITTLED listwa LED pod szafki, ściemniana, biały",
       "ilosc": 4,
@@ -354,7 +335,7 @@ export const pokoj16 = {
     },
     {
       "id": "led_zas",
-      "grupa": "Aneks kuchenny (lodówka poza zakupem)",
+      "grupa": "Aneks kuchenny (lodówka i zmywarka poza zakupem)",
       "rodzaj": "Zasilacz do listew LED",
       "nazwa": "IKEA TRÅDFRI zasilacz 30 W do oświetlenia LED",
       "ilosc": 1,
@@ -366,7 +347,7 @@ export const pokoj16 = {
     },
     {
       "id": "led_kabel",
-      "grupa": "Aneks kuchenny (lodówka poza zakupem)",
+      "grupa": "Aneks kuchenny (lodówka i zmywarka poza zakupem)",
       "rodzaj": "Przewód do listew LED",
       "nazwa": "IKEA VÅGDAL przewód połączeniowy, biały",
       "ilosc": 2,
@@ -378,7 +359,7 @@ export const pokoj16 = {
     },
     {
       "id": "mikrofala",
-      "grupa": "Aneks kuchenny (lodówka poza zakupem)",
+      "grupa": "Aneks kuchenny (lodówka i zmywarka poza zakupem)",
       "rodzaj": "Kuchenka mikrofalowa",
       "nazwa": "IKEA TILLREDA kuchenka mikrofalowa wolnostojąca, biały",
       "ilosc": 1,
@@ -390,7 +371,7 @@ export const pokoj16 = {
     },
     {
       "id": "czajnik",
-      "grupa": "Aneks kuchenny (lodówka poza zakupem)",
+      "grupa": "Aneks kuchenny (lodówka i zmywarka poza zakupem)",
       "rodzaj": "Czajnik elektryczny",
       "nazwa": "Czajnik elektryczny Lafe Steelo EK02, stal",
       "ilosc": 1,

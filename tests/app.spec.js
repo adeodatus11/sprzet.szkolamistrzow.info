@@ -1627,7 +1627,7 @@ test("nis2-data: daty są poprawne i identyfikatory unikalne", async ({ page }) 
 test("pokój nauczycielski 16: każda pozycja listy zakupów ma zdjęcie poglądowe", async ({ page }) => {
   await page.goto("/#pokoj-nauczycielski-16");
   const photos = page.locator("#room16List .r16-photo img");
-  await expect(photos).toHaveCount(40);
+  await expect(photos).toHaveCount(39);
   await expect(page.locator("#room16List .r16-photo.is-empty")).toHaveCount(0);
   const broken = await photos.evaluateAll(async (images) => {
     await Promise.all(images.map((image) => { image.loading = "eager"; return image.decode().catch(() => {}); }));
@@ -1638,7 +1638,7 @@ test("pokój nauczycielski 16: każda pozycja listy zakupów ma zdjęcie pogląd
   // Plan sali jest częścią strony (bez ramki), zestawienie na planie też ma zdjęcia.
   await expect(page.locator("#room16View iframe")).toHaveCount(0);
   const planPhotos = page.locator("#pn16 #list-table .photo img");
-  await expect(planPhotos).toHaveCount(40);
+  await expect(planPhotos).toHaveCount(39);
   await expect(page.locator("#pn16 #plan g.item").first()).toBeAttached();
   const planBroken = await planPhotos.evaluateAll(async (images) => {
     await Promise.all(images.map((image) => { image.loading = "eager"; return image.decode().catch(() => {}); }));
