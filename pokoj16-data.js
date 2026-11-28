@@ -281,18 +281,23 @@ export const pokoj16 = {
     {
       "id": "bateria",
       "grupa": "Aneks kuchenny (lodówka i zmywarka poza zakupem)",
-      "rodzaj": "Bateria kuchenna",
-      "nazwa": "IKEA SALLSJÖN bateria kuchenna z uchwytem z boku, stalowy",
+      "rodzaj": "Bateria kuchenna z wyciąganą wylewką",
+      "nazwa": "IKEA SALLSJÖN bateria z wyciąganą wylewką, stalowy",
       "ilosc": 1,
-      "cena_szt": 349,
+      "cena_szt": 399,
       "sklep": "IKEA (Wrocław Bielany / ikea.com/pl)",
-      "link": "https://www.ikea.com/pl/pl/p/sallsjoen-bateria-kuchenna-z-uchwytem-z-boku-stalowy-70600904/",
-      "uwagi": "W sprzedaży, na stanie",
+      "link": "https://www.ikea.com/pl/pl/p/sallsjoen-bateria-z-wyciagana-wylewka-stalowy-90608937/",
+      "uwagi": "Końcówkę wyciąga się na ok. 30 cm; wysokość 370 mm, mieści się pod szafkami wiszącymi; cena promocyjna z 28.11.2026 (regularna 449 zł)",
       "zamienniki": [
         {
-          "nazwa": "LAGAN, chrom (najtańsza)",
-          "cena": 119,
-          "link": "https://www.ikea.com/pl/pl/p/lagan-bateria-kuchenna-chrom-10085027/"
+          "nazwa": "IKEA SALLSJÖN z wysuwaną wylewką i natryskiem, stalowy (480 mm)",
+          "cena": 699,
+          "link": "https://www.ikea.com/pl/pl/p/sallsjoen-bateria-z-wysuwana-wylewka-natrysk-stalowy-50604559/"
+        },
+        {
+          "nazwa": "Blanco WEGA-S II z wyciąganą wylewką, chrom (Morele.net)",
+          "cena": 620.42,
+          "link": "https://www.morele.net/bateria-kuchenna-blanco-bateria-wega-s-ii-chromowana-z-wyciagana-wylewka-13479101/"
         }
       ],
       "zdjecie": "assets/pokoj16/bateria.jpg"
@@ -356,54 +361,6 @@ export const pokoj16 = {
       "link": "https://www.ikea.com/pl/pl/p/havstorp-panel-maskujacy-bezowy-50475251/",
       "uwagi": "W sprzedaży, na stanie",
       "zdjecie": "assets/pokoj16/panel_m.jpg"
-    },
-    {
-      "id": "led",
-      "grupa": "Aneks kuchenny (lodówka i zmywarka poza zakupem)",
-      "rodzaj": "Listwa LED",
-      "nazwa": "IKEA MITTLED listwa LED pod szafki, ściemniana, biały",
-      "ilosc": 4,
-      "cena_szt": 65,
-      "sklep": "IKEA (Wrocław Bielany / ikea.com/pl)",
-      "link": "https://www.ikea.com/pl/pl/p/mittled-listwa-oswietleniowa-led-do-bl-kuch-mozna-przyciemniac-bialy-60528584/",
-      "uwagi": "W sprzedaży, na stanie",
-      "zdjecie": "assets/pokoj16/led.jpg"
-    },
-    {
-      "id": "led_zas",
-      "grupa": "Aneks kuchenny (lodówka i zmywarka poza zakupem)",
-      "rodzaj": "Zasilacz do listew LED",
-      "nazwa": "IKEA TRÅDFRI zasilacz 30 W do oświetlenia LED",
-      "ilosc": 1,
-      "cena_szt": 130,
-      "sklep": "IKEA (Wrocław Bielany / ikea.com/pl)",
-      "link": "https://www.ikea.com/pl/pl/p/tradfri-zasilacz-do-sterowania-bezprzewod-smart-szary-60342656/",
-      "uwagi": "Dobrać przewód zasilający w sklepie",
-      "zdjecie": "assets/pokoj16/led_zas.jpg"
-    },
-    {
-      "id": "led_kabel",
-      "grupa": "Aneks kuchenny (lodówka i zmywarka poza zakupem)",
-      "rodzaj": "Przewód do listew LED",
-      "nazwa": "IKEA VÅGDAL przewód połączeniowy, biały",
-      "ilosc": 2,
-      "cena_szt": 15,
-      "sklep": "IKEA (Wrocław Bielany / ikea.com/pl)",
-      "link": "https://www.ikea.com/pl/pl/p/vagdal-przewod-polaczeniowy-bialy-70463600/",
-      "uwagi": "W sprzedaży, na stanie",
-      "zdjecie": "assets/pokoj16/led_kabel.jpg"
-    },
-    {
-      "id": "mikrofala",
-      "grupa": "Aneks kuchenny (lodówka i zmywarka poza zakupem)",
-      "rodzaj": "Kuchenka mikrofalowa",
-      "nazwa": "IKEA TILLREDA kuchenka mikrofalowa wolnostojąca, biały",
-      "ilosc": 1,
-      "cena_szt": 249,
-      "sklep": "IKEA (Wrocław Bielany / ikea.com/pl)",
-      "link": "https://www.ikea.com/pl/pl/p/tillreda-kuchenka-mikrofalowa-bialy-50486792/",
-      "uwagi": "W sprzedaży, na stanie",
-      "zdjecie": "assets/pokoj16/mikrofala.jpg"
     },
     {
       "id": "stol_jad",
