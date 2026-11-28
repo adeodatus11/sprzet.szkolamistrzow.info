@@ -1032,8 +1032,14 @@ const renderShoppingPrint = () => {
 const r16Value = (item) => Math.round(item.cena_szt * item.ilosc * 100) / 100;
 const r16Total = (items) => items.reduce((sum, item) => sum + r16Value(item), 0);
 
+// Zdjęcie poglądowe z oferty (pole zdjecie, uzupełniane skryptem tools/fetch-product-images.mjs); bez zdjęcia: link do oferty.
+const r16Photo = (item) => (item.zdjecie
+  ? `<a class="r16-photo" href="${escapeHtml(item.link)}" target="_blank" rel="noopener noreferrer" title="${escapeHtml(item.nazwa)}"><img src="${escapeHtml(item.zdjecie)}" alt="${escapeHtml(item.rodzaj)}: zdjęcie poglądowe z oferty" loading="lazy" referrerpolicy="no-referrer" /></a>`
+  : `<a class="r16-photo is-empty" href="${escapeHtml(item.link)}" target="_blank" rel="noopener noreferrer"><span>Zobacz w sklepie</span></a>`);
+
 const r16Row = (item) => `
   <tr data-r16="${escapeHtml(item.id)}">
+    <td class="r16-photo-cell">${r16Photo(item)}</td>
     <td class="r16-type">${escapeHtml(item.rodzaj)}</td>
     <td class="r16-name">
       <a href="${escapeHtml(item.link)}" target="_blank" rel="noopener noreferrer">${escapeHtml(item.nazwa)}</a>
@@ -1070,7 +1076,7 @@ const renderRoom16List = () => {
         </div>
         <div class="r16-wrap">
           <table class="r16-table">
-            <thead><tr><th>Rodzaj</th><th>Nazwa i link do sklepu</th><th>Ilość</th><th>Cena za szt.</th><th>Razem</th><th>Sklep</th></tr></thead>
+            <thead><tr><th>Podgląd</th><th>Rodzaj</th><th>Nazwa i link do sklepu</th><th>Ilość</th><th>Cena za szt.</th><th>Razem</th><th>Sklep</th></tr></thead>
             <tbody>${rows.map(r16Row).join("")}</tbody>
           </table>
         </div>
@@ -1078,6 +1084,15 @@ const renderRoom16List = () => {
     `;
   }).join("");
 };
+
+// Gdy zdjęcie się nie wczyta (np. sklep blokuje podlinkowanie), pokazujemy link do oferty.
+document.addEventListener("error", (event) => {
+  const image = event.target;
+  if (!(image instanceof HTMLImageElement) || !image.closest(".r16-photo")) return;
+  const link = image.closest(".r16-photo");
+  link.classList.add("is-empty");
+  link.innerHTML = "<span>Zobacz w sklepie</span>";
+}, true);
 
 const loadRoom16Frame = () => {
   const frame = document.querySelector("#room16Frame");

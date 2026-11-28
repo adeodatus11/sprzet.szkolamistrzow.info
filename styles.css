@@ -1798,6 +1798,38 @@ body:not([data-view="room16"]) .room16-view {
   border-bottom: 0;
 }
 
+.r16-photo-cell {
+  width: 104px;
+  padding: 8px !important;
+}
+
+.r16-photo {
+  display: grid;
+  place-items: center;
+  width: 88px;
+  height: 88px;
+  overflow: hidden;
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius-sm);
+  background: #fff;
+}
+
+.r16-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.r16-photo.is-empty {
+  background: var(--surface-soft);
+  color: var(--muted);
+  font-size: 0.72rem;
+  line-height: 1.2;
+  padding: 6px;
+  text-align: center;
+  text-decoration: none;
+}
+
 .r16-type {
   min-width: 130px;
   font-weight: 700;
