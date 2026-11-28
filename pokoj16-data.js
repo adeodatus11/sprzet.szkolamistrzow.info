@@ -81,8 +81,20 @@ export const pokoj16 = {
       "cena_szt": 49.99,
       "sklep": "IKEA (Wrocław Bielany / ikea.com/pl)",
       "link": "https://www.ikea.com/pl/pl/p/tertial-lampa-biurkowa-bialy-70355455/",
-      "uwagi": "Po jednej na biurko; żarówka E27 sprzedawana osobno",
+      "uwagi": "Po jednej na biurko; żarówki SOLHETTA E27 osobną pozycją",
       "zdjecie": "assets/pokoj16/lampa.jpg"
+    },
+    {
+      "id": "zarowki",
+      "grupa": "Stanowiska komputerowe i stół roboczy",
+      "rodzaj": "Żarówki do lamp",
+      "nazwa": "IKEA SOLHETTA żarówka LED E27, 806 lm, 5 W, kula opalowa biel, z możliwością przyciemniania (opakowanie 2 szt.)",
+      "ilosc": 1,
+      "cena_szt": 16.99,
+      "sklep": "IKEA (Wrocław Bielany / ikea.com/pl)",
+      "link": "https://www.ikea.com/pl/pl/p/solhetta-zarowka-led-e27-806-lumenow-mozna-przyciemniac-kula-opalowa-biel-60583924/",
+      "uwagi": "1 opakowanie = 2 żarówki, po jednej do każdej lampy TERTIAL",
+      "zdjecie": "assets/pokoj16/zarowki.jpg"
     },
     {
       "id": "podstawka",
