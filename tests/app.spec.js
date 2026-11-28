@@ -1635,12 +1635,20 @@ test("pokój nauczycielski 16: każda pozycja listy zakupów ma zdjęcie pogląd
   });
   expect(broken).toEqual([]);
 
-  await page.goto("/pn16-r7k2xq/index.html");
-  const planPhotos = page.locator("#list-table .photo img");
+  // Plan sali jest częścią strony (bez ramki), zestawienie na planie też ma zdjęcia.
+  await expect(page.locator("#room16View iframe")).toHaveCount(0);
+  const planPhotos = page.locator("#pn16 #list-table .photo img");
   await expect(planPhotos).toHaveCount(37);
+  await expect(page.locator("#pn16 #plan g.item").first()).toBeAttached();
   const planBroken = await planPhotos.evaluateAll(async (images) => {
     await Promise.all(images.map((image) => { image.loading = "eager"; return image.decode().catch(() => {}); }));
     return images.filter((image) => !image.naturalWidth).map((image) => image.getAttribute("src"));
   });
   expect(planBroken).toEqual([]);
+});
+
+test("pokój nauczycielski 16: stary adres planu przekierowuje do zakładki", async ({ page }) => {
+  await page.goto("/pn16-r7k2xq/index.html");
+  await expect(page).toHaveURL(/#pokoj-nauczycielski-16$/);
+  await expect(page.locator("#room16Title")).toBeVisible();
 });

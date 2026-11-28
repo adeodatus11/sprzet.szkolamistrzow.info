@@ -1748,18 +1748,6 @@ body:not([data-view="room16"]) .room16-view {
   outline: none;
 }
 
-.room16-open {
-  display: inline-flex;
-  align-items: center;
-  min-height: 44px;
-  border-radius: var(--radius-sm);
-  background: var(--accent);
-  color: #fff;
-  font-weight: 700;
-  padding: 8px 16px;
-  text-decoration: none;
-}
-
 .r16-list {
   display: grid;
   gap: 22px;
@@ -1858,14 +1846,43 @@ body:not([data-view="room16"]) .room16-view {
   color: var(--muted);
 }
 
-.room16-frame {
-  display: block;
-  width: 100%;
-  height: calc(100vh - 170px);
-  min-height: 560px;
+#room16List {
+  scroll-margin-top: 16px;
+}
+
+.r16-jump {
+  margin: 14px 0 18px;
+}
+
+.r16-jump button {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
   border: 1px solid var(--line);
-  border-radius: var(--radius);
+  border-radius: 999px;
   background: var(--surface);
+  color: var(--ink);
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 4px 14px;
+}
+
+.r16-jump button:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+@media (max-width: 760px) {
+  .r16-jump {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .r16-jump button {
+    flex: none;
+  }
 }
 
 /* ---------- Zasoby ---------- */

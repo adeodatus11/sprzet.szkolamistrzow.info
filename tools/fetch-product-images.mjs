@@ -1,4 +1,4 @@
-// Pobiera zdjęcia poglądowe produktów z listy zakupów sali 16 i zapisuje je w repozytorium (pn16-r7k2xq/img/<id>.jpg),
+// Pobiera zdjęcia poglądowe produktów z listy zakupów sali 16 i zapisuje je w repozytorium (assets/pokoj16/<id>.jpg),
 // a w pokoj16-data.js uzupełnia pole "zdjecie". Zdjęcia są lokalne, więc strona nie zależy od tego, czy sklep pozwala na podlinkowanie.
 // Adres zdjęcia: meta og:image (albo twitter:image / JSON-LD / pierwsze zdjęcie produktu), z pominięciem logo sklepu.
 // Uruchom na komputerze z dostępem do internetu:  node tools/fetch-product-images.mjs
@@ -13,7 +13,7 @@ import path from "node:path";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const dataFile = path.join(root, "pokoj16-data.js");
-const IMG_DIR = "pn16-r7k2xq/img";
+const IMG_DIR = "assets/pokoj16";
 const all = process.argv.includes("--all");
 
 const PREFIX = "export const pokoj16 = ";

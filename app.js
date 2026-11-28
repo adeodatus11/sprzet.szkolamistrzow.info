@@ -1094,9 +1094,31 @@ document.addEventListener("error", (event) => {
   link.innerHTML = "<span>Zobacz w sklepie</span>";
 }, true);
 
-const loadRoom16Frame = () => {
-  const frame = document.querySelector("#room16Frame");
-  if (frame && !frame.getAttribute("src")) frame.setAttribute("src", frame.dataset.src);
+// Plan sali 16 (rzut, elewacje, model 3D) rysuje pokoj16-plan.js w #pn16; wczytujemy go z three.js przy pierwszym otwarciu zakładki.
+const THREE_URL = "https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js";
+let room16PlanRequested = false;
+const loadScript = (src) => new Promise((resolve) => {
+  const script = document.createElement("script");
+  script.src = src;
+  script.onload = resolve;
+  script.onerror = resolve;
+  document.head.append(script);
+});
+const loadRoom16Plan = () => {
+  if (room16PlanRequested) return;
+  room16PlanRequested = true;
+  window.pokoj16Photos = Object.fromEntries(pokoj16.pozycje.filter((item) => item.zdjecie).map((item) => [item.id, item.zdjecie]));
+  loadScript(THREE_URL).then(() => loadScript("pokoj16-plan.js"));
+};
+
+document.querySelector("#room16Jump").addEventListener("click", (event) => {
+  const button = event.target.closest("[data-r16-jump]");
+  if (!button) return;
+  document.getElementById(button.dataset.r16Jump)?.scrollIntoView({ block: "start" });
+});
+
+const renderRoom16Print = () => {
+  loadRoom16Plan();
   els.printSheet.innerHTML = `
     <h1>Pokój nauczycielski, sala 16: lista zakupów</h1>
     <div class="print-meta">
@@ -1408,7 +1430,7 @@ const render = ({ historyMode = "replace", moveFocus = false } = {}) => {
   if (state.view === "purchases") renderPurchasePrint();
   if (state.view === "resources") renderResourcesPrint();
   if (state.view === "shopping") renderShoppingPrint();
-  if (state.view === "room16") loadRoom16Frame();
+  if (state.view === "room16") renderRoom16Print();
   if (state.view === "nis2") {
     renderNis2Deadlines();
     renderNis2Print();
