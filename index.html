@@ -20,8 +20,8 @@
     <title>Sprzęt i wyposażenie sal | ZSZ nr 5</title>
     <link rel="canonical" href="https://sprzet.szkolamistrzow.info/" />
     <link rel="icon" href="assets/logo-zsz5.png" />
-    <link rel="stylesheet" href="styles.css?v=202611281450" />
-    <link rel="stylesheet" href="pokoj16-plan.css?v=202611281450" />
+    <link rel="stylesheet" href="styles.css?v=202611281459" />
+    <link rel="stylesheet" href="pokoj16-plan.css?v=202611281459" />
   </head>
   <body>
     <a class="skip-link" href="#roomDetail">Przejdź do karty sali</a>
@@ -224,6 +224,7 @@
           <button type="button" data-r16-jump="rzut">Rzut 2D</button>
           <button type="button" data-r16-jump="elewacje">Elewacje</button>
           <button type="button" data-r16-jump="model">Model 3D</button>
+          <button type="button" data-r16-jump="strefy">Strefy</button>
           <button type="button" data-r16-jump="przejscia">Przejścia</button>
           <button type="button" data-r16-jump="zestawienie">Zestawienie i koszt</button>
           <button type="button" data-r16-jump="instalacje">Instalacje</button>
@@ -302,6 +303,11 @@
             </div>
           </section>
 
+          <section id="strefy" aria-labelledby="h-strefy">
+            <h2 id="h-strefy"><span class="num">C2</span>Strefy pokoju</h2>
+            <p class="sec-lead">Widoki 3D poszczególnych stref sali. Kliknij mebel na obrazku albo jego nazwę pod obrazkiem: mebel podświetli się, a pod widokiem pojawi się karta ze zdjęciem, wymiarami, ceną i linkiem do sklepu. Ściany zasłaniające widok są schowane.</p>
+            <div class="zones" id="zones"><p class="zones-msg">Widoki stref wczytują się razem z modelem 3D…</p></div>
+          </section>
           <section id="przejscia" aria-labelledby="h-chk">
             <h2 id="h-chk"><span class="num">D</span>Kontrola przejść i stref obsługi</h2>
             <p class="sec-lead">Odległości policzone z rzutu. Wartości wymagane to typowe minima projektowe dla mebli biurowych i jadalnianych; drogę ewakuacyjną musi ostatecznie potwierdzić osoba odpowiedzialna za BHP i ppoż.</p>
@@ -414,6 +420,6 @@
 
     <section class="print-sheet" id="printSheet" aria-hidden="true"></section>
 
-    <script type="module" src="app.js?v=202611281450"></script>
+    <script type="module" src="app.js?v=202611281459"></script>
   </body>
 </html>

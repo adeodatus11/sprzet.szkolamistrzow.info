@@ -743,7 +743,7 @@ drawInstPlan();
 /* ---------- MODEL 3D ---------- */
 const host = document.getElementById("viewer");
 const msg = document.getElementById("v-msg");
-if (!window.THREE) { msg.textContent = "Nie udało się wczytać biblioteki 3D. Rzut i elewacje powyżej działają bez niej."; return; }
+if (!window.THREE) { msg.textContent = "Nie udało się wczytać biblioteki 3D. Rzut i elewacje powyżej działają bez niej."; const zh = document.getElementById("zones"); if (zh) zh.innerHTML = '<p class="zones-msg">Widoki stref wymagają biblioteki 3D, której nie udało się wczytać.</p>'; return; }
 let renderer;
 try { renderer = new THREE.WebGLRenderer({ antialias: true }); }
 catch (e) { msg.textContent = "Ta przeglądarka nie obsługuje WebGL, więc model 3D się nie wyświetli."; return; }
@@ -1561,4 +1561,90 @@ function loop(now) {
   requestAnimationFrame(loop);
 }
 requestAnimationFrame(loop);
+
+/* ---------- STREFY POKOJU: widoki 3D poszczególnych stref z klikalnymi meblami ---------- */
+// Każda strefa to ujęcie kamery (oko i punkt, na który patrzy, w cm planu) i lista mebli tej strefy.
+const ZONE_VIEWS = [
+  { id: "wejscie", title: "Wejście i szafy skrytkowe", desc: "Trzy szafy KAROL po 18 skrytek, tablica na klucze i doniczki na szafach.", eye: [330, 300, 175], tgt: [20, 120, 105], keys: ["szafa", "klucze", "zielen_szafy"] },
+  { id: "biurka", title: "Stanowiska przy biurkach", desc: "Dwa biurka BOLLPOJKE z ekranami MITTZON, lampami TERTIAL i podstawkami pod laptopy; obok Xerox.", eye: [330, 395, 165], tgt: [25, 390, 95], keys: ["biurko", "przegroda", "lampa", "zarowki", "podstawka", "krz_biuro", "laptop", "tablica_biurka", "druk_mala"] },
+  { id: "cmd", title: "Centrum dowodzenia", desc: "Ekran dotykowy na stałym uchwycie przy drzwiach; komputer stoi w strefie druku.", eye: [300, 135, 145], tgt: [282, 0, 128], keys: ["cmd_monitor", "cmd_mount", "cmd_pc", "kabel_dp", "kabel_usb", "kabel_hdmi"] },
+  { id: "druk", title: "Strefa druku", desc: "Bizhub z finiszerem, niszczarka, stół do kompletowania z regałem EKET i ścianka z tablicą.", eye: [450, 285, 165], tgt: [470, 25, 85], keys: ["druk_duza", "finiszer", "niszczarka", "stol_wysoki", "regal_druk", "nogi_eket", "cmd_pc", "scianka", "tablica_druk", "telefon", "akcesoria"] },
+  { id: "aneks", title: "Aneks kuchenny", desc: "Szafki METOD z frontami Havstorp, blat, zlew z baterią, panel LYSEKIL i lodówka.", eye: [690, 345, 180], tgt: [765, 10, 110], keys: ["an_szuflady", "an_polki", "an_zlew", "zlew", "bateria", "blat", "panel_sc", "an_wiszaca", "cokol", "panel_m", "nogi", "lodowka"] },
+  { id: "stol", title: "Stół roboczy", desc: "Cztery stoły MITTZON zestawione w blok na 8 osób.", eye: [170, 130, 235], tgt: [390, 330, 60], keys: ["stol_pracy", "krz_pracy", "projektor"] },
+  { id: "jadalnia", title: "Jadalnia", desc: "Blok stołów na 8 osób, pole pod obraz z rzutnika i zieleń na ścianie.", eye: [470, 500, 215], tgt: [870, 300, 130], keys: ["stol_jad", "krz_jad", "krz_zapas", "rzutnik", "zielen_sciana", "ogl_rog"] },
+  { id: "wypoczynek", title: "Wypoczynek", desc: "Dwie sofy EKTORP pod oknami, tablice ogłoszeń na filarach.", eye: [660, 455, 190], tgt: [330, 540, 55], keys: ["sofa3", "ogloszenia", "zielen_okna"] },
+];
+const ZW = 960, ZH = 600;
+const zonesHost = document.getElementById("zones");
+const zoneState = {};
+
+// ustawia kamerę na ujęcie strefy (proporcje obrazka), wykonuje fn i przywraca widok modelu
+function withZoneCamera(z, fn) {
+  const saved = { t: target.clone(), r: sph.r, theta: sph.theta, phi: sph.phi, walls: wallMode, aspect: camera.aspect };
+  const v = eyeView(z.eye, z.tgt);
+  target.set(...v.t); Object.assign(sph, { r: v.r, theta: v.theta, phi: v.phi }); wallMode = "auto";
+  camera.aspect = ZW / ZH; camera.updateProjectionMatrix(); updateCamera(); camera.updateMatrixWorld();
+  try { return fn(); } finally {
+    target.copy(saved.t); Object.assign(sph, { r: saved.r, theta: saved.theta, phi: saved.phi }); wallMode = saved.walls;
+    camera.aspect = saved.aspect; camera.updateProjectionMatrix(); req();
+  }
+}
+function renderZone(z, hlKey) {
+  const ratio = renderer.getPixelRatio(), size = renderer.getSize(new THREE.Vector2());
+  const swapped = [];
+  if (hlKey) pickables.filter((m) => m.userData.owner && m.userData.owner.k === hlKey).forEach((m) => {
+    swapped.push([m, m.material]); m.material = m.material.clone(); m.material.emissive = new THREE.Color(0x1fae98); m.material.emissiveIntensity = 0.9;
+  });
+  renderer.setPixelRatio(1); renderer.setSize(ZW, ZH, false);
+  const url = withZoneCamera(z, () => { renderer.render(scene, camera); return renderer.domElement.toDataURL("image/jpeg", 0.86); });
+  swapped.forEach(([m, mt]) => { m.material.dispose(); m.material = mt; });
+  renderer.setPixelRatio(ratio); renderer.setSize(size.x, size.y, false); req();
+  return url;
+}
+function zoneInfo(k) {
+  const c = CAT[k];
+  if (!c) return "";
+  const photo = PHOTO[k] ? `<img src="${esc(PHOTO[k])}" alt="${esc(c.name)}: zdjęcie poglądowe" />` : `<span class="zi-nophoto">${c.outside ? "Poza zakupem" : "Bez zdjęcia"}</span>`;
+  const price = c.price && !c.outside ? `${c.qty} × ${fmt(c.price)} = <b>${fmt(c.price * c.qty)}</b>` : "nie kupujemy w tym zakupie";
+  const link = c.url ? `<a href="${esc(c.url)}" target="_blank" rel="noopener">${c.shop ? esc(c.shop) : "Zobacz w sklepie"}</a>` : "";
+  return `<div class="zi-photo">${photo}</div><div class="zi-text"><div class="zi-name"><span class="zi-n">${c.n}</span>${esc(c.name)}</div><div class="zi-meta">${esc(c.dims || "")}</div><div class="zi-price">${price}</div><div class="zi-foot">${link}${c.status ? ` <span class="pill ${c.status[0]}">${esc(c.status[1])}</span>` : ""}</div></div>`;
+}
+function selectInZone(z, k, at) {
+  const st = zoneState[z.id];
+  st.sel = k;
+  st.card.querySelectorAll(".zone-chips button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.k === k)));
+  st.info.hidden = !k; st.info.innerHTML = k ? zoneInfo(k) : "";
+  st.dot.hidden = !at; if (at) { st.dot.style.left = at[0] * 100 + "%"; st.dot.style.top = at[1] * 100 + "%"; }
+  st.img.src = renderZone(z, k && pickables.some((m) => m.userData.owner && m.userData.owner.k === k) ? k : null);
+}
+function zoneClick(z, e) {
+  const r = e.currentTarget.getBoundingClientRect();
+  const u = (e.clientX - r.left) / r.width, v = (e.clientY - r.top) / r.height;
+  const hit = withZoneCamera(z, () => { ray.setFromCamera({ x: u * 2 - 1, y: -(v * 2 - 1) }, camera); return ray.intersectObjects(pickables, false)[0]; });
+  const it = hit && hit.object.userData.owner;
+  selectInZone(z, it ? it.k : null, it ? [u, v] : null);
+}
+function buildZones() {
+  zonesHost.innerHTML = ZONE_VIEWS.map((z) => {
+    const chips = z.keys.filter((k) => CAT[k]).map((k) => `<button type="button" data-k="${k}" aria-pressed="false"><span>${CAT[k].n}</span>${esc(CAT[k].name.replace(/^IKEA /, "").split(/[,(]/)[0])}</button>`).join("");
+    return `<article class="zone-card" data-zone="${z.id}"><h3>${esc(z.title)}</h3><p class="zone-desc">${esc(z.desc)}</p>
+      <div class="zone-shot" title="Kliknij mebel, żeby zobaczyć szczegóły"><img alt="${esc(z.title)}: widok 3D strefy" width="${ZW}" height="${ZH}" /><span class="zone-load">Renderowanie widoku…</span><span class="zone-dot" hidden></span></div>
+      <div class="zone-info" aria-live="polite" hidden></div>
+      <div class="zone-chips" role="group" aria-label="Meble w strefie: ${esc(z.title)}">${chips}</div></article>`;
+  }).join("");
+  ZONE_VIEWS.forEach((z) => {
+    const card = zonesHost.querySelector(`[data-zone="${z.id}"]`);
+    const st = zoneState[z.id] = { card, img: card.querySelector("img"), dot: card.querySelector(".zone-dot"), info: card.querySelector(".zone-info"), sel: null };
+    card.querySelector(".zone-shot").addEventListener("click", (e) => zoneClick(z, e));
+    card.querySelectorAll(".zone-chips button").forEach((b) => b.addEventListener("click", () => selectInZone(z, st.sel === b.dataset.k ? null : b.dataset.k, null)));
+  });
+  let started = false;
+  const start = () => {
+    if (started) return; started = true;
+    ZONE_VIEWS.forEach((z, i) => setTimeout(() => { const st = zoneState[z.id]; st.img.src = renderZone(z, null); st.card.classList.add("ready"); }, 60 * (i + 1)));
+  };
+  if ("IntersectionObserver" in window) new IntersectionObserver((en, ob) => { if (en.some((x) => x.isIntersecting)) { ob.disconnect(); start(); } }, { rootMargin: "600px" }).observe(zonesHost);
+  else start();
+}
+if (zonesHost) buildZones();
 })();

@@ -1652,3 +1652,10 @@ test("pokój nauczycielski 16: stary adres planu przekierowuje do zakładki", as
   await expect(page).toHaveURL(/#pokoj-nauczycielski-16$/);
   await expect(page.locator("#room16Title")).toBeVisible();
 });
+
+test("pokój nauczycielski 16: sekcja stref pokoju z przyciskiem w nawigacji", async ({ page }) => {
+  await page.goto("/#pokoj-nauczycielski-16");
+  await expect(page.locator('#room16Jump [data-r16-jump="strefy"]')).toBeVisible();
+  await expect(page.locator("#strefy h2")).toHaveText(/Strefy pokoju/);
+  await expect(page.locator("#zones")).toBeAttached();
+});
