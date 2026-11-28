@@ -31,9 +31,11 @@ const ZONES = {
 };
 const C = [
   { k: "szafa", z: "storage", name: "JAN NOWAK KAROL Eco Design, szafa skrytkowa zamykana na klucz, 18 skrytek, biały korpus / fronty dąb sonoma", dims: "90 × 40 × 185 cm, 18 skrytek (3 × 6) z zamkiem ryglowanym, klucz Master Key do wszystkich skrytek, otwory wentylacyjne, miejsce na wizytownik, 52 kg", sku: "1867 (EAN 5907367500462)", price: 1299, qty: 3, shop: "Kupmeble.pl", url: "https://kupmeble.pl/produkt/szafa-skrytkowa-zamykana-na-klucz-eco-design-karol-90x40x185-cm-bialy-dab-sonoma", avail: "na magazynie, wysyłka 48 h", status: ["ok", "Na magazynie, gwarancja 10 lat"], note: "Razem 54 skrytki" },
-  { k: "scianka", z: "storage", sw: "acoustic", name: "IKEA MITTZON rama z kółkami i ekranem akustycznym, Gunnared beżowy/biały", dims: "85 × 205 cm, podstawa 50 cm, ekran 5 cm, pokrycie zdejmowane do prania", sku: "s39514683", price: 699, qty: 2, shop: IKEA, url: ip("mittzon-rama-z-kolkami-ekran-akust-gunnared-bezowy-bialy-s39514683"), status: ["ok", "1 szt. między stołem do druku a lodówką, 1 szt. bez stałego miejsca (do przestawiania)"], alt: [{ name: "MITTZON rama z kółkami, ekran akustyczny i tablica suchościeralna (s09536177)", price: 999, url: ip("mittzon-rama-z-kolk-ekr-akust-tabl-gunnared-bezowy-bialy-s09536177") }] },
-  { k: "biurko", z: "work", name: "Biurko 100 × 60 cm (miejsce w projekcie, zakup we własnym zakresie)", dims: "100 × 60 × ok. 75 cm, solidny blat min. 25 mm (pod zaciski przegrody 2,5–4,5 cm), przy każdym biurku podwójne gniazdo 230 V na ścianie", qty: 2, status: ["mute", "Zakup we własnym zakresie"], outside: true },
-  { k: "przegroda", z: "work", name: "Beliani WALLY przegroda na biurko 72 × 40 cm, jasnoszara (między biurkami)", dims: "72 × 40 × 2 cm, tkanina poliestrowa wygłuszająca, zaciski na blat grubości 2,5–4,5 cm, mocowana z boku biurka 1; sprawdzić grubość blatu kupionych biurek", price: 219, qty: 1, shop: "Morele.net (sprzedawca zewnętrzny)", url: "https://www.morele.net/beliani-przegroda-na-biurko-72-x-40-cm-jasnoszara-wally-8350976/", status: ["ok", "Na stanie"] },
+  { k: "scianka", z: "storage", sw: "acoustic", name: "IKEA MITTZON rama z kółkami, ekran akustyczny i tablica suchościeralna, Gunnared beżowy/biały", dims: "85 × 205 cm, podstawa 50 cm; na dole ekran akustyczny 5 cm, na górze dwustronna tablica do pisania i przypinania; pokrycie zdejmowane do prania", sku: "s09536177", price: 999, qty: 2, shop: IKEA, url: ip("mittzon-rama-z-kolk-ekr-akust-tabl-gunnared-bezowy-bialy-s09536177"), avail: "28.11: w sprzedaży, na stanie", status: ["ok", "1 szt. między stołem do druku a lodówką, 1 szt. bez stałego miejsca (do przestawiania)"], alt: [{ name: "MITTZON rama z kółkami i ekranem akustycznym, bez tablicy (s39514683)", price: 699, url: ip("mittzon-rama-z-kolkami-ekran-akust-gunnared-bezowy-bialy-s39514683") }] },
+  { k: "biurko", z: "work", name: "IKEA BOLLPOJKE biurko, sosna / biały, 90 × 55 cm", dims: "90 × 55 × 75 cm, blat z litej sosny, biała rama ze skrzyżowanymi nogami, otwarta półka pod blatem, otwór na kable; przy każdym biurku podwójne gniazdo 230 V na ścianie", sku: "005.913.66", price: 449, qty: 2, shop: IKEA, url: ip("bollpojke-biurko-sosna-bialy-00591366"), avail: "28.11: w sprzedaży, na stanie", status: ["ok", "Pod tablicą magnetyczną, 10 cm odstępu na ekran między biurkami"] },
+  { k: "przegroda", z: "work", sw: "acoustic", name: "IKEA MITTZON ekran akustyczny na biurko, Gunnared beżowy, 70 × 72 cm", dims: "70 × 72 × 8 cm, zaciski w zestawie; 1 szt. między biurkami, 1 szt. z boku biurka 2 od strony Xeroxa (ekran wystaje 15 cm przed blat)", sku: "105.282.23", price: 300, qty: 2, shop: IKEA, url: ip("mittzon-ekran-akustyczny-na-biurko-gunnared-bezowy-10528223"), avail: "28.11: w sprzedaży, na stanie", status: ["warn", "Ekran jest do biurek MITTZON: sprawdzić, czy zaciski pasują do blatu BOLLPOJKE"] },
+  { k: "lampa", z: "work", name: "IKEA TERTIAL lampa biurkowa, biały", dims: "ramię ok. 56 cm, klosz i ramię regulowane, zacisk na blat do 6 cm; żarówka E27 sprzedawana osobno (np. SOLHETTA LED 806 lm, 16,99 zł za 2 szt.)", sku: "703.554.55", price: 49.99, qty: 2, shop: IKEA, url: ip("tertial-lampa-biurkowa-bialy-70355455"), avail: "28.11: w sprzedaży, na stanie", status: ["ok", "Po jednej na biurko, kupić też żarówki E27"] },
+  { k: "podstawka", z: "work", name: "IKEA STENERIK podstawka pod laptopa", dims: "26 × 24 cm, wys. 4–14 cm; pod laptopem miejsce na klawiaturę, mysz i notatki", sku: "305.640.12", price: 79.99, qty: 2, shop: IKEA, url: ip("stenerik-podstawka-pod-laptopa-30564012"), avail: "28.11: w sprzedaży, na stanie", status: ["ok", "Pod laptopy KPO na biurkach"] },
   { k: "krz_biuro", z: "work", name: "IKEA LÄKTARE krzesło konferencyjne, średnioszary / biały", dims: "55 × 50 × 84 cm, podłokietniki, siedzisko z okleiną brzozową, pokrycie Gunnared do prania, sztaplowane (do 5 szt.), EN 16139", sku: "s49503250", price: 299, qty: 2, shop: IKEA, url: ip("laektare-krzeslo-konferencyjne-srednioszary-bialy-s49503250"), status: ["ok", "Przy biurkach"] },
   { k: "stol_pracy", z: "work", name: "IKEA MITTZON stół konferencyjny, okleina dębowa / czarny, 140 × 68 cm, jednolity blat", dims: "140 × 68 × 75 cm, bez modułu; 4 szt. zestawione w blok 280 × 136 cm, 8 miejsc", sku: "s39513952", price: 649, qty: 4, shop: IKEA, url: ip("mittzon-stol-konferencyjny-okl-deb-czarny-s39513952"), status: ["ok", "W sprzedaży, na stanie"], alt: [{ name: "MITTZON 140 × 108 okleina dębowa / czarny (2 blaty z modułem na środku)", price: 1098, url: ip("mittzon-stol-konferencyjny-okl-deb-czarny-s99533400") }] },
   { k: "krz_pracy", z: "work", name: "IKEA LÄKTARE krzesło konferencyjne, średnioszary / biały", dims: "55 × 50 × 84 cm, podłokietniki, siedzisko z okleiną brzozową, pokrycie Gunnared do prania, sztaplowane (do 5 szt.), EN 16139", sku: "s49503250", price: 299, qty: 8, shop: IKEA, url: ip("laektare-krzeslo-konferencyjne-srednioszary-bialy-s49503250"), status: ["ok", "Przy stole roboczym"] },
@@ -84,19 +86,19 @@ const C = [
   { k: "laptop", z: "tech", name: "Laptop KPO (tryb incognito)", dims: "już w szkole", qty: 4, status: ["ok", "Przydzielone do sali 16"], outside: true },
 ];
 /* rzeczywiste kolory produktów (2D i 3D) */
-const OAK = "#c9a273", ASH = "#d8c19b", WHITE_FRAME = "#f1f0eb", HAV = "#cfbc98";
+const OAK = "#c9a273", ASH = "#d8c19b", PINE = "#dcbf8e", WHITE_FRAME = "#f1f0eb", HAV = "#cfbc98";
 const PAL = {
   projektor: { col: "#f2f2f0" }, telefon: { col: "#2a2d2f" }, ap: { col: "#f4f4f2" },
   ogloszenia: { col: "#b88a55" }, ogl_rog: { col: "#b88a55" }, zielen_szafy: { col: "#6f9a5b" },
   krz_zapas: { col: "#8f9294" },
   szafa: { col: "#f1f0eb", front: "#c79e6c" }, scianka: { col: "#cdc3b0" },
-  biurko: { col: OAK, frame: "#2a2a2a" }, stol_pracy: { col: OAK, frame: "#2a2a2a" }, stol_jad: { col: OAK, frame: "#2a2a2a" },
+  biurko: { col: PINE, frame: WHITE_FRAME }, lampa: { col: "#f4f4f2" }, podstawka: { col: "#f2f1ec" }, stol_pracy: { col: OAK, frame: "#2a2a2a" }, stol_jad: { col: OAK, frame: "#2a2a2a" },
   stol_wysoki: { col: ASH, frame: WHITE_FRAME }, krz_biuro: { col: "#8f9294" }, krz_pracy: { col: "#8f9294" }, krz_jad: { col: "#8f9294" },
   tonery: { col: "#f1f0eb" }, podstawa: { col: "#c9c9c5" }, an_szuflady: { col: HAV, body: WHITE_FRAME }, an_polki: { col: HAV, body: WHITE_FRAME }, an_zlew: { col: HAV, body: WHITE_FRAME },
   zmywarka: { col: "#f3f3f1" }, an_wiszaca: { col: HAV, body: WHITE_FRAME }, blat: { col: "#cfae80" }, lodowka: { col: "#8f9396" }, mikrofala: { col: "#f4f4f2" }, czajnik: { col: "#b3b8ba" },
   sofa3: { col: "#5d6061" }, sofa2: { col: "#8e9192" }, fotel: { col: "#dccfb7", frame: "#b98f5e" }, stolik: { col: "#c29a68" }, pojemniki: { col: "#f4f4f2" },
   druk_duza: { col: "#e3e4e2" }, finiszer: { col: "#e3e4e2" }, druk_mala: { col: "#dfe1e0" }, akcesoria: { col: "#4e5a5f" },
-  przegroda: { col: "#c6c7c4" }, tablica_biurka: { col: "#f7f7f4" }, tablica_druk: { col: "#f7f7f4" }, klucze: { col: "#c8a678" }, rzutnik: { col: "#fcfcfa" },
+  przegroda: { col: "#d3c9b6" }, tablica_biurka: { col: "#f7f7f4" }, tablica_druk: { col: "#f7f7f4" }, klucze: { col: "#c8a678" }, rzutnik: { col: "#fcfcfa" },
   zielen_sciana: { col: "#6f9a5b" }, zielen_okna: { col: "#6f9a5b" },
   cmd_monitor: { col: "#25292b" }, cmd_pc: { col: "#25292b" }, laptop: { col: "#8a9398" },
 };
@@ -108,10 +110,12 @@ const I = [];
 const add = (k, o) => I.push({ k, z: 0, ...o });
 [0, 90, 180].forEach((y) => add("szafa", { x: 0, y, w: 40, d: 90, h: 185, kind: "lockers", rows: 6, face: "E", label: "18" }));
 add("scianka", { x: 590, y: 2, w: 5, d: 85, h: 205, kind: "panel" });
-[285, 385].forEach((y, i) => add("biurko", { x: 0, y, w: 60, d: 100, h: 75, kind: "table", label: `Biurko ${i + 1}` }));
-[[18, 330], [18, 430]].forEach(([x, y]) => add("laptop", { x, y, w: 24, d: 32, h: 2, z: 75, kind: "box", ontop: true }));
+[285, 385].forEach((y, i) => add("biurko", { x: 0, y, w: 55, d: 90, h: 75, kind: "table", label: `Biurko ${i + 1}` }));
+[285, 385].forEach((y) => add("podstawka", { x: 16, y: y + 32, w: 24, d: 26, h: 10, z: 75, kind: "box", ontop: true }));
+[285, 385].forEach((y) => add("lampa", { x: 3, y: y + 72, w: 14, d: 14, h: 45, z: 75, kind: "dev", ontop: true }));
+[[16, 315], [16, 415]].forEach(([x, y]) => add("laptop", { x, y, w: 24, d: 32, h: 2, z: 85, kind: "box", ontop: true }));
 add("laptop", { x: 376, y: 300, w: 32, d: 24, h: 2, z: 75, kind: "box", ontop: true });
-[335, 435].forEach((y) => add("krz_biuro", { cx: 97, cy: y, w: 50, d: 55, face: "W", kind: "chair", h: 84 }));
+[330, 430].forEach((y) => add("krz_biuro", { cx: 92, cy: y, w: 50, d: 55, face: "W", kind: "chair", h: 84 }));
 add("finiszer", { x: 315, y: 4, w: 54.3, d: 68.1, h: 102.3, kind: "box", label: "FS-539SD" });
 add("druk_duza", { x: 369.3, y: 4, w: 61.5, d: 68.8, h: 120.7, kind: "box", label: "C450i" });
 add("cmd_monitor", { x: 255, y: 3, w: 36, d: 6, h: 61, z: 100, kind: "box", above: true, label: "Ekran" });
@@ -143,7 +147,7 @@ add("stol_jad", { x: 756, y: 315, w: 68, d: 140, h: 75, kind: "table" });
 [790, 845].forEach((x) => add("krz_zapas", { x, y: 545, w: 55, d: 50, h: 93, n: 2, face: "N", kind: "stack", label: "2" }));
 add("sofa3", { x: 172, y: 497, w: 218, d: 88, h: 88, face: "N", kind: "sofa", label: "Sofa 3", seats: 3 });
 add("sofa3", { x: 400, y: 497, w: 218, d: 88, h: 88, face: "N", kind: "sofa", label: "Sofa 3", seats: 3 });
-add("przegroda", { x: 0, y: 383, w: 72, d: 2, h: 40, z: 76, kind: "divider" });
+[376, 476].forEach((y) => add("przegroda", { x: 0, y, w: 70, d: 8, h: 72, z: 75, kind: "divider" }));
 add("klucze", { x: 55, y: 0, w: 70, d: 3, h: 50, z: 130, kind: "board", above: true });
 add("tablica_biurka", { x: 0, y: 305, w: 3, d: 200, h: 100, z: 110, kind: "board", above: true });
 add("tablica_druk", { x: 350, y: 0, w: 200, d: 3, h: 100, z: 165, kind: "board", above: true });
@@ -205,7 +209,7 @@ const ROUTES = [
 
 /* kontrola przejść: odcinek pomiaru na rzucie + wymagane minimum */
 const CHECKS = [
-  { a: [122, 340], b: [240, 340], need: 90, name: "Przejście od wejścia między krzesłami biurek a stołem roboczym", why: "Główny ciąg komunikacyjny w głąb sali" },
+  { a: [120, 340], b: [240, 340], need: 90, name: "Przejście od wejścia między krzesłami biurek a stołem roboczym", why: "Główny ciąg komunikacyjny w głąb sali" },
   { a: [400, 73], b: [400, 192], need: 120, name: "Strefa obsługi przed bizhubem C450i (wysuwanie kaset ok. 62 cm + osoba)", why: "Obsługa, otwieranie modułów, kolejka przy wydruku", soft: 100 },
   { a: [520, 190], b: [520, 300], hide: true },
   { a: [520, 300], b: [638, 300], need: 90, name: "Stół roboczy ↔ krzesła jadalni", why: "Przejście do aneksu i jadalni" },
@@ -213,7 +217,7 @@ const CHECKS = [
   { a: [824, 390], b: [900, 390], need: 75, name: "Krawędź stołu jadalni ↔ prawa ściana", why: "Odsunięcie krzeseł, bez przejścia za nimi" },
   { a: [756, 455], b: [756, 600], need: 90, name: "Szczyt stołu jadalni ↔ ściana z oknami", why: "Dojście do stosów krzeseł w narożniku" },
   { a: [480, 448], b: [480, 497], need: 75, name: "Krzesła stołu roboczego (odsunięte) ↔ front sof", why: "Miejsce na nogi siedzących na sofie", soft: 45 },
-  { a: [24, 485], b: [24, 527], need: 30, name: "Biurko 2 ↔ podstawa Xeroxa", why: "Odstęp od drukarki: dostęp z boku, przewody, wentylacja" },
+  { a: [24, 484], b: [24, 527], need: 30, name: "Ekran przy biurku 2 ↔ podstawa Xeroxa", why: "Odstęp od drukarki: dostęp z boku, przewody, wentylacja" },
   { a: [67, 560], b: [172, 560], need: 100, name: "Front podstawy z Xeroxem B7130 ↔ sofa", why: "Obsługa drukarki przy biurkach, wymiana tonera" },
   { a: [40, 215], b: [248, 215], need: 120, name: "Front szaf skrytkowych ↔ krzesło stołu roboczego", why: "Otwarte drzwiczki skrytek i przejście do biurek" },
   { a: [40, 140], b: [125, 140], need: 70, name: "Strefa przed szafami skrytkowymi", why: "Otwieranie drzwiczek skrytek", fixedOk: true },
@@ -407,7 +411,7 @@ function drawPlan() {
 }
 function badgePos(it) {
   const map = {
-    szafa: [60, 135], przegroda: [84, 378], klucze: [92, 22], tablica_biurka: [24, 303], tablica_druk: [452, 26], rzutnik: [872, 315], zielen_sciana: [872, 157], zielen_okna: [196, 632], ogloszenia: [318, 572], ogl_rog: [840, 572], projektor: [630, 286], telefon: [560, 40], ap: [812, 585], zielen_szafy: [22, 70], cmd_monitor: [256, 26], cmd_pc: [284, 50], scianka: [575, 100], biurko: [76, 300], krz_biuro: [134, 330], stol_pracy: [232, 262], krz_pracy: [300, 196],
+    szafa: [60, 135], przegroda: [84, 372], klucze: [92, 22], tablica_biurka: [24, 303], tablica_druk: [452, 26], rzutnik: [872, 315], zielen_sciana: [872, 157], zielen_okna: [196, 632], ogloszenia: [318, 572], ogl_rog: [840, 572], projektor: [630, 286], telefon: [560, 40], ap: [812, 585], zielen_szafy: [22, 70], cmd_monitor: [256, 26], cmd_pc: [284, 50], scianka: [575, 100], biurko: [70, 296], krz_biuro: [130, 326], lampa: [8, 352], podstawka: [52, 338], stol_pracy: [232, 262], krz_pracy: [300, 196],
     druk_duza: [400, 92], finiszer: [342, 92], druk_mala: [88, 582], podstawa: [88, 542], stol_wysoki: [575, 88], tonery: [545, 74], akcesoria: [482, 64], lodowka: [630, 98], czajnik: [705, 110], mikrofala: [750, 110],
     an_szuflady: [690, 76], an_polki: [750, 76], zmywarka: [810, 76], an_zlew: [880, 76], an_wiszaca: [780, 132], blat: [850, 132],
     stol_jad: [700, 196], krz_jad: [648, 182], krz_zapas: [845, 530], sofa3: [185, 486], sofa2: [412, 486], stolik: [577, 508], fotel: [642, 494], laptop: [44, 365],
@@ -601,7 +605,7 @@ function drawElev(key) {
   txt(elev, W.len / 2, -22, W.title, "lbl", { "text-anchor": "middle" });
   const notes = {
     N: "Przy szafach skrytkowych tablica na klucze do sal (ok. 70 × 50 cm). Drzwi otwierają się na zewnątrz, w prawo. Nad bizhubem i stołem do kompletowania tablica magnetyczna ok. 200 × 100 cm (dół 165 cm). Tuż przy drzwiach ekran dotykowy 27″ zawieszony w pionie na uchwycie ściennym (dół 100 cm, góra 161 cm), minikomputer za ekranem. Obok bizhub C450i z finiszerem FS-539SD; po prawej 34 cm zapasu na tacę boczną. Stół do kompletowania TROTTEN 120 × 70 z elektryczną regulacją (ok. 95 cm), pod nim szafka na tonery i papier. Lodówka 60 cm oddziela strefę druku od aneksu 240 cm. Na blacie: czajnik, mikrofalówka; szafki wiszące 4 × 60, dół 150 cm, góra 250 cm.",
-    W: "Nad biurkami tablica magnetyczna ok. 200 × 100 cm z kartkami (dół 110 cm). Miejsce na dwa biurka 100 × 60 cm (zakup we własnym zakresie), przy każdym podwójne gniazdo 230 V na ścianie (95 cm); między biurkami niska przegroda WALLY 72 × 40 cm na zaciskach. Od biurek do podstawy Xeroxa 42 cm odstępu. Ścianka MITTZON na kółkach jest wsunięta między stół do kompletowania a lodówkę i oddziela strefę druku od aneksu. Obok biurek Xerox B7130 na podstawie KSW ok. 45 cm (razem ok. 122 cm). Trzy szafy skrytkowe KAROL 90 × 40 × 185 cm, po 18 skrytek (3 × 6), razem 54.",
+    W: "Nad biurkami tablica magnetyczna ok. 200 × 100 cm z kartkami (dół 110 cm). Dwa biurka BOLLPOJKE 90 × 55 cm (sosna, biała rama), na każdym lampa TERTIAL i podstawka STENERIK pod laptop; przy każdym biurku podwójne gniazdo 230 V na ścianie (95 cm). Ekrany akustyczne MITTZON 70 × 72 cm na zaciskach: jeden między biurkami, drugi z boku biurka 2 od strony Xeroxa. Od ekranu do podstawy Xeroxa 43 cm odstępu. Ścianka MITTZON na kółkach (dół ekran akustyczny, góra tablica) jest wsunięta między stół do kompletowania a lodówkę i oddziela strefę druku od aneksu. Obok biurek Xerox B7130 na podstawie KSW ok. 45 cm (razem ok. 122 cm). Trzy szafy skrytkowe KAROL 90 × 40 × 185 cm, po 18 skrytek (3 × 6), razem 54.",
     S: "Okna we wnękach: parapet na 90 cm, głębokość wnęki ok. 40 cm, na parapetach doniczki; na filarach między oknami małe tablice ogłoszeń (dół 145 cm), a nad nimi wysoko wiszące doniczki; w narożniku przy krzesłach tablica 80 × 60 cm. Sofy EKTORP (88 cm) poniżej parapetu, przed grzejnikami min. 15 cm odstępu.",
     E: "Ściana za jadalnią: białe pole pod obraz z rzutnika (ok. 260 × 146 cm, od 190 do 336 cm) na osi stołu, po obu bokach wąskie pasy roślin z długimi zwisającymi pędami. W narożniku przy oknie 4 dodatkowe krzesła LÄKTARE (2 stosy po 2), nad nimi na filarze tablica ogłoszeń. Ściany w ciepłym beżu, sala ok. 450 cm wysokości.",
   };
@@ -630,7 +634,7 @@ document.getElementById("chk-table").innerHTML =
 
 // Zdjęcia poglądowe produktów (id pozycji → plik), przekazane z pokoj16-data.js przez app.js; ten sam produkt = to samo zdjęcie.
 const PHOTO = window.pokoj16Photos || {};
-const photoCell = (c) => `<td class="photo-cell">${PHOTO[c.k] ? `<a class="photo" href="${esc(c.url || PHOTO[c.k])}" target="_blank" rel="noopener"><img src="${PHOTO[c.k]}" alt="${esc(c.name)}: zdjęcie poglądowe" loading="lazy" /></a>` : ""}</td>`;
+const photoCell = (c) => `<td class="photo-cell">${PHOTO[c.k] ? `<a class="photo" href="${esc(c.url || PHOTO[c.k])}" target="_blank" rel="noopener"><img src="${PHOTO[c.k]}" alt="${esc(c.name)}: zdjęcie poglądowe" decoding="async" /></a>` : ""}</td>`;
 
 function costTable() {
   let rows = "", sum = 0, sumIkea = 0;
@@ -820,7 +824,7 @@ const floorTex = canvasTex(1024, 1024, (g, w, h) => {
     g.fillStyle = "rgba(70,48,26,0.45)"; g.fillRect(0, r * rh, w, 2);
   }
 }, [4.5, 3]);
-const TEX = { oak: woodTex("#c9a273"), ash: woodTex("#dcc7a2"), worktop: woodTex("#d2b285"), sonoma: woodTex("#c79e6c"), slat: woodTex("#b98d5c"), fabric: noiseTex("#ffffff", 0.05, 128), plaster: noiseTex("#ffffff", 0.03, 256), cork: noiseTex("#b88a55", 0.3, 128) };
+const TEX = { oak: woodTex("#c9a273"), ash: woodTex("#dcc7a2"), pine: woodTex("#dcbf8e"), worktop: woodTex("#d2b285"), sonoma: woodTex("#c79e6c"), slat: woodTex("#b98d5c"), fabric: noiseTex("#ffffff", 0.05, 128), plaster: noiseTex("#ffffff", 0.03, 256), cork: noiseTex("#b88a55", 0.3, 128) };
 const rotCache = {};
 const woodMat = (name, along, opts = {}) => {
   let t = TEX[name];
@@ -975,6 +979,23 @@ I.forEach((it) => {
     rbox(x + w - 22, y + d - 4, h - 5.5, 9, 4, 2, 1, 0.5, mat(0xe9e8e3), null);
     return;
   }
+  if (it.k === "biurko") {
+    // IKEA BOLLPOJKE: blat z sosny, biała rama ze skrzyżowanymi nogami po bokach, sosnowa półka pod blatem
+    const { x, y, w, d, h } = it, wf = mat(0xf2f1ec, { roughness: 0.4 });
+    rbox(x, y, h - 2.5, w, d, 2.5, 1, 0.5, woodMat("pine", d > w, { roughness: 0.45 }), it);
+    const L = Math.hypot(w - 8, h - 6), ang = Math.atan2(h - 6, w - 8);
+    [y + 1.5, y + d - 4.5].forEach((ly) => {
+      [ang, -ang].forEach((a) => {
+        const bar = new THREE.Mesh(new THREE.BoxGeometry(L * S, 3.5 * S, 3 * S), wf);
+        bar.position.copy(P(x + w / 2, ly + 1.5, (h - 6) / 2)); bar.rotation.z = a;
+        bar.castShadow = true; bar.userData.owner = it; pickables.push(bar); furniture.add(bar);
+      });
+      box(x + 2, ly, h - 7, w - 4, 3, 4.5, wf, furniture, null, false);
+    });
+    box(x + 2, y + 4.5, h - 7, 3, d - 9, 4.5, wf, furniture, null, false);
+    box(x + 4, y + 4.5, h - 15, w - 8, d - 9, 1.8, woodMat("pine", d > w, { roughness: 0.5 }), furniture, it, false);
+    return;
+  }
   if (it.kind === "table") return table3d(it, pal ? hex(pal.col) : 0xe9e2d3, pal && pal.frame ? hex(pal.frame) : COL.leg);
   if (it.kind === "sofa") {
     // EKTORP: miękka rama, grube poduchy siedziska i oparcia, wysokie zaokrąglone podłokietniki
@@ -1054,6 +1075,33 @@ I.forEach((it) => {
     g.position.copy(narrow ? P(it.x + 2, it.y + it.d / 2, it.z + 11) : P(it.x + it.w / 2, it.y + it.d - 2, it.z + 11));
     if (narrow) g.rotation.z = -0.22; else g.rotation.x = 0.22;
     g.children.forEach((c) => (c.castShadow = true)); furniture.add(g);
+    return;
+  }
+  if (it.k === "lampa") {
+    // IKEA TERTIAL: zacisk na tylnej krawędzi blatu, dwa ramiona, stożkowy klosz skierowany na blat
+    const wl = mat(0xf4f4f2, { roughness: 0.35 });
+    const cx = it.x + 4, cy = it.y + 7, z0 = it.z;
+    box(cx - 3, cy - 3, z0 - 5, 6, 6, 9, wl, furniture, it);
+    const seg = (a, b, r) => {
+      const v = new THREE.Vector3().subVectors(b, a);
+      const m = new THREE.Mesh(new THREE.CylinderGeometry(r * S, r * S, v.length(), 10), wl);
+      m.position.copy(a).addScaledVector(v, 0.5); m.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), v.clone().normalize());
+      m.castShadow = true; m.userData.owner = it; pickables.push(m); furniture.add(m);
+    };
+    const p0 = P(cx, cy, z0 + 4), p1 = P(cx + 6, cy, z0 + 40), p2 = P(cx + 26, cy, z0 + 47);
+    seg(p0, p1, 0.8); seg(p1, p2, 0.8);
+    const shade = new THREE.Mesh(new THREE.ConeGeometry(6.5 * S, 12 * S, 24, 1, true), mat(0xf4f4f2, { roughness: 0.35, side: THREE.DoubleSide }));
+    shade.position.copy(P(cx + 30, cy, z0 + 42)); shade.rotation.z = 0.5; shade.castShadow = true; shade.userData.owner = it; pickables.push(shade); furniture.add(shade);
+    return;
+  }
+  if (it.k === "podstawka") {
+    // IKEA STENERIK: dwie wygięte podpórki z białej sklejki pod laptopem
+    const wp = mat(0xf2f1ec, { roughness: 0.4 }), ply = mat(0xd9bf94, { roughness: 0.6 });
+    [it.y + 1, it.y + it.d - 5].forEach((py) => {
+      box(it.x, py, it.z, it.w, 4, 1, wp, furniture, it);
+      box(it.x + 2, py, it.z + 1, 2, 4, it.h - 2, ply, furniture, it, false);
+      box(it.x + 2, py, it.z + it.h - 1, it.w - 3, 4, 1, wp, furniture, it);
+    });
     return;
   }
   if (it.k === "czajnik") {
@@ -1335,6 +1383,10 @@ I.forEach((it) => {
   }
   if (it.k === "scianka") {
     m.position.y += 0.08;
+    // górna część ramy: dwustronna biała tablica suchościeralna
+    const board = mat(0xfafaf8, { roughness: 0.25 });
+    if (it.w >= it.d) [it.y - 0.4, it.y + it.d].forEach((fy) => box(it.x + 3, fy, it.z + 110, it.w - 6, 0.4, it.h - 118, board, furniture, it, false));
+    else [it.x - 0.4, it.x + it.w].forEach((fx) => box(fx, it.y + 3, it.z + 110, 0.4, it.d - 6, it.h - 118, board, furniture, it, false));
     const wh = mat(0xf2f2f0, { roughness: 0.35, metalness: 0.2 });
     if (it.w >= it.d) [it.x + 2, it.x + it.w - 6].forEach((fx) => { box(fx, it.y + it.d / 2 - 25, 4, 4, 50, 4, wh, furniture, it); box(fx, it.y + it.d / 2 - 2, 8, 4, 4, it.h - 8, wh, furniture, it, false); });
     else [it.y + 2, it.y + it.d - 6].forEach((fy) => { box(it.x + it.w / 2 - 25, fy, 4, 50, 4, 4, wh, furniture, it); box(it.x + it.w / 2 - 2, fy, 8, 4, 4, it.h - 8, wh, furniture, it, false); });

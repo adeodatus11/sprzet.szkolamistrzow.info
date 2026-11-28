@@ -152,3 +152,5 @@
 .pn16 a { color: var(--accent); }
 .pn16 .foot { padding-block: 24px 8px; color: var(--muted); font-size: 13px; }
 .pn16 .facts { background: var(--sheet); margin-top: 0; }
+.pn16 #list-table td.photo-cell, .pn16 #list-table th:nth-child(2) { position: sticky; left: 0; z-index: 1; background: var(--sheet); box-shadow: 1px 0 0 var(--line-soft); }
+.pn16 #list-table th:nth-child(2) { z-index: 2; }

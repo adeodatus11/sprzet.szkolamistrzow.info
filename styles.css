@@ -1754,6 +1754,10 @@ body:not([data-view="room16"]) .room16-view {
   margin-bottom: 8px;
 }
 
+.r16-group {
+  min-width: 0; /* bez tego tabela rozpycha siatkę i na telefonie ucina się zamiast przewijać */
+}
+
 .r16-wrap {
   overflow-x: auto;
   border: 1px solid var(--line);
@@ -1789,6 +1793,20 @@ body:not([data-view="room16"]) .room16-view {
 .r16-photo-cell {
   width: 104px;
   padding: 8px !important;
+}
+
+/* Zdjęcie zostaje widoczne przy lewej krawędzi, gdy tabela przewija się w bok (telefon). */
+.r16-table .r16-photo-cell,
+.r16-table th:first-child {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  background: var(--surface);
+  box-shadow: 1px 0 0 var(--line-soft);
+}
+
+.r16-table th:first-child {
+  background: var(--surface-soft);
 }
 
 .r16-photo {

@@ -1,5 +1,5 @@
 // Zakładka "Pokój nauczycielski 16": lista zakupów wyposażenia sali 16 (rodzaj, nazwa, link do sklepu, cena brutto).
-// Dane wyciągnięte z planu sali pokoj16-plan.js (katalog C, ceny brutto sprawdzone 24.11.2026).
+// Dane wyciągnięte z planu sali pokoj16-plan.js (katalog C, ceny brutto sprawdzone 24.11.2026; biurka, ekrany, lampy, podstawki i ścianka z tablicą 28.11.2026).
 // Pominięte pozycje poza zakupem (lodówka, laptopy KPO, rzutnik, drukarki szkoły, zieleń, malowanie) oraz bez linku.
 
 export const pokoj16 = {
@@ -33,32 +33,68 @@ export const pokoj16 = {
       "id": "scianka",
       "grupa": "Szafki osobiste i ścianka",
       "rodzaj": "Ścianka akustyczna na kółkach",
-      "nazwa": "IKEA MITTZON rama z kółkami i ekranem akustycznym, Gunnared beżowy/biały",
+      "nazwa": "IKEA MITTZON rama z kółkami, ekran akustyczny i tablica suchościeralna, Gunnared beżowy/biały, 85 × 205 cm",
       "ilosc": 2,
-      "cena_szt": 699,
+      "cena_szt": 999,
       "sklep": "IKEA (Wrocław Bielany / ikea.com/pl)",
-      "link": "https://www.ikea.com/pl/pl/p/mittzon-rama-z-kolkami-ekran-akust-gunnared-bezowy-bialy-s39514683/",
-      "uwagi": "1 szt. między stołem do druku a lodówką, 1 szt. bez stałego miejsca (do przestawiania)",
+      "link": "https://www.ikea.com/pl/pl/p/mittzon-rama-z-kolk-ekr-akust-tabl-gunnared-bezowy-bialy-s09536177/",
+      "uwagi": "1 szt. między stołem do druku a lodówką, 1 szt. bez stałego miejsca (do przestawiania); dwustronna tablica do pisania i przypinania",
       "zamienniki": [
         {
-          "nazwa": "MITTZON rama z kółkami, ekran akustyczny i tablica suchościeralna (s09536177)",
-          "cena": 999,
-          "link": "https://www.ikea.com/pl/pl/p/mittzon-rama-z-kolk-ekr-akust-tabl-gunnared-bezowy-bialy-s09536177/"
+          "nazwa": "MITTZON rama z kółkami i ekranem akustycznym, bez tablicy (s39514683)",
+          "cena": 699,
+          "link": "https://www.ikea.com/pl/pl/p/mittzon-rama-z-kolkami-ekran-akust-gunnared-bezowy-bialy-s39514683/"
         }
       ],
       "zdjecie": "assets/pokoj16/scianka.jpg"
     },
     {
+      "id": "biurko",
+      "grupa": "Stanowiska komputerowe i stół roboczy",
+      "rodzaj": "Biurko",
+      "nazwa": "IKEA BOLLPOJKE biurko, sosna / biały, 90 × 55 cm, drewniany blat, półka pod blatem",
+      "ilosc": 2,
+      "cena_szt": 449,
+      "sklep": "IKEA (Wrocław Bielany / ikea.com/pl)",
+      "link": "https://www.ikea.com/pl/pl/p/bollpojke-biurko-sosna-bialy-00591366/",
+      "uwagi": "Przy ścianie pod tablicą magnetyczną, wys. 75 cm, otwór na kable",
+      "zdjecie": "assets/pokoj16/biurko.jpg"
+    },
+    {
       "id": "przegroda",
       "grupa": "Stanowiska komputerowe i stół roboczy",
-      "rodzaj": "Przegroda na biurko",
-      "nazwa": "Beliani WALLY przegroda na biurko 72 × 40 cm, jasnoszara (między biurkami)",
-      "ilosc": 1,
-      "cena_szt": 219,
-      "sklep": "Morele.net (sprzedawca zewnętrzny)",
-      "link": "https://www.morele.net/beliani-przegroda-na-biurko-72-x-40-cm-jasnoszara-wally-8350976/",
-      "uwagi": "Na stanie",
+      "rodzaj": "Ekran akustyczny na biurko",
+      "nazwa": "IKEA MITTZON ekran akustyczny na biurko, Gunnared beżowy, 70 × 72 cm (zaciski w zestawie)",
+      "ilosc": 2,
+      "cena_szt": 300,
+      "sklep": "IKEA (Wrocław Bielany / ikea.com/pl)",
+      "link": "https://www.ikea.com/pl/pl/p/mittzon-ekran-akustyczny-na-biurko-gunnared-bezowy-10528223/",
+      "uwagi": "1 szt. między biurkami, 1 szt. z boku biurka 2 (od strony Xeroxa); ekran jest do biurek MITTZON, przed zakupem sprawdzić zaciski na blacie BOLLPOJKE",
       "zdjecie": "assets/pokoj16/przegroda.jpg"
+    },
+    {
+      "id": "lampa",
+      "grupa": "Stanowiska komputerowe i stół roboczy",
+      "rodzaj": "Lampa biurkowa",
+      "nazwa": "IKEA TERTIAL lampa biurkowa, biały (mocowanie zaciskiem do 6 cm)",
+      "ilosc": 2,
+      "cena_szt": 49.99,
+      "sklep": "IKEA (Wrocław Bielany / ikea.com/pl)",
+      "link": "https://www.ikea.com/pl/pl/p/tertial-lampa-biurkowa-bialy-70355455/",
+      "uwagi": "Po jednej na biurko; żarówka E27 sprzedawana osobno",
+      "zdjecie": "assets/pokoj16/lampa.jpg"
+    },
+    {
+      "id": "podstawka",
+      "grupa": "Stanowiska komputerowe i stół roboczy",
+      "rodzaj": "Podstawka pod laptopa",
+      "nazwa": "IKEA STENERIK podstawka pod laptopa, 26 × 24 cm",
+      "ilosc": 2,
+      "cena_szt": 79.99,
+      "sklep": "IKEA (Wrocław Bielany / ikea.com/pl)",
+      "link": "https://www.ikea.com/pl/pl/p/stenerik-podstawka-pod-laptopa-30564012/",
+      "uwagi": "Pod laptopy KPO na biurkach",
+      "zdjecie": "assets/pokoj16/podstawka.jpg"
     },
     {
       "id": "krz_biuro",

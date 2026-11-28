@@ -1034,7 +1034,7 @@ const r16Total = (items) => items.reduce((sum, item) => sum + r16Value(item), 0)
 
 // Zdjęcie poglądowe z oferty (pole zdjecie, uzupełniane skryptem tools/fetch-product-images.mjs); bez zdjęcia: link do oferty.
 const r16Photo = (item) => (item.zdjecie
-  ? `<a class="r16-photo" href="${escapeHtml(item.link)}" target="_blank" rel="noopener noreferrer" title="${escapeHtml(item.nazwa)}"><img src="${escapeHtml(item.zdjecie)}" alt="${escapeHtml(item.rodzaj)}: zdjęcie poglądowe z oferty" loading="lazy" referrerpolicy="no-referrer" /></a>`
+  ? `<a class="r16-photo" href="${escapeHtml(item.link)}" target="_blank" rel="noopener noreferrer" title="${escapeHtml(item.nazwa)}"><img src="${escapeHtml(item.zdjecie)}" alt="${escapeHtml(item.rodzaj)}: zdjęcie poglądowe z oferty" decoding="async" /></a>`
   : `<a class="r16-photo is-empty" href="${escapeHtml(item.link)}" target="_blank" rel="noopener noreferrer"><span>Zobacz w sklepie</span></a>`);
 
 const r16Row = (item) => `
